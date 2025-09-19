@@ -367,7 +367,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-blue-600" />
-              <div className="text-2xl font-bold">{Math.round(aiAgents.reduce((acc, a) => acc + a.success, 0) / aiAgents.length)}%</div>
+              <div className="text-2xl font-bold">{Math.round(aiAgents.reduce((acc, a) => acc + (a.success || 0), 0) / aiAgents.length)}%</div>
             </div>
             <p className="text-xs text-muted-foreground">Avg Success Rate</p>
           </CardContent>
@@ -376,7 +376,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <TrendUp className="h-4 w-4 text-green-600" />
-              <div className="text-2xl font-bold">{aiAgents.reduce((acc, a) => acc + a.processed, 0).toLocaleString()}</div>
+              <div className="text-2xl font-bold">{aiAgents.reduce((acc, a) => acc + (a.processed || 0), 0).toLocaleString()}</div>
             </div>
             <p className="text-xs text-muted-foreground">Total Processed</p>
           </CardContent>
@@ -509,14 +509,14 @@ function AIAgentsView() {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Processed</span>
-                  <span className="font-mono font-medium">{agent.processed}</span>
+                  <span className="font-mono font-medium">{agent.processed || 0}</span>
                 </div>
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Success Rate</span>
-                    <span className="font-medium">{agent.success}%</span>
+                    <span className="font-medium">{agent.success || 0}%</span>
                   </div>
-                  <Progress value={agent.success} className="h-2" />
+                  <Progress value={agent.success || 0} className="h-2" />
                 </div>
                 <div className="flex items-center justify-between">
                   <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type)}`}>
