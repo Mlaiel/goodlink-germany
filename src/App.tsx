@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+import { Toaster } from "@/components/ui/sonner"
+import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { 
   ChartLine, 
   Package, 
@@ -15,7 +17,8 @@ import {
   CheckCircle,
   Warning,
   XCircle,
-  Lightning
+  Lightning,
+  Database
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
@@ -351,7 +354,7 @@ function App() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <ChartLine className="h-4 w-4" />
               Dashboard
@@ -363,6 +366,10 @@ function App() {
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
               Products
+            </TabsTrigger>
+            <TabsTrigger value="inventory" className="flex items-center gap-2">
+              <Database className="h-4 w-4" />
+              Inventory Sync
             </TabsTrigger>
             <TabsTrigger value="ai-agents" className="flex items-center gap-2">
               <Robot className="h-4 w-4" />
@@ -382,11 +389,18 @@ function App() {
             <ProductsView />
           </TabsContent>
 
+          <TabsContent value="inventory" className="mt-6">
+            <InventorySyncDashboard />
+          </TabsContent>
+
           <TabsContent value="ai-agents" className="mt-6">
             <AIAgentsView />
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* Toast notifications */}
+      <Toaster />
     </div>
   )
 }
