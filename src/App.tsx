@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { ShopDashboard } from "@/components/ShopDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
+import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
 import { 
   ChartLine, 
   Package, 
@@ -520,7 +521,7 @@ function App() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <ChartLine className="h-4 w-4" />
               Dashboard
@@ -544,6 +545,10 @@ function App() {
             <TabsTrigger value="blog" className="flex items-center gap-2">
               <Article className="h-4 w-4" />
               Blog
+            </TabsTrigger>
+            <TabsTrigger value="whatsapp" className="flex items-center gap-2">
+              <WhatsappLogo className="h-4 w-4" />
+              WhatsApp
             </TabsTrigger>
             <TabsTrigger value="ai-agents" className="flex items-center gap-2">
               <Robot className="h-4 w-4" />
@@ -573,6 +578,10 @@ function App() {
 
           <TabsContent value="blog" className="mt-6">
             <BlogDashboard />
+          </TabsContent>
+
+          <TabsContent value="whatsapp" className="mt-6">
+            <WhatsAppDashboard />
           </TabsContent>
 
           <TabsContent value="ai-agents" className="mt-6">

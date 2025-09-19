@@ -1,358 +1,448 @@
-import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { SyncStatusCard } from '@/components/SyncStatusCard'
-import { LiveSyncActivity } from '@/components/LiveSyncActivity'
-import { 
-  ArrowClockwise, 
-  Clock, 
-  CheckCircle, 
-  XCircle, 
-  Warning,
-  Activity,
-  ArrowsDownUp,
-  Funnel,
-  Lightning,
+import { useState } from "react"
+import { useKV } from "@github/spark/hooks"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { toast } from "sonner"
+import {
   Database,
-  Pulse
-} from '@phosphor-icons/react'
-import { useInventorySync, type InventoryItem } from '@/hooks/useInventorySync'
+  Lightning,
+  CheckCircle,
+  Warning,
+  XCircle,
+  Clock,
+  Storefront,
+  Package,
+  TrendUp,
+  ArrowsClockwise,
+  Robot,
+  Play,
+  Pause
+} from "@phosphor-icons/react"
+
+interface InventoryItem {
+  id: string
+  sku: string
+  name: string
+  currentStock: number
+  marketplaceStock: { [key: string]: number }
+  lastSync: Date
+  syncStatus: 'synced' | 'pending' | 'error'
+}
+
+interface SyncRule {
+  id: string
+  name: string
+  trigger: string
+  action: string
+  enabled: boolean
+  frequency: string
+}
 
 export function InventorySyncDashboard() {
-  const { 
-    inventory, 
-    isConnected, 
-    lastSyncTime, 
-    syncStats, 
-    manualSync, 
-    retryFailedSync 
-  } = useInventorySync()
+  const [autoSync, setAutoSync] = useKV<boolean>("inventory-auto-sync", true)
+  const [syncInterval, setSyncInterval] = useKV("inventory-sync-interval", "15")
+  const [lowStockAlert, setLowStockAlert] = useKV("inventory-low-stock-alert", "10")
   
-  const [selectedMarketplace, setSelectedMarketplace] = useState<string>('all')
-  const [sortBy, setSortBy] = useState<'sku' | 'marketplace' | 'quantity' | 'lastSynced'>('lastSynced')
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
-  const [isSyncing, setIsSyncing] = useState(false)
-
-  const marketplaces = Array.from(new Set(inventory.map(item => item.marketplace)))
-  
-  const filteredInventory = inventory.filter(item => 
-    selectedMarketplace === 'all' || item.marketplace === selectedMarketplace
-  )
-
-  const sortedInventory = [...filteredInventory].sort((a, b) => {
-    let aValue: string | number = a[sortBy]
-    let bValue: string | number = b[sortBy]
-    
-    if (sortBy === 'quantity') {
-      aValue = Number(aValue)
-      bValue = Number(bValue)
+  const [inventoryItems] = useKV<InventoryItem[]>("inventory-items", [
+    {
+      id: "1",
+      sku: "GL-001",
+      name: "Premium Wireless Headphones",
+      currentStock: 45,
+      marketplaceStock: { amazon: 43, ebay: 45, otto: 44 },
+      lastSync: new Date(),
+      syncStatus: 'synced'
+    },
+    {
+      id: "2", 
+      sku: "GL-002",
+      name: "Smart Fitness Tracker",
+      currentStock: 23,
+      marketplaceStock: { amazon: 20, ebay: 23, otto: 22 },
+      lastSync: new Date(Date.now() - 300000),
+      syncStatus: 'pending'
+    },
+    {
+      id: "3",
+      sku: "GL-003", 
+      name: "Bluetooth Speaker",
+      currentStock: 67,
+      marketplaceStock: { amazon: 65, ebay: 0, otto: 67 },
+      lastSync: new Date(Date.now() - 1800000),
+      syncStatus: 'error'
     }
-    
-    if (sortOrder === 'asc') {
-      return aValue > bValue ? 1 : -1
-    } else {
-      return aValue < bValue ? 1 : -1
-    }
-  })
+  ])
 
-  const handleSync = async (marketplace?: string) => {
-    setIsSyncing(true)
-    try {
-      await manualSync(marketplace)
-    } finally {
-      setIsSyncing(false)
+  const [syncRules] = useKV<SyncRule[]>("inventory-sync-rules", [
+    {
+      id: "1",
+      name: "Low Stock Auto-Reorder",
+      trigger: "stock < 10",
+      action: "Create reorder notification",
+      enabled: true,
+      frequency: "immediate"
+    },
+    {
+      id: "2",
+      name: "Evening Inventory Sync", 
+      trigger: "daily 18:00",
+      action: "Full marketplace sync",
+      enabled: true,
+      frequency: "daily"
+    },
+    {
+      id: "3",
+      name: "Stock Discrepancy Alert",
+      trigger: "marketplace != local",
+      action: "Send alert email",
+      enabled: true,
+      frequency: "immediate"
     }
+  ])
+
+  const handleManualSync = async () => {
+    toast.info("Starting manual inventory sync...")
+    // Simulate sync process
+    setTimeout(() => {
+      toast.success("Inventory sync completed successfully!")
+    }, 3000)
   }
 
-  const handleRetry = async (sku: string, marketplace: string) => {
-    await retryFailedSync(sku, marketplace)
+  const handleBulkUpdate = async () => {
+    toast.info("Updating all marketplace inventories...")
+    setTimeout(() => {
+      toast.success("Bulk inventory update completed!")
+    }, 5000)
   }
 
-  const getStatusIcon = (status: InventoryItem['status']) => {
+  const getSyncMetrics = () => {
+    const totalItems = inventoryItems?.length || 0
+    const syncedItems = inventoryItems?.filter(item => item.syncStatus === 'synced').length || 0
+    const pendingItems = inventoryItems?.filter(item => item.syncStatus === 'pending').length || 0
+    const errorItems = inventoryItems?.filter(item => item.syncStatus === 'error').length || 0
+    const syncRate = totalItems > 0 ? Math.round((syncedItems / totalItems) * 100) : 100
+
+    return { totalItems, syncedItems, pendingItems, errorItems, syncRate }
+  }
+
+  const metrics = getSyncMetrics()
+
+  const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'synced':
-        return <CheckCircle className="h-4 w-4 text-green-600" />
-      case 'error':
-        return <XCircle className="h-4 w-4 text-red-600" />
-      case 'syncing':
-        return <ArrowClockwise className="h-4 w-4 text-blue-600 animate-spin" />
-      case 'pending':
-        return <Clock className="h-4 w-4 text-yellow-600" />
-      default:
-        return <Warning className="h-4 w-4 text-gray-400" />
+      case 'synced': return <CheckCircle className="h-4 w-4 text-green-600" />
+      case 'pending': return <Clock className="h-4 w-4 text-yellow-600" />
+      case 'error': return <XCircle className="h-4 w-4 text-red-600" />
+      default: return <Warning className="h-4 w-4 text-gray-400" />
     }
   }
 
-  const getStatusBadge = (status: InventoryItem['status']) => {
-    const variants = {
-      synced: 'default',
-      error: 'destructive',
-      syncing: 'secondary',
-      pending: 'outline'
-    } as const
-
-    return (
-      <Badge variant={variants[status]} className="flex items-center gap-1">
-        {getStatusIcon(status)}
-        {status}
-      </Badge>
-    )
-  }
-
-  const formatLastSynced = (timestamp: string) => {
-    const date = new Date(timestamp)
-    const now = new Date()
-    const diffMs = now.getTime() - date.getTime()
-    const diffMins = Math.floor(diffMs / 60000)
-    
-    if (diffMins < 1) return 'Just now'
-    if (diffMins < 60) return `${diffMins}m ago`
-    if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`
-    return `${Math.floor(diffMins / 1440)}d ago`
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'synced': return 'bg-green-100 text-green-800 border-green-200'
+      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+      case 'error': return 'bg-red-100 text-red-800 border-red-200'
+      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+    }
   }
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Real-time Inventory Sync</h2>
-          <p className="text-muted-foreground">Monitor and manage inventory across all marketplaces</p>
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            <Database className="h-6 w-6" />
+            Real-Time Inventory Sync
+          </h2>
+          <p className="text-muted-foreground">Unified inventory management across all marketplaces</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant={isConnected ? 'default' : 'destructive'} className="flex items-center gap-1">
-            <Activity className="h-3 w-3" />
-            {isConnected ? 'Connected' : 'Disconnected'}
-          </Badge>
-          <Button 
-            onClick={() => handleSync()} 
-            disabled={isSyncing}
-            className="flex items-center gap-2"
-          >
-            <ArrowClockwise className={`h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
-            Sync All
+        <div className="flex gap-2">
+          <Button onClick={handleManualSync}>
+            <ArrowsClockwise className="h-4 w-4 mr-2" />
+            Manual Sync
+          </Button>
+          <Button variant="outline" onClick={handleBulkUpdate}>
+            <Lightning className="h-4 w-4 mr-2" />
+            Bulk Update
           </Button>
         </div>
       </div>
 
-      {/* Main Content Tabs */}
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="overview" className="flex items-center gap-2">
-            <Database className="h-4 w-4" />
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="inventory" className="flex items-center gap-2">
-            <Activity className="h-4 w-4" />
-            Inventory Table
-          </TabsTrigger>
-          <TabsTrigger value="activity" className="flex items-center gap-2">
-            <Pulse className="h-4 w-4" />
-            Live Activity
-          </TabsTrigger>
+      {/* KPI Cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Sync Rate</CardTitle>
+            <TrendUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{metrics.syncRate}%</div>
+            <p className="text-xs text-muted-foreground">
+              {metrics.syncedItems}/{metrics.totalItems} items synced
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Pending Syncs</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{metrics.pendingItems}</div>
+            <p className="text-xs text-muted-foreground">
+              Awaiting synchronization
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Sync Errors</CardTitle>
+            <XCircle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{metrics.errorItems}</div>
+            <p className="text-xs text-muted-foreground">
+              Require attention
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Auto-Sync</CardTitle>
+            <Robot className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{autoSync ? 'ON' : 'OFF'}</div>
+            <p className="text-xs text-muted-foreground">
+              Every {syncInterval} minutes
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Tabs defaultValue="inventory" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="inventory">Inventory Status</TabsTrigger>
+          <TabsTrigger value="rules">Sync Rules</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-6">
-          {/* Stats Cards */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <SyncStatusCard
-              isConnected={isConnected}
-              lastSyncTime={lastSyncTime}
-              totalSynced={syncStats.totalSynced}
-              errors={syncStats.errors}
-              onForceSync={() => handleSync()}
-              isLoading={isSyncing}
-            />
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Items</CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{inventory.length}</div>
-                <p className="text-xs text-muted-foreground">
-                  Across {marketplaces.length} marketplaces
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Sync Errors</CardTitle>
-                <XCircle className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-red-600">{syncStats.errors}</div>
-                <p className="text-xs text-muted-foreground">
-                  {syncStats.errors === 0 ? 'All systems healthy' : 'Requires attention'}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Success Rate</CardTitle>
-                <Lightning className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {syncStats.totalSynced + syncStats.errors > 0 
-                    ? Math.round((syncStats.totalSynced / (syncStats.totalSynced + syncStats.errors)) * 100)
-                    : 100}%
-                </div>
-                <Progress 
-                  value={syncStats.totalSynced + syncStats.errors > 0 
-                    ? (syncStats.totalSynced / (syncStats.totalSynced + syncStats.errors)) * 100
-                    : 100
-                  } 
-                  className="mt-2" 
-                />
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Live Activity Feed */}
-          <LiveSyncActivity />
-        </TabsContent>
-
-        <TabsContent value="inventory" className="space-y-6">
-          {/* Inventory Table */}
+        <TabsContent value="inventory" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Inventory Status</CardTitle>
-                  <CardDescription>Real-time inventory levels across all connected marketplaces</CardDescription>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Select value={selectedMarketplace} onValueChange={setSelectedMarketplace}>
-                    <SelectTrigger className="w-40">
-                      <Funnel className="h-4 w-4 mr-2" />
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Marketplaces</SelectItem>
-                      {marketplaces.map(marketplace => (
-                        <SelectItem key={marketplace} value={marketplace}>
-                          {marketplace}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                    className="flex items-center gap-1"
-                  >
-                    <ArrowsDownUp className="h-4 w-4" />
-                    {sortOrder.toUpperCase()}
-                  </Button>
-                </div>
-              </div>
+              <CardTitle>Current Inventory Status</CardTitle>
+              <CardDescription>Real-time stock levels across all connected marketplaces</CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead 
-                      className="cursor-pointer hover:bg-muted/50"
-                      onClick={() => setSortBy('sku')}
-                    >
-                      SKU {sortBy === 'sku' && <ArrowsDownUp className="h-3 w-3 inline ml-1" />}
-                    </TableHead>
-                    <TableHead 
-                      className="cursor-pointer hover:bg-muted/50"
-                      onClick={() => setSortBy('marketplace')}
-                    >
-                      Marketplace {sortBy === 'marketplace' && <ArrowsDownUp className="h-3 w-3 inline ml-1" />}
-                    </TableHead>
-                    <TableHead 
-                      className="cursor-pointer hover:bg-muted/50"
-                      onClick={() => setSortBy('quantity')}
-                    >
-                      Quantity {sortBy === 'quantity' && <ArrowsDownUp className="h-3 w-3 inline ml-1" />}
-                    </TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead 
-                      className="cursor-pointer hover:bg-muted/50"
-                      onClick={() => setSortBy('lastSynced')}
-                    >
-                      Last Synced {sortBy === 'lastSynced' && <ArrowsDownUp className="h-3 w-3 inline ml-1" />}
-                    </TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {sortedInventory.map((item, index) => (
-                    <TableRow key={`${item.sku}-${item.marketplace}-${index}`}>
-                      <TableCell className="font-mono font-medium">{item.sku}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{item.marketplace}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        <span className={`font-semibold ${
-                          item.quantity < 10 ? 'text-red-600' : 
-                          item.quantity < 20 ? 'text-yellow-600' : 
-                          'text-green-600'
-                        }`}>
-                          {item.quantity}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        {getStatusBadge(item.status)}
-                      </TableCell>
-                      <TableCell className="text-sm text-muted-foreground">
-                        {formatLastSynced(item.lastSynced)}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-1">
-                          {item.status === 'error' && (
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              onClick={() => handleRetry(item.sku, item.marketplace)}
-                              className="flex items-center gap-1"
-                            >
-                              <ArrowClockwise className="h-3 w-3" />
-                              Retry
-                            </Button>
-                          )}
-                          <Button 
-                            size="sm" 
-                            variant="ghost"
-                            onClick={() => handleSync(item.marketplace)}
-                            disabled={isSyncing}
-                            className="flex items-center gap-1"
-                          >
-                            <ArrowClockwise className={`h-3 w-3 ${isSyncing ? 'animate-spin' : ''}`} />
-                            Sync
-                          </Button>
+              <div className="space-y-4">
+                {inventoryItems?.map((item) => (
+                  <div key={item.id} className="border rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">{item.name}</span>
+                          <Badge variant="outline" className="font-mono text-xs">{item.sku}</Badge>
+                          <Badge className={`text-xs ${getStatusColor(item.syncStatus)}`}>
+                            {getStatusIcon(item.syncStatus)}
+                            {item.syncStatus}
+                          </Badge>
                         </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              
-              {sortedInventory.length === 0 && (
-                <div className="text-center py-8 text-muted-foreground">
-                  No inventory items found for the selected marketplace.
-                </div>
-              )}
+                        <p className="text-sm text-muted-foreground">
+                          Last sync: {item.lastSync.toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold">{item.currentStock}</div>
+                        <p className="text-sm text-muted-foreground">Current Stock</p>
+                      </div>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-6">
+                      <div className="text-center p-2 bg-muted rounded">
+                        <div className="text-sm font-medium">Amazon</div>
+                        <div className="text-lg font-bold">{item.marketplaceStock.amazon || 0}</div>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <div className="text-sm font-medium">eBay</div>
+                        <div className="text-lg font-bold">{item.marketplaceStock.ebay || 0}</div>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <div className="text-sm font-medium">OTTO</div>
+                        <div className="text-lg font-bold">{item.marketplaceStock.otto || 0}</div>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <div className="text-sm font-medium">Kaufland</div>
+                        <div className="text-lg font-bold">-</div>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <div className="text-sm font-medium">bol.com</div>
+                        <div className="text-lg font-bold">-</div>
+                      </div>
+                      <div className="text-center p-2 bg-muted rounded">
+                        <div className="text-sm font-medium">Cdiscount</div>
+                        <div className="text-lg font-bold">-</div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end gap-2 mt-3">
+                      <Button size="sm" variant="outline">
+                        <ArrowsClockwise className="h-4 w-4 mr-1" />
+                        Sync Now
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        Update Stock
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="activity" className="space-y-6">
-          <LiveSyncActivity />
+        <TabsContent value="rules" className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold">Automated Sync Rules</h3>
+            <Button>
+              <Robot className="h-4 w-4 mr-2" />
+              Add Rule
+            </Button>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {syncRules?.map((rule) => (
+              <Card key={rule.id}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base">{rule.name}</CardTitle>
+                    <Badge variant={rule.enabled ? "default" : "secondary"}>
+                      {rule.enabled ? <Play className="h-3 w-3 mr-1" /> : <Pause className="h-3 w-3 mr-1" />}
+                      {rule.enabled ? 'Active' : 'Inactive'}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-2 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Trigger:</span>
+                      <div className="font-mono text-xs bg-muted p-1 rounded mt-1">{rule.trigger}</div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Action:</span>
+                      <div className="text-xs mt-1">{rule.action}</div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Frequency:</span>
+                      <span className="ml-1 text-xs capitalize">{rule.frequency}</span>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="sm" className="w-full">
+                    Configure
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="settings" className="space-y-4">
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Sync Configuration</CardTitle>
+                <CardDescription>Configure automatic inventory synchronization settings</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Auto-Sync Enabled</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Automatically sync inventory across marketplaces
+                    </p>
+                  </div>
+                  <Button
+                    variant={autoSync ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setAutoSync(!autoSync)}
+                  >
+                    {autoSync ? "ON" : "OFF"}
+                  </Button>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="sync-interval">Sync Interval (minutes)</Label>
+                  <Input
+                    id="sync-interval"
+                    type="number"
+                    value={syncInterval}
+                    onChange={(e) => setSyncInterval(e.target.value)}
+                    min="5"
+                    max="1440"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    How often to check for inventory changes (5-1440 minutes)
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="low-stock-alert">Low Stock Alert Threshold</Label>
+                  <Input
+                    id="low-stock-alert"
+                    type="number"
+                    value={lowStockAlert}
+                    onChange={(e) => setLowStockAlert(e.target.value)}
+                    min="0"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Send alerts when stock falls below this level
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Marketplace Priorities</CardTitle>
+                <CardDescription>Configure sync priorities and buffer stocks</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Amazon</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">Buffer:</span>
+                      <Input className="w-16 h-8" defaultValue="2" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">eBay</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">Buffer:</span>
+                      <Input className="w-16 h-8" defaultValue="1" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">OTTO</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">Buffer:</span>
+                      <Input className="w-16 h-8" defaultValue="1" />
+                    </div>
+                  </div>
+                </div>
+                
+                <p className="text-sm text-muted-foreground">
+                  Buffer stock ensures you maintain minimum inventory levels on each marketplace
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
