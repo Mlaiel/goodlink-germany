@@ -6,10 +6,13 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { ShopDashboard } from "@/components/ShopDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
 import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
+import { GlobalAgentSettings } from "@/components/GlobalAgentSettings"
+import { AgentControlPanel } from "@/components/AgentControlPanel"
 import { 
   ChartLine, 
   Package, 
@@ -30,7 +33,10 @@ import {
   YoutubeLogo,
   WhatsappLogo,
   DiscordLogo,
-  TelegramLogo
+  TelegramLogo,
+  ArrowLeft,
+  Activity,
+  Gear
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
@@ -240,6 +246,9 @@ function MarketplacesView() {
 
 function AIAgentsView() {
   const [filterType, setFilterType] = useKV("agent-filter", "all")
+  const [selectedAgent, setSelectedAgent] = useKV<any>("selected-agent", null)
+  const [agentConfigs, setAgentConfigs] = useKV<Record<string, any>>("agent-configs", {})
+  const [showGlobalSettings, setShowGlobalSettings] = useKV<boolean>("show-global-settings", false)
   
   const getAgentIcon = (type: string, name: string) => {
     if (name.includes("Instagram")) return <InstagramLogo className="h-4 w-4" />
@@ -268,17 +277,110 @@ function AIAgentsView() {
     }
   }
 
+  const handleConfigureAgent = (agent: any) => {
+    const agentConfig = {
+      id: agent.name.toLowerCase().replace(/\s+/g, '-'),
+      name: agent.name,
+      type: agent.type,
+      status: agent.status,
+      settings: agentConfigs?.[agent.name] || {}
+    }
+    setSelectedAgent(agentConfig)
+  }
+
+  const handleConfigUpdate = (config: any) => {
+    setAgentConfigs((current = {}) => ({
+      ...current,
+      [config.name]: config.settings
+    }))
+    toast.success(`${config.name} configuration updated`)
+  }
+
   const filteredAgents = filterType === "all" ? aiAgents : aiAgents.filter(agent => agent.type === filterType)
   const agentTypes = ["all", "social", "messaging", "content", "pricing", "analytics", "forecasting", "support"]
+
+  if (showGlobalSettings) {
+    return (
+      <GlobalAgentSettings onClose={() => setShowGlobalSettings(false)} />
+    )
+  }
+
+  if (selectedAgent) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <Button variant="outline" onClick={() => setSelectedAgent(null)}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Agents
+          </Button>
+          <h2 className="text-2xl font-bold">Agent Configuration</h2>
+        </div>
+        <AgentControlPanel 
+          agent={selectedAgent} 
+          onConfigUpdate={handleConfigUpdate}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">AI Agent Control Center</h2>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Configure Agent
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" onClick={() => setShowGlobalSettings(true)}>
+            <Gear className="h-4 w-4 mr-2" />
+            Global Settings
+          </Button>
+          <Button variant="outline">
+            <Plus className="h-4 w-4 mr-2" />
+            Add Agent
+          </Button>
+          <Button>
+            <Robot className="h-4 w-4 mr-2" />
+            Bulk Configure
+          </Button>
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <div className="text-2xl font-bold">{aiAgents.filter(a => a.status === 'active').length}</div>
+            </div>
+            <p className="text-xs text-muted-foreground">Active Agents</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2">
+              <Lightning className="h-4 w-4 text-orange-600" />
+              <div className="text-2xl font-bold">{aiAgents.filter(a => a.status === 'training').length}</div>
+            </div>
+            <p className="text-xs text-muted-foreground">Training</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2">
+              <Activity className="h-4 w-4 text-blue-600" />
+              <div className="text-2xl font-bold">{Math.round(aiAgents.reduce((acc, a) => acc + a.success, 0) / aiAgents.length)}%</div>
+            </div>
+            <p className="text-xs text-muted-foreground">Avg Success Rate</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2">
+              <TrendUp className="h-4 w-4 text-green-600" />
+              <div className="text-2xl font-bold">{aiAgents.reduce((acc, a) => acc + a.processed, 0).toLocaleString()}</div>
+            </div>
+            <p className="text-xs text-muted-foreground">Total Processed</p>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Filter Tabs */}
@@ -391,7 +493,7 @@ function AIAgentsView() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredAgents.map((agent) => (
-          <Card key={agent.name}>
+          <Card key={agent.name} className="cursor-pointer hover:bg-muted/50 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
                 {getAgentIcon(agent.type, agent.name)}
@@ -416,9 +518,19 @@ function AIAgentsView() {
                   </div>
                   <Progress value={agent.success} className="h-2" />
                 </div>
-                <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type)}`}>
-                  {agent.type}
-                </Badge>
+                <div className="flex items-center justify-between">
+                  <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type)}`}>
+                    {agent.type}
+                  </Badge>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => handleConfigureAgent(agent)}
+                  >
+                    <Gear className="h-3 w-3 mr-1" />
+                    Configure
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
