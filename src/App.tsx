@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Toaster } from "@/components/ui/sonner"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
+import { ShopDashboard } from "@/components/ShopDashboard"
 import { 
   ChartLine, 
   Package, 
@@ -354,7 +355,7 @@ function App() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <ChartLine className="h-4 w-4" />
               Dashboard
@@ -370,6 +371,10 @@ function App() {
             <TabsTrigger value="inventory" className="flex items-center gap-2">
               <Database className="h-4 w-4" />
               Inventory Sync
+            </TabsTrigger>
+            <TabsTrigger value="shop" className="flex items-center gap-2">
+              <Storefront className="h-4 w-4" />
+              Shop
             </TabsTrigger>
             <TabsTrigger value="ai-agents" className="flex items-center gap-2">
               <Robot className="h-4 w-4" />
@@ -391,6 +396,10 @@ function App() {
 
           <TabsContent value="inventory" className="mt-6">
             <InventorySyncDashboard />
+          </TabsContent>
+
+          <TabsContent value="shop" className="mt-6">
+            <ShopDashboard />
           </TabsContent>
 
           <TabsContent value="ai-agents" className="mt-6">
