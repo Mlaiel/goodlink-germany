@@ -26,7 +26,10 @@ import {
   TwitterLogo,
   FacebookLogo,
   LinkedinLogo,
-  YoutubeLogo
+  YoutubeLogo,
+  WhatsappLogo,
+  DiscordLogo,
+  TelegramLogo
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
@@ -70,6 +73,9 @@ const aiAgents = [
   { name: "LinkedIn B2B Agent", status: "active", processed: 267, success: 85, type: "social" },
   { name: "Twitter Engagement Bot", status: "active", processed: 523, success: 92, type: "social" },
   { name: "Pinterest Visual Agent", status: "active", processed: 178, success: 88, type: "social" },
+  { name: "WhatsApp Business Agent", status: "active", processed: 892, success: 94, type: "messaging" },
+  { name: "Discord Community Manager", status: "active", processed: 456, success: 89, type: "messaging" },
+  { name: "Telegram Marketing Bot", status: "active", processed: 634, success: 91, type: "messaging" },
   { name: "Social Analytics Agent", status: "active", processed: 1247, success: 96, type: "social" }
 ]
 
@@ -122,7 +128,7 @@ function Dashboard() {
             <Robot className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">14/14</div>
+            <div className="text-2xl font-bold">17/17</div>
             <p className="text-xs text-muted-foreground">
               All agents active
             </p>
@@ -242,12 +248,16 @@ function AIAgentsView() {
     if (name.includes("LinkedIn")) return <LinkedinLogo className="h-4 w-4" />
     if (name.includes("Twitter")) return <TwitterLogo className="h-4 w-4" />
     if (name.includes("Pinterest")) return <span className="text-sm font-bold">P</span>
+    if (name.includes("WhatsApp")) return <WhatsappLogo className="h-4 w-4" />
+    if (name.includes("Discord")) return <DiscordLogo className="h-4 w-4" />
+    if (name.includes("Telegram")) return <TelegramLogo className="h-4 w-4" />
     return <Robot className="h-4 w-4" />
   }
 
   const getTypeColor = (type: string) => {
     switch (type) {
       case "social": return "bg-purple-100 text-purple-800 border-purple-200"
+      case "messaging": return "bg-emerald-100 text-emerald-800 border-emerald-200"
       case "content": return "bg-blue-100 text-blue-800 border-blue-200"
       case "pricing": return "bg-green-100 text-green-800 border-green-200"
       case "analytics": return "bg-orange-100 text-orange-800 border-orange-200"
@@ -258,7 +268,7 @@ function AIAgentsView() {
   }
 
   const filteredAgents = filterType === "all" ? aiAgents : aiAgents.filter(agent => agent.type === filterType)
-  const agentTypes = ["all", "social", "content", "pricing", "analytics", "forecasting", "support"]
+  const agentTypes = ["all", "social", "messaging", "content", "pricing", "analytics", "forecasting", "support"]
 
   return (
     <div className="space-y-6">
@@ -328,6 +338,50 @@ function AIAgentsView() {
                 </div>
                 <div className="text-2xl font-bold">3.1K</div>
                 <p className="text-xs text-muted-foreground">+156 connections</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {/* Messaging Platform Metrics */}
+      {filterType === "all" || filterType === "messaging" ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <WhatsappLogo className="h-5 w-5" />
+              Messaging Platforms Performance
+            </CardTitle>
+            <CardDescription>Customer engagement and conversation metrics across messaging platforms</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <WhatsappLogo className="h-4 w-4 text-green-600" />
+                  <span className="text-sm font-medium">WhatsApp Business</span>
+                </div>
+                <div className="text-2xl font-bold">2.8K</div>
+                <p className="text-xs text-muted-foreground">+456 conversations this week</p>
+                <div className="text-sm text-green-600 font-medium">94% response rate</div>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <DiscordLogo className="h-4 w-4 text-indigo-600" />
+                  <span className="text-sm font-medium">Discord</span>
+                </div>
+                <div className="text-2xl font-bold">1.2K</div>
+                <p className="text-xs text-muted-foreground">+189 active members</p>
+                <div className="text-sm text-indigo-600 font-medium">89% engagement rate</div>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <TelegramLogo className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm font-medium">Telegram</span>
+                </div>
+                <div className="text-2xl font-bold">1.6K</div>
+                <p className="text-xs text-muted-foreground">+298 channel subscribers</p>
+                <div className="text-sm text-blue-600 font-medium">91% delivery rate</div>
               </div>
             </div>
           </CardContent>
