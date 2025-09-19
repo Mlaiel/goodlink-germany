@@ -21,7 +21,12 @@ import {
   XCircle,
   Lightning,
   Database,
-  Article
+  Article,
+  InstagramLogo,
+  TwitterLogo,
+  FacebookLogo,
+  LinkedinLogo,
+  YoutubeLogo
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
@@ -57,7 +62,15 @@ const aiAgents = [
   { name: "Review Analyzer", status: "active", processed: 567, success: 95, type: "analytics" },
   { name: "Inventory Forecaster", status: "training", processed: 89, success: 78, type: "forecasting" },
   { name: "Chat Assistant", status: "active", processed: 234, success: 89, type: "support" },
-  { name: "Content Translator", status: "active", processed: 678, success: 96, type: "content" }
+  { name: "Content Translator", status: "active", processed: 678, success: 96, type: "content" },
+  { name: "Instagram Marketer", status: "active", processed: 324, success: 91, type: "social" },
+  { name: "TikTok Creator", status: "active", processed: 156, success: 87, type: "social" },
+  { name: "YouTube Optimizer", status: "active", processed: 89, success: 94, type: "social" },
+  { name: "Facebook Ads Manager", status: "active", processed: 445, success: 89, type: "social" },
+  { name: "LinkedIn B2B Agent", status: "active", processed: 267, success: 85, type: "social" },
+  { name: "Twitter Engagement Bot", status: "active", processed: 523, success: 92, type: "social" },
+  { name: "Pinterest Visual Agent", status: "active", processed: 178, success: 88, type: "social" },
+  { name: "Social Analytics Agent", status: "active", processed: 1247, success: 96, type: "social" }
 ]
 
 function Dashboard() {
@@ -109,7 +122,7 @@ function Dashboard() {
             <Robot className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">6/6</div>
+            <div className="text-2xl font-bold">14/14</div>
             <p className="text-xs text-muted-foreground">
               All agents active
             </p>
@@ -219,6 +232,34 @@ function MarketplacesView() {
 }
 
 function AIAgentsView() {
+  const [filterType, setFilterType] = useKV("agent-filter", "all")
+  
+  const getAgentIcon = (type: string, name: string) => {
+    if (name.includes("Instagram")) return <InstagramLogo className="h-4 w-4" />
+    if (name.includes("TikTok")) return <span className="text-sm font-bold">TT</span>
+    if (name.includes("YouTube")) return <YoutubeLogo className="h-4 w-4" />
+    if (name.includes("Facebook")) return <FacebookLogo className="h-4 w-4" />
+    if (name.includes("LinkedIn")) return <LinkedinLogo className="h-4 w-4" />
+    if (name.includes("Twitter")) return <TwitterLogo className="h-4 w-4" />
+    if (name.includes("Pinterest")) return <span className="text-sm font-bold">P</span>
+    return <Robot className="h-4 w-4" />
+  }
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case "social": return "bg-purple-100 text-purple-800 border-purple-200"
+      case "content": return "bg-blue-100 text-blue-800 border-blue-200"
+      case "pricing": return "bg-green-100 text-green-800 border-green-200"
+      case "analytics": return "bg-orange-100 text-orange-800 border-orange-200"
+      case "forecasting": return "bg-yellow-100 text-yellow-800 border-yellow-200"
+      case "support": return "bg-indigo-100 text-indigo-800 border-indigo-200"
+      default: return ""
+    }
+  }
+
+  const filteredAgents = filterType === "all" ? aiAgents : aiAgents.filter(agent => agent.type === filterType)
+  const agentTypes = ["all", "social", "content", "pricing", "analytics", "forecasting", "support"]
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -229,13 +270,81 @@ function AIAgentsView() {
         </Button>
       </div>
 
+      {/* Filter Tabs */}
+      <div className="flex gap-2 flex-wrap">
+        {agentTypes.map((type) => (
+          <Button
+            key={type}
+            variant={filterType === type ? "default" : "outline"}
+            size="sm"
+            onClick={() => setFilterType(type)}
+            className="capitalize"
+          >
+            {type === "all" ? "All Agents" : `${type} (${aiAgents.filter(a => a.type === type).length})`}
+          </Button>
+        ))}
+      </div>
+
+      {/* Social Media Metrics */}
+      {filterType === "all" || filterType === "social" ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Robot className="h-5 w-5" />
+              Social Media Performance
+            </CardTitle>
+            <CardDescription>Real-time metrics from your social media AI agents</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <InstagramLogo className="h-4 w-4 text-pink-600" />
+                  <span className="text-sm font-medium">Instagram</span>
+                </div>
+                <div className="text-2xl font-bold">12.4K</div>
+                <p className="text-xs text-muted-foreground">+2.1K followers this week</p>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-black">TT</span>
+                  <span className="text-sm font-medium">TikTok</span>
+                </div>
+                <div className="text-2xl font-bold">8.7K</div>
+                <p className="text-xs text-muted-foreground">+1.8K views today</p>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <YoutubeLogo className="h-4 w-4 text-red-600" />
+                  <span className="text-sm font-medium">YouTube</span>
+                </div>
+                <div className="text-2xl font-bold">5.2K</div>
+                <p className="text-xs text-muted-foreground">+340 subscribers</p>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <LinkedinLogo className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm font-medium">LinkedIn</span>
+                </div>
+                <div className="text-2xl font-bold">3.1K</div>
+                <p className="text-xs text-muted-foreground">+156 connections</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {aiAgents.map((agent) => (
+        {filteredAgents.map((agent) => (
           <Card key={agent.name}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-lg font-semibold">{agent.name}</CardTitle>
+              <CardTitle className="text-lg font-semibold flex items-center gap-2">
+                {getAgentIcon(agent.type, agent.name)}
+                {agent.name}
+              </CardTitle>
               <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
-                <Robot className="h-3 w-3 mr-1" />
+                {agent.status === 'active' && <CheckCircle className="h-3 w-3 mr-1" />}
+                {agent.status === 'training' && <Lightning className="h-3 w-3 mr-1" />}
                 {agent.status}
               </Badge>
             </CardHeader>
@@ -252,7 +361,7 @@ function AIAgentsView() {
                   </div>
                   <Progress value={agent.success} className="h-2" />
                 </div>
-                <Badge variant="outline" className="text-xs">
+                <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type)}`}>
                   {agent.type}
                 </Badge>
               </div>
