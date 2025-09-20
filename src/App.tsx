@@ -7,12 +7,16 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
+import { LanguageProvider, useLanguage } from "@/components/LanguageContext"
+import { LanguageSelector } from "@/components/LanguageSelector"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { ShopDashboard } from "@/components/ShopDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
 import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
 import { GlobalAgentSettings } from "@/components/GlobalAgentSettings"
 import { AgentControlPanel } from "@/components/AgentControlPanel"
+import { AdminPanel } from "@/components/AdminPanel"
+import { ShopInterface } from "@/components/ShopInterface"
 import { 
   ChartLine, 
   Package, 
@@ -36,7 +40,9 @@ import {
   TelegramLogo,
   ArrowLeft,
   Activity,
-  Gear
+  Gear,
+  ShieldCheck,
+  UserCircle
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
@@ -105,6 +111,7 @@ const aiAgents = [
 ]
 
 function Dashboard() {
+  const { t } = useLanguage()
   const [selectedPeriod, setSelectedPeriod] = useKV("dashboard-period", "30d")
   const revenueData = [
     { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
@@ -148,7 +155,7 @@ function Dashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.revenue')}</CardTitle>
               <TrendUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -160,7 +167,7 @@ function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.orders')}</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -172,7 +179,7 @@ function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Buy Box %</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.buybox')}</CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -184,7 +191,7 @@ function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">AI Automations</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.automations')}</CardTitle>
               <Robot className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -200,7 +207,7 @@ function Dashboard() {
         <div className="grid gap-4 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Revenue by Marketplace</CardTitle>
+              <CardTitle>{t('dashboard.marketplaceRevenue')}</CardTitle>
               <CardDescription>Monthly revenue across all connected platforms</CardDescription>
             </CardHeader>
             <CardContent>
@@ -245,7 +252,7 @@ function Dashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Performance Trends</CardTitle>
+              <CardTitle>{t('dashboard.performance')}</CardTitle>
               <CardDescription>Conversion rate and traffic over time</CardDescription>
             </CardHeader>
             <CardContent>
@@ -294,6 +301,7 @@ function Dashboard() {
 }
 
 function MarketplacesView() {
+  const { t } = useLanguage()
   // Ensure marketplaces data is safely accessible
   const safeMarketplaces = Array.isArray(marketplaces) ? marketplaces : []
   
@@ -354,6 +362,7 @@ function MarketplacesView() {
 }
 
 function AIAgentsView() {
+  const { t } = useLanguage()
   const [filterType, setFilterType] = useKV("agent-filter", "all")
   const [selectedAgent, setSelectedAgent] = useKV<any>("selected-agent", null)
   const [agentConfigs, setAgentConfigs] = useKV<Record<string, any>>("agent-configs", {})
@@ -505,7 +514,7 @@ function AIAgentsView() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">AI Agent Control Center</h2>
+        <h2 className="text-2xl font-bold">{t('agents.title')}</h2>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => setShowGlobalSettings(true)}>
             <Gear className="h-4 w-4 mr-2" />
@@ -733,6 +742,7 @@ interface Product {
 }
 
 function ProductsView() {
+  const { t } = useLanguage()
   const [products] = useKV<Product[]>("products", [
     { id: 1, sku: "GL-001", name: "Premium Wireless Headphones", category: "Electronics", marketplaces: ["Amazon", "eBay"], stock: 45 },
     { id: 2, sku: "GL-002", name: "Smart Fitness Tracker", category: "Wearables", marketplaces: ["Amazon", "OTTO"], stock: 23 },
@@ -794,129 +804,237 @@ function ProductsView() {
   )
 }
 
-function App() {
+function AppContent() {
+  const { t } = useLanguage()
   const [activeTab, setActiveTab] = useKV("active-tab", "dashboard")
+  const [userMode, setUserMode] = useKV("user-mode", "admin") // admin, client, shop
 
+  // User mode selector
+  const renderModeSelector = () => (
+    <div className="flex items-center gap-2">
+      <Button 
+        variant={userMode === "admin" ? "default" : "outline"} 
+        size="sm"
+        onClick={() => setUserMode("admin")}
+      >
+        <ShieldCheck className="h-4 w-4 mr-2" />
+        Admin
+      </Button>
+      <Button 
+        variant={userMode === "client" ? "default" : "outline"} 
+        size="sm"
+        onClick={() => setUserMode("client")}
+      >
+        <UserCircle className="h-4 w-4 mr-2" />
+        Client
+      </Button>
+      <Button 
+        variant={userMode === "shop" ? "default" : "outline"} 
+        size="sm"
+        onClick={() => setUserMode("shop")}
+      >
+        <Storefront className="h-4 w-4 mr-2" />
+        Shop
+      </Button>
+      <LanguageSelector />
+    </div>
+  )
+
+  if (userMode === "shop") {
+    return (
+      <div className="min-h-screen bg-background">
+        <header className="border-b bg-card">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">G</span>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">{t('shop.title')}</h1>
+                  <p className="text-sm text-muted-foreground">Premium products for every need</p>
+                </div>
+              </div>
+              {renderModeSelector()}
+            </div>
+          </div>
+        </header>
+        <main className="container mx-auto px-4 py-8">
+          <ShopInterface />
+        </main>
+        <Toaster />
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-card">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-sm">G</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold">Goodlink Germany</h1>
+                <p className="text-sm text-muted-foreground">
+                  {userMode === "admin" ? "AI Commerce Platform - Admin Panel" : "AI Commerce Platform - Client Dashboard"}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              {renderModeSelector()}
+              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                All Systems Operational
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        {userMode === "admin" ? (
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-9">
+              <TabsTrigger value="admin" className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4" />
+                {t('nav.admin')}
+              </TabsTrigger>
+              <TabsTrigger value="dashboard" className="flex items-center gap-2">
+                <ChartLine className="h-4 w-4" />
+                {t('nav.dashboard')}
+              </TabsTrigger>
+              <TabsTrigger value="marketplaces" className="flex items-center gap-2">
+                <Storefront className="h-4 w-4" />
+                {t('nav.marketplaces')}
+              </TabsTrigger>
+              <TabsTrigger value="products" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />
+                {t('nav.products')}
+              </TabsTrigger>
+              <TabsTrigger value="inventory" className="flex items-center gap-2">
+                <Database className="h-4 w-4" />
+                {t('nav.inventory')}
+              </TabsTrigger>
+              <TabsTrigger value="shop" className="flex items-center gap-2">
+                <Storefront className="h-4 w-4" />
+                {t('nav.shop')}
+              </TabsTrigger>
+              <TabsTrigger value="blog" className="flex items-center gap-2">
+                <Article className="h-4 w-4" />
+                {t('nav.blog')}
+              </TabsTrigger>
+              <TabsTrigger value="whatsapp" className="flex items-center gap-2">
+                <WhatsappLogo className="h-4 w-4" />
+                {t('nav.whatsapp')}
+              </TabsTrigger>
+              <TabsTrigger value="ai-agents" className="flex items-center gap-2">
+                <Robot className="h-4 w-4" />
+                {t('nav.agents')}
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="admin" className="mt-6">
+              <AdminPanel />
+            </TabsContent>
+
+            <TabsContent value="dashboard" className="mt-6">
+              <Dashboard />
+            </TabsContent>
+
+            <TabsContent value="marketplaces" className="mt-6">
+              <MarketplacesView />
+            </TabsContent>
+
+            <TabsContent value="products" className="mt-6">
+              <ProductsView />
+            </TabsContent>
+
+            <TabsContent value="inventory" className="mt-6">
+              <InventorySyncDashboard />
+            </TabsContent>
+
+            <TabsContent value="shop" className="mt-6">
+              <ShopDashboard />
+            </TabsContent>
+
+            <TabsContent value="blog" className="mt-6">
+              <BlogDashboard />
+            </TabsContent>
+
+            <TabsContent value="whatsapp" className="mt-6">
+              <WhatsAppDashboard />
+            </TabsContent>
+
+            <TabsContent value="ai-agents" className="mt-6">
+              <AIAgentsView />
+            </TabsContent>
+          </Tabs>
+        ) : (
+          // Client mode - simplified interface
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-5">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2">
+                <ChartLine className="h-4 w-4" />
+                {t('nav.dashboard')}
+              </TabsTrigger>
+              <TabsTrigger value="products" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />
+                {t('nav.products')}
+              </TabsTrigger>
+              <TabsTrigger value="inventory" className="flex items-center gap-2">
+                <Database className="h-4 w-4" />
+                {t('nav.inventory')}
+              </TabsTrigger>
+              <TabsTrigger value="blog" className="flex items-center gap-2">
+                <Article className="h-4 w-4" />
+                {t('nav.blog')}
+              </TabsTrigger>
+              <TabsTrigger value="ai-agents" className="flex items-center gap-2">
+                <Robot className="h-4 w-4" />
+                {t('nav.agents')}
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="dashboard" className="mt-6">
+              <Dashboard />
+            </TabsContent>
+
+            <TabsContent value="products" className="mt-6">
+              <ProductsView />
+            </TabsContent>
+
+            <TabsContent value="inventory" className="mt-6">
+              <InventorySyncDashboard />
+            </TabsContent>
+
+            <TabsContent value="blog" className="mt-6">
+              <BlogDashboard />
+            </TabsContent>
+
+            <TabsContent value="ai-agents" className="mt-6">
+              <AIAgentsView />
+            </TabsContent>
+          </Tabs>
+        )}
+      </main>
+
+      <Toaster />
+    </div>
+  )
+}
+
+function App() {
   // Progressive error checking
   try {
     return (
-      <ErrorBoundary>
-        <div className="min-h-screen bg-background">
-          {/* Header */}
-          <header className="border-b bg-card">
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-primary-foreground font-bold text-sm">G</span>
-                  </div>
-                  <div>
-                    <h1 className="text-xl font-bold">Goodlink Germany</h1>
-                    <p className="text-sm text-muted-foreground">AI Commerce Platform</p>
-                  </div>
-                </div>
-                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                  <CheckCircle className="h-3 w-3 mr-1" />
-                  All Systems Operational
-                </Badge>
-              </div>
-            </div>
-          </header>
-
-          {/* Main Content */}
-          <main className="container mx-auto px-4 py-8">
-            <ErrorBoundary>
-              <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="grid w-full grid-cols-8">
-                  <TabsTrigger value="dashboard" className="flex items-center gap-2">
-                    <ChartLine className="h-4 w-4" />
-                    Dashboard
-                  </TabsTrigger>
-                  <TabsTrigger value="marketplaces" className="flex items-center gap-2">
-                    <Storefront className="h-4 w-4" />
-                    Marketplaces
-                  </TabsTrigger>
-                  <TabsTrigger value="products" className="flex items-center gap-2">
-                    <Package className="h-4 w-4" />
-                    Products
-                  </TabsTrigger>
-                  <TabsTrigger value="inventory" className="flex items-center gap-2">
-                    <Database className="h-4 w-4" />
-                    Inventory Sync
-                  </TabsTrigger>
-                  <TabsTrigger value="shop" className="flex items-center gap-2">
-                    <Storefront className="h-4 w-4" />
-                    Shop
-                  </TabsTrigger>
-                  <TabsTrigger value="blog" className="flex items-center gap-2">
-                    <Article className="h-4 w-4" />
-                    Blog
-                  </TabsTrigger>
-                  <TabsTrigger value="whatsapp" className="flex items-center gap-2">
-                    <WhatsappLogo className="h-4 w-4" />
-                    WhatsApp
-                  </TabsTrigger>
-                  <TabsTrigger value="ai-agents" className="flex items-center gap-2">
-                    <Robot className="h-4 w-4" />
-                    AI Agents
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="dashboard" className="mt-6">
-                  <ErrorBoundary>
-                    <Dashboard />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="marketplaces" className="mt-6">
-                  <ErrorBoundary>
-                    <MarketplacesView />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="products" className="mt-6">
-                  <ErrorBoundary>
-                    <ProductsView />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="inventory" className="mt-6">
-                  <ErrorBoundary>
-                    <InventorySyncDashboard />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="shop" className="mt-6">
-                  <ErrorBoundary>
-                    <ShopDashboard />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="blog" className="mt-6">
-                  <ErrorBoundary>
-                    <BlogDashboard />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="whatsapp" className="mt-6">
-                  <ErrorBoundary>
-                    <WhatsAppDashboard />
-                  </ErrorBoundary>
-                </TabsContent>
-
-                <TabsContent value="ai-agents" className="mt-6">
-                  <ErrorBoundary>
-                    <AIAgentsView />
-                  </ErrorBoundary>
-                </TabsContent>
-              </Tabs>
-            </ErrorBoundary>
-          </main>
-
-          {/* Toast notifications */}
-          <Toaster />
-        </div>
-      </ErrorBoundary>
+      <LanguageProvider>
+        <ErrorBoundary>
+          <AppContent />
+        </ErrorBoundary>
+      </LanguageProvider>
     )
   } catch (error) {
     console.error('App component error:', error)
