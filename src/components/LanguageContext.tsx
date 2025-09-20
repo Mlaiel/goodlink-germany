@@ -243,6 +243,10 @@ const translations = {
     'dashboard.performance': 'Performance Trends',
     'dashboard.marketplaceRevenue': 'Revenue by Marketplace',
     
+    // Agent Performance
+    'agents.performance.title': 'Agent Performance Dashboard',
+    'agents.performance.subtitle': 'Monitor and optimize AI agent performance with A/B testing',
+    
     // Chat
     'chat.aiAssistant': 'AI Assistant',
     'chat.onlineNow': 'Online now',
@@ -623,6 +627,10 @@ const translations = {
     'dashboard.performance': 'Leistungstrends',
     'dashboard.marketplaceRevenue': 'Umsatz nach Marktplatz',
     
+    // Agent Performance
+    'agents.performance.title': 'Agent-Leistungs-Dashboard',
+    'agents.performance.subtitle': 'Überwachen und optimieren Sie die KI-Agent-Leistung mit A/B-Tests',
+    
     // Chat
     'chat.aiAssistant': 'KI-Assistent',
     'chat.onlineNow': 'Jetzt online',
@@ -973,6 +981,10 @@ const translations = {
     'dashboard.performance': '性能趋势',
     'dashboard.marketplaceRevenue': '按市场平台的收入',
     
+    // Agent Performance
+    'agents.performance.title': '代理性能仪表板',
+    'agents.performance.subtitle': '通过A/B测试监控和优化AI代理性能',
+    
     // Chat
     'chat.aiAssistant': 'AI助手',
     'chat.onlineNow': '现在在线',
@@ -1246,6 +1258,10 @@ const translations = {
     'dashboard.automations': 'Automatisations IA',
     'dashboard.performance': 'Tendances de performance',
     'dashboard.marketplaceRevenue': 'Revenus par place de marché',
+    
+    // Agent Performance
+    'agents.performance.title': 'Tableau de bord de performance des agents',
+    'agents.performance.subtitle': 'Surveillez et optimisez les performances des agents IA avec des tests A/B',
     
     // Chat
     'chat.aiAssistant': 'Assistant IA',

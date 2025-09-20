@@ -1,515 +1,694 @@
-import React, { useState, useEffect } from 'react'
-import { useKV } from '@github/spark/hooks'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { 
-  Robot,
+import React, { useState } from "react"
+import { useKV } from "@github/spark/hooks"
+import { useLanguage } from "@/components/LanguageContext"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Progress } from "@/components/ui/progress"
+import { Textarea } from "@/components/ui/textarea"
+import { Switch } from "@/components/ui/switch"
+import {
+  ChartBar,
+  ChartLine,
   Activity,
   TrendUp,
   TrendDown,
-  Warning,
-  CheckCircle,
-  Clock,
-  Lightning,
   Target,
-  Gauge,
-  ChartBar,
-  ArrowRight,
+  Lightning,
+  Clock,
+  Eye,
+  Rocket,
+  Gear,
+  ArrowClockwise,
   Play,
   Pause,
-  ArrowsClockwise,
-  Eye
-} from '@phosphor-icons/react'
-import { useLanguage } from '../LanguageContext'
+  Download,
+  Funnel
+} from "@phosphor-icons/react"
+import { toast } from "sonner"
 
-interface AgentMetrics {
+interface PerformanceMetric {
   id: string
   name: string
-  status: 'active' | 'idle' | 'error' | 'disabled'
-  actionsToday: number
-  actionsLastHour: number
-  successRate: number
-  avgResponseTime: number
-  errorCount: number
-  efficiency: number
-  automationLevel: 'manual' | 'assisted' | 'automatic'
-  lastAction: string
-  nextScheduled: string
-  resourceUsage: {
-    cpu: number
-    memory: number
-    apiCalls: number
-  }
+  value: number
+  change: number
+  trend: "up" | "down" | "stable"
+  unit: string
+  description: string
 }
+
+interface ABTest {
+  id: string
+  name: string
+  agentType: string
+  variantA: string
+  variantB: string
+  status: "running" | "completed" | "paused"
+  startDate: string
+  endDate?: string
+  trafficSplit: number
+  metrics: {
+    conversions: { a: number; b: number }
+    clicks: { a: number; b: number }
+    revenue: { a: number; b: number }
+    satisfaction: { a: number; b: number }
+  }
+  winner?: "A" | "B"
+  confidence: number
+}
+
+const AGENT_TYPES = [
+  { id: "listing", name: "Listing Generator" },
+  { id: "pricing", name: "Dynamic Pricing" },
+  { id: "chat", name: "Customer Support" },
+  { id: "social", name: "Social Media" },
+  { id: "inventory", name: "Inventory Manager" },
+  { id: "review", name: "Review Analyzer" },
+  { id: "ad", name: "Ad Optimizer" },
+  { id: "blog", name: "Content Creator" }
+]
 
 export function AgentPerformanceDashboard() {
   const { t } = useLanguage()
-  const [selectedPeriod, setSelectedPeriod] = useState<'1h' | '24h' | '7d' | '30d'>('24h')
+  const [selectedTimeRange, setSelectedTimeRange] = useState("7d")
+  const [selectedAgent, setSelectedAgent] = useState("all")
+  const [activeTab, setActiveTab] = useState("overview")
+  const [showCreateTest, setShowCreateTest] = useState(false)
   
-  // Mock real-time agent metrics - in production this would come from backend APIs
-  const [agentMetrics, setAgentMetrics] = useKV<AgentMetrics[]>('agent-performance-metrics', [
+  // Mock data for demonstration
+  const [performanceData] = useKV<PerformanceMetric[]>("agent-performance-metrics", [
     {
-      id: 'listing-agent',
-      name: 'Listing Generation Agent',
-      status: 'active',
-      actionsToday: 47,
-      actionsLastHour: 3,
-      successRate: 94.5,
-      avgResponseTime: 2.3,
-      errorCount: 2,
-      efficiency: 89.2,
-      automationLevel: 'assisted',
-      lastAction: '2024-01-15 14:32:15',
-      nextScheduled: '2024-01-15 15:00:00',
-      resourceUsage: {
-        cpu: 23,
-        memory: 45,
-        apiCalls: 156
-      }
+      id: "conversion-rate",
+      name: "Conversion Rate",
+      value: 12.5,
+      change: 2.3,
+      trend: "up",
+      unit: "%",
+      description: "Overall agent conversion performance"
     },
     {
-      id: 'pricing-agent',
-      name: 'Dynamic Pricing Agent',
-      status: 'active',
-      actionsToday: 156,
-      actionsLastHour: 8,
-      successRate: 87.3,
-      avgResponseTime: 0.8,
-      errorCount: 5,
-      efficiency: 95.7,
-      automationLevel: 'automatic',
-      lastAction: '2024-01-15 14:35:42',
-      nextScheduled: '2024-01-15 14:45:00',
-      resourceUsage: {
-        cpu: 18,
-        memory: 32,
-        apiCalls: 423
-      }
+      id: "response-time",
+      name: "Avg Response Time",
+      value: 1.2,
+      change: -0.3,
+      trend: "up",
+      unit: "s",
+      description: "Average agent response time"
     },
     {
-      id: 'inventory-agent',
-      name: 'Inventory Sync Agent',
-      status: 'active',
-      actionsToday: 234,
-      actionsLastHour: 12,
-      successRate: 99.2,
-      avgResponseTime: 1.2,
-      errorCount: 1,
-      efficiency: 97.8,
-      automationLevel: 'automatic',
-      lastAction: '2024-01-15 14:30:00',
-      nextScheduled: '2024-01-15 14:45:00',
-      resourceUsage: {
-        cpu: 15,
-        memory: 28,
-        apiCalls: 89
-      }
+      id: "satisfaction",
+      name: "Customer Satisfaction",
+      value: 4.7,
+      change: 0.2,
+      trend: "up",
+      unit: "/5",
+      description: "Customer satisfaction rating"
     },
     {
-      id: 'review-agent',
-      name: 'Review Monitoring Agent',
-      status: 'active',
-      actionsToday: 23,
-      actionsLastHour: 1,
-      successRate: 91.7,
-      avgResponseTime: 4.5,
-      errorCount: 0,
-      efficiency: 82.4,
-      automationLevel: 'assisted',
-      lastAction: '2024-01-15 14:28:45',
-      nextScheduled: '2024-01-15 16:00:00',
-      resourceUsage: {
-        cpu: 8,
-        memory: 19,
-        apiCalls: 34
-      }
-    },
-    {
-      id: 'blog-agent',
-      name: 'Content Generation Agent',
-      status: 'idle',
-      actionsToday: 3,
-      actionsLastHour: 0,
-      successRate: 88.9,
-      avgResponseTime: 12.7,
-      errorCount: 0,
-      efficiency: 75.3,
-      automationLevel: 'assisted',
-      lastAction: '2024-01-15 12:00:00',
-      nextScheduled: '2024-01-16 09:00:00',
-      resourceUsage: {
-        cpu: 5,
-        memory: 12,
-        apiCalls: 67
-      }
-    },
-    {
-      id: 'social-agent',
-      name: 'Social Media Agent',
-      status: 'active',
-      actionsToday: 8,
-      actionsLastHour: 1,
-      successRate: 85.4,
-      avgResponseTime: 3.2,
-      errorCount: 1,
-      efficiency: 78.9,
-      automationLevel: 'assisted',
-      lastAction: '2024-01-15 13:15:30',
-      nextScheduled: '2024-01-15 17:00:00',
-      resourceUsage: {
-        cpu: 12,
-        memory: 22,
-        apiCalls: 45
-      }
-    },
-    {
-      id: 'chatbot-agent',
-      name: 'Customer Service Chatbot',
-      status: 'active',
-      actionsToday: 89,
-      actionsLastHour: 7,
-      successRate: 92.1,
-      avgResponseTime: 2.8,
-      errorCount: 3,
-      efficiency: 91.5,
-      automationLevel: 'automatic',
-      lastAction: '2024-01-15 14:35:22',
-      nextScheduled: 'Continuous',
-      resourceUsage: {
-        cpu: 25,
-        memory: 38,
-        apiCalls: 267
-      }
-    },
-    {
-      id: 'prospecting-agent',
-      name: 'Lead Prospecting Agent',
-      status: 'error',
-      actionsToday: 12,
-      actionsLastHour: 0,
-      successRate: 76.8,
-      avgResponseTime: 8.4,
-      errorCount: 7,
-      efficiency: 68.2,
-      automationLevel: 'manual',
-      lastAction: '2024-01-15 10:30:00',
-      nextScheduled: 'Manual trigger',
-      resourceUsage: {
-        cpu: 3,
-        memory: 8,
-        apiCalls: 23
-      }
+      id: "revenue-impact",
+      name: "Revenue Impact",
+      value: 15420,
+      change: 1340,
+      trend: "up",
+      unit: "€",
+      description: "Revenue generated by agents"
     }
   ])
 
-  // Simulate real-time updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAgentMetrics(prev => (prev || []).map(agent => ({
-        ...agent,
-        actionsLastHour: agent.status === 'active' ? agent.actionsLastHour + Math.floor(Math.random() * 2) : agent.actionsLastHour,
-        resourceUsage: {
-          ...agent.resourceUsage,
-          cpu: Math.max(0, Math.min(100, agent.resourceUsage.cpu + (Math.random() - 0.5) * 10)),
-          memory: Math.max(0, Math.min(100, agent.resourceUsage.memory + (Math.random() - 0.5) * 8))
-        }
-      })))
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [setAgentMetrics])
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-200'
-      case 'idle': return 'bg-yellow-100 text-yellow-800 border-yellow-200'  
-      case 'error': return 'bg-red-100 text-red-800 border-red-200'
-      case 'disabled': return 'bg-gray-100 text-gray-800 border-gray-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+  const [abTests, setAbTests] = useKV<ABTest[]>("ab-tests", [
+    {
+      id: "test-1",
+      name: "Pricing Agent Optimization",
+      agentType: "pricing",
+      variantA: "Conservative pricing strategy",
+      variantB: "Aggressive pricing strategy",
+      status: "running",
+      startDate: "2024-01-15",
+      trafficSplit: 50,
+      metrics: {
+        conversions: { a: 145, b: 167 },
+        clicks: { a: 1200, b: 1180 },
+        revenue: { a: 8450, b: 9120 },
+        satisfaction: { a: 4.2, b: 4.5 }
+      },
+      confidence: 78
+    },
+    {
+      id: "test-2",
+      name: "Chat Response Personalization",
+      agentType: "chat",
+      variantA: "Standard responses",
+      variantB: "Personalized responses",
+      status: "completed",
+      startDate: "2024-01-10",
+      endDate: "2024-01-20",
+      trafficSplit: 50,
+      metrics: {
+        conversions: { a: 89, b: 112 },
+        clicks: { a: 890, b: 920 },
+        revenue: { a: 5200, b: 6780 },
+        satisfaction: { a: 3.8, b: 4.4 }
+      },
+      winner: "B",
+      confidence: 95
     }
+  ])
+
+  const [newTest, setNewTest] = useState<Partial<ABTest>>({
+    name: "",
+    agentType: "",
+    variantA: "",
+    variantB: "",
+    trafficSplit: 50
+  })
+
+  const createABTest = async () => {
+    if (!newTest.name || !newTest.agentType || !newTest.variantA || !newTest.variantB) {
+      toast.error("Please fill in all required fields")
+      return
+    }
+
+    const test: ABTest = {
+      id: `test-${Date.now()}`,
+      name: newTest.name!,
+      agentType: newTest.agentType!,
+      variantA: newTest.variantA!,
+      variantB: newTest.variantB!,
+      status: "running",
+      startDate: new Date().toISOString().split('T')[0],
+      trafficSplit: newTest.trafficSplit || 50,
+      metrics: {
+        conversions: { a: 0, b: 0 },
+        clicks: { a: 0, b: 0 },
+        revenue: { a: 0, b: 0 },
+        satisfaction: { a: 0, b: 0 }
+      },
+      confidence: 0
+    }
+
+    setAbTests((currentTests = []) => [...currentTests, test])
+    setNewTest({ name: "", agentType: "", variantA: "", variantB: "", trafficSplit: 50 })
+    setShowCreateTest(false)
+    toast.success("A/B test created successfully")
   }
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'active': return <CheckCircle className="h-4 w-4" />
-      case 'idle': return <Clock className="h-4 w-4" />
-      case 'error': return <Warning className="h-4 w-4" />
-      case 'disabled': return <Pause className="h-4 w-4" />
-      default: return <Activity className="h-4 w-4" />
-    }
+  const toggleTestStatus = (testId: string) => {
+    setAbTests((currentTests = []) => 
+      currentTests.map(test => 
+        test.id === testId 
+          ? { ...test, status: test.status === "running" ? "paused" : "running" }
+          : test
+      )
+    )
   }
 
-  const getAutomationIcon = (level: string) => {
-    switch (level) {
-      case 'automatic': return <Lightning className="h-4 w-4 text-green-600" />
-      case 'assisted': return <Target className="h-4 w-4 text-blue-600" />
-      case 'manual': return <Eye className="h-4 w-4 text-orange-600" />
-      default: return <Activity className="h-4 w-4 text-gray-600" />
+  const getStatusBadge = (status: string) => {
+    const statusConfig = {
+      running: { variant: "default" as const, icon: Play, color: "text-green-600" },
+      paused: { variant: "secondary" as const, icon: Pause, color: "text-yellow-600" },
+      completed: { variant: "outline" as const, icon: Target, color: "text-blue-600" }
     }
+    
+    const config = statusConfig[status as keyof typeof statusConfig]
+    const Icon = config.icon
+    
+    return (
+      <Badge variant={config.variant} className="gap-1">
+        <Icon className={`h-3 w-3 ${config.color}`} />
+        {status.charAt(0).toUpperCase() + status.slice(1)}
+      </Badge>
+    )
   }
 
-  const totalActions = (agentMetrics || []).reduce((sum, agent) => sum + agent.actionsToday, 0)
-  const avgSuccessRate = (agentMetrics || []).reduce((sum, agent) => sum + agent.successRate, 0) / (agentMetrics?.length || 1)
-  const activeAgents = (agentMetrics || []).filter(agent => agent.status === 'active').length
-  const errorCount = (agentMetrics || []).reduce((sum, agent) => sum + agent.errorCount, 0)
+  const calculateWinner = (test: ABTest) => {
+    const aRate = test.metrics.conversions.a / Math.max(test.metrics.clicks.a, 1) * 100
+    const bRate = test.metrics.conversions.b / Math.max(test.metrics.clicks.b, 1) * 100
+    
+    if (Math.abs(aRate - bRate) < 1) return "Inconclusive"
+    return aRate > bRate ? "Variant A" : "Variant B"
+  }
+
+  const MetricCard = ({ metric }: { metric: PerformanceMetric }) => (
+    <Card className="transition-all hover:shadow-lg">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">{metric.name}</p>
+            <p className="text-2xl font-bold">
+              {metric.value}
+              <span className="text-sm font-normal text-muted-foreground ml-1">
+                {metric.unit}
+              </span>
+            </p>
+          </div>
+          <div className="text-right">
+            <div className={`flex items-center gap-1 text-sm ${
+              metric.trend === "up" ? "text-green-600" : 
+              metric.trend === "down" ? "text-red-600" : "text-gray-600"
+            }`}>
+              {metric.trend === "up" ? <TrendUp className="h-4 w-4" /> : 
+               metric.trend === "down" ? <TrendDown className="h-4 w-4" /> : 
+               <Activity className="h-4 w-4" />}
+              {Math.abs(metric.change)}{metric.unit}
+            </div>
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground mt-2">{metric.description}</p>
+      </CardContent>
+    </Card>
+  )
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Agent Performance Dashboard
-          </h1>
-          <p className="text-lg text-muted-foreground mt-2">
-            Real-time monitoring of AI agent performance, efficiency, and resource usage
+          <h2 className="text-3xl font-bold tracking-tight gradient-text">
+            {t('agents.performance.title') || 'Agent Performance Dashboard'}
+          </h2>
+          <p className="text-muted-foreground">
+            {t('agents.performance.subtitle') || 'Monitor and optimize AI agent performance with A/B testing'}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button 
-            variant={selectedPeriod === '1h' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setSelectedPeriod('1h')}
-          >
-            1H
-          </Button>
-          <Button 
-            variant={selectedPeriod === '24h' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setSelectedPeriod('24h')}
-          >
-            24H
-          </Button>
-          <Button 
-            variant={selectedPeriod === '7d' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setSelectedPeriod('7d')}
-          >
-            7D
-          </Button>
-          <Button 
-            variant={selectedPeriod === '30d' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setSelectedPeriod('30d')}
-          >
-            30D
+          <Select value={selectedTimeRange} onValueChange={setSelectedTimeRange}>
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="24h">Last 24h</SelectItem>
+              <SelectItem value="7d">Last 7 days</SelectItem>
+              <SelectItem value="30d">Last 30 days</SelectItem>
+              <SelectItem value="90d">Last 90 days</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 mr-2" />
+            Export
           </Button>
         </div>
       </div>
 
-      {/* System Overview Cards */}
-      <div className="grid gap-6 md:grid-cols-4">
-        <Card className="border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-blue-600">Active Agents</p>
-                <p className="text-3xl font-bold text-blue-700">{activeAgents}/{agentMetrics?.length || 0}</p>
-              </div>
-              <Robot className="h-8 w-8 text-blue-500" />
-            </div>
-          </CardContent>
-        </Card>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="overview" className="modern-tab-trigger">
+            <Activity className="h-4 w-4 mr-2" />
+            Overview
+          </TabsTrigger>
+          <TabsTrigger value="comparison" className="modern-tab-trigger">
+            <ChartBar className="h-4 w-4 mr-2" />
+            Comparison
+          </TabsTrigger>
+          <TabsTrigger value="ab-testing" className="modern-tab-trigger">
+            <Target className="h-4 w-4 mr-2" />
+            A/B Testing
+          </TabsTrigger>
+          <TabsTrigger value="insights" className="modern-tab-trigger">
+            <Eye className="h-4 w-4 mr-2" />
+            Insights
+          </TabsTrigger>
+        </TabsList>
 
-        <Card className="border-l-4 border-l-green-500 bg-gradient-to-r from-green-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-green-600">Total Actions</p>
-                <p className="text-3xl font-bold text-green-700">{totalActions.toLocaleString()}</p>
-              </div>
-              <Activity className="h-8 w-8 text-green-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-purple-500 bg-gradient-to-r from-purple-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-purple-600">Avg Success Rate</p>
-                <p className="text-3xl font-bold text-purple-700">{avgSuccessRate.toFixed(1)}%</p>
-              </div>
-              <Target className="h-8 w-8 text-purple-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-red-500 bg-gradient-to-r from-red-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-red-600">Total Errors</p>
-                <p className="text-3xl font-bold text-red-700">{errorCount}</p>
-              </div>
-              <Warning className="h-8 w-8 text-red-500" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Agent Performance Grid */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        {(agentMetrics || []).map((agent) => (
-          <Card key={agent.id} className="hover:shadow-lg transition-all">
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center">
-                    <Robot className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{agent.name}</CardTitle>
-                    <CardDescription className="flex items-center gap-2">
-                      {getAutomationIcon(agent.automationLevel)}
-                      <span className="capitalize">{agent.automationLevel} mode</span>
-                    </CardDescription>
-                  </div>
-                </div>
-                <Badge className={getStatusColor(agent.status)}>
-                  {getStatusIcon(agent.status)}
-                  <span className="ml-1 capitalize">{agent.status}</span>
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="p-3 bg-muted/50 rounded-lg">
-                  <div className="text-lg font-bold text-primary">{agent.actionsToday}</div>
-                  <div className="text-xs text-muted-foreground">Actions Today</div>
-                </div>
-                <div className="p-3 bg-muted/50 rounded-lg">
-                  <div className="text-lg font-bold text-green-600">{agent.successRate}%</div>
-                  <div className="text-xs text-muted-foreground">Success Rate</div>
-                </div>
-                <div className="p-3 bg-muted/50 rounded-lg">
-                  <div className="text-lg font-bold text-blue-600">{agent.efficiency}%</div>
-                  <div className="text-xs text-muted-foreground">Efficiency</div>
-                </div>
-              </div>
-
-              {/* Performance Indicators */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    Response Time
-                  </span>
-                  <span className="font-medium">{agent.avgResponseTime}s</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-2">
-                    <TrendUp className="h-4 w-4" />
-                    Last Hour
-                  </span>
-                  <span className="font-medium">{agent.actionsLastHour} actions</span>
-                </div>
-                {agent.errorCount > 0 && (
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-2 text-red-600">
-                      <Warning className="h-4 w-4" />
-                      Errors Today
-                    </span>
-                    <span className="font-medium text-red-600">{agent.errorCount}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Resource Usage */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span>CPU Usage</span>
-                  <span className="font-medium">{agent.resourceUsage.cpu}%</span>
-                </div>
-                <div className="w-full bg-secondary rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all" 
-                    style={{ width: `${agent.resourceUsage.cpu}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span>Memory</span>
-                  <span className="font-medium">{agent.resourceUsage.memory}%</span>
-                </div>
-                <div className="w-full bg-secondary rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all" 
-                    style={{ width: `${agent.resourceUsage.memory}%` }}
-                  />
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-2 pt-2">
-                <Button size="sm" variant="outline" className="flex-1">
-                  <Eye className="h-3 w-3 mr-1" />
-                  View Details
-                </Button>
-                <Button size="sm" variant="outline">
-                  {agent.status === 'active' ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
-                </Button>
-                <Button size="sm" variant="outline">
-                  <ArrowsClockwise className="h-3 w-3" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* System Health Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Gauge className="h-5 w-5" />
-            System Health Summary
-          </CardTitle>
-          <CardDescription>Overall agent ecosystem performance and health indicators</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="space-y-4">
-              <h4 className="font-semibold text-green-700">Performing Well</h4>
-              <div className="space-y-2">
-                {(agentMetrics || []).filter(a => a.efficiency > 85 && a.status === 'active').map(agent => (
-                  <div key={agent.id} className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                    <span className="text-sm font-medium">{agent.name}</span>
-                    <Badge className="bg-green-100 text-green-800">{agent.efficiency}%</Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold text-yellow-700">Needs Attention</h4>
-              <div className="space-y-2">
-                {(agentMetrics || []).filter(a => a.efficiency <= 85 && a.efficiency > 70).map(agent => (
-                  <div key={agent.id} className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
-                    <span className="text-sm font-medium">{agent.name}</span>
-                    <Badge className="bg-yellow-100 text-yellow-800">{agent.efficiency}%</Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-semibold text-red-700">Critical Issues</h4>
-              <div className="space-y-2">
-                {(agentMetrics || []).filter(a => a.efficiency <= 70 || a.status === 'error').map(agent => (
-                  <div key={agent.id} className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
-                    <span className="text-sm font-medium">{agent.name}</span>
-                    <Badge className="bg-red-100 text-red-800">
-                      {agent.status === 'error' ? 'Error' : `${agent.efficiency}%`}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <TabsContent value="overview" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {(performanceData || []).map(metric => (
+              <MetricCard key={metric.id} metric={metric} />
+            ))}
           </div>
-        </CardContent>
-      </Card>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ChartLine className="h-5 w-5" />
+                  Performance Trends
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {AGENT_TYPES.slice(0, 4).map(agent => (
+                    <div key={agent.id} className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>{agent.name}</span>
+                        <span className="text-muted-foreground">
+                          {Math.floor(Math.random() * 40 + 60)}%
+                        </span>
+                      </div>
+                      <Progress 
+                        value={Math.floor(Math.random() * 40 + 60)} 
+                        className="h-2"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Lightning className="h-5 w-5" />
+                  Real-time Activity
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    "Pricing agent updated 24 product prices",
+                    "Chat agent handled 15 customer inquiries",
+                    "Listing agent generated 8 new descriptions",
+                    "Review agent analyzed 12 customer reviews"
+                  ].map((activity, index) => (
+                    <div key={index} className="flex items-center gap-3 text-sm">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      <span className="text-muted-foreground">
+                        {activity}
+                      </span>
+                      <span className="text-xs text-muted-foreground ml-auto">
+                        {index + 1}m ago
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="comparison" className="space-y-6">
+          <div className="flex items-center gap-4 mb-6">
+            <Select value={selectedAgent} onValueChange={setSelectedAgent}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Select agent type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Agents</SelectItem>
+                {AGENT_TYPES.map(agent => (
+                  <SelectItem key={agent.id} value={agent.id}>
+                    {agent.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button variant="outline" size="sm">
+              <Funnel className="h-4 w-4 mr-2" />
+              Filter
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {AGENT_TYPES.slice(0, 6).map(agent => (
+              <Card key={agent.id}>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg">{agent.name}</CardTitle>
+                  <CardDescription>
+                    Performance metrics comparison
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-muted-foreground">Success Rate</p>
+                        <p className="text-xl font-bold text-green-600">
+                          {Math.floor(Math.random() * 20 + 75)}%
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-muted-foreground">Avg. Time</p>
+                        <p className="text-xl font-bold">
+                          {(Math.random() * 2 + 0.5).toFixed(1)}s
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Efficiency</span>
+                        <span>{Math.floor(Math.random() * 30 + 70)}%</span>
+                      </div>
+                      <Progress value={Math.floor(Math.random() * 30 + 70)} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="ab-testing" className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-semibold">A/B Test Management</h3>
+            <Button onClick={() => setShowCreateTest(true)}>
+              <Rocket className="h-4 w-4 mr-2" />
+              Create New Test
+            </Button>
+          </div>
+
+          {showCreateTest && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Create A/B Test</CardTitle>
+                <CardDescription>
+                  Set up a new test to compare agent variants
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="test-name">Test Name</Label>
+                    <Input
+                      id="test-name"
+                      placeholder="Enter test name"
+                      value={newTest.name || ""}
+                      onChange={(e) => setNewTest(prev => ({ ...prev, name: e.target.value }))}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="agent-type">Agent Type</Label>
+                    <Select 
+                      value={newTest.agentType || ""} 
+                      onValueChange={(value) => setNewTest(prev => ({ ...prev, agentType: value }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select agent type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {AGENT_TYPES.map(agent => (
+                          <SelectItem key={agent.id} value={agent.id}>
+                            {agent.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="variant-a">Variant A Description</Label>
+                  <Textarea
+                    id="variant-a"
+                    placeholder="Describe the first variant"
+                    value={newTest.variantA || ""}
+                    onChange={(e) => setNewTest(prev => ({ ...prev, variantA: e.target.value }))}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="variant-b">Variant B Description</Label>
+                  <Textarea
+                    id="variant-b"
+                    placeholder="Describe the second variant"
+                    value={newTest.variantB || ""}
+                    onChange={(e) => setNewTest(prev => ({ ...prev, variantB: e.target.value }))}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="traffic-split">Traffic Split (%)</Label>
+                  <Input
+                    id="traffic-split"
+                    type="number"
+                    min="10"
+                    max="90"
+                    value={newTest.trafficSplit || 50}
+                    onChange={(e) => setNewTest(prev => ({ ...prev, trafficSplit: parseInt(e.target.value) }))}
+                  />
+                </div>
+                
+                <div className="flex gap-2">
+                  <Button onClick={createABTest}>Create Test</Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowCreateTest(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="space-y-4">
+            {(abTests || []).map(test => (
+              <Card key={test.id}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-lg">{test.name}</CardTitle>
+                      <CardDescription>
+                        {AGENT_TYPES.find(a => a.id === test.agentType)?.name} • Started {test.startDate}
+                      </CardDescription>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {getStatusBadge(test.status)}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => toggleTestStatus(test.id)}
+                      >
+                        {test.status === "running" ? (
+                          <Pause className="h-4 w-4" />
+                        ) : (
+                          <Play className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Test Variants</h4>
+                      <div className="space-y-3">
+                        <div className="p-3 border rounded-lg">
+                          <p className="font-medium text-sm text-blue-600">Variant A</p>
+                          <p className="text-sm text-muted-foreground">{test.variantA}</p>
+                        </div>
+                        <div className="p-3 border rounded-lg">
+                          <p className="font-medium text-sm text-green-600">Variant B</p>
+                          <p className="text-sm text-muted-foreground">{test.variantB}</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-medium">Results</h4>
+                        <Badge variant="outline">
+                          {test.confidence}% confidence
+                        </Badge>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div className="space-y-2">
+                          <p className="text-muted-foreground">Variant A</p>
+                          <div className="space-y-1">
+                            <p>Conversions: {test.metrics.conversions.a}</p>
+                            <p>Revenue: €{test.metrics.revenue.a}</p>
+                            <p>Rate: {((test.metrics.conversions.a / Math.max(test.metrics.clicks.a, 1)) * 100).toFixed(1)}%</p>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <p className="text-muted-foreground">Variant B</p>
+                          <div className="space-y-1">
+                            <p>Conversions: {test.metrics.conversions.b}</p>
+                            <p>Revenue: €{test.metrics.revenue.b}</p>
+                            <p>Rate: {((test.metrics.conversions.b / Math.max(test.metrics.clicks.b, 1)) * 100).toFixed(1)}%</p>
+                          </div>
+                        </div>
+                      </div>
+                      {test.winner && (
+                        <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                          <p className="text-sm font-medium text-green-800">
+                            Winner: {test.winner}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="insights" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Eye className="h-5 w-5" />
+                  Performance Insights
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <div className="p-4 border-l-4 border-green-500 bg-green-50">
+                    <p className="font-medium text-green-800">High Performance</p>
+                    <p className="text-sm text-green-600">
+                      Chat agents are performing 23% above baseline this week
+                    </p>
+                  </div>
+                  <div className="p-4 border-l-4 border-yellow-500 bg-yellow-50">
+                    <p className="font-medium text-yellow-800">Needs Attention</p>
+                    <p className="text-sm text-yellow-600">
+                      Pricing agent response time increased by 15%
+                    </p>
+                  </div>
+                  <div className="p-4 border-l-4 border-blue-500 bg-blue-50">
+                    <p className="font-medium text-blue-800">Opportunity</p>
+                    <p className="text-sm text-blue-600">
+                      A/B test shows 18% improvement potential for listing agents
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Rocket className="h-5 w-5" />
+                  Recommendations
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <div className="p-3 border rounded-lg">
+                    <p className="font-medium text-sm">Optimize Pricing Logic</p>
+                    <p className="text-xs text-muted-foreground">
+                      Consider implementing the winning variant from Test #2
+                    </p>
+                    <Button size="sm" className="mt-2">
+                      Apply Changes
+                    </Button>
+                  </div>
+                  <div className="p-3 border rounded-lg">
+                    <p className="font-medium text-sm">Scale Chat Agents</p>
+                    <p className="text-xs text-muted-foreground">
+                      Increase capacity during peak hours (2-6 PM)
+                    </p>
+                    <Button size="sm" variant="outline" className="mt-2">
+                      View Details
+                    </Button>
+                  </div>
+                  <div className="p-3 border rounded-lg">
+                    <p className="font-medium text-sm">Train Listing Model</p>
+                    <p className="text-xs text-muted-foreground">
+                      Retrain with latest product data for better accuracy
+                    </p>
+                    <Button size="sm" variant="outline" className="mt-2">
+                      Schedule Training
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
