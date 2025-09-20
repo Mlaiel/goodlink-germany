@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useKV } from "@github/spark/hooks"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -121,56 +121,73 @@ export function InventorySyncDashboard() {
   }
 
   const getSyncMetrics = () => {
-    const totalItems = inventoryItems?.length || 0
-    const syncedItems = inventoryItems?.filter(item => item.syncStatus === 'synced').length || 0
-    const pendingItems = inventoryItems?.filter(item => item.syncStatus === 'pending').length || 0
-    const errorItems = inventoryItems?.filter(item => item.syncStatus === 'error').length || 0
-    const syncRate = totalItems > 0 ? Math.round((syncedItems / totalItems) * 100) : 100
+    try {
+      const items = inventoryItems || []
+      const totalItems = items.length
+      const syncedItems = items.filter(item => item && item.syncStatus === 'synced').length
+      const pendingItems = items.filter(item => item && item.syncStatus === 'pending').length
+      const errorItems = items.filter(item => item && item.syncStatus === 'error').length
+      const syncRate = totalItems > 0 ? Math.round((syncedItems / totalItems) * 100) : 100
 
-    return { totalItems, syncedItems, pendingItems, errorItems, syncRate }
+      return { totalItems, syncedItems, pendingItems, errorItems, syncRate }
+    } catch (error) {
+      console.error('Error calculating sync metrics:', error)
+      return { totalItems: 0, syncedItems: 0, pendingItems: 0, errorItems: 0, syncRate: 0 }
+    }
   }
 
   const metrics = getSyncMetrics()
 
   const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'synced': return <CheckCircle className="h-4 w-4 text-green-600" />
-      case 'pending': return <Clock className="h-4 w-4 text-yellow-600" />
-      case 'error': return <XCircle className="h-4 w-4 text-red-600" />
-      default: return <Warning className="h-4 w-4 text-gray-400" />
+    try {
+      switch (status) {
+        case 'synced': return <CheckCircle className="h-4 w-4 text-green-600" />
+        case 'pending': return <Clock className="h-4 w-4 text-yellow-600" />
+        case 'error': return <XCircle className="h-4 w-4 text-red-600" />
+        default: return <Warning className="h-4 w-4 text-gray-400" />
+      }
+    } catch (error) {
+      console.error('Error getting status icon:', error)
+      return <Warning className="h-4 w-4 text-gray-400" />
     }
   }
 
   const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'synced': return 'bg-green-100 text-green-800 border-green-200'
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-      case 'error': return 'bg-red-100 text-red-800 border-red-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+    try {
+      switch (status) {
+        case 'synced': return 'bg-green-100 text-green-800 border-green-200'
+        case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+        case 'error': return 'bg-red-100 text-red-800 border-red-200'
+        default: return 'bg-gray-100 text-gray-800 border-gray-200'
+      }
+    } catch (error) {
+      console.error('Error getting status color:', error)
+      return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
 
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Database className="h-6 w-6" />
-            Real-Time Inventory Sync
-          </h2>
-          <p className="text-muted-foreground">Unified inventory management across all marketplaces</p>
+  try {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Database className="h-6 w-6" />
+              Real-Time Inventory Sync
+            </h2>
+            <p className="text-muted-foreground">Unified inventory management across all marketplaces</p>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={handleManualSync}>
+              <ArrowsClockwise className="h-4 w-4 mr-2" />
+              Manual Sync
+            </Button>
+            <Button variant="outline" onClick={handleBulkUpdate}>
+              <Lightning className="h-4 w-4 mr-2" />
+              Bulk Update
+            </Button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Button onClick={handleManualSync}>
-            <ArrowsClockwise className="h-4 w-4 mr-2" />
-            Manual Sync
-          </Button>
-          <Button variant="outline" onClick={handleBulkUpdate}>
-            <Lightning className="h-4 w-4 mr-2" />
-            Bulk Update
-          </Button>
-        </div>
-      </div>
 
       {/* KPI Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -242,66 +259,70 @@ export function InventorySyncDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {inventoryItems?.map((item) => (
-                  <div key={item.id} className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">{item.name}</span>
-                          <Badge variant="outline" className="font-mono text-xs">{item.sku}</Badge>
-                          <Badge className={`text-xs ${getStatusColor(item.syncStatus)}`}>
-                            {getStatusIcon(item.syncStatus)}
-                            {item.syncStatus}
-                          </Badge>
+                {(inventoryItems || []).map((item) => {
+                  if (!item) return null
+                  
+                  return (
+                    <div key={item.id} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium">{item.name || 'Unknown Product'}</span>
+                            <Badge variant="outline" className="font-mono text-xs">{item.sku || 'N/A'}</Badge>
+                            <Badge className={`text-xs ${getStatusColor(item.syncStatus || 'unknown')}`}>
+                              {getStatusIcon(item.syncStatus || 'unknown')}
+                              {item.syncStatus || 'unknown'}
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            Last sync: {item.lastSync ? new Date(item.lastSync).toLocaleString() : 'Never'}
+                          </p>
                         </div>
-                        <p className="text-sm text-muted-foreground">
-                          Last sync: {new Date(item.lastSync).toLocaleString()}
-                        </p>
+                        <div className="text-right">
+                          <div className="text-lg font-bold">{item.currentStock || 0}</div>
+                          <p className="text-sm text-muted-foreground">Current Stock</p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold">{item.currentStock}</div>
-                        <p className="text-sm text-muted-foreground">Current Stock</p>
-                      </div>
-                    </div>
 
-                    <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-6">
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="text-sm font-medium">Amazon</div>
-                        <div className="text-lg font-bold">{item.marketplaceStock.amazon || 0}</div>
+                      <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-6">
+                        <div className="text-center p-2 bg-muted rounded">
+                          <div className="text-sm font-medium">Amazon</div>
+                          <div className="text-lg font-bold">{item.marketplaceStock?.amazon || 0}</div>
+                        </div>
+                        <div className="text-center p-2 bg-muted rounded">
+                          <div className="text-sm font-medium">eBay</div>
+                          <div className="text-lg font-bold">{item.marketplaceStock?.ebay || 0}</div>
+                        </div>
+                        <div className="text-center p-2 bg-muted rounded">
+                          <div className="text-sm font-medium">OTTO</div>
+                          <div className="text-lg font-bold">{item.marketplaceStock?.otto || 0}</div>
+                        </div>
+                        <div className="text-center p-2 bg-muted rounded">
+                          <div className="text-sm font-medium">Kaufland</div>
+                          <div className="text-lg font-bold">-</div>
+                        </div>
+                        <div className="text-center p-2 bg-muted rounded">
+                          <div className="text-sm font-medium">bol.com</div>
+                          <div className="text-lg font-bold">-</div>
+                        </div>
+                        <div className="text-center p-2 bg-muted rounded">
+                          <div className="text-sm font-medium">Cdiscount</div>
+                          <div className="text-lg font-bold">-</div>
+                        </div>
                       </div>
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="text-sm font-medium">eBay</div>
-                        <div className="text-lg font-bold">{item.marketplaceStock.ebay || 0}</div>
-                      </div>
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="text-sm font-medium">OTTO</div>
-                        <div className="text-lg font-bold">{item.marketplaceStock.otto || 0}</div>
-                      </div>
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="text-sm font-medium">Kaufland</div>
-                        <div className="text-lg font-bold">-</div>
-                      </div>
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="text-sm font-medium">bol.com</div>
-                        <div className="text-lg font-bold">-</div>
-                      </div>
-                      <div className="text-center p-2 bg-muted rounded">
-                        <div className="text-sm font-medium">Cdiscount</div>
-                        <div className="text-lg font-bold">-</div>
-                      </div>
-                    </div>
 
-                    <div className="flex justify-end gap-2 mt-3">
-                      <Button size="sm" variant="outline">
-                        <ArrowsClockwise className="h-4 w-4 mr-1" />
-                        Sync Now
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        Update Stock
-                      </Button>
+                      <div className="flex justify-end gap-2 mt-3">
+                        <Button size="sm" variant="outline">
+                          <ArrowsClockwise className="h-4 w-4 mr-1" />
+                          Sync Now
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          Update Stock
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </CardContent>
           </Card>
@@ -317,38 +338,42 @@ export function InventorySyncDashboard() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {syncRules?.map((rule) => (
-              <Card key={rule.id}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base">{rule.name}</CardTitle>
-                    <Badge variant={rule.enabled ? "default" : "secondary"}>
-                      {rule.enabled ? <Play className="h-3 w-3 mr-1" /> : <Pause className="h-3 w-3 mr-1" />}
-                      {rule.enabled ? 'Active' : 'Inactive'}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="space-y-2 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">Trigger:</span>
-                      <div className="font-mono text-xs bg-muted p-1 rounded mt-1">{rule.trigger}</div>
+            {(syncRules || []).map((rule) => {
+              if (!rule) return null
+              
+              return (
+                <Card key={rule.id}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base">{rule.name || 'Unnamed Rule'}</CardTitle>
+                      <Badge variant={rule.enabled ? "default" : "secondary"}>
+                        {rule.enabled ? <Play className="h-3 w-3 mr-1" /> : <Pause className="h-3 w-3 mr-1" />}
+                        {rule.enabled ? 'Active' : 'Inactive'}
+                      </Badge>
                     </div>
-                    <div>
-                      <span className="text-muted-foreground">Action:</span>
-                      <div className="text-xs mt-1">{rule.action}</div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Trigger:</span>
+                        <div className="font-mono text-xs bg-muted p-1 rounded mt-1">{rule.trigger || 'Not set'}</div>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Action:</span>
+                        <div className="text-xs mt-1">{rule.action || 'No action'}</div>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Frequency:</span>
+                        <span className="ml-1 text-xs capitalize">{rule.frequency || 'unknown'}</span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-muted-foreground">Frequency:</span>
-                      <span className="ml-1 text-xs capitalize">{rule.frequency}</span>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="sm" className="w-full">
-                    Configure
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                    <Button variant="ghost" size="sm" className="w-full">
+                      Configure
+                    </Button>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
         </TabsContent>
 
@@ -447,4 +472,18 @@ export function InventorySyncDashboard() {
       </Tabs>
     </div>
   )
+  } catch (error) {
+    console.error('InventorySyncDashboard error:', error)
+    return (
+      <div className="flex items-center justify-center h-64 text-center">
+        <div className="space-y-2">
+          <Warning className="h-8 w-8 text-orange-500 mx-auto" />
+          <p className="text-muted-foreground">Error loading inventory sync dashboard</p>
+          <Button variant="outline" onClick={() => window.location.reload()}>
+            Refresh Page
+          </Button>
+        </div>
+      </div>
+    )
+  }
 }
