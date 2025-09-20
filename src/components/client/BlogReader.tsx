@@ -144,32 +144,35 @@ export function BlogReader() {
   const [blogPosts] = useKV<BlogPost[]>("blog-posts", [
     {
       id: "1",
-      title: "Die Zukunft des E-Commerce: KI-gesteuerte Lösungen",
-      slug: "zukunft-ecommerce-ki-loesungen",
-      content: `Der E-Commerce-Sektor erlebt eine Revolution durch künstliche Intelligenz. Von automatisierten Kundenbetreuung bis hin zu personalisierten Produktempfehlungen - KI transformiert die Art, wie wir online einkaufen und verkaufen.
+      title: "Medizinprodukte zwischen Europa und China: Regulatorische Compliance",
+      slug: "medizinprodukte-europa-china-compliance",
+      content: `Als Brücke zwischen Europa und China spielt Goodlink Germany eine entscheidende Rolle bei der Navigation komplexer Regulierungslandschaften für Medizinprodukte.
 
-## Hauptvorteile von KI im E-Commerce
+## MDR-Compliance für chinesische Hersteller
 
-### 1. Personalisierte Kundenerfahrung
-KI-Algorithmen analysieren das Kundenverhalten und bieten maßgeschneiderte Produktvorschläge, die die Conversion-Rate erheblich steigern können.
+### CE-Kennzeichnung und Notified Bodies
+Die Medical Device Regulation (MDR) erfordert strenge Konformitätsbewertungen. Unsere Expertise hilft chinesischen Herstellern bei:
+- Auswahl der richtigen Notified Body
+- Technische Dokumentation nach MDR
+- Klinische Bewertungen und Post-Market Surveillance
 
-### 2. Automatisierte Kundenbetreuung
-Chatbots und virtuelle Assistenten können 24/7 Kundenfragen beantworten und einfache Probleme lösen, wodurch die Kundenzufriedenheit steigt.
+### Qualitätsmanagement-Systeme
+ISO 13485 Zertifizierung ist essentiell für den EU-Marktzugang:
+- Implementierung von QM-Systemen
+- Risikomanagement nach ISO 14971
+- Biokompatibilitätsprüfungen
 
-### 3. Optimierte Preisgestaltung
-Dynamische Preisalgorithmen helfen dabei, Preise basierend auf Nachfrage, Konkurrenz und anderen Marktfaktoren anzupassen.
+## Unsere Standorte und Expertise
 
-## Implementierung in der Praxis
+Mit Büros in Shenzhen, Shanghai, Changsha und Hong Kong sowie unserem deutschen Hauptsitz in Köln bieten wir:
+- Lokale Unterstützung in China
+- EU-Marktexpertise
+- Kulturelle Brückenfunktion
+- 20 Jahre Erfahrung im Medizinbereich
 
-Erfolgreiche E-Commerce-Unternehmen nutzen KI bereits in verschiedenen Bereichen:
-- Produktempfehlungen
-- Bestandsmanagement  
-- Betrugsbekämpfung
-- Content-Generierung
-- Kundensegmentierung
-
-Die Zukunft des E-Commerce liegt in der intelligenten Automatisierung, die menschliche Intuition mit maschineller Präzision kombiniert.`,
-      excerpt: "Entdecken Sie, wie künstliche Intelligenz den Online-Handel transformiert und welche Vorteile KI-gesteuerte Lösungen für E-Commerce-Unternehmen bieten.",
+## Erfolgsgeschichten
+Seit 2004 haben wir über 800 Medizinprodukte erfolgreich auf den europäischen Markt gebracht, von einfachen Kabeln bis zu komplexen diagnostischen Geräten.`,
+      excerpt: "Wie Goodlink Germany chinesische Medizinprodukt-Hersteller beim EU-Markteintritt unterstützt. 20 Jahre Expertise in Compliance und Qualitätsmanagement.",
       language: 'de',
       status: 'published',
       publishDate: new Date(),
@@ -177,48 +180,52 @@ Die Zukunft des E-Commerce liegt in der intelligenten Automatisierung, die mensc
       likes: 89,
       comments: 23,
       seoScore: 92,
-      keywords: ["E-Commerce", "KI", "Online-Handel", "Automatisierung", "Digitalisierung"],
-      category: "Technology",
+      keywords: ["Medizinprodukte", "MDR", "CE-Kennzeichnung", "China-Europa", "Compliance"],
+      category: "Medical",
       isAIGenerated: true,
-      author: "AI Content Generator",
+      author: "Goodlink Medical Expert",
       readTime: 5
     },
     {
       id: "2",
-      title: "The Future of Cross-Border E-Commerce",
-      slug: "future-cross-border-ecommerce",
-      content: `Global e-commerce is expanding rapidly, with cross-border online sales expected to reach $4.8 trillion by 2026. This growth presents both opportunities and challenges for businesses looking to expand internationally.
+      title: "Automotive Component Sourcing: Bridging Germany and China",
+      slug: "automotive-component-sourcing-germany-china",
+      content: `Goodlink Germany's automotive division leverages two decades of experience connecting European OEMs with Chinese suppliers, ensuring quality and compliance across complex supply chains.
 
-## Key Trends Shaping Cross-Border Commerce
+## Our Automotive Expertise
 
-### 1. Mobile-First Approach
-With mobile commerce accounting for over 70% of online purchases in many markets, optimizing for mobile is crucial for international success.
+### Component Categories
+With 600+ automotive components in our portfolio:
+- Electric motors and actuators
+- Sensors and control units
+- Wiring harnesses and connectors
+- Mechanical components and castors
 
-### 2. Localization Beyond Translation
-Success requires understanding local cultures, payment preferences, and shopping behaviors, not just translating content.
+### Quality Assurance
+Our multi-location presence ensures:
+- On-site quality inspections in Shenzhen and Shanghai
+- EMC/ROHS compliance testing
+- Supplier audits and certification
+- Continuous monitoring and improvement
 
-### 3. Logistics Innovation
-Advanced fulfillment networks and partnerships are making international shipping faster and more affordable.
+## Strategic Locations
 
-## Overcoming Common Challenges
+### China Operations
+- **Shenzhen**: Electronics and sensors hub
+- **Shanghai**: Advanced manufacturing base
+- **Hong Kong**: International trade gateway
+- **Changsha**: Cost-effective production center
 
-### Regulatory Compliance
-- Understanding local tax requirements
-- Meeting consumer protection laws
-- Handling data privacy regulations like GDPR
+### German Headquarters
+Located in Cologne, our European team provides:
+- Technical support in German and English
+- Local customer service
+- Supply chain management
+- Regulatory compliance
 
-### Payment Processing
-- Offering local payment methods
-- Managing currency conversions
-- Ensuring secure transactions
-
-### Customer Trust
-- Building credibility in new markets
-- Providing local customer support
-- Handling returns and disputes effectively
-
-The businesses that succeed in cross-border e-commerce are those that combine global scalability with local relevance.`,
-      excerpt: "Explore emerging trends in international online marketplace strategies and learn how to navigate the complexities of cross-border e-commerce.",
+## Success Metrics
+€93M revenue in 2023 demonstrates our ability to deliver value across 500+ B2B partnerships while maintaining the highest quality standards.`,
+      excerpt: "Discover how Goodlink Germany's automotive division connects European OEMs with Chinese suppliers through strategic locations and quality assurance.",
       language: 'en',
       status: 'published',
       publishDate: new Date(Date.now() - 86400000),
@@ -226,45 +233,52 @@ The businesses that succeed in cross-border e-commerce are those that combine gl
       likes: 67,
       comments: 15,
       seoScore: 88,
-      keywords: ["Cross-border", "International", "Marketplace", "Global Trade", "E-commerce"],
-      category: "Business",
+      keywords: ["Automotive", "Sourcing", "OEM", "Supply Chain", "Germany-China"],
+      category: "Automotive",
       isAIGenerated: true,
-      author: "Global Commerce Expert",
+      author: "Automotive Industry Expert",
       readTime: 7
     },
     {
       id: "3",
-      title: "跨境电商的人工智能解决方案",
-      slug: "kuajing-dianshang-ai-jiejuefangan",
-      content: `人工智能正在改变跨境电商的运营方式。从智能翻译到动态定价，AI技术帮助企业更好地服务全球客户。
+      title: "连接器和线束：德中汽车合作的关键组件",
+      slug: "lianjieqi-xianshu-dezhong-qiche-hezuo",
+      content: `作为始于2004年的专业贸易公司，好联德国在连接器和线束领域拥有深厚的专业知识，为欧洲和中国汽车产业搭建桥梁。
 
-## AI在跨境电商中的应用
+## 我们的产品优势
 
-### 1. 智能翻译与本地化
-- 实时内容翻译
-- 文化适应性调整
-- 多语言客户服务
+### 核心产品线
+- 汽车连接器：500+变体
+- 线束组件：定制化生产
+- 电气系统：符合欧标
+- 传感器：高精度检测
 
-### 2. 智能定价策略
-- 根据市场需求调整价格
-- 竞争对手价格监控
-- 汇率波动优化
+### 质量保证体系
+我们在多个城市的布局确保：
+- 深圳：电子元件检测中心
+- 上海：先进制造基地
+- 香港：国际贸易枢纽
+- 长沙：成本优化生产
 
-### 3. 客户行为分析
-- 购买模式识别
-- 个性化推荐
-- 客户生命周期管理
+## 文化桥梁价值
 
-## 技术实施要点
+### 专业团队
+78名员工分布在四个中国城市，提供：
+- 多语言技术支持（德语、英语、中文）
+- 本地化服务体验
+- 跨文化沟通专长
+- 可靠的合作关系
 
-成功的跨境电商AI系统需要：
-- 多语言数据处理能力
-- 实时市场分析
-- 文化敏感性算法
-- 合规性检查机制
+### 合规标准
+严格遵循：
+- EMC/ROHS欧洲标准
+- 汽车行业质量体系
+- 环保要求和认证
+- 供应链可追溯性
 
-通过合理运用AI技术，跨境电商企业可以在激烈的国际竞争中获得显著优势。`,
-      excerpt: "了解AI如何优化国际电商业务流程，提升跨境贸易效率。",
+## 市场成就
+2023年营收达9300万欧元，反映了我们在建立可靠合作伙伴关系和实现持续增长方面的专业能力。`,
+      excerpt: "了解好联德国如何利用20年专业经验，在连接器和线束领域为德中汽车合作提供专业桥梁服务。",
       language: 'zh',
       status: 'published',
       publishDate: new Date(Date.now() - 172800000),
@@ -272,11 +286,187 @@ The businesses that succeed in cross-border e-commerce are those that combine gl
       likes: 45,
       comments: 12,
       seoScore: 85,
-      keywords: ["跨境电商", "人工智能", "自动化", "优化", "国际贸易"],
-      category: "Technology",
+      keywords: ["连接器", "线束", "汽车", "德中合作", "质量保证"],
+      category: "Automotive",
       isAIGenerated: true,
-      author: "技术专家",
+      author: "汽车行业专家",
       readTime: 6
+    },
+    {
+      id: "4",
+      title: "20 Jahre Goodlink: Von Kabeln zu komplexen Systemlösungen",
+      slug: "20-jahre-goodlink-kabel-systemloesungen",
+      content: `Die Entwicklung von Goodlink China seit 2004 spiegelt die Transformation der deutsch-chinesischen Handelsbeziehungen wider. Was als Kabel- und Steckverbinder-Geschäft begann, ist heute ein umfassendes Netzwerk für Medizin- und Automobiltechnik.
+
+## Unternehmensevolution
+
+### Die Anfänge (2004-2010)
+- Fokus auf Kabel und Steckverbinder
+- Aufbau des Lieferantennetzwerks in Shenzhen
+- Erste Automotive-Partnerschaften
+
+### Expansion (2010-2020)
+- Medizintechnik-Division
+- Shanghai und Changsha Standorte
+- Erweiterte Produktpalette: Motoren, Rollen, Sensoren
+
+### Goodlink Germany (2020-heute)
+- Europäische Tochtergesellschaft in Köln
+- Deutsche Anteilseigner und Management
+- B2B-Plattform für 500+ Partner
+
+## Kulturelle Brückenfunktion
+
+### Unsere Philosophie
+- Persönliche Beziehungen als Geschäftsbasis
+- Realistische und ehrliche Kommunikation
+- Bewusstsein für kulturelle Unterschiede
+- Brücken bauen zwischen den Kulturen
+
+### Team-Stärke
+78 Mitarbeiter in vier chinesischen Städten, vereint durch:
+- Gemeinsame Werte
+- Qualitätsbewusstsein
+- Kundenorientierung
+- Langfristige Partnerschaften
+
+## Zukunftsausblick
+Mit der digitalen Transformation und neuen Technologien wie E-Mobilität und Medizin 4.0 positioniert sich Goodlink als Innovationspartner für die nächsten 20 Jahre.`,
+      excerpt: "Die 20-jährige Erfolgsgeschichte von Goodlink: Von einfachen Kabeln zu komplexen Medizin- und Automotive-Lösungen zwischen Deutschland und China.",
+      language: 'de',
+      status: 'published',
+      publishDate: new Date(Date.now() - 259200000),
+      views: 1156,
+      likes: 78,
+      comments: 34,
+      seoScore: 90,
+      keywords: ["Goodlink", "20 Jahre", "Deutschland-China", "Unternehmensentwicklung", "Automotive"],
+      category: "Company",
+      isAIGenerated: true,
+      author: "Goodlink Management",
+      readTime: 8
+    },
+    {
+      id: "5",
+      title: "Medical Device Innovation: China-Europe Technology Transfer",
+      slug: "medical-device-innovation-china-europe-transfer",
+      content: `The medical technology landscape between China and Europe is rapidly evolving. Goodlink Germany facilitates crucial technology transfers while ensuring regulatory compliance and quality standards.
+
+## Innovation Corridors
+
+### Shenzhen Medical Tech Hub
+Our Shenzhen Good-Link Medical Tech division specializes in:
+- Diagnostic equipment components
+- Therapeutic device assemblies
+- Digital health connectors
+- Biocompatible materials
+
+### Shanghai Advanced Manufacturing
+Shanghai Good-Link Medical Tech focuses on:
+- Precision manufacturing
+- Quality control systems
+- Regulatory documentation
+- Clinical trial support
+
+## Technology Transfer Excellence
+
+### Compliance Framework
+- EU MDR interpretation for Chinese manufacturers
+- FDA pathway consultation
+- Quality system implementation
+- Post-market surveillance setup
+
+### Innovation Support
+- R&D collaboration facilitation
+- IP protection strategies
+- Market entry planning
+- Partnership development
+
+## Our Warehouses Network
+Strategic inventory management across:
+- **Shenzhen**: Components and sub-assemblies
+- **Shanghai**: Finished medical devices
+- **Hong Kong**: International distribution hub
+
+## Success Stories
+Over 800 medical components successfully launched in European markets, from simple connectors to complex diagnostic systems, maintaining a 98% compliance rate.`,
+      excerpt: "How Goodlink Germany facilitates medical device innovation and technology transfer between China and Europe while ensuring regulatory compliance.",
+      language: 'en',
+      status: 'published',
+      publishDate: new Date(Date.now() - 345600000),
+      views: 723,
+      likes: 56,
+      comments: 19,
+      seoScore: 87,
+      keywords: ["Medical Innovation", "Technology Transfer", "China-Europe", "Regulatory", "Compliance"],
+      category: "Medical",
+      isAIGenerated: true,
+      author: "Medical Technology Expert",
+      readTime: 6
+    },
+    {
+      id: "6",
+      title: "供应链优化：好联德国的物流网络战略",
+      slug: "gongyinglian-youhua-haoliandeguo-wuliu-wangluo",
+      content: `作为连接中欧的桥梁，好联德国构建了覆盖深圳、上海、香港三地的仓储物流网络，为汽车和医疗设备行业提供高效供应链解决方案。
+
+## 仓储网络布局
+
+### 深圳仓储中心
+- 电子元件和连接器
+- 汽车传感器和执行器
+- 医疗设备组件
+- 快速响应华南市场
+
+### 上海物流枢纽
+- 完整产品组装
+- 质量检测中心
+- 欧洲出口准备
+- 长三角地区覆盖
+
+### 香港国际港口
+- 国际贸易便利
+- 免税仓储服务
+- 全球物流协调
+- 金融服务支持
+
+## 供应链创新
+
+### 数字化管理
+- 实时库存监控
+- 预测性补货
+- 质量追溯系统
+- 合规性文档管理
+
+### 合作伙伴网络
+- 500+ B2B合作伙伴
+- 2000+ 产品组件
+- 多元化供应商基础
+- 风险分散策略
+
+## 质量保证
+
+### 检测标准
+- CE/EMC/ROHS认证
+- ISO 13485医疗器械标准
+- 汽车行业IATF 16949
+- 持续改进机制
+
+## 成就指标
+2023年9300万欧元营收证明了我们供应链网络的效率和可靠性，为客户创造持续价值。`,
+      excerpt: "深入了解好联德国如何通过三地仓储网络优化供应链，为中欧贸易提供高效物流解决方案。",
+      language: 'zh',
+      status: 'published',
+      publishDate: new Date(Date.now() - 432000000),
+      views: 567,
+      likes: 42,
+      comments: 16,
+      seoScore: 84,
+      keywords: ["供应链", "物流网络", "仓储管理", "中欧贸易", "质量保证"],
+      category: "Logistics",
+      isAIGenerated: true,
+      author: "供应链专家",
+      readTime: 7
     }
   ])
 
@@ -351,12 +541,12 @@ The businesses that succeed in cross-border e-commerce are those that combine gl
           <Article className="h-8 w-8 text-primary" />
         </div>
         <h1 className="text-3xl font-bold">
-          {language === 'de' ? 'Wissenszentrum' : language === 'zh' ? '知识中心' : 'Knowledge Hub'}
+          {language === 'de' ? 'Goodlink Wissenszentrum' : language === 'zh' ? 'Goodlink 知识中心' : 'Goodlink Knowledge Hub'}
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          {language === 'de' ? 'Entdecken Sie Einblicke, Trends und bewährte Praktiken in E-Commerce, KI und internationalem Handel' : 
-           language === 'zh' ? '探索电商、人工智能和国际贸易的洞察、趋势和最佳实践' : 
-           'Discover insights, trends, and best practices in e-commerce, AI, and international trade'}
+          {language === 'de' ? 'Entdecken Sie Einblicke in Medizintechnik, Automotive-Komponenten und deutsch-chinesische Handelsbeziehungen' : 
+           language === 'zh' ? '探索医疗技术、汽车零部件和中德贸易关系的专业洞察' : 
+           'Discover insights in medical technology, automotive components, and Germany-China trade relations'}
         </p>
       </div>
 
@@ -383,6 +573,10 @@ The businesses that succeed in cross-border e-commerce are those that combine gl
                 <SelectItem value="all">{getText('blog.allCategories', 'All Categories')}</SelectItem>
                 {categories.map(category => (
                   <SelectItem key={category} value={category.toLowerCase()}>
+                    {category === 'Medical' && '🏥'} 
+                    {category === 'Automotive' && '🚗'} 
+                    {category === 'Company' && '🏢'} 
+                    {category === 'Logistics' && '📦'} 
                     {category}
                   </SelectItem>
                 ))}
