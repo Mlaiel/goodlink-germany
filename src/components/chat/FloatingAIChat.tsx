@@ -493,7 +493,7 @@ export function FloatingAIChat() {
                     className={`max-w-[85%] p-3 rounded-lg break-words ${
                       message.isUser
                         ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-muted-foreground'
+                        : 'bg-card border text-foreground shadow-sm'
                     }`}
                   >
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
@@ -533,7 +533,7 @@ export function FloatingAIChat() {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-muted text-muted-foreground p-3 rounded-lg max-w-[85%]">
+                  <div className="bg-card border text-foreground p-3 rounded-lg max-w-[85%] shadow-sm">
                     <div className="flex items-center gap-2">
                       <Robot className="h-4 w-4" />
                       <span className="text-sm">AI is thinking</span>
@@ -553,7 +553,7 @@ export function FloatingAIChat() {
 
           {/* Quick Suggestions */}
           {messages.length <= 1 && (
-            <div className="px-4 py-3 border-t bg-muted/30 max-h-48 overflow-y-auto">
+            <div className="px-4 py-3 border-t bg-card/50 max-h-48 overflow-y-auto">
               <p className="text-sm font-medium text-foreground mb-3">💡 Try asking me about:</p>
               <div className="grid grid-cols-1 gap-2">
                 {quickSuggestions.slice(0, 4).map((suggestion, index) => (
@@ -561,14 +561,14 @@ export function FloatingAIChat() {
                     key={index}
                     variant="outline"
                     size="sm"
-                    className="justify-start text-xs h-8 hover:bg-primary hover:text-primary-foreground transition-colors text-left p-2"
+                    className="justify-start text-xs h-8 hover:bg-primary hover:text-primary-foreground transition-colors text-left p-2 text-foreground border-border"
                     onClick={() => handleSendMessage(suggestion)}
                   >
                     <span className="truncate">{suggestion}</span>
                   </Button>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-2 text-center">
+              <p className="text-xs text-foreground/70 mt-2 text-center">
                 🚀 Fully functional demo
               </p>
             </div>
@@ -607,10 +607,10 @@ export function FloatingAIChat() {
               </Button>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-muted-foreground truncate">
+              <p className="text-xs text-foreground/70 truncate">
                 {t('chat.poweredBy')}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-foreground/70">
                 {isLoading ? 'AI typing...' : 'Enter to send'}
               </p>
             </div>
