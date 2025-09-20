@@ -51,6 +51,7 @@ import {
 import { useLanguage } from './LanguageContext'
 import { SpecializedAgentsPanel } from './admin/SpecializedAgentsPanel'
 import { AIAgentMonitoringDashboard } from './admin/AIAgentMonitoringDashboard'
+import { MarketplaceAgentsPanel } from './admin/MarketplaceAgentsPanel'
 
 interface SystemMetrics {
   uptime: string
@@ -522,7 +523,7 @@ export function AdminPanel() {
 
       {/* Main Configuration Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-9 h-auto p-1 bg-muted/50 rounded-xl">
+        <TabsList className="grid w-full grid-cols-10 h-auto p-1 bg-muted/50 rounded-xl">
           <TabsTrigger value="overview" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
             <BarChart3 className="h-5 w-5" />
             <span className="text-sm font-medium">Overview</span>
@@ -535,13 +536,17 @@ export function AdminPanel() {
             <Robot className="h-5 w-5" />
             <span className="text-sm font-medium">AI Agents</span>
           </TabsTrigger>
+          <TabsTrigger value="marketplace-agents" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <Storefront className="h-5 w-5" />
+            <span className="text-sm font-medium">Marketplace</span>
+          </TabsTrigger>
           <TabsTrigger value="specialized" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
             <Shield className="h-5 w-5" />
             <span className="text-sm font-medium">Specialists</span>
           </TabsTrigger>
           <TabsTrigger value="marketplaces" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Storefront className="h-5 w-5" />
-            <span className="text-sm font-medium">Marketplaces</span>
+            <Package className="h-5 w-5" />
+            <span className="text-sm font-medium">Platforms</span>
           </TabsTrigger>
           <TabsTrigger value="shop" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
             <ShoppingCart className="h-5 w-5" />
@@ -860,8 +865,9 @@ export function AdminPanel() {
         {/* AI Agents Tab */}
         <TabsContent value="ai-agents" className="space-y-6">
           <Tabs defaultValue="config" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="config">Configuration</TabsTrigger>
+              <TabsTrigger value="marketplace">Marketplace</TabsTrigger>
               <TabsTrigger value="monitoring">Live Monitoring</TabsTrigger>
               <TabsTrigger value="specialists">Specialists</TabsTrigger>
             </TabsList>
@@ -1146,6 +1152,10 @@ export function AdminPanel() {
               </div>
             </TabsContent>
             
+            <TabsContent value="marketplace">
+              <MarketplaceAgentsPanel />
+            </TabsContent>
+            
             <TabsContent value="monitoring">
               <AIAgentMonitoringDashboard />
             </TabsContent>
@@ -1154,6 +1164,11 @@ export function AdminPanel() {
               <SpecializedAgentsPanel />
             </TabsContent>
           </Tabs>
+        </TabsContent>
+
+        {/* Marketplace AI Agents Tab */}
+        <TabsContent value="marketplace-agents" className="space-y-6">
+          <MarketplaceAgentsPanel />
         </TabsContent>
 
         {/* Specialized Agents Tab */}
