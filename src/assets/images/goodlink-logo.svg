@@ -1,0 +1,21 @@
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- G Circle Logo -->
+  <g transform="translate(50, 20)">
+    <!-- Dark blue G -->
+    <path d="M 0 60 A 60 60 0 1 1 60 0 L 60 30 A 30 30 0 1 0 30 60 Z" fill="#1e293b"/>
+    <!-- Red O -->
+    <path d="M 60 0 A 60 60 0 0 1 120 60 A 60 60 0 0 1 60 120 L 60 90 A 30 30 0 0 0 90 60 A 30 30 0 0 0 60 30 Z" fill="#ef4444"/>
+    <!-- White connection bar -->
+    <rect x="30" y="45" width="60" height="30" fill="white"/>
+  </g>
+  
+  <!-- Goodlink Text -->
+  <g transform="translate(50, 140)" fill="#1e293b">
+    <text x="0" y="0" font-family="Inter, sans-serif" font-size="36" font-weight="700">Goodlink</text>
+  </g>
+  
+  <!-- Germany Text -->
+  <g transform="translate(50, 175)" fill="#64748b">
+    <text x="0" y="0" font-family="Inter, sans-serif" font-size="16" font-weight="500" letter-spacing="2px">GERMANY</text>
+  </g>
+</svg>

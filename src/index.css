@@ -71,4 +71,54 @@
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  /* Modern button and card enhancements */
+  .shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  button, .transition-colors {
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Enhanced focus states */
+  button:focus-visible, 
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Modern gradient backgrounds */
+  .bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+
+  /* Enhanced card styling */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.5);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Pulse animation for status indicators */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }

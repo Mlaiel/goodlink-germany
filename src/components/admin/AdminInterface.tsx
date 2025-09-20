@@ -2,15 +2,18 @@ import React from "react"
 import { useKV } from "@github/spark/hooks"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/components/LanguageContext"
 import { LanguageSelector } from "@/components/LanguageSelector"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
+import { ShopConfigPanel } from "@/components/admin/ShopConfigPanel"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
 import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
 import { AdminPanel } from "@/components/AdminPanel"
 import { AgentControlPanel } from "@/components/AgentControlPanel"
 import { GlobalAgentSettings } from "@/components/GlobalAgentSettings"
+import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
   ChartLine, 
   Database,
@@ -21,7 +24,8 @@ import {
   Storefront,
   Activity,
   Users,
-  Warning
+  Warning,
+  ShoppingBag
 } from "@phosphor-icons/react"
 
 interface AdminInterfaceProps {
@@ -34,48 +38,60 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
 
   const renderModeSelector = () => (
     <div className="flex items-center gap-2">
-      <button 
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded-md"
+      <Button 
+        size="sm"
+        className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-sm"
       >
         <ShieldCheck className="h-4 w-4" />
         {t('nav.admin')}
-      </button>
-      <button 
+      </Button>
+      <Button 
+        variant="outline"
+        size="sm"
         onClick={() => onSwitchMode("client")}
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted"
+        className="inline-flex items-center gap-2 hover:bg-blue-50 hover:border-blue-200 transition-colors"
       >
         <UserCircle className="h-4 w-4" />
         Client
-      </button>
-      <button 
+      </Button>
+      <Button 
+        variant="outline"
+        size="sm"
         onClick={() => onSwitchMode("shop")}
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted"
+        className="inline-flex items-center gap-2 hover:bg-green-50 hover:border-green-200 transition-colors"
       >
         <Storefront className="h-4 w-4" />
         Shop
-      </button>
+      </Button>
     </div>
   )
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card sticky top-0 z-10">
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">G</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold">Goodlink Germany</h1>
-                <p className="text-sm text-muted-foreground">Admin Panel - System Management</p>
+            <div className="flex items-center gap-4">
+              <img 
+                src={goodlinkLogo} 
+                alt="Goodlink Germany Logo" 
+                className="h-12 w-auto"
+              />
+              <div className="border-l pl-4">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  Admin Panel
+                </h1>
+                <p className="text-sm text-muted-foreground">System Management & Configuration</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               {renderModeSelector()}
               <LanguageSelector />
-              <Badge variant="outline" className="bg-green-50 text-green-700">
-                <Activity className="h-3 w-3 mr-1" />
+              <Badge 
+                variant="outline" 
+                className="bg-green-50 text-green-700 border-green-200 shadow-sm"
+              >
+                <Activity className="h-3 w-3 mr-1 animate-pulse" />
                 System Online
               </Badge>
             </div>
@@ -85,30 +101,55 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-7 bg-muted/50 p-1 rounded-lg shadow-sm">
+            <TabsTrigger 
+              value="dashboard" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
               <ChartLine className="h-4 w-4" />
-              System Dashboard
+              Dashboard
             </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2">
+            <TabsTrigger 
+              value="users" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
               <Users className="h-4 w-4" />
-              User Management
+              Users
             </TabsTrigger>
-            <TabsTrigger value="agents" className="flex items-center gap-2">
+            <TabsTrigger 
+              value="shop-config" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
+              <ShoppingBag className="h-4 w-4" />
+              Shop Config
+            </TabsTrigger>
+            <TabsTrigger 
+              value="agents" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
               <Robot className="h-4 w-4" />
-              AI Agents Control
+              AI Agents
             </TabsTrigger>
-            <TabsTrigger value="inventory" className="flex items-center gap-2">
+            <TabsTrigger 
+              value="inventory" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
               <Database className="h-4 w-4" />
-              System Sync
+              Sync
             </TabsTrigger>
-            <TabsTrigger value="monitoring" className="flex items-center gap-2">
+            <TabsTrigger 
+              value="monitoring" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
               <Activity className="h-4 w-4" />
               Monitoring
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
+            <TabsTrigger 
+              value="settings" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
               <Gear className="h-4 w-4" />
-              Admin Settings
+              Settings
             </TabsTrigger>
           </TabsList>
 
@@ -126,6 +167,10 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                 </p>
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="shop-config" className="space-y-6">
+            <ShopConfigPanel />
           </TabsContent>
 
           <TabsContent value="agents" className="space-y-6">
