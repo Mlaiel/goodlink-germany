@@ -453,6 +453,122 @@ SEO Optimization:
       accuracy: 89.3,
       lastTrained: "2024-01-14"
     }
+  },
+  {
+    id: "whatsapp-agent",
+    name: "WhatsApp Business Agent",
+    type: "messaging",
+    icon: <ChatCircle className="h-5 w-5" />,
+    description: "Automated WhatsApp customer service with order tracking, product inquiries, and multi-language support.",
+    capabilities: [
+      "WhatsApp Business API integration",
+      "Order status updates", 
+      "Product recommendations",
+      "Multi-language conversations",
+      "Automated responses",
+      "Human handoff capability"
+    ],
+    examples: [
+      {
+        title: "Order Status Inquiry",
+        input: `WhatsApp Message: "Hi, where is my order #GL-2024-0156?"
+Language: German
+Customer: Premium tier
+Order: BPM-2000 shipped 2 days ago`,
+        output: `WhatsApp Response:
+"Hallo! 👋 Ihr Paket ist unterwegs! 📦
+
+🚚 Bestellstatus: GL-2024-0156
+📍 Aktueller Standort: DHL Verteilzentrum Köln  
+📅 Voraussichtliche Lieferung: Morgen zwischen 9-18 Uhr
+📱 Tracking-Link: https://track.dhl.de/...
+
+Haben Sie weitere Fragen? Ich helfe gerne! 😊"
+
+Auto-Actions Triggered:
+✓ Sent DHL tracking link
+✓ Updated customer preference (prefers German)
+✓ Scheduled delivery confirmation for tomorrow
+✓ Added to VIP customer engagement list`,
+        explanation: "Agent retrieved order information, provided tracking details in customer's preferred language, and automatically triggered follow-up actions for better customer experience.",
+        processingTime: "0.7s",
+        confidence: 97
+      }
+    ],
+    configuration: {
+      platforms: ["whatsapp-business"],
+      languages: ["de", "en", "zh", "fr"],
+      responseTime: "< 60 seconds",
+      businessHours: "8:00-20:00 CET",
+      autoEscalation: true
+    },
+    training: {
+      modelType: "Fine-tuned LLaMA 3.1 + WhatsApp optimizations",
+      dataSource: "15k+ WhatsApp conversations",
+      accuracy: 93.7,
+      lastTrained: "2024-01-17"
+    }
+  },
+  {
+    id: "marketplace-sync-agent",
+    name: "Marketplace Sync Agent",
+    type: "automation",
+    icon: <Globe className="h-5 w-5" />,
+    description: "Real-time synchronization of inventory, prices, and orders across Amazon, eBay, OTTO, and other European marketplaces.",
+    capabilities: [
+      "Real-time inventory sync",
+      "Cross-platform price updates",
+      "Order status synchronization", 
+      "Listing optimization",
+      "Compliance monitoring",
+      "Performance analytics"
+    ],
+    examples: [
+      {
+        title: "Inventory Crisis Management",
+        input: `Alert: BPM-2000 stock critical
+Amazon DE: 3 units remaining
+eBay DE: 5 units remaining  
+OTTO: 8 units remaining
+Restock ETA: 5 days
+Current sales velocity: 4 units/day`,
+        output: `Emergency Sync Protocol Activated:
+
+📊 Inventory Redistribution:
+• Pause Amazon ads (highest cost-per-click)  
+• Increase eBay/OTTO prices by 15% (demand management)
+• Enable "Limited Stock" notifications
+• Activate pre-order mode for new shipments
+
+⚡ Real-time Actions:
+✓ Amazon: Switched to "Only X left" messaging
+✓ eBay: Enabled auction format for last 2 units
+✓ OTTO: Applied "Limited Edition" badge
+✓ All platforms: Updated delivery time to +7 days
+
+📈 Expected Outcome:
+• Inventory lasts 7.2 days (vs 4 days without action)
+• Revenue maintained at 94% of normal levels
+• Zero stockout penalty fees
+• Smooth transition to restock`,
+        explanation: "Agent detected critical inventory levels and automatically implemented multi-platform strategy to manage demand, prevent stockouts, and maintain revenue while waiting for restocking.",
+        processingTime: "2.1s",
+        confidence: 96
+      }
+    ],
+    configuration: {
+      syncFrequency: "real-time",
+      platforms: ["amazon", "ebay", "otto", "kaufland"],
+      priceUpdateThreshold: 5,
+      inventoryUpdateThreshold: 1,
+      emergencyProtocol: true
+    },
+    training: {
+      modelType: "Multi-agent system + ML pipelines",
+      dataSource: "Marketplace APIs + competitor data",
+      accuracy: 95.1,
+      lastTrained: "2024-01-19"
+    }
   }
 ]
 
@@ -462,19 +578,148 @@ export function AgentDemoPanel() {
   const [activeExample, setActiveExample] = useState(0)
   const [isRunningDemo, setIsRunningDemo] = useState(false)
   const [demoInput, setDemoInput] = useState("")
+  const [demoOutput, setDemoOutput] = useState("")
+  const [demoMetrics, setDemoMetrics] = useState<{
+    processingTime: string
+    confidence: number
+    tokensUsed: number
+    costEstimate: string
+  } | null>(null)
 
   const runCustomDemo = async () => {
     if (!demoInput.trim()) {
-      toast.error("Please enter input for the demo")
+      toast.error(t("agent.enterInputDemo"))
       return
     }
 
     setIsRunningDemo(true)
+    setDemoOutput("")
+    setDemoMetrics(null)
     
-    // Simulate AI processing
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // Simulate AI processing with realistic delays
+    const startTime = Date.now()
     
-    toast.success("Demo completed! Check the output below.")
+    // Simulate processing stages
+    toast.info(t("agent.initializingAgent"))
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    toast.info(t("agent.processingInput"))
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    toast.info(t("agent.generatingOutput"))
+    await new Promise(resolve => setTimeout(resolve, 800))
+    
+    const endTime = Date.now()
+    const processingTime = ((endTime - startTime) / 1000).toFixed(1) + "s"
+    
+    // Generate realistic demo output based on agent type
+    let output = ""
+    let confidence = Math.floor(Math.random() * 15) + 85 // 85-99%
+    
+    switch (selectedAgent.id) {
+      case "listing-agent":
+        output = `Generated Listing:
+Title: ${demoInput.slice(0, 60)}... - Premium Quality, Fast Shipping
+Bullets:
+• ✓ CE/MDR compliant for European market
+• 🚀 Express delivery within 24-48 hours  
+• 🏆 Top-rated by 10,000+ customers (4.8★)
+• 🔧 Professional installation support included
+• 💎 Premium quality with 2-year warranty
+
+Keywords: ${demoInput.toLowerCase().split(' ').slice(0, 5).join(', ')}
+Compliance: ✓ All regulations met`
+        break
+        
+      case "pricing-agent":
+        const price = (Math.random() * 100 + 20).toFixed(2)
+        output = `Pricing Recommendation: €${price}
+Buy Box Probability: ${confidence}%
+Strategy: Competitive positioning
+Expected ROI: +€${(Math.random() * 50 + 10).toFixed(2)}/week
+
+Market Analysis:
+- Competitor average: €${(parseFloat(price) + Math.random() * 10).toFixed(2)}
+- Demand trend: +${Math.floor(Math.random() * 30 + 10)}%
+- Inventory optimization: 12-day supply optimal`
+        break
+        
+      case "social-agent":
+        output = `Social Media Campaign Generated:
+
+📱 Instagram Post:
+"🌟 Discover ${demoInput}! Perfect for your needs ✨
+#QualityFirst #Innovation #TechLife #Goodlink"
+
+💼 LinkedIn Post:
+"Introducing ${demoInput} - engineered for professional excellence. 
+Learn more about our latest innovation."
+
+📅 Posting Schedule:
+- Peak engagement: 2-4 PM CET
+- Optimal frequency: 3x weekly
+- Hashtag performance: +47% reach expected`
+        break
+        
+      case "whatsapp-agent":
+        output = `WhatsApp Auto-Response:
+"Hallo! 👋 Danke für Ihre Nachricht zu: ${demoInput}
+
+🤖 Ich kann Ihnen sofort helfen mit:
+✓ Produktinformationen
+✓ Bestellstatus
+✓ Technische Fragen
+✓ Rückgabe & Umtausch
+
+Wie kann ich Ihnen heute helfen? 😊"
+
+Features aktiviert:
+- Automatische Sprache-Erkennung: Deutsch
+- Kundenhistorie geladen
+- Produktkatalog bereit
+- Menschliche Übergabe verfügbar`
+        break
+        
+      case "marketplace-sync-agent":
+        output = `Marketplace Sync Status:
+📊 Real-time Updates für: ${demoInput}
+
+Amazon DE: ✓ Synced (0.3s)
+eBay DE: ✓ Synced (0.5s)  
+OTTO: ✓ Synced (0.4s)
+Kaufland: ✓ Synced (0.6s)
+
+Automatische Aktionen:
+• Preise aktualisiert basierend auf Konkurrenz
+• Lagerbestände synchronisiert
+• SEO-Keywords optimiert
+• Compliance-Check bestanden
+
+Leistung: +€${(Math.random() * 200 + 50).toFixed(2)} heute`
+        break
+        
+      default:
+        output = `Agent Output for "${demoInput}":
+✓ Analysis completed successfully
+✓ Recommendations generated  
+✓ Quality assurance passed
+✓ Ready for implementation
+
+Detailed results:
+- Processing efficiency: 98.${Math.floor(Math.random() * 10)}%
+- Accuracy score: ${confidence}%
+- Implementation ready: Yes`
+    }
+    
+    setDemoOutput(output)
+    setDemoMetrics({
+      processingTime,
+      confidence,
+      tokensUsed: Math.floor(Math.random() * 2000 + 500),
+      costEstimate: `$${(Math.random() * 0.50 + 0.10).toFixed(3)}`
+    })
+    
+    toast.success(t("agent.demoCompleted"))
     setIsRunningDemo(false)
   }
 
@@ -544,11 +789,12 @@ export function AgentDemoPanel() {
 
         <CardContent>
           <Tabs defaultValue="demo" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="demo">Live Demo</TabsTrigger>
-              <TabsTrigger value="examples">Examples</TabsTrigger>
-              <TabsTrigger value="config">Configuration</TabsTrigger>
-              <TabsTrigger value="training">Training</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-5">
+              <TabsTrigger value="demo">{t("agent.liveDemo")}</TabsTrigger>
+              <TabsTrigger value="examples">{t("common.examples")}</TabsTrigger>
+              <TabsTrigger value="performance">{t("common.performance")}</TabsTrigger>
+              <TabsTrigger value="config">{t("common.configuration")}</TabsTrigger>
+              <TabsTrigger value="training">{t("common.training")}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="demo" className="mt-6">
@@ -557,19 +803,19 @@ export function AgentDemoPanel() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Play className="h-4 w-4" />
-                      Try the Agent
+                      {t("agent.tryAgent")}
                     </CardTitle>
                     <CardDescription>
-                      Enter your own input to see how the agent processes it
+                      {t("agent.enterInput")}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label>Input</Label>
+                      <Label>{t("agent.input")}</Label>
                       <Textarea
                         value={demoInput}
                         onChange={(e) => setDemoInput(e.target.value)}
-                        placeholder={`Enter input for ${selectedAgent.name}...`}
+                        placeholder={t(`Enter input for ${selectedAgent.name}...`)}
                         rows={4}
                         className="mt-1"
                       />
@@ -582,15 +828,66 @@ export function AgentDemoPanel() {
                       {isRunningDemo ? (
                         <>
                           <Lightning className="h-4 w-4 mr-2 animate-spin" />
-                          Processing...
+                          {t("agent.processing")}
                         </>
                       ) : (
                         <>
                           <Robot className="h-4 w-4 mr-2" />
-                          Run Demo
+                          {t("agent.runDemo")}
                         </>
                       )}
                     </Button>
+                    
+                    {/* Demo Output */}
+                    {demoOutput && (
+                      <Card className="mt-4">
+                        <CardHeader>
+                          <div className="flex items-center justify-between">
+                            <CardTitle className="flex items-center gap-2">
+                              <Sparkle className="h-4 w-4 text-green-500" />
+                              {t("agent.demoOutput")}
+                            </CardTitle>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(demoOutput)}
+                            >
+                              <Copy className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <ScrollArea className="h-48">
+                            <pre className="text-sm bg-green-50 border border-green-200 p-4 rounded-md whitespace-pre-wrap">
+                              {demoOutput}
+                            </pre>
+                          </ScrollArea>
+                          
+                          {demoMetrics && (
+                            <div className="mt-4 pt-4 border-t">
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="text-center">
+                                  <div className="text-sm text-muted-foreground">Processing Time</div>
+                                  <div className="font-semibold">{demoMetrics.processingTime}</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-sm text-muted-foreground">Confidence</div>
+                                  <div className="font-semibold text-green-600">{demoMetrics.confidence}%</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-sm text-muted-foreground">Tokens Used</div>
+                                  <div className="font-semibold">{demoMetrics.tokensUsed.toLocaleString()}</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-sm text-muted-foreground">Cost Est.</div>
+                                  <div className="font-semibold">{demoMetrics.costEstimate}</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    )}
                   </CardContent>
                 </Card>
 
@@ -599,7 +896,7 @@ export function AgentDemoPanel() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Sparkle className="h-4 w-4" />
-                      Agent Capabilities
+                      {t("agent.capabilities")}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -610,6 +907,122 @@ export function AgentDemoPanel() {
                           <span className="text-sm">{capability}</span>
                         </div>
                       ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="performance" className="mt-6">
+              <div className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <ChartBar className="h-4 w-4" />
+                      {t("agent.realTimePerformance")}
+                    </CardTitle>
+                    <CardDescription>
+                      {t("agent.liveMetrics")}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {/* Performance Stats */}
+                      <div className="space-y-4">
+                        <h4 className="font-medium">{t("agent.todayPerformance")}</h4>
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-muted-foreground">{t("agent.tasksCompleted")}</span>
+                            <span className="font-semibold">{Math.floor(Math.random() * 500 + 200)}</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-muted-foreground">{t("agent.successRate")}</span>
+                            <span className="font-semibold text-green-600">{selectedAgent.training.accuracy}%</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-muted-foreground">{t("agent.avgResponseTime")}</span>
+                            <span className="font-semibold">{(Math.random() * 2 + 0.5).toFixed(1)}s</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-muted-foreground">{t("agent.errorRate")}</span>
+                            <span className="font-semibold text-red-600">{(100 - selectedAgent.training.accuracy).toFixed(1)}%</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Usage Trends */}
+                      <div className="space-y-4">
+                        <h4 className="font-medium">{t("agent.usageTrends")}</h4>
+                        <div className="space-y-3">
+                          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => {
+                            const usage = Math.floor(Math.random() * 100 + 50)
+                            return (
+                              <div key={day} className="flex items-center gap-2">
+                                <span className="text-xs text-muted-foreground w-8">{day}</span>
+                                <div className="flex-1 bg-muted rounded-full h-2">
+                                  <div 
+                                    className="bg-primary h-2 rounded-full" 
+                                    style={{ width: `${usage}%` }}
+                                  />
+                                </div>
+                                <span className="text-xs font-medium w-8">{usage}</span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+
+                      {/* ROI Impact */}
+                      <div className="space-y-4">
+                        <h4 className="font-medium">{t("agent.businessImpact")}</h4>
+                        <div className="space-y-3">
+                          <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div className="text-sm text-green-700">Revenue Impact</div>
+                            <div className="text-lg font-semibold text-green-800">
+                              +€{(Math.random() * 5000 + 1000).toFixed(0)}/month
+                            </div>
+                          </div>
+                          <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div className="text-sm text-blue-700">Time Saved</div>
+                            <div className="text-lg font-semibold text-blue-800">
+                              {Math.floor(Math.random() * 40 + 20)} hours/week
+                            </div>
+                          </div>
+                          <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                            <div className="text-sm text-purple-700">Efficiency Gain</div>
+                            <div className="text-lg font-semibold text-purple-800">
+                              +{Math.floor(Math.random() * 50 + 25)}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Separator className="my-6" />
+
+                    {/* Recent Activity */}
+                    <div className="space-y-4">
+                      <h4 className="font-medium">{t("agent.recentActivity")}</h4>
+                      <div className="space-y-2">
+                        {[
+                          { action: "Generated product listing", time: "2 minutes ago", status: "success" },
+                          { action: "Optimized pricing strategy", time: "5 minutes ago", status: "success" },
+                          { action: "Synchronized inventory", time: "8 minutes ago", status: "success" },
+                          { action: "Processed customer inquiry", time: "12 minutes ago", status: "success" },
+                          { action: "Updated marketplace feeds", time: "15 minutes ago", status: "warning" }
+                        ].map((activity, index) => (
+                          <div key={index} className="flex items-center justify-between p-2 hover:bg-muted rounded-lg">
+                            <div className="flex items-center gap-2">
+                              <div className={`w-2 h-2 rounded-full ${
+                                activity.status === 'success' ? 'bg-green-500' : 
+                                activity.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                              }`} />
+                              <span className="text-sm">{activity.action}</span>
+                            </div>
+                            <span className="text-xs text-muted-foreground">{activity.time}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
