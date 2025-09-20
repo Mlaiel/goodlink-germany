@@ -8,6 +8,9 @@ import { LanguageSelector } from "@/components/LanguageSelector"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
 import { ShopConfigPanel } from "@/components/admin/ShopConfigPanel"
 import { BlogConfigPanel } from "@/components/admin/BlogConfigPanel"
+import { SpecializedAgentsManager } from "@/components/admin/specialized-agents/SpecializedAgentsManager"
+import { SpecializedAgentDemo } from "@/components/admin/specialized-agents/SpecializedAgentDemo"
+import { AdvancedSpecializedAgentDemo } from "@/components/admin/specialized-agents/AdvancedSpecializedAgentDemo"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
 import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
@@ -204,7 +207,24 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                 <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
                   {t('admin.aiAutomation') || 'AI & Automation'}
                 </h3>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3">
+                  <button
+                    onClick={() => setActiveTab('specialized-agents')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'specialized-agents' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Robot className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.specializedAgents') || 'Specialized Agents'}</div>
+                        <div className="text-xs opacity-70">Medical & automotive experts</div>
+                      </div>
+                    </div>
+                  </button>
+                  
                   <button
                     onClick={() => setActiveTab('agents')}
                     className={`p-4 rounded-lg border transition-all text-left ${
@@ -217,7 +237,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                       <Robot className="h-5 w-5" />
                       <div>
                         <div className="font-medium">{t('nav.agents')}</div>
-                        <div className="text-xs opacity-70">AI agent configuration</div>
+                        <div className="text-xs opacity-70">General AI agent config</div>
                       </div>
                     </div>
                   </button>
@@ -307,6 +327,25 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
 
           <TabsContent value="blog-config" className="space-y-6">
             <BlogConfigPanel />
+          </TabsContent>
+
+          <TabsContent value="specialized-agents" className="space-y-6">
+            <Tabs defaultValue="management" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="management">{t("Management")}</TabsTrigger>
+                <TabsTrigger value="demo">{t("Basic Demo")}</TabsTrigger>
+                <TabsTrigger value="advanced">{t("Advanced Demo")}</TabsTrigger>
+              </TabsList>
+              <TabsContent value="management">
+                <SpecializedAgentsManager />
+              </TabsContent>
+              <TabsContent value="demo">
+                <SpecializedAgentDemo />
+              </TabsContent>
+              <TabsContent value="advanced">
+                <AdvancedSpecializedAgentDemo />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
 
           <TabsContent value="agents" className="space-y-6">
