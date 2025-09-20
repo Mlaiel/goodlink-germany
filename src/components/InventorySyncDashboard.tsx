@@ -255,7 +255,7 @@ export function InventorySyncDashboard() {
                           </Badge>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          Last sync: {item.lastSync.toLocaleString()}
+                          Last sync: {item.lastSync ? new Date(item.lastSync).toLocaleString() : 'Never'}
                         </p>
                       </div>
                       <div className="text-right">

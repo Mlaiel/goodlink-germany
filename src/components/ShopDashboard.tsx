@@ -338,7 +338,7 @@ export function ShopDashboard() {
                           {order.customer} • {order.email}
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          {order.date.toLocaleDateString()} • {order.paymentMethod}
+                          {order.date ? new Date(order.date).toLocaleDateString() : 'N/A'} • {order.paymentMethod}
                         </div>
                       </div>
                       <div className="text-right">
@@ -440,7 +440,7 @@ export function ShopDashboard() {
                         </div>
                         <div className="text-sm text-muted-foreground">{customer.email}</div>
                         <div className="text-xs text-muted-foreground">
-                          Last order: {customer.lastOrder.toLocaleDateString()}
+                          Last order: {customer.lastOrder ? new Date(customer.lastOrder).toLocaleDateString() : 'N/A'}
                         </div>
                       </div>
                       <div className="text-right space-y-1">
