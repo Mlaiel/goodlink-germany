@@ -8,6 +8,7 @@ import { LanguageSelector } from "@/components/LanguageSelector"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
 import { ShopConfigPanel } from "@/components/admin/ShopConfigPanel"
 import { BlogConfigPanel } from "@/components/admin/BlogConfigPanel"
+import { AllAgentsPanel } from "@/components/admin/AllAgentsPanel"
 import { SpecializedAgentsManager } from "@/components/admin/specialized-agents/SpecializedAgentsManager"
 import { SpecializedAgentDemo } from "@/components/admin/specialized-agents/SpecializedAgentDemo"
 import { AdvancedSpecializedAgentDemo } from "@/components/admin/specialized-agents/AdvancedSpecializedAgentDemo"
@@ -208,7 +209,24 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                 <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
                   {t('admin.aiAutomation') || 'AI & Automation'}
                 </h3>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-4 gap-3">
+                  <button
+                    onClick={() => setActiveTab('all-agents')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'all-agents' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Robot className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">Tous les Agents</div>
+                        <div className="text-xs opacity-70">Vue d'ensemble de tous les agents</div>
+                      </div>
+                    </div>
+                  </button>
+                  
                   <button
                     onClick={() => setActiveTab('specialized-agents')}
                     className={`p-4 rounded-lg border transition-all text-left ${
@@ -220,25 +238,8 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                     <div className="flex items-center gap-3">
                       <Robot className="h-5 w-5" />
                       <div>
-                        <div className="font-medium">{t('admin.specializedAgents') || 'Specialized Agents'}</div>
-                        <div className="text-xs opacity-70">Medical & automotive experts</div>
-                      </div>
-                    </div>
-                  </button>
-                  
-                  <button
-                    onClick={() => setActiveTab('agents')}
-                    className={`p-4 rounded-lg border transition-all text-left ${
-                      activeTab === 'agents' 
-                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
-                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <Robot className="h-5 w-5" />
-                      <div>
-                        <div className="font-medium">{t('nav.agents')}</div>
-                        <div className="text-xs opacity-70">General AI agent config</div>
+                        <div className="font-medium">{t('admin.specializedAgents') || 'Agents Spécialisés'}</div>
+                        <div className="text-xs opacity-70">Experts médicaux & automobiles</div>
                       </div>
                     </div>
                   </button>
@@ -254,8 +255,25 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                     <div className="flex items-center gap-3">
                       <Database className="h-5 w-5" />
                       <div>
-                        <div className="font-medium">{t('admin.sync') || 'Sync'}</div>
-                        <div className="text-xs opacity-70">Inventory synchronization</div>
+                        <div className="font-medium">{t('admin.sync') || 'Synchronisation'}</div>
+                        <div className="text-xs opacity-70">Sync inventaire marketplaces</div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveTab('agents')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'agents' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Gear className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">Config Générale</div>
+                        <div className="text-xs opacity-70">Paramètres globaux agents</div>
                       </div>
                     </div>
                   </button>
@@ -330,6 +348,10 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
             <BlogConfigPanel />
           </TabsContent>
 
+          <TabsContent value="all-agents" className="space-y-6">
+            <AllAgentsPanel />
+          </TabsContent>
+
           <TabsContent value="specialized-agents" className="space-y-6">
             <Tabs defaultValue="category-experts" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
@@ -354,19 +376,30 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
           </TabsContent>
 
           <TabsContent value="agents" className="space-y-6">
-            <AgentControlPanel 
-              agent={{
-                id: "default",
-                name: "Agent Control Panel",
-                type: "management",
-                status: "active",
-                settings: {}
-              }} 
-              onConfigUpdate={() => {}} 
-            />
-            <GlobalAgentSettings 
-              onClose={() => {}} 
-            />
+            <div className="grid gap-6">
+              <div className="text-center py-12">
+                <Robot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Configuration Générale des Agents</h3>
+                <p className="text-muted-foreground">
+                  Paramètres globaux et configuration avancée des agents IA
+                </p>
+              </div>
+              
+              <AgentControlPanel 
+                agent={{
+                  id: "default",
+                  name: "Agent Control Panel",
+                  type: "management",
+                  status: "active",
+                  settings: {}
+                }} 
+                onConfigUpdate={() => {}} 
+              />
+              
+              <GlobalAgentSettings 
+                onClose={() => {}} 
+              />
+            </div>
           </TabsContent>
 
           <TabsContent value="inventory" className="space-y-6">
