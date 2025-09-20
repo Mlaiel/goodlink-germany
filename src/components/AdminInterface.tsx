@@ -1,30 +1,15 @@
 import React from "react"
 import { useKV } from "@github/spark/hooks"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/LanguageContext"
 import { LanguageSelector } from "@/components/LanguageSelector"
-import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
-import { ShopDashboard } from "@/components/ShopDashboard"
-import { BlogDashboard } from "@/components/BlogDashboard"
-import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
 import { AdminPanel } from "@/components/AdminPanel"
 import { 
-  ChartLine, 
-  Package, 
-  Storefront, 
-  Robot, 
-  Database,
-  Article,
-  WhatsappLogo,
-  ShieldCheck,
   CheckCircle,
-  Gear,
-  UserCircle
+  ShieldCheck,
+  UserCircle,
+  Storefront
 } from "@phosphor-icons/react"
-
-// Import dashboard components from main App
-import { Dashboard, MarketplacesView, AIAgentsView, ProductsView } from "@/components/DashboardComponents"
 
 interface AdminInterfaceProps {
   onSwitchMode: (mode: "admin" | "client" | "shop") => void
@@ -32,54 +17,55 @@ interface AdminInterfaceProps {
 
 export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
   const { t } = useLanguage()
-  const [activeTab, setActiveTab] = useKV("admin-active-tab", "admin")
 
   const renderModeSelector = () => (
     <div className="flex items-center gap-2">
       <button 
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded-md"
+        className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg font-medium shadow-sm"
       >
         <ShieldCheck className="h-4 w-4" />
-        {t('nav.admin')}
+        {t('nav.admin')} Panel
       </button>
       <button 
         onClick={() => onSwitchMode("client")}
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted"
+        className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border rounded-lg hover:bg-muted transition-colors"
       >
         <UserCircle className="h-4 w-4" />
-        Client
+        Client Interface
       </button>
       <button 
         onClick={() => onSwitchMode("shop")}
-        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted"
+        className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border rounded-lg hover:bg-muted transition-colors"
       >
         <Storefront className="h-4 w-4" />
-        Shop
+        Shop Interface
       </button>
       <LanguageSelector />
     </div>
   )
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">G</span>
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-primary-foreground font-bold text-lg">G</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold">Goodlink Germany</h1>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  Goodlink Germany
+                </h1>
                 <p className="text-sm text-muted-foreground">
-                  {t('admin.title')} - Full System Control
+                  Administrative Control Center - Complete System Management
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               {renderModeSelector()}
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                <CheckCircle className="h-3 w-3 mr-1" />
+              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 px-3 py-1">
+                <CheckCircle className="h-4 w-4 mr-2" />
                 All Systems Operational
               </Badge>
             </div>
@@ -87,83 +73,8 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-9">
-            <TabsTrigger value="admin" className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4" />
-              {t('nav.admin')}
-            </TabsTrigger>
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <ChartLine className="h-4 w-4" />
-              {t('nav.dashboard')}
-            </TabsTrigger>
-            <TabsTrigger value="marketplaces" className="flex items-center gap-2">
-              <Storefront className="h-4 w-4" />
-              {t('nav.marketplaces')}
-            </TabsTrigger>
-            <TabsTrigger value="products" className="flex items-center gap-2">
-              <Package className="h-4 w-4" />
-              {t('nav.products')}
-            </TabsTrigger>
-            <TabsTrigger value="inventory" className="flex items-center gap-2">
-              <Database className="h-4 w-4" />
-              {t('nav.inventory')}
-            </TabsTrigger>
-            <TabsTrigger value="shop" className="flex items-center gap-2">
-              <Storefront className="h-4 w-4" />
-              {t('nav.shop')}
-            </TabsTrigger>
-            <TabsTrigger value="blog" className="flex items-center gap-2">
-              <Article className="h-4 w-4" />
-              {t('nav.blog')}
-            </TabsTrigger>
-            <TabsTrigger value="whatsapp" className="flex items-center gap-2">
-              <WhatsappLogo className="h-4 w-4" />
-              {t('nav.whatsapp')}
-            </TabsTrigger>
-            <TabsTrigger value="ai-agents" className="flex items-center gap-2">
-              <Robot className="h-4 w-4" />
-              {t('nav.agents')}
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="admin" className="mt-6">
-            <AdminPanel />
-          </TabsContent>
-
-          <TabsContent value="dashboard" className="mt-6">
-            <Dashboard />
-          </TabsContent>
-
-          <TabsContent value="marketplaces" className="mt-6">
-            <MarketplacesView />
-          </TabsContent>
-
-          <TabsContent value="products" className="mt-6">
-            <ProductsView />
-          </TabsContent>
-
-          <TabsContent value="inventory" className="mt-6">
-            <InventorySyncDashboard />
-          </TabsContent>
-
-          <TabsContent value="shop" className="mt-6">
-            <ShopDashboard />
-          </TabsContent>
-
-          <TabsContent value="blog" className="mt-6">
-            <BlogDashboard />
-          </TabsContent>
-
-          <TabsContent value="whatsapp" className="mt-6">
-            <WhatsAppDashboard />
-          </TabsContent>
-
-          <TabsContent value="ai-agents" className="mt-6">
-            <AIAgentsView />
-          </TabsContent>
-        </Tabs>
+      <main className="container mx-auto px-6 py-8">
+        <AdminPanel />
       </main>
     </div>
   )
