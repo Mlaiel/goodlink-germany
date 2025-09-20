@@ -1,21 +1,35 @@
-<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- G Circle Logo -->
-  <g transform="translate(50, 20)">
-    <!-- Dark blue G -->
-    <path d="M 0 60 A 60 60 0 1 1 60 0 L 60 30 A 30 30 0 1 0 30 60 Z" fill="#1e293b"/>
-    <!-- Red O -->
-    <path d="M 60 0 A 60 60 0 0 1 120 60 A 60 60 0 0 1 60 120 L 60 90 A 30 30 0 0 0 90 60 A 30 30 0 0 0 60 30 Z" fill="#ef4444"/>
-    <!-- White connection bar -->
-    <rect x="30" y="45" width="60" height="30" fill="white"/>
+<svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- GO Symbol based on provided design -->
+  <g transform="translate(50, 25)">
+    <!-- Navy Blue G -->
+    <circle cx="60" cy="60" r="60" fill="#2C3E50"/>
+    <circle cx="60" cy="60" r="25" fill="white"/>
+    <!-- Create G opening -->
+    <path d="M 85 35 A 60 60 0 0 1 85 85 L 70 85 A 45 45 0 0 0 70 35 Z" fill="white"/>
+    <!-- Horizontal bar for G -->
+    <rect x="45" y="50" width="40" height="20" fill="#E74C3C"/>
+    <rect x="45" y="50" width="25" height="20" fill="#2C3E50"/>
+    
+    <!-- Red O with brush effect -->
+    <circle cx="160" cy="60" r="60" fill="#E74C3C"/>
+    <circle cx="160" cy="60" r="25" fill="white"/>
+    <!-- Brush stroke effect -->
+    <path d="M 190 40 Q 210 35 220 55 Q 220 85 190 80 Q 170 85 150 65 Q 130 45 150 40 Q 170 35 190 40" fill="#E74C3C" opacity="0.6"/>
+    <circle cx="160" cy="60" r="25" fill="white"/>
   </g>
   
   <!-- Goodlink Text -->
-  <g transform="translate(50, 140)" fill="#1e293b">
-    <text x="0" y="0" font-family="Inter, sans-serif" font-size="36" font-weight="700">Goodlink</text>
+  <g transform="translate(50, 150)" fill="#2C3E50">
+    <!-- Enhanced text rendering for better readability -->
+    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="-1px">
+      Goodlink
+    </text>
   </g>
   
   <!-- Germany Text -->
-  <g transform="translate(50, 175)" fill="#64748b">
-    <text x="0" y="0" font-family="Inter, sans-serif" font-size="16" font-weight="500" letter-spacing="2px">GERMANY</text>
+  <g transform="translate(50, 190)" fill="#34495E">
+    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="3px">
+      GERMANY
+    </text>
   </g>
 </svg>
