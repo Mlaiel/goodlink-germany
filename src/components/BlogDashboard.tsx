@@ -320,7 +320,7 @@ export function BlogDashboard() {
             <TrendUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{seoMetrics?.organicTraffic.toLocaleString()}</div>
+            <div className="text-2xl font-bold">{(seoMetrics?.organicTraffic || 0).toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               Monthly visitors
             </p>
@@ -526,7 +526,7 @@ export function BlogDashboard() {
                 <CardTitle className="text-base">Organic Traffic</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{seoMetrics?.organicTraffic.toLocaleString()}</div>
+                <div className="text-2xl font-bold">{(seoMetrics?.organicTraffic || 0).toLocaleString()}</div>
                 <p className="text-sm text-muted-foreground">Monthly visitors</p>
                 <div className="mt-2">
                   <Badge className="bg-green-100 text-green-800">+25% vs last month</Badge>

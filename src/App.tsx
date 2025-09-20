@@ -296,7 +296,7 @@ function AIAgentsView() {
     toast.success(`${config.name} configuration updated`)
   }
 
-  const filteredAgents = filterType === "all" ? aiAgents : aiAgents.filter(agent => agent.type === filterType)
+  const filteredAgents = filterType === "all" ? aiAgents : aiAgents?.filter(agent => agent.type === filterType) || []
   const agentTypes = ["all", "social", "messaging", "content", "pricing", "analytics", "forecasting", "support"]
 
   if (showGlobalSettings) {
@@ -349,7 +349,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-green-600" />
-              <div className="text-2xl font-bold">{aiAgents.filter(a => a.status === 'active').length}</div>
+              <div className="text-2xl font-bold">{aiAgents?.filter(a => a.status === 'active').length || 0}</div>
             </div>
             <p className="text-xs text-muted-foreground">Active Agents</p>
           </CardContent>
@@ -358,7 +358,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <Lightning className="h-4 w-4 text-orange-600" />
-              <div className="text-2xl font-bold">{aiAgents.filter(a => a.status === 'training').length}</div>
+              <div className="text-2xl font-bold">{aiAgents?.filter(a => a.status === 'training').length || 0}</div>
             </div>
             <p className="text-xs text-muted-foreground">Training</p>
           </CardContent>
@@ -367,7 +367,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-blue-600" />
-              <div className="text-2xl font-bold">{Math.round(aiAgents.reduce((acc, a) => acc + (a.success || 0), 0) / aiAgents.length)}%</div>
+              <div className="text-2xl font-bold">{Math.round((aiAgents?.reduce((acc, a) => acc + (a.success || 0), 0) || 0) / (aiAgents?.length || 1))}%</div>
             </div>
             <p className="text-xs text-muted-foreground">Avg Success Rate</p>
           </CardContent>
@@ -376,7 +376,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <TrendUp className="h-4 w-4 text-green-600" />
-              <div className="text-2xl font-bold">{(aiAgents?.reduce((acc, a) => acc + (a.processed || 0), 0) || 0).toLocaleString()}</div>
+              <div className="text-2xl font-bold">{((aiAgents?.reduce((acc, a) => acc + (a.processed || 0), 0)) || 0).toLocaleString()}</div>
             </div>
             <p className="text-xs text-muted-foreground">Total Processed</p>
           </CardContent>
@@ -393,7 +393,7 @@ function AIAgentsView() {
             onClick={() => setFilterType(type)}
             className="capitalize"
           >
-            {type === "all" ? "All Agents" : `${type} (${aiAgents.filter(a => a.type === type).length})`}
+            {type === "all" ? "All Agents" : `${type} (${aiAgents?.filter(a => a.type === type).length || 0})`}
           </Button>
         ))}
       </div>
