@@ -40,10 +40,10 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
         variant="outline"
         size="sm"
         onClick={() => onSwitchMode("admin")}
-        className="inline-flex items-center gap-2 hover:bg-blue-50 hover:border-blue-200 transition-colors"
+        className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-red-500 shadow-sm transition-all duration-200"
       >
         <ShieldCheck className="h-4 w-4" />
-        Admin
+        Admin Panel
       </Button>
       <Button 
         size="sm"
@@ -209,6 +209,19 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
               </div>
               
               <LanguageSelector />
+              
+              {/* Mobile Admin Access */}
+              <div className="lg:hidden">
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onSwitchMode("admin")}
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-red-500 shadow-sm transition-all duration-200"
+                >
+                  <ShieldCheck className="h-4 w-4" />
+                  Admin Panel
+                </Button>
+              </div>
               
               <div className="hidden lg:flex">
                 {renderModeSelector()}
