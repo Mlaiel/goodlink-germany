@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/components/LanguageContext"
 import { LanguageSelector } from "@/components/LanguageSelector"
 import { ClientDashboard } from "@/components/client/ClientDashboard"
+import { BlogReader } from "@/components/client/BlogReader"
 import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
   ChartLine, 
@@ -19,7 +20,8 @@ import {
   TrendUp,
   Eye,
   Star,
-  Activity
+  Activity,
+  Article
 } from "@phosphor-icons/react"
 
 interface ClientInterfaceProps {
@@ -95,7 +97,7 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 bg-muted/50 p-1 rounded-lg shadow-sm">
+          <TabsList className="grid w-full grid-cols-7 bg-muted/50 p-1 rounded-lg shadow-sm">
             <TabsTrigger 
               value="dashboard" 
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
@@ -130,6 +132,13 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
             >
               <Eye className="h-4 w-4" />
               Analytics
+            </TabsTrigger>
+            <TabsTrigger 
+              value="blog" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
+              <Article className="h-4 w-4" />
+              Blog
             </TabsTrigger>
             <TabsTrigger 
               value="support" 
@@ -190,6 +199,10 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
                 </p>
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="blog" className="space-y-6">
+            <BlogReader />
           </TabsContent>
 
           <TabsContent value="support" className="space-y-6">

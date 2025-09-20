@@ -7,6 +7,7 @@ import { useLanguage } from "@/components/LanguageContext"
 import { LanguageSelector } from "@/components/LanguageSelector"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
 import { ShopConfigPanel } from "@/components/admin/ShopConfigPanel"
+import { BlogConfigPanel } from "@/components/admin/BlogConfigPanel"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
 import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
@@ -25,7 +26,8 @@ import {
   Activity,
   Users,
   Warning,
-  ShoppingBag
+  ShoppingBag,
+  Article
 } from "@phosphor-icons/react"
 
 interface AdminInterfaceProps {
@@ -101,7 +103,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7 bg-muted/50 p-1 rounded-lg shadow-sm">
+          <TabsList className="grid w-full grid-cols-8 bg-muted/50 p-1 rounded-lg shadow-sm">
             <TabsTrigger 
               value="dashboard" 
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
@@ -122,6 +124,13 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
             >
               <ShoppingBag className="h-4 w-4" />
               Shop Config
+            </TabsTrigger>
+            <TabsTrigger 
+              value="blog-config" 
+              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
+            >
+              <Article className="h-4 w-4" />
+              Blog Config
             </TabsTrigger>
             <TabsTrigger 
               value="agents" 
@@ -171,6 +180,10 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
 
           <TabsContent value="shop-config" className="space-y-6">
             <ShopConfigPanel />
+          </TabsContent>
+
+          <TabsContent value="blog-config" className="space-y-6">
+            <BlogConfigPanel />
           </TabsContent>
 
           <TabsContent value="agents" className="space-y-6">
