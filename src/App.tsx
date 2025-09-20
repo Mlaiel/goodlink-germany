@@ -2,9 +2,9 @@ import React from "react"
 import { useKV } from "@github/spark/hooks"
 import { Toaster } from "@/components/ui/sonner"
 import { LanguageProvider } from "@/components/LanguageContext"
-import { AdminInterface } from "@/components/AdminInterface"
-import { ClientInterface } from "@/components/ClientInterface"
-import { ShopInterface } from "@/components/ShopInterface"
+import { AdminInterface } from "@/components/admin/AdminInterface"
+import { ClientInterface } from "@/components/client/ClientInterface"
+import { ShopInterface } from "@/components/shop/ShopInterface"
 import { Warning } from "@phosphor-icons/react"
 
 // Error boundary component for robust error handling
@@ -57,29 +57,7 @@ function AppContent() {
       case "client":
         return <ClientInterface onSwitchMode={handleModeSwitch} />
       case "shop":
-        return (
-          <div className="min-h-screen bg-background">
-            <header className="border-b bg-card">
-              <div className="container mx-auto px-4 py-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold text-sm">G</span>
-                    </div>
-                    <div>
-                      <h1 className="text-xl font-bold">Goodlink Store</h1>
-                      <p className="text-sm text-muted-foreground">Premium products for every need</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </header>
-            <main className="container mx-auto px-4 py-8">
-              <ShopInterface onSwitchMode={handleModeSwitch} />
-            </main>
-            <Toaster />
-          </div>
-        )
+        return <ShopInterface onSwitchMode={handleModeSwitch} />
       default:
         return <AdminInterface onSwitchMode={handleModeSwitch} />
     }
@@ -88,7 +66,6 @@ function AppContent() {
   return (
     <ErrorBoundary>
       {renderInterface()}
-      <Toaster />
     </ErrorBoundary>
   )
 }

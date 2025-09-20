@@ -1,36 +1,63 @@
-# Goodlink Germany - AI Commerce Platform PRD
+# Goodlink Germany - Separated Interface AI Commerce Platform PRD
 
 ## Core Purpose & Success
 
-**Mission Statement**: Create a unified, AI-powered multi-marketplace commerce management platform that automates inventory synchronization, content generation, customer service, and sales optimization across all major European and global marketplaces.
+**Mission Statement**: Create a unified, AI-powered multi-marketplace commerce management platform with three distinct user interfaces: Admin (system management), Client (business operations), and Shop (customer experience), automating everything from inventory synchronization to customer service.
 
 **Success Indicators**: 
 - 25-40% revenue growth within 6 months
 - 50% reduction in manual operational time
 - 100% increase in organic traffic through AI content
 - Sub-60 second customer response times across all channels
+- Clear role separation with 90% task efficiency improvement
 
-**Experience Qualities**: Intelligent, Automated, Comprehensive
+**Experience Qualities**: Intelligent, Role-Specific, Comprehensive
 
 ## Project Classification & Approach
 
-**Complexity Level**: Complex Application (advanced functionality with multi-platform integration)
-**Primary User Activity**: Managing and optimizing multi-marketplace e-commerce operations
+**Complexity Level**: Complex Application (advanced functionality with multi-platform integration and role-based access)
+**Primary User Activity**: Managing and optimizing multi-marketplace e-commerce operations with specialized interfaces for different user types
 
 ## Core Problem Analysis
 
-**Specific Problem**: E-commerce businesses struggle to efficiently manage inventory, content, customer service, and pricing across multiple marketplaces while maintaining competitive advantage and compliance.
+**Specific Problem**: Different user types (system administrators, business owners, and customers) need fundamentally different interfaces and functionality, yet current platforms mix all features together, creating confusion and inefficiency.
 
-**User Context**: Business owners and e-commerce managers need real-time visibility and automated management of their entire marketplace ecosystem without constant manual intervention.
+**User Context**: 
+- **Administrators** need system monitoring, user management, and technical controls
+- **Business clients** need sales analytics, product management, and marketing tools
+- **Shop customers** need product browsing, purchasing, and account management
 
-**Critical Path**: Dashboard Overview → Marketplace Management → Inventory Sync → AI Agent Configuration → Performance Monitoring
+**Critical Path**: 
+- **Admin**: System Health → User Management → AI Agent Control → Technical Settings
+- **Client**: Business Dashboard → Product Management → Sales Analytics → Marketing Tools
+- **Shop**: Product Browse → Cart Management → Checkout → Order Tracking
 
 **Key Moments**: 
-1. Real-time inventory synchronization across all platforms
-2. AI-generated content that converts and ranks well
-3. Automated customer service that maintains high satisfaction
+1. Clean role separation with intuitive interface switching
+2. Real-time data synchronization across all three interfaces
+3. Specialized dashboards that show only relevant information per role
 
 ## Essential Features
+
+### Separated Interface Architecture
+- **Functionality**: Three distinct interfaces with role-appropriate navigation and features
+- **Purpose**: Eliminate interface confusion and improve user efficiency
+- **Success Criteria**: 90% reduction in user navigation errors and 50% faster task completion
+
+### Admin Interface (System Management)
+- **Functionality**: System health monitoring, user management, AI agent configuration, security settings
+- **Purpose**: Provide technical control and system oversight for administrators
+- **Success Criteria**: 99.9% system uptime monitoring and proactive issue detection
+
+### Client Interface (Business Operations)
+- **Functionality**: Sales analytics, product management, order tracking, marketing tools
+- **Purpose**: Enable business owners to manage their commerce operations efficiently
+- **Success Criteria**: 40% improvement in business decision-making speed
+
+### Shop Interface (Customer Experience)
+- **Functionality**: Product browsing, cart management, favorites, account management, order history
+- **Purpose**: Provide an optimized shopping experience for end customers
+- **Success Criteria**: 25% improvement in conversion rates and customer satisfaction
 
 ### Real-Time Inventory Synchronization
 - **Functionality**: Automatically sync stock levels across Amazon, eBay, OTTO, Kaufland, bol.com, Cdiscount, and other marketplaces
@@ -38,14 +65,9 @@
 - **Success Criteria**: 99.5% sync accuracy with sub-5-minute update times
 
 ### AI-Powered Content Generation
-- **Functionality**: Generate product listings, blog posts, and marketing content in multiple languages (EN/DE/ZH)
+- **Functionality**: Generate product listings, blog posts, and marketing content in multiple languages (EN/DE/ZH/FR)
 - **Purpose**: Scale content creation while maintaining SEO optimization
 - **Success Criteria**: 80+ SEO scores and 15% improvement in conversion rates
-
-### Multi-Channel Customer Service
-- **Functionality**: WhatsApp, Discord, Telegram integration with AI-powered responses
-- **Purpose**: Provide 24/7 customer support across all communication channels
-- **Success Criteria**: 94%+ customer satisfaction with automated responses
 
 ### Marketplace Analytics & Optimization
 - **Functionality**: Performance tracking, pricing optimization, and competitor analysis
