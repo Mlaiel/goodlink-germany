@@ -50,7 +50,7 @@ class ErrorBoundary extends React.Component<
 
 // Main application component with interface switching
 function GoodlinkApp() {
-  const [currentMode, setCurrentMode] = useKV<"admin" | "client" | "shop">("app-interface-mode", "client")
+  const [currentMode, setCurrentMode] = useKV<"admin" | "client" | "shop">("app-interface-mode", "admin")
 
   const handleModeSwitch = (mode: "admin" | "client" | "shop") => {
     setCurrentMode(mode)

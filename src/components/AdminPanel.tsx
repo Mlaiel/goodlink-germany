@@ -55,6 +55,8 @@ import { MarketplaceAgentsPanel } from './admin/MarketplaceAgentsPanel'
 import { AIAgentsConfig } from './admin/AIAgentsConfig'
 import { AgentAutomationConfig } from './admin/AgentAutomationConfig'
 import { AgentPerformanceDashboard } from './admin/AgentPerformanceDashboard'
+import { AgentDemoPanel } from './AgentDemoPanel'
+import { AgentUsageGuide } from './AgentUsageGuide'
 
 interface SystemMetrics {
   uptime: string
@@ -553,6 +555,7 @@ export function AdminPanel() {
           <TabsTrigger value="ai-agents">AI Agents</TabsTrigger>
           <TabsTrigger value="marketplace-agents">Marketplace Agents</TabsTrigger>
           <TabsTrigger value="specialized">Specialized</TabsTrigger>
+          <TabsTrigger value="agent-demos">Agent Demos</TabsTrigger>
           <TabsTrigger value="shop">Shop</TabsTrigger>
           <TabsTrigger value="marketplaces">Marketplaces</TabsTrigger>
           <TabsTrigger value="blog">Blog</TabsTrigger>
@@ -644,6 +647,17 @@ export function AdminPanel() {
                 >
                   <Shield className="h-4 w-4 mr-2" />
                   Specialized Agents
+                </button>
+                <button 
+                  onClick={() => setActiveTab("agent-demos")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "agent-demos" 
+                      ? "bg-purple-600 text-white shadow-md" 
+                      : "hover:bg-purple-100"
+                  }`}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  Agent Demos & Training
                 </button>
               </div>
             </CardContent>
@@ -1106,6 +1120,18 @@ export function AdminPanel() {
         {/* Specialized Agents Tab */}
         <TabsContent value="specialized" className="space-y-6">
           <SpecializedAgentsPanel />
+        </TabsContent>
+
+        {/* Agent Demos Tab */}
+        <TabsContent value="agent-demos" className="space-y-6">
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <AgentDemoPanel />
+            </div>
+            <div className="lg:col-span-1">
+              <AgentUsageGuide />
+            </div>
+          </div>
         </TabsContent>
 
         {/* Marketplace Settings Tab */}
