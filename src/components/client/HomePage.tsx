@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/LanguageContext"
+import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
   ShoppingCart, 
   Truck, 
@@ -233,8 +234,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <div className="w-32 h-32 bg-white/10 rounded-2xl flex items-center justify-center text-4xl backdrop-blur-sm">
-                  🚀
+                <div className="w-32 h-32 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20">
+                  <img 
+                    src={goodlinkLogo} 
+                    alt="Goodlink Germany" 
+                    className="h-16 w-auto opacity-90"
+                  />
                 </div>
               </div>
             </div>

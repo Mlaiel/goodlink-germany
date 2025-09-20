@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useLanguage } from "@/components/LanguageContext"
+import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import {
   Article,
   MagnifyingGlass,
@@ -339,9 +340,18 @@ The businesses that succeed in cross-border e-commerce are those that combine gl
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
-          <Article className="h-8 w-8" />
-{language === 'de' ? 'Wissenszentrum' : language === 'zh' ? '知识中心' : 'Knowledge Hub'}
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-3 rounded-xl border border-border/50">
+            <img 
+              src={goodlinkLogo} 
+              alt="Goodlink Germany" 
+              className="h-8 w-auto"
+            />
+          </div>
+          <Article className="h-8 w-8 text-primary" />
+        </div>
+        <h1 className="text-3xl font-bold">
+          {language === 'de' ? 'Wissenszentrum' : language === 'zh' ? '知识中心' : 'Knowledge Hub'}
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           {language === 'de' ? 'Entdecken Sie Einblicke, Trends und bewährte Praktiken in E-Commerce, KI und internationalem Handel' : 

@@ -9,6 +9,7 @@ import { ShopCatalog } from "@/components/client/ShopCatalog"
 import { BlogReader } from "@/components/client/BlogReader"
 import { AboutPage } from "@/components/client/AboutPage"
 import { AICustomerChat } from "@/components/client/AICustomerChat"
+import { Footer } from "@/components/Footer"
 import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
   House, 
@@ -198,59 +199,7 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-50 border-t mt-16">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <img 
-                  src={goodlinkLogo} 
-                  alt="Goodlink Germany" 
-                  className="h-8 w-auto"
-                />
-                <div className="font-bold text-foreground">Goodlink</div>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {t("AI-powered commerce platform connecting you with premium products worldwide.")}
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              <h3 className="font-semibold">{t("Quick Links")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Button variant="link" size="sm" className="p-0 h-auto" onClick={() => handleNavigation("home")}>{t("Home")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto" onClick={() => handleNavigation("shop")}>{t("Shop")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto" onClick={() => handleNavigation("blog")}>{t("Blog")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto" onClick={() => handleNavigation("about")}>{t("About")}</Button></li>
-              </ul>
-            </div>
-            
-            <div className="space-y-4">
-              <h3 className="font-semibold">{t("Support")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Button variant="link" size="sm" className="p-0 h-auto" onClick={() => handleNavigation("contact")}>{t("Contact Us")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Help Center")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Shipping Info")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Returns")}</Button></li>
-              </ul>
-            </div>
-            
-            <div className="space-y-4">
-              <h3 className="font-semibold">{t("Legal")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Privacy Policy")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Terms of Service")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Cookie Policy")}</Button></li>
-                <li><Button variant="link" size="sm" className="p-0 h-auto">{t("Imprint")}</Button></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 Goodlink Germany GmbH. {t("All rights reserved.")}</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* AI Customer Chat */}
       <AICustomerChat />

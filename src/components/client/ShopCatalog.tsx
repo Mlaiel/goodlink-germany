@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useLanguage } from "@/components/LanguageContext"
+import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
   ShoppingCart, 
   Star, 
@@ -305,9 +306,18 @@ export function ShopCatalog({ onNavigate }: ShopCatalogProps) {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">{t("Shop Our Products")}</h1>
-          <p className="text-muted-foreground">{t("Discover amazing products with fast shipping")}</p>
+        <div className="flex items-center gap-4">
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-2 rounded-lg border border-border/50">
+            <img 
+              src={goodlinkLogo} 
+              alt="Goodlink Germany" 
+              className="h-6 w-auto"
+            />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold">{t("Shop Our Products")}</h1>
+            <p className="text-muted-foreground">{t("Discover amazing products with fast shipping")}</p>
+          </div>
         </div>
         {cartItemsCount > 0 && (
           <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2">
