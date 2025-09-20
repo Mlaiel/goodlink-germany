@@ -72,7 +72,7 @@ const aiAgents = [
 function Dashboard() {
   const [selectedPeriod, setSelectedPeriod] = useKV("dashboard-period", "30d")
   
-  // Sample data for demonstration - moved inside component to ensure availability
+  // Sample data for demonstration - ensure data is always available
   const revenueData = [
     { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
     { name: 'Feb', amazon: 52000, ebay: 15000, otto: 9500 },
@@ -157,7 +157,12 @@ function Dashboard() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <Tooltip />
+                  <Tooltip 
+                    formatter={(value, name) => [
+                      `€${typeof value === 'number' ? value.toLocaleString() : '0'}`, 
+                      name
+                    ]}
+                  />
                   <Legend />
                   <Bar dataKey="amazon" stackId="a" fill="oklch(0.6 0.2 20)" />
                   <Bar dataKey="ebay" stackId="a" fill="oklch(0.25 0.08 240)" />
@@ -185,7 +190,14 @@ function Dashboard() {
                   <XAxis dataKey="name" />
                   <YAxis yAxisId="left" />
                   <YAxis yAxisId="right" orientation="right" />
-                  <Tooltip />
+                  <Tooltip 
+                    formatter={(value, name) => {
+                      if (name === 'conversion') {
+                        return [`${typeof value === 'number' ? value.toFixed(1) : '0'}%`, 'Conversion Rate']
+                      }
+                      return [`${typeof value === 'number' ? value.toLocaleString() : '0'}`, 'Traffic']
+                    }}
+                  />
                   <Legend />
                   <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="oklch(0.6 0.2 20)" strokeWidth={2} />
                   <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="oklch(0.25 0.08 240)" strokeWidth={2} />
@@ -219,7 +231,7 @@ function MarketplacesView() {
           <Card key={marketplace.name}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                <span className="text-2xl">{marketplace.icon}</span>
+                <span className="text-2xl">{marketplace.icon || '🛒'}</span>
                 {marketplace.name}
               </CardTitle>
               <Badge variant={
@@ -237,15 +249,15 @@ function MarketplacesView() {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Orders</span>
-                  <span className="font-mono font-medium">{marketplace.orders}</span>
+                  <span className="font-mono font-medium">{marketplace.orders || 0}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Revenue</span>
-                  <span className="font-mono font-medium">{marketplace.revenue}</span>
+                  <span className="font-mono font-medium">{marketplace.revenue || '€0'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Last Sync</span>
-                  <span className="text-xs text-muted-foreground">{marketplace.sync}</span>
+                  <span className="text-xs text-muted-foreground">{marketplace.sync || 'Never'}</span>
                 </div>
               </div>
             </CardContent>
@@ -289,27 +301,37 @@ function AIAgentsView() {
       case "analytics": return "bg-orange-100 text-orange-800 border-orange-200"
       case "forecasting": return "bg-yellow-100 text-yellow-800 border-yellow-200"
       case "support": return "bg-indigo-100 text-indigo-800 border-indigo-200"
-      default: return ""
+      default: return "bg-gray-100 text-gray-800 border-gray-200"
     }
   }
 
   const handleConfigureAgent = (agent: any) => {
-    const agentConfig = {
-      id: agent.name.toLowerCase().replace(/\s+/g, '-'),
-      name: agent.name,
-      type: agent.type,
-      status: agent.status,
-      settings: agentConfigs?.[agent.name] || {}
+    try {
+      const agentConfig = {
+        id: (agent?.name || 'unknown').toLowerCase().replace(/\s+/g, '-'),
+        name: agent?.name || 'Unknown Agent',
+        type: agent?.type || 'default',
+        status: agent?.status || 'inactive',
+        settings: (agentConfigs && agentConfigs[agent?.name]) || {}
+      }
+      setSelectedAgent(agentConfig)
+    } catch (error) {
+      console.error('Error configuring agent:', error)
+      toast.error('Failed to configure agent')
     }
-    setSelectedAgent(agentConfig)
   }
 
   const handleConfigUpdate = (config: any) => {
-    setAgentConfigs((current = {}) => ({
-      ...current,
-      [config.name]: config.settings
-    }))
-    toast.success(`${config.name} configuration updated`)
+    try {
+      setAgentConfigs((current = {}) => ({
+        ...current,
+        [config?.name || 'unknown']: config?.settings || {}
+      }))
+      toast.success(`${config?.name || 'Agent'} configuration updated`)
+    } catch (error) {
+      console.error('Error updating config:', error)
+      toast.error('Failed to update configuration')
+    }
   }
 
   const filteredAgents = filterType === "all" ? aiAgents : aiAgents?.filter(agent => agent.type === filterType) || []
@@ -512,13 +534,13 @@ function AIAgentsView() {
           <Card key={agent.name} className="cursor-pointer hover:bg-muted/50 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                {getAgentIcon(agent.type, agent.name)}
-                {agent.name}
+                {getAgentIcon(agent.type || 'default', agent.name || '')}
+                {agent.name || 'Unknown Agent'}
               </CardTitle>
               <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
                 {agent.status === 'active' && <CheckCircle className="h-3 w-3 mr-1" />}
                 {agent.status === 'training' && <Lightning className="h-3 w-3 mr-1" />}
-                {agent.status}
+                {agent.status || 'inactive'}
               </Badge>
             </CardHeader>
             <CardContent>
@@ -535,8 +557,8 @@ function AIAgentsView() {
                   <Progress value={agent.success || 0} className="h-2" />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type)}`}>
-                    {agent.type}
+                  <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type || 'default')}`}>
+                    {agent.type || 'unknown'}
                   </Badge>
                   <Button 
                     size="sm" 
