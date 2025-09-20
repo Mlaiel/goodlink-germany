@@ -1,194 +1,220 @@
-# Goodlink Germany - Separated Interface AI Commerce Platform PRD
+# AI Agent Automation Control System - Product Requirements Document
 
 ## Core Purpose & Success
 
-**Mission Statement**: Create a unified, AI-powered multi-marketplace commerce management platform with three distinct user interfaces: Admin (system management), Client (business operations), and Shop (customer experience), automating everything from inventory synchronization to customer service.
+**Mission Statement**: Create a comprehensive AI agent automation control system that enables fine-grained configuration of individual agent automation levels, thresholds, and performance parameters for Goodlink Germany's multi-marketplace e-commerce platform.
 
-**Success Indicators**: 
-- 25-40% revenue growth within 6 months
-- 50% reduction in manual operational time
-- 100% increase in organic traffic through AI content
-- Sub-60 second customer response times across all channels
-- Clear role separation with 90% task efficiency improvement
+**Success Indicators**:
+- Individual agent configuration with specific automation levels (manual, assisted, automatic)
+- Granular threshold controls for pricing, inventory, listings, and performance parameters
+- Real-time performance monitoring with actionable insights
+- Reduce manual intervention by 60% while maintaining 95%+ success rates
+- Enable 24/7 autonomous operations with intelligent escalation
 
-**Experience Qualities**: Intelligent, Role-Specific, Comprehensive
+**Experience Qualities**: 
+- Precise: Granular control over every aspect of agent behavior
+- Intelligent: Smart defaults with contextual recommendations
+- Transparent: Clear visibility into agent decisions and performance
 
 ## Project Classification & Approach
 
-**Complexity Level**: Complex Application (advanced functionality with multi-platform integration and role-based access)
-**Primary User Activity**: Managing and optimizing multi-marketplace e-commerce operations with specialized interfaces for different user types
-
-## Core Problem Analysis
-
-**Specific Problem**: Different user types (system administrators, business owners, and customers) need fundamentally different interfaces and functionality, yet current platforms mix all features together, creating confusion and inefficiency.
-
-**User Context**: 
-- **Administrators** need system monitoring, user management, and technical controls
-- **Business clients** need sales analytics, product management, and marketing tools
-- **Shop customers** need product browsing, purchasing, and account management
-
-**Critical Path**: 
-- **Admin**: System Health → User Management → AI Agent Control → Technical Settings
-- **Client**: Business Dashboard → Product Management → Sales Analytics → Marketing Tools
-- **Shop**: Product Browse → Cart Management → Checkout → Order Tracking
-
-**Key Moments**: 
-1. Clean role separation with intuitive interface switching
-2. Real-time data synchronization across all three interfaces
-3. Specialized dashboards that show only relevant information per role
+**Complexity Level**: Complex Application - Advanced automation controls with real-time monitoring
+**Primary User Activity**: Configuring and monitoring AI agent automation systems
 
 ## Essential Features
 
-### Separated Interface Architecture
-- **Functionality**: Three distinct interfaces with role-appropriate navigation and features
-- **Purpose**: Eliminate interface confusion and improve user efficiency
-- **Success Criteria**: 90% reduction in user navigation errors and 50% faster task completion
+### Individual Agent Configuration
+- **Automation Level Control**: Manual, Assisted, Automatic modes per agent
+- **Performance Thresholds**: Configurable limits for actions, success rates, response times
+- **Resource Management**: CPU, memory, and API usage monitoring and limits
+- **Schedule Management**: Custom timing and frequency controls per agent
 
-### Admin Interface (System Management)
-- **Functionality**: System health monitoring, user management, AI agent configuration, security settings
-- **Purpose**: Provide technical control and system oversight for administrators
-- **Success Criteria**: 99.9% system uptime monitoring and proactive issue detection
+### Specialized Agent Controls
 
-### Client Interface (Business Operations)
-- **Functionality**: Sales analytics, product management, order tracking, marketing tools
-- **Purpose**: Enable business owners to manage their commerce operations efficiently
-- **Success Criteria**: 40% improvement in business decision-making speed
+#### Listing Generation Agent
+- Max listings per day limits
+- Auto-publish vs. review-required workflows
+- Platform-specific optimization settings
+- Image requirement enforcement
+- Compliance checking automation
+- Multi-language translation controls
 
-### Shop Interface (Customer Experience)
-- **Functionality**: Product browsing, cart management, favorites, account management, order history
-- **Purpose**: Provide an optimized shopping experience for end customers
-- **Success Criteria**: 25% improvement in conversion rates and customer satisfaction
+#### Dynamic Pricing Agent  
+- Competitor monitoring frequency
+- Price change thresholds and limits
+- Buy Box optimization settings
+- Profit margin protection
+- Reprice delay controls
+- Marketplace weight distribution
 
-### Real-Time Inventory Synchronization
-- **Functionality**: Automatically sync stock levels across Amazon, eBay, OTTO, Kaufland, bol.com, Cdiscount, and other marketplaces
-- **Purpose**: Prevent overselling and maintain accurate stock levels
-- **Success Criteria**: 99.5% sync accuracy with sub-5-minute update times
+#### Inventory Sync Agent
+- Sync frequency configuration
+- Stock threshold management
+- Auto-reorder capabilities
+- Demand forecasting parameters
+- Safety stock calculations
+- Supplier notification automation
 
-### AI-Powered Content Generation
-- **Functionality**: Generate product listings, blog posts, and marketing content in multiple languages (EN/DE/ZH/FR)
-- **Purpose**: Scale content creation while maintaining SEO optimization
-- **Success Criteria**: 80+ SEO scores and 15% improvement in conversion rates
+#### Review Monitoring Agent
+- Sentiment analysis thresholds
+- Auto-response configurations
+- Escalation triggers
+- Language detection settings
+- Competitor analysis controls
 
-### Marketplace Analytics & Optimization
-- **Functionality**: Performance tracking, pricing optimization, and competitor analysis
-- **Purpose**: Data-driven decision making for market strategy
-- **Success Criteria**: 20% improvement in Buy Box percentage
+### Real-Time Performance Dashboard
+- Live agent status monitoring
+- Performance metrics visualization
+- Resource usage tracking
+- Error rate monitoring
+- Efficiency scoring
+- System health indicators
 
-### Headless E-Commerce Shop
-- **Functionality**: Direct-to-consumer online store with AI personalization
-- **Purpose**: Reduce dependency on marketplace fees and build direct customer relationships
-- **Success Criteria**: 3.5% conversion rate and growing customer base
+### Global Agent Controls
+- Emergency stop functionality
+- Bulk start/stop/restart operations
+- System-wide configuration export/import
+- Performance optimization suggestions
 
 ## Design Direction
 
 ### Visual Tone & Identity
-**Emotional Response**: Professional confidence with intelligent automation
-**Design Personality**: Clean, modern, data-driven interface that feels powerful yet approachable
-**Visual Metaphors**: Dashboard command center, interconnected systems, AI assistance
-**Simplicity Spectrum**: Rich interface with progressive disclosure - complex data made simple
+**Emotional Response**: Professional confidence mixed with technological precision
+**Design Personality**: Clean, systematic, data-driven interface that conveys control and reliability
+**Visual Metaphors**: Control panels, monitoring dashboards, precision instruments
+**Simplicity Spectrum**: Rich interface with organized complexity - information density balanced with clarity
 
 ### Color Strategy
-**Color Scheme Type**: Custom palette with accent highlights
-**Primary Color**: Deep navy blue (professional, trustworthy) - `oklch(0.25 0.08 240)`
-**Secondary Colors**: Clean whites and light grays for backgrounds
-**Accent Color**: Orange highlights for actions and alerts - `oklch(0.6 0.2 20)`
-**Color Psychology**: Navy conveys trust and stability, orange provides energy and action
-**Color Accessibility**: WCAG AA compliant with 4.5:1 contrast ratios minimum
-
-**Foreground/Background Pairings**:
-- Main text on background: `oklch(0.25 0.08 240)` on `oklch(1 0 0)` ✓ 4.8:1
-- Card text on card background: `oklch(0.25 0.08 240)` on `oklch(0.98 0.005 240)` ✓ 4.6:1
-- Primary button text: `oklch(1 0 0)` on `oklch(0.25 0.08 240)` ✓ 4.8:1
-- Accent text: `oklch(1 0 0)` on `oklch(0.6 0.2 20)` ✓ 4.5:1
+**Color Scheme Type**: Analogous with complementary accents
+**Primary Color**: Deep blue (#1e40af) - representing reliability and control
+**Secondary Colors**: 
+- Slate grays (#64748b, #94a3b8) for backgrounds and secondary information
+- Green (#16a34a) for success states and positive metrics
+- Orange (#ea580c) for warnings and attention items
+- Red (#dc2626) for errors and critical states
+**Accent Color**: Electric blue (#3b82f6) for interactive elements and highlights
+**Color Psychology**: Blues and grays convey technical precision and reliability, while status colors provide immediate visual feedback
 
 ### Typography System
-**Font Pairing Strategy**: Inter for UI (clean, modern) + JetBrains Mono for data/code
-**Typographic Hierarchy**: Clear distinction between headers (24px), subheaders (18px), body (16px), captions (14px)
-**Font Personality**: Professional, highly legible, data-friendly
-**Readability Focus**: 1.5x line height for body text, generous spacing
-**Typography Consistency**: Consistent font weights (400, 500, 600, 700)
-**Which fonts**: Inter and JetBrains Mono from Google Fonts
-**Legibility Check**: Both fonts tested for clarity at small sizes and data display
+**Font Pairing Strategy**: Monospace for data/metrics, sans-serif for interface text
+**Primary Font**: Inter - clean, technical, highly legible
+**Secondary Font**: JetBrains Mono - for data display, configuration values
+**Typographic Hierarchy**: Clear distinction between headers, labels, values, and status text
 
-### Visual Hierarchy & Layout
-**Attention Direction**: Primary actions in orange, secondary in navy, data visualization in blues
-**White Space Philosophy**: Generous spacing to prevent cognitive overload
-**Grid System**: 12-column responsive grid with consistent 16px base spacing
-**Responsive Approach**: Mobile-first design with progressive enhancement
-**Content Density**: Balanced - enough information without overwhelming
+### Component Selection & Layout
+**Primary Components**:
+- Cards with nested configuration sections
+- Slider controls for threshold values
+- Toggle switches for boolean settings
+- Progress bars for resource usage
+- Badge indicators for status
+- Tabs for organized configuration sections
 
-### Animations
-**Purposeful Meaning**: Smooth transitions show system responsiveness and data updates
-**Hierarchy of Movement**: Critical alerts get attention, data updates are subtle
-**Contextual Appropriateness**: Professional, fast transitions that don't delay workflow
+**Layout Approach**:
+- Grid-based organization with clear sections
+- Collapsible advanced settings
+- Side-by-side comparison views
+- Dashboard-style metric displays
 
-### UI Elements & Component Selection
-**Component Usage**: 
-- Cards for data grouping and modules
-- Tables for detailed data display
-- Charts for performance visualization
-- Badges for status indicators
-- Tabs for feature organization
+### Real-Time Data Visualization
+**Performance Metrics**: Live updating charts and gauges
+**Status Indicators**: Color-coded badges with icons
+**Resource Usage**: Animated progress bars
+**Historical Data**: Trend lines and comparative metrics
 
-**Component Customization**: shadcn/ui components with custom color scheme
-**Component States**: Clear hover, active, disabled, and loading states
-**Icon Selection**: Phosphor icons for consistency and clarity
-**Component Hierarchy**: Primary (orange), secondary (navy), tertiary (gray)
-**Spacing System**: 4px base unit scaling (4, 8, 16, 24, 32, 48px)
-**Mobile Adaptation**: Responsive components that stack and resize appropriately
+## Technical Implementation
 
-### Visual Consistency Framework
-**Design System Approach**: Component-based design with systematic patterns
-**Style Guide Elements**: Color palette, typography, spacing, component behavior
-**Visual Rhythm**: Consistent card spacing, button placement, and data presentation
-**Brand Alignment**: Professional AI-forward identity that builds trust
+### State Management
+- Persistent configuration storage with `useKV`
+- Real-time metric updates via WebSocket simulation
+- Configuration validation and error handling
+- Import/export functionality for backup/restore
 
-### Accessibility & Readability
-**Contrast Goal**: WCAG AA compliance minimum, targeting AAA where possible
-**Keyboard Navigation**: Full keyboard access to all interactive elements
-**Screen Reader Support**: Proper ARIA labels and semantic markup
-**Focus Indicators**: Clear, visible focus states for all interactive elements
+### Component Architecture
+- Modular agent configuration components
+- Reusable metric display components
+- Centralized status management
+- Type-safe configuration interfaces
+
+### Performance Optimization
+- Efficient re-rendering with React optimization
+- Debounced configuration updates
+- Lazy loading of historical data
+- Optimistic UI updates
+
+## User Experience Flow
+
+### Configuration Workflow
+1. **Agent Selection**: Visual grid of all agents with status overview
+2. **Detail Configuration**: Drill-down into specific agent settings
+3. **Threshold Setting**: Slider-based controls with real-time validation
+4. **Preview & Apply**: Configuration preview with impact assessment
+5. **Monitor Results**: Real-time feedback on configuration changes
+
+### Monitoring Workflow
+1. **Dashboard Overview**: System-wide health and performance
+2. **Agent Details**: Individual agent metrics and status
+3. **Alert Management**: Notification and escalation handling
+4. **Performance Analysis**: Historical trends and optimization opportunities
+
+## Edge Cases & Validation
+
+### Configuration Constraints
+- Minimum/maximum threshold validation
+- Cross-agent dependency checking
+- Resource allocation limits
+- Performance impact warnings
+
+### Error Handling
+- Agent failure recovery procedures
+- Configuration rollback capabilities
+- Graceful degradation strategies
+- Clear error messaging and resolution guidance
+
+### Security Considerations
+- API key and credential protection
+- User permission validation
+- Audit trail for configuration changes
+- Secure storage of sensitive settings
+
+## Success Metrics
+
+### Operational Efficiency
+- Reduction in manual interventions
+- Improved agent success rates
+- Faster response to market changes
+- Reduced operational overhead
+
+### System Performance
+- Agent uptime and reliability
+- Resource utilization optimization
+- Error rate reduction
+- Response time improvements
+
+### User Experience
+- Time to configure new agents
+- Ease of threshold adjustment
+- Clarity of performance insights
+- Satisfaction with control granularity
 
 ## Implementation Considerations
 
-**Scalability Needs**: Support for additional marketplaces and AI agents
-**Testing Focus**: Cross-browser compatibility, performance under load, data accuracy
-**Critical Questions**: 
-- How quickly can we onboard new marketplaces?
-- What happens during API outages?
-- How do we ensure data privacy compliance?
+### Scalability
+- Support for additional agent types
+- Configurable metric collection
+- Flexible threshold frameworks
+- Extensible automation levels
 
-**Technical Constraints**:
-- Real-time data synchronization requirements
-- Multiple third-party API rate limits
-- GDPR compliance for EU operations
-- Multi-language content generation quality
+### Integration Points
+- External API management
+- Marketplace-specific configurations
+- Performance monitoring systems
+- Alert and notification services
 
-## Edge Cases & Problem Scenarios
+### Future Enhancements
+- Machine learning-driven threshold optimization
+- Predictive performance analytics
+- Advanced automation workflows
+- Cross-platform agent orchestration
 
-**Potential Obstacles**:
-- Marketplace API changes breaking synchronization
-- AI content generation producing inappropriate results
-- High-volume periods overwhelming system capacity
-- Customer service escalation beyond AI capabilities
-
-**Edge Case Handling**:
-- Fallback mechanisms for API failures
-- Human review workflows for AI content
-- Auto-scaling for traffic spikes
-- Clear escalation paths to human support
-
-## Reflection
-
-**Unique Approach**: This solution uniquely combines real-time inventory management with AI-powered content and customer service, creating a truly automated marketplace management system.
-
-**Key Assumptions**: 
-- Businesses want full automation with oversight capabilities
-- AI quality will be sufficient for customer-facing content
-- Integration complexity can be abstracted from users
-
-**Exceptional Elements**: 
-- Unified multi-marketplace view with real-time sync
-- AI agents that handle multiple business functions
-- Progressive disclosure of complex e-commerce data
-- Multilingual AI capabilities for global markets
+This system represents the next evolution in AI-powered e-commerce automation, providing unprecedented control and visibility into automated business operations while maintaining the flexibility to adapt to changing market conditions and business requirements.

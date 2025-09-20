@@ -53,6 +53,8 @@ import { SpecializedAgentsPanel } from './admin/SpecializedAgentsPanel'
 import { AIAgentMonitoringDashboard } from './admin/AIAgentMonitoringDashboard'
 import { MarketplaceAgentsPanel } from './admin/MarketplaceAgentsPanel'
 import { AIAgentsConfig } from './admin/AIAgentsConfig'
+import { AgentAutomationConfig } from './admin/AgentAutomationConfig'
+import { AgentPerformanceDashboard } from './admin/AgentPerformanceDashboard'
 
 interface SystemMetrics {
   uptime: string
@@ -524,7 +526,7 @@ export function AdminPanel() {
 
       {/* Main Configuration Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-10 h-auto p-1 bg-muted/50 rounded-xl">
+        <TabsList className="grid w-full grid-cols-11 h-auto p-1 bg-muted/50 rounded-xl">
           <TabsTrigger value="overview" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
             <BarChart3 className="h-5 w-5" />
             <span className="text-sm font-medium">Overview</span>
@@ -536,6 +538,10 @@ export function AdminPanel() {
           <TabsTrigger value="ai-agents" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
             <Robot className="h-5 w-5" />
             <span className="text-sm font-medium">AI Agents</span>
+          </TabsTrigger>
+          <TabsTrigger value="monitoring" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <Activity className="h-5 w-5" />
+            <span className="text-sm font-medium">Monitoring</span>
           </TabsTrigger>
           <TabsTrigger value="marketplace-agents" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
             <Storefront className="h-5 w-5" />
@@ -865,8 +871,14 @@ export function AdminPanel() {
 
         {/* AI Agents Tab */}
         <TabsContent value="ai-agents" className="space-y-6">
-          <AIAgentsConfig />
+          <AgentAutomationConfig />
         </TabsContent>
+        
+        {/* Agent Monitoring Tab */}
+        <TabsContent value="monitoring" className="space-y-6">
+          <AgentPerformanceDashboard />
+        </TabsContent>
+        
         <TabsContent value="marketplace-agents" className="space-y-6">
           <MarketplaceAgentsPanel />
         </TabsContent>
