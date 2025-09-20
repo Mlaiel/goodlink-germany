@@ -10,6 +10,16 @@ import { BlogReader } from "@/components/client/BlogReader"
 import { AboutPage } from "@/components/client/AboutPage"
 import { AICustomerChat } from "@/components/client/AICustomerChat"
 import { Footer } from "@/components/Footer"
+import { LoginDialog } from "@/components/auth/LoginDialog"
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { toast } from "sonner"
 
 import { 
   House, 
@@ -21,7 +31,10 @@ import {
   Phone,
   Info,
   ShieldCheck,
-  User
+  User,
+  SignOut,
+  Gear,
+  Package
 } from "@phosphor-icons/react"
 
 interface ClientInterfaceProps {
@@ -31,17 +44,29 @@ interface ClientInterfaceProps {
 export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
   const { t } = useLanguage()
   const [activeSection, setActiveSection] = useKV("client-active-section", "home")
+  const [currentUser, setCurrentUser] = useKV<any>("current-user", null)
+  const [showLoginDialog, setShowLoginDialog] = useState(false)
 
   const handleNavigation = (section: string) => {
     setActiveSection(section)
   }
 
+  const handleLogin = (user: any) => {
+    setCurrentUser(user)
+    toast.success(t('auth.welcomeBack') || 'Welcome back!')
+  }
+
+  const handleLogout = () => {
+    setCurrentUser(null)
+    toast.success(t('auth.loggedOut') || 'Logged out successfully')
+  }
+
   const navigationItems = [
-    { id: "home", label: t("nav.home") || "Home", icon: <House className="h-5 w-5" /> },
+    { id: "home", label: t("nav.home") || "Start", icon: <House className="h-5 w-5" /> },
     { id: "shop", label: t("nav.shop") || "Shop", icon: <Storefront className="h-5 w-5" /> },
     { id: "blog", label: t("nav.blog") || "Blog", icon: <Article className="h-5 w-5" /> },
-    { id: "about", label: t("nav.about") || "About", icon: <Info className="h-5 w-5" /> },
-    { id: "contact", label: t("nav.contact") || "Contact", icon: <Phone className="h-5 w-5" /> }
+    { id: "about", label: t("nav.about") || "Über uns", icon: <Info className="h-5 w-5" /> },
+    { id: "contact", label: t("nav.contact") || "Kontakt", icon: <Phone className="h-5 w-5" /> }
   ]
 
   const renderContent = () => {
@@ -69,18 +94,18 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
                 <div className="space-y-4">
                   <div>
                     <h3 className="font-semibold">{t("Email")}</h3>
-                    <p className="text-muted-foreground">support@goodlink-germany.com</p>
+                    <p className="text-muted-foreground">info@goodlink-germany.com</p>
                   </div>
                   <div>
                     <h3 className="font-semibold">{t("Phone")}</h3>
-                    <p className="text-muted-foreground">+49 (0) 30 12345678</p>
+                    <p className="text-muted-foreground">+49 (0) 221 99887766</p>
                   </div>
                   <div>
                     <h3 className="font-semibold">{t("Address")}</h3>
                     <p className="text-muted-foreground">
                       Goodlink Germany GmbH<br />
-                      Unter den Linden 1<br />
-                      10117 Berlin, Germany
+                      Hansaring 97<br />
+                      50670 Köln, Germany
                     </p>
                   </div>
                 </div>
@@ -156,6 +181,59 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
               </div>
               
               <LanguageSelector />
+
+              {/* User Account */}
+              {currentUser ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                      <UserCircle className="h-5 w-5" />
+                      <span className="hidden sm:inline">{currentUser.firstName}</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">
+                          {currentUser.firstName} {currentUser.lastName}
+                        </p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {currentUser.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{t('account.profile') || 'Profile'}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Package className="mr-2 h-4 w-4" />
+                      <span>{t('account.orders') || 'My Orders'}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Gear className="mr-2 h-4 w-4" />
+                      <span>{t('account.settings') || 'Settings'}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <SignOut className="mr-2 h-4 w-4" />
+                      <span>{t('auth.signOut') || 'Sign out'}</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowLoginDialog(true)}
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-blue-500 shadow-sm transition-all duration-200"
+                >
+                  <User className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('auth.login') || 'Login'}</span>
+                  <span className="sm:hidden">{t('auth.login') || 'Login'}</span>
+                </Button>
+              )}
               
               {/* Admin Panel Access */}
               <Button 
@@ -203,6 +281,13 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
 
       {/* AI Customer Chat */}
       <AICustomerChat />
+
+      {/* Login Dialog */}
+      <LoginDialog 
+        isOpen={showLoginDialog}
+        onClose={() => setShowLoginDialog(false)}
+        onLogin={handleLogin}
+      />
     </div>
   )
 }

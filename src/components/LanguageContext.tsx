@@ -190,6 +190,12 @@ const translations = {
     'auth.customerType': 'Customer Type',
     'auth.newCustomer': 'New Customer',
     'auth.returningCustomer': 'Returning Customer',
+    'auth.loggedOut': 'Logged out successfully',
+    
+    // Account Management
+    'account.profile': 'Profile',
+    'account.orders': 'My Orders',
+    'account.settings': 'Settings',
     
     // Client Website
     'client.aboutTitle': 'About Goodlink Germany',
@@ -430,6 +436,12 @@ const translations = {
     'auth.customerType': 'Kundentyp',
     'auth.newCustomer': 'Neukunde',
     'auth.returningCustomer': 'Bestandskunde',
+    'auth.loggedOut': 'Erfolgreich abgemeldet',
+    
+    // Account Management
+    'account.profile': 'Profil',
+    'account.orders': 'Meine Bestellungen',
+    'account.settings': 'Einstellungen',
     
     // Client Website
     'client.aboutTitle': 'Über Goodlink Germany',
@@ -670,6 +682,12 @@ const translations = {
     'auth.customerType': '客户类型',
     'auth.newCustomer': '新客户',
     'auth.returningCustomer': '老客户',
+    'auth.loggedOut': '成功退出登录',
+    
+    // Account Management
+    'account.profile': '个人资料',
+    'account.orders': '我的订单',
+    'account.settings': '设置',
     
     // Client Website
     'client.aboutTitle': '关于Goodlink Germany',
@@ -910,6 +928,12 @@ const translations = {
     'auth.customerType': 'Type de client',
     'auth.newCustomer': 'Nouveau client',
     'auth.returningCustomer': 'Client existant',
+    'auth.loggedOut': 'Déconnecté avec succès',
+    
+    // Account Management
+    'account.profile': 'Profil',
+    'account.orders': 'Mes commandes',
+    'account.settings': 'Paramètres',
     
     // Client Website
     'client.aboutTitle': 'À propos de Goodlink Germany',

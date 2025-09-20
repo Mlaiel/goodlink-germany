@@ -158,8 +158,8 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
         timestamp: Date.now(),
         suggestions: [
           t("chat.showPopularProducts"),
-          t("chat.findElectronics"),
-          t("chat.bestDeals"),
+          t("chat.findMedicalDevices"),
+          t("chat.findAutomotiveParts"),
           t("chat.customerSupport")
         ]
       }
@@ -331,8 +331,8 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       timestamp: Date.now(),
       suggestions: [
         t("chat.showPopularProducts"),
-        t("chat.findElectronics"),
-        t("chat.bestDeals"),
+        t("chat.findMedicalDevices"),
+        t("chat.findAutomotiveParts"),
         t("chat.customerSupport")
       ]
     }
