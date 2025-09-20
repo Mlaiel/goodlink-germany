@@ -43,7 +43,7 @@ class ErrorBoundary extends React.Component<
 }
 
 function AppContent() {
-  const [userMode, setUserMode] = useKV("user-mode", "admin") // admin, client, shop
+  const [userMode, setUserMode] = useKV("user-mode", "client") // client (public website), admin, shop (business dashboard)
 
   const handleModeSwitch = (mode: "admin" | "client" | "shop") => {
     setUserMode(mode)
@@ -59,7 +59,7 @@ function AppContent() {
       case "shop":
         return <ShopInterface onSwitchMode={handleModeSwitch} />
       default:
-        return <AdminInterface onSwitchMode={handleModeSwitch} />
+        return <ClientInterface onSwitchMode={handleModeSwitch} />
     }
   }
 
