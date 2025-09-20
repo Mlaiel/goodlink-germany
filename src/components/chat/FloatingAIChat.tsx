@@ -44,7 +44,7 @@ export function FloatingAIChat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
-      content: "Hello! I'm your AI assistant. How can I help you today?",
+      content: "🤖 Demo Mode: Hello! I'm your AI assistant for Good-Link Germany. I can help you explore our medical devices and automotive components, answer compliance questions, provide shipping information, and connect you with our sales team. Try asking me about our products or services!",
       isUser: false,
       timestamp: new Date()
     }
@@ -74,18 +74,18 @@ export function FloatingAIChat() {
 
   // Quick suggestions
   const quickSuggestions = [
-    t('chat.showPopularProducts'),
-    t('chat.findMedicalDevices'),
-    t('chat.findAutomotiveParts'),
-    t('chat.complianceCerts'),
-    t('chat.volumePricing'),
-    t('chat.technicalDocs'),
-    t('chat.bestDeals'),
-    t('chat.customerSupport'),
-    t('chat.shippingInfo'),
-    t('chat.productCategories'),
-    t('chat.returnsInfo'),
-    t('chat.humanSupport')
+    "Show me medical devices",
+    "Find automotive parts", 
+    "What compliance certificates do you provide?",
+    "Tell me about shipping to Europe",
+    "I need volume pricing for bulk orders",
+    "Connect me with technical support",
+    "Show me your product catalog",
+    "How do I contact your sales team?",
+    "What is Good-Link Germany's history?",
+    "Help me find connectors and cables",
+    "I need EMC/ROHS certified components",
+    "Contact human support specialist"
   ]
 
   const handleSendMessage = async (messageContent?: string) => {
@@ -104,8 +104,8 @@ export function FloatingAIChat() {
     setIsLoading(true)
 
     try {
-      // Simulate AI response
-      await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000))
+      // Simulate AI response with shorter delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 1200))
       
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
@@ -115,6 +115,9 @@ export function FloatingAIChat() {
       }
 
       setMessages(prev => [...prev, aiResponse])
+      
+      // Show success toast for demo
+      toast.success("AI response generated", { duration: 2000 })
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -123,6 +126,7 @@ export function FloatingAIChat() {
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])
+      toast.error("Failed to get AI response")
     } finally {
       setIsLoading(false)
     }
@@ -131,31 +135,42 @@ export function FloatingAIChat() {
   const generateAIResponse = (userMessage: string): string => {
     const message = userMessage.toLowerCase()
     
-    if (message.includes('medical') || message.includes('device')) {
-      return "I can help you find medical devices. We offer over 800+ certified medical components meeting EU/CE standards. Would you like to see our medical device categories or need help with specific compliance requirements?"
+    // Add demo mode indicator
+    const demoPrefix = "🤖 Demo Mode: "
+    
+    if (message.includes('medical') || message.includes('device') || message.includes('hospital') || message.includes('health')) {
+      return demoPrefix + "Excellent! We specialize in medical devices with over 800+ certified components. Our medical portfolio includes diagnostic equipment, patient monitoring devices, surgical instruments, and medical electronics. All products meet strict EU MDR/CE standards. Our Shenzhen medical division has 20+ years of experience. Would you like to explore specific medical categories or need compliance documentation?"
     }
     
-    if (message.includes('automotive') || message.includes('car')) {
-      return "Great! We have 600+ automotive components. Our automotive parts include connectors, sensors, motors, and mechanical components. All parts meet EMC/ROHS standards. What specific automotive components are you looking for?"
+    if (message.includes('automotive') || message.includes('car') || message.includes('vehicle') || message.includes('motor')) {
+      return demoPrefix + "Perfect! Our automotive division offers 600+ premium components including electric motors, sensors, connectors, castors, and wiring harnesses. All parts meet EMC/ROHS standards and are tested for European markets. We serve major automotive manufacturers with reliable China-Europe supply chains. What specific automotive components can I help you find?"
     }
     
-    if (message.includes('price') || message.includes('cost')) {
-      return "For pricing information, I'd recommend contacting our sales team for personalized quotes. We offer volume discounts for bulk orders and have competitive pricing on all components. Would you like me to connect you with our sales team?"
+    if (message.includes('price') || message.includes('cost') || message.includes('quote') || message.includes('pricing')) {
+      return demoPrefix + "For competitive pricing on our medical and automotive components, our sales team provides personalized quotes based on volume and specifications. We offer attractive discounts for bulk orders and long-term partnerships. Contact us at sales@goodlink-germany.com or through our sales team for detailed pricing. Volume pricing starts at 100+ units."
     }
     
-    if (message.includes('shipping') || message.includes('delivery')) {
-      return "We offer worldwide shipping from our warehouses in Shenzhen, Shanghai, and Hong Kong. Delivery times vary by location: Europe (5-7 days), Global (7-14 days). Free shipping available for orders over €500. Need specific shipping information for your location?"
+    if (message.includes('shipping') || message.includes('delivery') || message.includes('logistics')) {
+      return demoPrefix + "We offer fast, reliable shipping from our 3 warehouses: Shenzhen, Shanghai, and Hong Kong. Delivery times: Europe (5-7 days), Global (7-14 days). We use DHL, UPS, and other premium carriers. Free shipping available for orders over €500. Our logistics team handles all customs and compliance documentation."
     }
     
-    if (message.includes('compliance') || message.includes('certificate')) {
-      return "All our products come with proper compliance certificates. Medical devices: MDR/CE certified. Automotive: EMC/ROHS compliant. We can provide detailed compliance documentation for any product. Which specific certifications do you need?"
+    if (message.includes('compliance') || message.includes('certificate') || message.includes('standard') || message.includes('regulation')) {
+      return demoPrefix + "Compliance is our top priority! Medical devices: Full MDR/CE certification with detailed documentation. Automotive: EMC/ROHS compliance guaranteed. We provide complete certification packages including test reports, declarations of conformity, and technical files. Our compliance team ensures all products meet European standards before shipment."
     }
     
-    if (message.includes('support') || message.includes('help')) {
-      return "Our technical support team speaks German, English, and Chinese. We're available 24/7 for product questions, technical specifications, and order assistance. Would you like me to transfer you to a human specialist?"
+    if (message.includes('support') || message.includes('help') || message.includes('contact') || message.includes('human')) {
+      return demoPrefix + "Our expert technical support team is available in German, English, and Chinese. We provide pre-sale consultation, technical specifications, installation guidance, and after-sales support. Available 24/7 for urgent technical questions. Contact: support@goodlink-germany.com or call our Cologne office."
     }
     
-    return "Thank you for your question! As a leading supplier of medical devices and automotive components, I'm here to help. Could you please provide more details about what you're looking for? I can assist with product searches, technical specifications, pricing, or compliance information."
+    if (message.includes('company') || message.includes('about') || message.includes('history') || message.includes('background')) {
+      return demoPrefix + "Good-Link Germany was founded in 2020 as the European branch of Good-Link China (est. 2004). We're based in Cologne with 78+ employees across China and Germany. 2023 revenue: €93M. We specialize in medical devices and automotive components, bridging Europe and China with cultural expertise and reliable partnerships."
+    }
+    
+    if (message.includes('catalog') || message.includes('products') || message.includes('browse') || message.includes('categories')) {
+      return demoPrefix + "Browse our comprehensive catalog: 🏥 Medical Devices (800+ components), 🚗 Automotive Parts (600+ components), 🔌 Connectors & Cables (500+ variants), ⚙️ Motors & Sensors (300+ models), 🛞 Mechanical Components (400+ parts). All products feature detailed specifications, compliance certificates, and technical documentation."
+    }
+    
+    return demoPrefix + "Hello! I'm your AI assistant for Good-Link Germany, your trusted bridge between Europe and China for premium medical devices and automotive components. I can help with product searches, technical specifications, compliance questions, pricing information, and connecting you with our expert sales team. What can I assist you with today?"
   }
 
   const handleFeedback = (messageId: string, isHelpful: boolean) => {
@@ -170,7 +185,7 @@ export function FloatingAIChat() {
   const clearChat = () => {
     setMessages([{
       id: "welcome",
-      content: "Hello! I'm your AI assistant. How can I help you today?",
+      content: "🤖 Demo Mode: Hello! I'm your AI assistant for Good-Link Germany. I can help you explore our medical devices and automotive components, answer compliance questions, provide shipping information, and connect you with our sales team. Try asking me about our products or services!",
       isUser: false,
       timestamp: new Date()
     }])
@@ -226,13 +241,21 @@ export function FloatingAIChat() {
   if (!isOpen) {
     return (
       <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          size="lg"
-          className="rounded-full h-14 w-14 shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
-          onClick={() => setIsOpen(true)}
-        >
-          <Robot className="h-6 w-6" />
-        </Button>
+        <div className="relative">
+          <Button
+            size="lg"
+            className="rounded-full h-16 w-16 shadow-xl hover:shadow-2xl transition-all duration-300 bg-primary hover:bg-primary/90 animate-bounce"
+            onClick={() => setIsOpen(true)}
+          >
+            <Robot className="h-7 w-7" />
+          </Button>
+          <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs px-2 py-1 rounded-full shadow-lg">
+            Demo
+          </div>
+          <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            Try AI Chat!
+          </div>
+        </div>
       </div>
     )
   }
@@ -375,11 +398,15 @@ export function FloatingAIChat() {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-muted text-muted-foreground p-3 rounded-lg">
+                  <div className="bg-muted text-muted-foreground p-3 rounded-lg max-w-[80%]">
                     <div className="flex items-center gap-2">
-                      <div className="animate-pulse">●</div>
-                      <div className="animate-pulse" style={{ animationDelay: '0.2s' }}>●</div>
-                      <div className="animate-pulse" style={{ animationDelay: '0.4s' }}>●</div>
+                      <Robot className="h-4 w-4" />
+                      <span className="text-sm">AI is thinking</span>
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-current rounded-full animate-pulse"></div>
+                        <div className="w-2 h-2 bg-current rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 bg-current rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -391,46 +418,67 @@ export function FloatingAIChat() {
 
           {/* Quick Suggestions */}
           {messages.length <= 1 && (
-            <div className="p-3 border-t">
-              <p className="text-xs text-muted-foreground mb-2">Quick suggestions:</p>
-              <div className="grid grid-cols-1 gap-1">
-                {quickSuggestions.slice(0, 4).map((suggestion, index) => (
+            <div className="p-4 border-t bg-muted/30">
+              <p className="text-sm font-medium text-foreground mb-3">💡 Try asking me about:</p>
+              <div className="grid grid-cols-1 gap-2">
+                {quickSuggestions.slice(0, 6).map((suggestion, index) => (
                   <Button
                     key={index}
-                    variant="ghost"
+                    variant="outline"
                     size="sm"
-                    className="justify-start text-xs h-8"
+                    className="justify-start text-sm h-9 hover:bg-primary hover:text-primary-foreground transition-colors"
                     onClick={() => handleSendMessage(suggestion)}
                   >
-                    {suggestion}
+                    <span className="text-left">{suggestion}</span>
                   </Button>
                 ))}
               </div>
+              <p className="text-xs text-muted-foreground mt-3 text-center">
+                🚀 This is a fully functional demo - try any question!
+              </p>
             </div>
           )}
 
           {/* Input */}
-          <div className="p-4 border-t">
+          <div className="p-4 border-t bg-background/95 backdrop-blur-sm">
             <div className="flex gap-2">
               <Input
                 placeholder={t('chat.typeMessage')}
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    handleSendMessage()
+                  }
+                }}
                 disabled={isLoading}
-                className="flex-1"
+                className="flex-1 focus:ring-2 focus:ring-primary/20"
+                autoFocus
               />
               <Button
                 size="sm"
                 onClick={() => handleSendMessage()}
                 disabled={!inputMessage.trim() || isLoading}
+                className={`transition-all duration-200 ${
+                  inputMessage.trim() ? 'bg-primary hover:bg-primary/90' : ''
+                }`}
               >
-                <PaperPlaneTilt className="h-4 w-4" />
+                {isLoading ? (
+                  <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
+                ) : (
+                  <PaperPlaneTilt className="h-4 w-4" />
+                )}
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              {t('chat.poweredBy')}
-            </p>
+            <div className="flex items-center justify-between mt-2">
+              <p className="text-xs text-muted-foreground">
+                {t('chat.poweredBy')}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {isLoading ? 'AI is typing...' : 'Press Enter to send'}
+              </p>
+            </div>
           </div>
         </CardContent>
       )}
