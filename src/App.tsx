@@ -40,6 +40,23 @@ import {
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
+// Error boundary component for robust error handling
+function ErrorBoundary({ children, fallback }: { children: React.ReactNode, fallback?: React.ReactNode }) {
+  try {
+    return <>{children}</>
+  } catch (error) {
+    console.error('Error boundary caught:', error)
+    return fallback || (
+      <div className="flex items-center justify-center h-64 text-center">
+        <div className="space-y-2">
+          <Warning className="h-8 w-8 text-orange-500 mx-auto" />
+          <p className="text-muted-foreground">Something went wrong. Please refresh the page.</p>
+        </div>
+      </div>
+    )
+  }
+}
+
 const marketplaces = [
   { name: "Amazon", status: "connected", orders: 847, revenue: "€67,234", sync: "2 min ago", icon: "🛒" },
   { name: "eBay", status: "connected", orders: 234, revenue: "€18,542", sync: "5 min ago", icon: "🏪" },
@@ -72,7 +89,7 @@ const aiAgents = [
 function Dashboard() {
   const [selectedPeriod, setSelectedPeriod] = useKV("dashboard-period", "30d")
   
-  // Sample data for demonstration - ensure data is always available
+  // Sample data for demonstration - ensure data is always available and safely structured
   const revenueData = [
     { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
     { name: 'Feb', amazon: 52000, ebay: 15000, otto: 9500 },
@@ -88,6 +105,16 @@ function Dashboard() {
     { name: 'Week 3', conversion: 4.1, traffic: 14800 },
     { name: 'Week 4', conversion: 3.9, traffic: 15600 }
   ]
+
+  // Safe data access function
+  const safeDataAccess = (data: any[], fallback: any[] = []) => {
+    try {
+      return Array.isArray(data) && data.length > 0 ? data : fallback
+    } catch (error) {
+      console.error('Data access error:', error)
+      return fallback
+    }
+  }
   
   return (
     <div className="space-y-6">
@@ -151,22 +178,24 @@ function Dashboard() {
             <CardDescription>Monthly revenue across all connected platforms</CardDescription>
           </CardHeader>
           <CardContent>
-            {revenueData && revenueData.length > 0 ? (
+            {safeDataAccess(revenueData).length > 0 ? (
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={revenueData}>
+                <BarChart data={safeDataAccess(revenueData)}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip 
-                    formatter={(value, name) => [
-                      `€${typeof value === 'number' ? value.toLocaleString() : '0'}`, 
-                      name
-                    ]}
+                    formatter={(value, name) => {
+                      if (typeof value === 'number') {
+                        return [`€${value.toLocaleString()}`, name]
+                      }
+                      return ['€0', name]
+                    }}
                   />
                   <Legend />
-                  <Bar dataKey="amazon" stackId="a" fill="oklch(0.6 0.2 20)" />
-                  <Bar dataKey="ebay" stackId="a" fill="oklch(0.25 0.08 240)" />
-                  <Bar dataKey="otto" stackId="a" fill="oklch(0.6 0.02 240)" />
+                  <Bar dataKey="amazon" stackId="a" fill="oklch(0.6 0.2 20)" name="Amazon" />
+                  <Bar dataKey="ebay" stackId="a" fill="oklch(0.25 0.08 240)" name="eBay" />
+                  <Bar dataKey="otto" stackId="a" fill="oklch(0.6 0.02 240)" name="OTTO" />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -183,9 +212,9 @@ function Dashboard() {
             <CardDescription>Conversion rate and traffic over time</CardDescription>
           </CardHeader>
           <CardContent>
-            {performanceData && performanceData.length > 0 ? (
+            {safeDataAccess(performanceData).length > 0 ? (
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={performanceData}>
+                <LineChart data={safeDataAccess(performanceData)}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis yAxisId="left" />
@@ -199,8 +228,8 @@ function Dashboard() {
                     }}
                   />
                   <Legend />
-                  <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="oklch(0.6 0.2 20)" strokeWidth={2} />
-                  <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="oklch(0.25 0.08 240)" strokeWidth={2} />
+                  <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="oklch(0.6 0.2 20)" strokeWidth={2} name="Conversion Rate" />
+                  <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="oklch(0.25 0.08 240)" strokeWidth={2} name="Traffic" />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
@@ -216,6 +245,9 @@ function Dashboard() {
 }
 
 function MarketplacesView() {
+  // Ensure marketplaces data is safely accessible
+  const safeMarketplaces = Array.isArray(marketplaces) ? marketplaces : []
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -227,37 +259,37 @@ function MarketplacesView() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {marketplaces && marketplaces.length > 0 ? marketplaces.map((marketplace) => (
-          <Card key={marketplace.name}>
+        {safeMarketplaces.length > 0 ? safeMarketplaces.map((marketplace, index) => (
+          <Card key={marketplace?.name || `marketplace-${index}`}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                <span className="text-2xl">{marketplace.icon || '🛒'}</span>
-                {marketplace.name}
+                <span className="text-2xl">{marketplace?.icon || '🛒'}</span>
+                {marketplace?.name || 'Unknown Marketplace'}
               </CardTitle>
               <Badge variant={
-                marketplace.status === 'connected' ? 'default' : 
-                marketplace.status === 'error' ? 'destructive' : 
+                marketplace?.status === 'connected' ? 'default' : 
+                marketplace?.status === 'error' ? 'destructive' : 
                 'secondary'
               }>
-                {marketplace.status === 'connected' && <CheckCircle className="h-3 w-3 mr-1" />}
-                {marketplace.status === 'error' && <XCircle className="h-3 w-3 mr-1" />}
-                {marketplace.status === 'syncing' && <Lightning className="h-3 w-3 mr-1" />}
-                {marketplace.status}
+                {marketplace?.status === 'connected' && <CheckCircle className="h-3 w-3 mr-1" />}
+                {marketplace?.status === 'error' && <XCircle className="h-3 w-3 mr-1" />}
+                {marketplace?.status === 'syncing' && <Lightning className="h-3 w-3 mr-1" />}
+                {marketplace?.status || 'unknown'}
               </Badge>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Orders</span>
-                  <span className="font-mono font-medium">{marketplace.orders || 0}</span>
+                  <span className="font-mono font-medium">{marketplace?.orders || 0}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Revenue</span>
-                  <span className="font-mono font-medium">{marketplace.revenue || '€0'}</span>
+                  <span className="font-mono font-medium">{marketplace?.revenue || '€0'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Last Sync</span>
-                  <span className="text-xs text-muted-foreground">{marketplace.sync || 'Never'}</span>
+                  <span className="text-xs text-muted-foreground">{marketplace?.sync || 'Never'}</span>
                 </div>
               </div>
             </CardContent>
@@ -278,30 +310,43 @@ function AIAgentsView() {
   const [agentConfigs, setAgentConfigs] = useKV<Record<string, any>>("agent-configs", {})
   const [showGlobalSettings, setShowGlobalSettings] = useKV<boolean>("show-global-settings", false)
   
+  // Ensure aiAgents data is safely accessible
+  const safeAiAgents = Array.isArray(aiAgents) ? aiAgents : []
+  
   const getAgentIcon = (type: string, name: string) => {
-    if (name.includes("Instagram")) return <InstagramLogo className="h-4 w-4" />
-    if (name.includes("TikTok")) return <span className="text-sm font-bold">TT</span>
-    if (name.includes("YouTube")) return <YoutubeLogo className="h-4 w-4" />
-    if (name.includes("Facebook")) return <FacebookLogo className="h-4 w-4" />
-    if (name.includes("LinkedIn")) return <LinkedinLogo className="h-4 w-4" />
-    if (name.includes("Twitter")) return <TwitterLogo className="h-4 w-4" />
-    if (name.includes("Pinterest")) return <span className="text-sm font-bold">P</span>
-    if (name.includes("WhatsApp")) return <WhatsappLogo className="h-4 w-4" />
-    if (name.includes("Discord")) return <DiscordLogo className="h-4 w-4" />
-    if (name.includes("Telegram")) return <TelegramLogo className="h-4 w-4" />
-    return <Robot className="h-4 w-4" />
+    try {
+      if (name?.includes("Instagram")) return <InstagramLogo className="h-4 w-4" />
+      if (name?.includes("TikTok")) return <span className="text-sm font-bold">TT</span>
+      if (name?.includes("YouTube")) return <YoutubeLogo className="h-4 w-4" />
+      if (name?.includes("Facebook")) return <FacebookLogo className="h-4 w-4" />
+      if (name?.includes("LinkedIn")) return <LinkedinLogo className="h-4 w-4" />
+      if (name?.includes("Twitter")) return <TwitterLogo className="h-4 w-4" />
+      if (name?.includes("Pinterest")) return <span className="text-sm font-bold">P</span>
+      if (name?.includes("WhatsApp")) return <WhatsappLogo className="h-4 w-4" />
+      if (name?.includes("Discord")) return <DiscordLogo className="h-4 w-4" />
+      if (name?.includes("Telegram")) return <TelegramLogo className="h-4 w-4" />
+      return <Robot className="h-4 w-4" />
+    } catch (error) {
+      console.error('Error getting agent icon:', error)
+      return <Robot className="h-4 w-4" />
+    }
   }
 
   const getTypeColor = (type: string) => {
-    switch (type) {
-      case "social": return "bg-purple-100 text-purple-800 border-purple-200"
-      case "messaging": return "bg-emerald-100 text-emerald-800 border-emerald-200"
-      case "content": return "bg-blue-100 text-blue-800 border-blue-200"
-      case "pricing": return "bg-green-100 text-green-800 border-green-200"
-      case "analytics": return "bg-orange-100 text-orange-800 border-orange-200"
-      case "forecasting": return "bg-yellow-100 text-yellow-800 border-yellow-200"
-      case "support": return "bg-indigo-100 text-indigo-800 border-indigo-200"
-      default: return "bg-gray-100 text-gray-800 border-gray-200"
+    try {
+      switch (type) {
+        case "social": return "bg-purple-100 text-purple-800 border-purple-200"
+        case "messaging": return "bg-emerald-100 text-emerald-800 border-emerald-200"
+        case "content": return "bg-blue-100 text-blue-800 border-blue-200"
+        case "pricing": return "bg-green-100 text-green-800 border-green-200"
+        case "analytics": return "bg-orange-100 text-orange-800 border-orange-200"
+        case "forecasting": return "bg-yellow-100 text-yellow-800 border-yellow-200"
+        case "support": return "bg-indigo-100 text-indigo-800 border-indigo-200"
+        default: return "bg-gray-100 text-gray-800 border-gray-200"
+      }
+    } catch (error) {
+      console.error('Error getting type color:', error)
+      return "bg-gray-100 text-gray-800 border-gray-200"
     }
   }
 
@@ -334,8 +379,47 @@ function AIAgentsView() {
     }
   }
 
-  const filteredAgents = filterType === "all" ? aiAgents : aiAgents?.filter(agent => agent.type === filterType) || []
+  const filteredAgents = filterType === "all" ? safeAiAgents : safeAiAgents.filter(agent => agent?.type === filterType)
   const agentTypes = ["all", "social", "messaging", "content", "pricing", "analytics", "forecasting", "support"]
+
+  // Safe calculation functions
+  const getActiveAgentsCount = () => {
+    try {
+      return safeAiAgents.filter(a => a?.status === 'active').length
+    } catch (error) {
+      console.error('Error counting active agents:', error)
+      return 0
+    }
+  }
+
+  const getTrainingAgentsCount = () => {
+    try {
+      return safeAiAgents.filter(a => a?.status === 'training').length
+    } catch (error) {
+      console.error('Error counting training agents:', error)
+      return 0
+    }
+  }
+
+  const getAverageSuccessRate = () => {
+    try {
+      if (safeAiAgents.length === 0) return 0
+      const totalSuccess = safeAiAgents.reduce((acc, a) => acc + (a?.success || 0), 0)
+      return Math.round(totalSuccess / safeAiAgents.length)
+    } catch (error) {
+      console.error('Error calculating success rate:', error)
+      return 0
+    }
+  }
+
+  const getTotalProcessed = () => {
+    try {
+      return safeAiAgents.reduce((acc, a) => acc + (a?.processed || 0), 0)
+    } catch (error) {
+      console.error('Error calculating total processed:', error)
+      return 0
+    }
+  }
 
   if (showGlobalSettings) {
     return (
@@ -387,7 +471,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-green-600" />
-              <div className="text-2xl font-bold">{aiAgents?.filter(a => a.status === 'active').length || 0}</div>
+              <div className="text-2xl font-bold">{getActiveAgentsCount()}</div>
             </div>
             <p className="text-xs text-muted-foreground">Active Agents</p>
           </CardContent>
@@ -396,7 +480,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <Lightning className="h-4 w-4 text-orange-600" />
-              <div className="text-2xl font-bold">{aiAgents?.filter(a => a.status === 'training').length || 0}</div>
+              <div className="text-2xl font-bold">{getTrainingAgentsCount()}</div>
             </div>
             <p className="text-xs text-muted-foreground">Training</p>
           </CardContent>
@@ -405,7 +489,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-blue-600" />
-              <div className="text-2xl font-bold">{Math.round((aiAgents?.reduce((acc, a) => acc + (a.success || 0), 0) || 0) / (aiAgents?.length || 1))}%</div>
+              <div className="text-2xl font-bold">{getAverageSuccessRate()}%</div>
             </div>
             <p className="text-xs text-muted-foreground">Avg Success Rate</p>
           </CardContent>
@@ -414,7 +498,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <TrendUp className="h-4 w-4 text-green-600" />
-              <div className="text-2xl font-bold">{((aiAgents?.reduce((acc, a) => acc + (a.processed || 0), 0) || 0)).toLocaleString()}</div>
+              <div className="text-2xl font-bold">{getTotalProcessed().toLocaleString()}</div>
             </div>
             <p className="text-xs text-muted-foreground">Total Processed</p>
           </CardContent>
@@ -431,7 +515,7 @@ function AIAgentsView() {
             onClick={() => setFilterType(type)}
             className="capitalize"
           >
-            {type === "all" ? "All Agents" : `${type} (${aiAgents?.filter(a => a.type === type).length || 0})`}
+            {type === "all" ? "All Agents" : `${type} (${safeAiAgents.filter(a => a?.type === type).length})`}
           </Button>
         ))}
       </div>
@@ -530,35 +614,35 @@ function AIAgentsView() {
       ) : null}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredAgents && filteredAgents.length > 0 ? filteredAgents.map((agent) => (
-          <Card key={agent.name} className="cursor-pointer hover:bg-muted/50 transition-colors">
+        {filteredAgents.length > 0 ? filteredAgents.map((agent, index) => (
+          <Card key={agent?.name || `agent-${index}`} className="cursor-pointer hover:bg-muted/50 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                {getAgentIcon(agent.type || 'default', agent.name || '')}
-                {agent.name || 'Unknown Agent'}
+                {getAgentIcon(agent?.type || 'default', agent?.name || '')}
+                {agent?.name || 'Unknown Agent'}
               </CardTitle>
-              <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
-                {agent.status === 'active' && <CheckCircle className="h-3 w-3 mr-1" />}
-                {agent.status === 'training' && <Lightning className="h-3 w-3 mr-1" />}
-                {agent.status || 'inactive'}
+              <Badge variant={agent?.status === 'active' ? 'default' : 'secondary'}>
+                {agent?.status === 'active' && <CheckCircle className="h-3 w-3 mr-1" />}
+                {agent?.status === 'training' && <Lightning className="h-3 w-3 mr-1" />}
+                {agent?.status || 'inactive'}
               </Badge>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Processed</span>
-                  <span className="font-mono font-medium">{agent.processed || 0}</span>
+                  <span className="font-mono font-medium">{agent?.processed || 0}</span>
                 </div>
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Success Rate</span>
-                    <span className="font-medium">{agent.success || 0}%</span>
+                    <span className="font-medium">{agent?.success || 0}%</span>
                   </div>
-                  <Progress value={agent.success || 0} className="h-2" />
+                  <Progress value={agent?.success || 0} className="h-2" />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className={`text-xs ${getTypeColor(agent.type || 'default')}`}>
-                    {agent.type || 'unknown'}
+                  <Badge variant="outline" className={`text-xs ${getTypeColor(agent?.type || 'default')}`}>
+                    {agent?.type || 'unknown'}
                   </Badge>
                   <Button 
                     size="sm" 
@@ -598,6 +682,9 @@ function ProductsView() {
     { id: 3, sku: "GL-003", name: "Bluetooth Speaker", category: "Audio", marketplaces: ["Amazon", "eBay", "bol.com"], stock: 67 }
   ])
 
+  // Ensure products data is safely accessible
+  const safeProducts = Array.isArray(products) ? products : []
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -615,19 +702,19 @@ function ProductsView() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {products && products.length > 0 ? products.map((product) => (
-              <div key={product.id} className="flex items-center justify-between p-4 border rounded-lg">
+            {safeProducts.length > 0 ? safeProducts.map((product, index) => (
+              <div key={product?.id || `product-${index}`} className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium">{product.name}</span>
-                    <Badge variant="outline" className="font-mono text-xs">{product.sku}</Badge>
+                    <span className="font-medium">{product?.name || 'Unknown Product'}</span>
+                    <Badge variant="outline" className="font-mono text-xs">{product?.sku || 'N/A'}</Badge>
                   </div>
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span>{product.category}</span>
+                    <span>{product?.category || 'Uncategorized'}</span>
                     <span>•</span>
-                    <span>Stock: {product.stock}</span>
+                    <span>Stock: {product?.stock || 0}</span>
                     <span>•</span>
-                    <span>{product.marketplaces?.join(", ") || "No marketplaces"}</span>
+                    <span>{product?.marketplaces?.join(", ") || "No marketplaces"}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -654,103 +741,123 @@ function App() {
   const [activeTab, setActiveTab] = useKV("active-tab", "dashboard")
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">G</span>
+    <ErrorBoundary>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="border-b bg-card">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">G</span>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">Goodlink Germany</h1>
+                  <p className="text-sm text-muted-foreground">AI Commerce Platform</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold">Goodlink Germany</h1>
-                <p className="text-sm text-muted-foreground">AI Commerce Platform</p>
-              </div>
+              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                All Systems Operational
+              </Badge>
             </div>
-            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-              <CheckCircle className="h-3 w-3 mr-1" />
-              All Systems Operational
-            </Badge>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-8">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <ChartLine className="h-4 w-4" />
-              Dashboard
-            </TabsTrigger>
-            <TabsTrigger value="marketplaces" className="flex items-center gap-2">
-              <Storefront className="h-4 w-4" />
-              Marketplaces
-            </TabsTrigger>
-            <TabsTrigger value="products" className="flex items-center gap-2">
-              <Package className="h-4 w-4" />
-              Products
-            </TabsTrigger>
-            <TabsTrigger value="inventory" className="flex items-center gap-2">
-              <Database className="h-4 w-4" />
-              Inventory Sync
-            </TabsTrigger>
-            <TabsTrigger value="shop" className="flex items-center gap-2">
-              <Storefront className="h-4 w-4" />
-              Shop
-            </TabsTrigger>
-            <TabsTrigger value="blog" className="flex items-center gap-2">
-              <Article className="h-4 w-4" />
-              Blog
-            </TabsTrigger>
-            <TabsTrigger value="whatsapp" className="flex items-center gap-2">
-              <WhatsappLogo className="h-4 w-4" />
-              WhatsApp
-            </TabsTrigger>
-            <TabsTrigger value="ai-agents" className="flex items-center gap-2">
-              <Robot className="h-4 w-4" />
-              AI Agents
-            </TabsTrigger>
-          </TabsList>
+        {/* Main Content */}
+        <main className="container mx-auto px-4 py-8">
+          <ErrorBoundary>
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="grid w-full grid-cols-8">
+                <TabsTrigger value="dashboard" className="flex items-center gap-2">
+                  <ChartLine className="h-4 w-4" />
+                  Dashboard
+                </TabsTrigger>
+                <TabsTrigger value="marketplaces" className="flex items-center gap-2">
+                  <Storefront className="h-4 w-4" />
+                  Marketplaces
+                </TabsTrigger>
+                <TabsTrigger value="products" className="flex items-center gap-2">
+                  <Package className="h-4 w-4" />
+                  Products
+                </TabsTrigger>
+                <TabsTrigger value="inventory" className="flex items-center gap-2">
+                  <Database className="h-4 w-4" />
+                  Inventory Sync
+                </TabsTrigger>
+                <TabsTrigger value="shop" className="flex items-center gap-2">
+                  <Storefront className="h-4 w-4" />
+                  Shop
+                </TabsTrigger>
+                <TabsTrigger value="blog" className="flex items-center gap-2">
+                  <Article className="h-4 w-4" />
+                  Blog
+                </TabsTrigger>
+                <TabsTrigger value="whatsapp" className="flex items-center gap-2">
+                  <WhatsappLogo className="h-4 w-4" />
+                  WhatsApp
+                </TabsTrigger>
+                <TabsTrigger value="ai-agents" className="flex items-center gap-2">
+                  <Robot className="h-4 w-4" />
+                  AI Agents
+                </TabsTrigger>
+              </TabsList>
 
-          <TabsContent value="dashboard" className="mt-6">
-            <Dashboard />
-          </TabsContent>
+              <TabsContent value="dashboard" className="mt-6">
+                <ErrorBoundary>
+                  <Dashboard />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="marketplaces" className="mt-6">
-            <MarketplacesView />
-          </TabsContent>
+              <TabsContent value="marketplaces" className="mt-6">
+                <ErrorBoundary>
+                  <MarketplacesView />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="products" className="mt-6">
-            <ProductsView />
-          </TabsContent>
+              <TabsContent value="products" className="mt-6">
+                <ErrorBoundary>
+                  <ProductsView />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="inventory" className="mt-6">
-            <InventorySyncDashboard />
-          </TabsContent>
+              <TabsContent value="inventory" className="mt-6">
+                <ErrorBoundary>
+                  <InventorySyncDashboard />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="shop" className="mt-6">
-            <ShopDashboard />
-          </TabsContent>
+              <TabsContent value="shop" className="mt-6">
+                <ErrorBoundary>
+                  <ShopDashboard />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="blog" className="mt-6">
-            <BlogDashboard />
-          </TabsContent>
+              <TabsContent value="blog" className="mt-6">
+                <ErrorBoundary>
+                  <BlogDashboard />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="whatsapp" className="mt-6">
-            <WhatsAppDashboard />
-          </TabsContent>
+              <TabsContent value="whatsapp" className="mt-6">
+                <ErrorBoundary>
+                  <WhatsAppDashboard />
+                </ErrorBoundary>
+              </TabsContent>
 
-          <TabsContent value="ai-agents" className="mt-6">
-            <AIAgentsView />
-          </TabsContent>
-        </Tabs>
-      </main>
+              <TabsContent value="ai-agents" className="mt-6">
+                <ErrorBoundary>
+                  <AIAgentsView />
+                </ErrorBoundary>
+              </TabsContent>
+            </Tabs>
+          </ErrorBoundary>
+        </main>
 
-      {/* Toast notifications */}
-      <Toaster />
-    </div>
+        {/* Toast notifications */}
+        <Toaster />
+      </div>
+    </ErrorBoundary>
   )
 }
 
