@@ -54,7 +54,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
   const [isMinimized, setIsMinimized] = useKV<boolean>("chat-is-minimized", false)
   const [isMaximized, setIsMaximized] = useKV<boolean>("chat-is-maximized", false)
   const [position, setPosition] = useKV<{x: number, y: number}>("chat-position", { x: 24, y: 24 })
-  const [size, setSize] = useKV<{width: number, height: number}>("chat-size", { width: 384, height: 600 })
+  const [size, setSize] = useKV<{width: number, height: number}>("chat-size", { width: 384, height: 500 })
   const [messages, setMessages] = useKV<Message[]>("chat-messages", [])
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -108,7 +108,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       }
       
       if (isResizing && !isMaximized) {
-        const newWidth = Math.max(300, Math.min(800, resizeStart.width + (e.clientX - resizeStart.x)))
+        const newWidth = Math.max(320, Math.min(800, resizeStart.width + (e.clientX - resizeStart.x)))
         const newHeight = Math.max(400, Math.min(800, resizeStart.height + (e.clientY - resizeStart.y)))
         setSize({ width: newWidth, height: newHeight })
       }
@@ -373,7 +373,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
   }
 
   const currentPosition = position || { x: 24, y: 24 }
-  const currentSize = size || { width: 384, height: 600 }
+  const currentSize = size || { width: 384, height: 500 }
 
   return (
     <motion.div
@@ -389,7 +389,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
     >
-      <Card className={`flex flex-col shadow-2xl border-0 bg-white/95 backdrop-blur-sm transition-all duration-200 ${isMaximized ? 'rounded-none h-full' : 'rounded-lg'} ${isDragging ? 'shadow-3xl scale-105' : ''} ${isResizing ? 'shadow-3xl' : ''}`}>
+      <Card className={`flex flex-col h-full shadow-2xl border-0 bg-white/95 backdrop-blur-sm transition-all duration-200 ${isMaximized ? 'rounded-none' : 'rounded-lg'} ${isDragging ? 'shadow-3xl scale-105' : ''} ${isResizing ? 'shadow-3xl' : ''}`}>
         {/* Header */}
         <div 
           className={`flex items-center justify-between p-3 border-b bg-gradient-to-r from-blue-600 to-purple-600 text-white select-none ${isMaximized ? 'rounded-none' : 'rounded-t-lg'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -456,7 +456,13 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
         {!isMinimized && (
           <>
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: isMaximized ? 'calc(100vh - 120px)' : currentSize.height - 120 }}>
+            <div 
+              className="flex-1 overflow-y-auto p-4 space-y-4" 
+              style={{ 
+                height: isMaximized ? 'calc(100vh - 180px)' : currentSize.height - 180,
+                minHeight: '200px'
+              }}
+            >
               <AnimatePresence>
                 {(messages || []).map((message) => (
                   <motion.div
@@ -489,11 +495,9 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
                           {message.products.map((product) => (
                             <div key={product.id} className="bg-white border rounded-lg p-3 shadow-sm">
                               <div className="flex gap-3">
-                                <img 
-                                  src={product.image} 
-                                  alt={product.name}
-                                  className="w-12 h-12 rounded object-cover"
-                                />
+                                <div className="w-12 h-12 rounded bg-gray-100 flex items-center justify-center text-2xl">
+                                  {product.image}
+                                </div>
                                 <div className="flex-1 min-w-0">
                                   <h4 className="font-medium text-sm truncate">{product.name}</h4>
                                   <div className="flex items-center gap-2 mt-1">
@@ -615,27 +619,30 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div className="p-4 border-t bg-gray-50">
-              <div className="flex gap-2">
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder={t("chat.typeMessage")}
-                  onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                  disabled={isTyping}
-                  className="flex-1"
-                />
+            {/* Input Area - Fixed at bottom */}
+            <div className="flex-shrink-0 p-4 border-t bg-white/95 backdrop-blur-sm">
+              <div className="flex gap-2 items-end">
+                <div className="flex-1">
+                  <Input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder={t("chat.typeMessage")}
+                    onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
+                    disabled={isTyping}
+                    className="w-full min-h-[40px] resize-none"
+                    autoFocus
+                  />
+                </div>
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isTyping}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 h-[40px] px-4"
                 >
                   <PaperPlaneTilt className="h-4 w-4" />
                 </Button>
               </div>
               <p className="text-xs text-gray-500 mt-2 text-center">
-                {t("chat.poweredBy")}
+                {t("chat.poweredBy")} Good-Link Germany AI
               </p>
             </div>
           </>
