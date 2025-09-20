@@ -59,7 +59,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
         className="inline-flex items-center gap-2 hover:bg-blue-50 hover:border-blue-200 transition-colors"
       >
         <UserCircle className="h-4 w-4" />
-        Client
+        {t('nav.client')}
       </Button>
       <Button 
         variant="outline"
@@ -68,7 +68,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
         className="inline-flex items-center gap-2 hover:bg-green-50 hover:border-green-200 transition-colors"
       >
         <Storefront className="h-4 w-4" />
-        Shop
+        {t('nav.shop')}
       </Button>
     </div>
   )
@@ -89,9 +89,9 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
               </div>
               <div className="border-l pl-4">
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  Admin Panel
+                  {t('nav.admin')}
                 </h1>
-                <p className="text-sm text-muted-foreground">System Management & Configuration</p>
+                <p className="text-sm text-muted-foreground">{t('admin.overview')}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -102,7 +102,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                 className="bg-green-50 text-green-700 border-green-200 shadow-sm"
               >
                 <Activity className="h-3 w-3 mr-1 animate-pulse" />
-                System Online
+                {t('system.online')}
               </Badge>
             </div>
           </div>
@@ -221,8 +221,8 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                     <div className="flex items-center gap-3">
                       <Robot className="h-5 w-5" />
                       <div>
-                        <div className="font-medium">Tous les Agents</div>
-                        <div className="text-xs opacity-70">Vue d'ensemble de tous les agents</div>
+                        <div className="font-medium">{t('agents.allAgents')}</div>
+                        <div className="text-xs opacity-70">{t('agents.allAgentsDesc')}</div>
                       </div>
                     </div>
                   </button>
@@ -238,8 +238,8 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                     <div className="flex items-center gap-3">
                       <Robot className="h-5 w-5" />
                       <div>
-                        <div className="font-medium">{t('admin.specializedAgents') || 'Agents Spécialisés'}</div>
-                        <div className="text-xs opacity-70">Experts médicaux & automobiles</div>
+                        <div className="font-medium">{t('agents.specializedAgents')}</div>
+                        <div className="text-xs opacity-70">{t('agents.specializedAgentsDesc')}</div>
                       </div>
                     </div>
                   </button>
@@ -255,8 +255,8 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                     <div className="flex items-center gap-3">
                       <Database className="h-5 w-5" />
                       <div>
-                        <div className="font-medium">{t('admin.sync') || 'Synchronisation'}</div>
-                        <div className="text-xs opacity-70">Sync inventaire marketplaces</div>
+                        <div className="font-medium">{t('agents.syncInventory')}</div>
+                        <div className="text-xs opacity-70">{t('agents.syncInventoryDesc')}</div>
                       </div>
                     </div>
                   </button>
@@ -272,8 +272,8 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                     <div className="flex items-center gap-3">
                       <Gear className="h-5 w-5" />
                       <div>
-                        <div className="font-medium">Config Générale</div>
-                        <div className="text-xs opacity-70">Paramètres globaux agents</div>
+                        <div className="font-medium">{t('agents.globalConfig')}</div>
+                        <div className="text-xs opacity-70">{t('agents.globalConfigDesc')}</div>
                       </div>
                     </div>
                   </button>
@@ -355,7 +355,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
           <TabsContent value="specialized-agents" className="space-y-6">
             <Tabs defaultValue="category-experts" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="category-experts">{t("Product Category Experts")}</TabsTrigger>
+                <TabsTrigger value="category-experts">{t("agents.categoryExperts")}</TabsTrigger>
                 <TabsTrigger value="management">{t("Management")}</TabsTrigger>
                 <TabsTrigger value="demo">{t("Basic Demo")}</TabsTrigger>
                 <TabsTrigger value="advanced">{t("Advanced Demo")}</TabsTrigger>
@@ -379,9 +379,9 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
             <div className="grid gap-6">
               <div className="text-center py-12">
                 <Robot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Configuration Générale des Agents</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('agents.globalConfig')}</h3>
                 <p className="text-muted-foreground">
-                  Paramètres globaux et configuration avancée des agents IA
+                  {t('agents.globalConfigDesc')}
                 </p>
               </div>
               

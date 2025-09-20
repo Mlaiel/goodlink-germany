@@ -119,6 +119,16 @@ const translations = {
     'agents.support': 'Support',
     
     // Specialized Agents
+    'agents.allAgents': 'All Agents',
+    'agents.specializedAgents': 'Specialized Agents',
+    'agents.categoryExperts': 'Product Category Experts',
+    'agents.allAgentsDesc': 'Overview of all AI agents',
+    'agents.specializedAgentsDesc': 'Medical & automotive experts',
+    'agents.syncInventory': 'Inventory Sync',
+    'agents.syncInventoryDesc': 'Marketplace inventory synchronization',
+    'agents.globalConfig': 'Global Configuration',
+    'agents.globalConfigDesc': 'Global agent settings',
+    
     'Specialized AI Agents': 'Specialized AI Agents',
     'Expert knowledge for medical devices and automotive components': 'Expert knowledge for medical devices and automotive components',
     'Configure': 'Configure',
@@ -231,6 +241,11 @@ const translations = {
     'chat.maximize': 'Maximize',
     'chat.restore': 'Restore',
     'chat.escToClose': 'ESC to close',
+    
+    // System Status
+    'system.online': 'System Online',
+    'system.offline': 'System Offline',
+    'system.maintenance': 'Maintenance Mode',
     
     // Language names
     'lang.english': 'English',
@@ -446,6 +461,16 @@ const translations = {
     'agents.support': 'Support',
     
     // Specialized Agents
+    'agents.allAgents': 'Alle Agenten',
+    'agents.specializedAgents': 'Spezialisierte Agenten',
+    'agents.categoryExperts': 'Produktkategorie-Experten',
+    'agents.allAgentsDesc': 'Übersicht aller KI-Agenten',
+    'agents.specializedAgentsDesc': 'Medizin- & Automobil-Experten',
+    'agents.syncInventory': 'Inventar-Synchronisation',
+    'agents.syncInventoryDesc': 'Marktplatz-Inventar-Synchronisation',
+    'agents.globalConfig': 'Globale Konfiguration',
+    'agents.globalConfigDesc': 'Globale Agent-Einstellungen',
+    
     'Specialized AI Agents': 'Spezialisierte KI-Agenten',
     'Expert knowledge for medical devices and automotive components': 'Expertenwissen für Medizinprodukte und Automotive-Komponenten',
     'Configure': 'Konfigurieren',
@@ -539,7 +564,11 @@ const translations = {
     'chat.feedbackReceived': 'Feedback erhalten',
     'chat.poweredBy': 'Angetrieben von Goodlink KI • 24/7 verfügbar',
     'chat.showPopularProducts': 'Zeige mir beliebte Produkte',
-    'chat.findElectronics': 'Hilf mir Elektronik zu finden',
+    'chat.findMedicalDevices': 'Hilf mir Medizinprodukte zu finden',
+    'chat.findAutomotiveParts': 'Zeige Automobilkomponenten',
+    'chat.complianceCerts': 'Compliance-Zertifikate',
+    'chat.volumePricing': 'Mengenrabatt-Optionen',
+    'chat.technicalDocs': 'Technische Dokumentation',
     'chat.bestDeals': 'Was sind eure besten Angebote?',
     'chat.customerSupport': 'Ich brauche Kundensupport',
     'chat.shippingInfo': 'Erzähl mir mehr über Versand',
@@ -554,6 +583,11 @@ const translations = {
     'chat.maximize': 'Maximieren',
     'chat.restore': 'Wiederherstellen',
     'chat.escToClose': 'ESC zum Schließen',
+    
+    // System Status
+    'system.online': 'System Online',
+    'system.offline': 'System Offline',
+    'system.maintenance': 'Wartungsmodus',
     
     // Language names
     'lang.english': 'English',
@@ -769,6 +803,16 @@ const translations = {
     'agents.support': '支持',
     
     // Specialized Agents
+    'agents.allAgents': '所有代理',
+    'agents.specializedAgents': '专业代理',
+    'agents.categoryExperts': '产品类别专家',
+    'agents.allAgentsDesc': '所有AI代理概览',
+    'agents.specializedAgentsDesc': '医疗和汽车专家',
+    'agents.syncInventory': '库存同步',
+    'agents.syncInventoryDesc': '市场平台库存同步',
+    'agents.globalConfig': '全局配置',
+    'agents.globalConfigDesc': '全局代理设置',
+    
     'Specialized AI Agents': '专业AI代理',
     'Expert knowledge for medical devices and automotive components': '医疗设备和汽车零部件的专业知识',
     'Configure': '配置',
@@ -862,7 +906,11 @@ const translations = {
     'chat.feedbackReceived': '已收到反馈',
     'chat.poweredBy': 'Goodlink AI 驱动 • 24/7 可用',
     'chat.showPopularProducts': '给我看热门产品',
-    'chat.findElectronics': '帮我找电子产品',
+    'chat.findMedicalDevices': '帮我找医疗设备',
+    'chat.findAutomotiveParts': '显示汽车零部件',
+    'chat.complianceCerts': '合规证书',
+    'chat.volumePricing': '批量定价选项',
+    'chat.technicalDocs': '技术文档',
     'chat.bestDeals': '你们最好的优惠是什么？',
     'chat.customerSupport': '我需要客户支持',
     'chat.shippingInfo': '告诉我更多关于运输的信息',
@@ -877,6 +925,11 @@ const translations = {
     'chat.maximize': '最大化',
     'chat.restore': '恢复',
     'chat.escToClose': 'ESC键关闭',
+    
+    // System Status
+    'system.online': '系统在线',
+    'system.offline': '系统离线',
+    'system.maintenance': '维护模式',
     
     // Language names
     'lang.english': 'English',
@@ -1091,6 +1144,17 @@ const translations = {
     'agents.forecasting': 'Prévision',
     'agents.support': 'Support',
     
+    // Specialized Agents
+    'agents.allAgents': 'Tous les agents',
+    'agents.specializedAgents': 'Agents spécialisés',
+    'agents.categoryExperts': 'Experts par catégorie de produits',
+    'agents.allAgentsDesc': 'Vue d\'ensemble de tous les agents IA',
+    'agents.specializedAgentsDesc': 'Experts médicaux et automobiles',
+    'agents.syncInventory': 'Synchronisation inventaire',
+    'agents.syncInventoryDesc': 'Synchronisation inventaire des marchés',
+    'agents.globalConfig': 'Configuration globale',
+    'agents.globalConfigDesc': 'Paramètres globaux des agents',
+    
     // Dashboard
     'dashboard.revenue': 'Chiffre d\'affaires total',
     'dashboard.orders': 'Commandes actives',
@@ -1108,7 +1172,11 @@ const translations = {
     'chat.feedbackReceived': 'Retour reçu',
     'chat.poweredBy': 'Alimenté par Goodlink IA • Disponible 24/7',
     'chat.showPopularProducts': 'Montrez-moi les produits populaires',
-    'chat.findElectronics': 'Aidez-moi à trouver de l\'électronique',
+    'chat.findMedicalDevices': 'Aidez-moi à trouver des dispositifs médicaux',
+    'chat.findAutomotiveParts': 'Montrez les composants automobiles',
+    'chat.complianceCerts': 'Certificats de conformité',
+    'chat.volumePricing': 'Options de tarification en volume',
+    'chat.technicalDocs': 'Documentation technique',
     'chat.bestDeals': 'Quelles sont vos meilleures offres?',
     'chat.customerSupport': 'J\'ai besoin du support client',
     'chat.shippingInfo': 'Parlez-moi plus de la livraison',
@@ -1123,6 +1191,11 @@ const translations = {
     'chat.maximize': 'Agrandir',
     'chat.restore': 'Restaurer',
     'chat.escToClose': 'ESC pour fermer',
+    
+    // System Status
+    'system.online': 'Système en ligne',
+    'system.offline': 'Système hors ligne',
+    'system.maintenance': 'Mode maintenance',
     
     // Language names
     'lang.english': 'English',
