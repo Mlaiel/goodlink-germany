@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useKV } from "@github/spark/hooks"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -41,19 +41,37 @@ import {
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
 // Error boundary component for robust error handling
-function ErrorBoundary({ children, fallback }: { children: React.ReactNode, fallback?: React.ReactNode }) {
-  try {
-    return <>{children}</>
-  } catch (error) {
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode, fallback?: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode, fallback?: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(error: Error) {
     console.error('Error boundary caught:', error)
-    return fallback || (
-      <div className="flex items-center justify-center h-64 text-center">
-        <div className="space-y-2">
-          <Warning className="h-8 w-8 text-orange-500 mx-auto" />
-          <p className="text-muted-foreground">Something went wrong. Please refresh the page.</p>
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error boundary details:', error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || (
+        <div className="flex items-center justify-center h-64 text-center">
+          <div className="space-y-2">
+            <Warning className="h-8 w-8 text-orange-500 mx-auto" />
+            <p className="text-muted-foreground">Something went wrong. Please refresh the page.</p>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
+
+    return this.props.children
   }
 }
 
@@ -88,8 +106,6 @@ const aiAgents = [
 
 function Dashboard() {
   const [selectedPeriod, setSelectedPeriod] = useKV("dashboard-period", "30d")
-  
-  // Sample data for demonstration - ensure data is always available and safely structured
   const revenueData = [
     { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
     { name: 'Feb', amazon: 52000, ebay: 15000, otto: 9500 },
@@ -97,24 +113,25 @@ function Dashboard() {
     { name: 'Apr', amazon: 61000, ebay: 16800, otto: 11000 },
     { name: 'May', amazon: 55000, ebay: 14200, otto: 9800 },
     { name: 'Jun', amazon: 67000, ebay: 18500, otto: 12500 }
-  ]
+  ].map(item => ({
+    ...item,
+    amazon: item.amazon || 0,
+    ebay: item.ebay || 0,
+    otto: item.otto || 0
+  }))
 
   const performanceData = [
     { name: 'Week 1', conversion: 3.2, traffic: 12500 },
     { name: 'Week 2', conversion: 3.8, traffic: 13200 },
     { name: 'Week 3', conversion: 4.1, traffic: 14800 },
     { name: 'Week 4', conversion: 3.9, traffic: 15600 }
-  ]
-
-  // Safe data access function
-  const safeDataAccess = (data: any[], fallback: any[] = []) => {
-    try {
-      return Array.isArray(data) && data.length > 0 ? data : fallback
-    } catch (error) {
-      console.error('Data access error:', error)
-      return fallback
-    }
-  }
+  ].map(item => ({
+    ...item,
+    conversion: item.conversion || 0,
+    traffic: item.traffic || 0
+  }))
+  
+  // Sample data for demonstration - ensure data is always available and safely structured
   
   return (
     <div className="space-y-6">
@@ -178,24 +195,29 @@ function Dashboard() {
             <CardDescription>Monthly revenue across all connected platforms</CardDescription>
           </CardHeader>
           <CardContent>
-            {safeDataAccess(revenueData).length > 0 ? (
+            {revenueData && revenueData.length > 0 ? (
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={safeDataAccess(revenueData)}>
+                <BarChart data={revenueData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip 
                     formatter={(value, name) => {
-                      if (typeof value === 'number') {
-                        return [`€${value.toLocaleString()}`, name]
+                      try {
+                        if (typeof value === 'number' && !isNaN(value)) {
+                          return [`€${value.toLocaleString()}`, name]
+                        }
+                        return ['€0', name || 'Unknown']
+                      } catch (error) {
+                        console.error('Tooltip formatter error:', error)
+                        return ['€0', 'Error']
                       }
-                      return ['€0', name]
                     }}
                   />
                   <Legend />
-                  <Bar dataKey="amazon" stackId="a" fill="oklch(0.6 0.2 20)" name="Amazon" />
-                  <Bar dataKey="ebay" stackId="a" fill="oklch(0.25 0.08 240)" name="eBay" />
-                  <Bar dataKey="otto" stackId="a" fill="oklch(0.6 0.02 240)" name="OTTO" />
+                  <Bar dataKey="amazon" stackId="a" fill="#ff6b35" name="Amazon" />
+                  <Bar dataKey="ebay" stackId="a" fill="#1e40af" name="eBay" />
+                  <Bar dataKey="otto" stackId="a" fill="#7c3aed" name="OTTO" />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -212,24 +234,29 @@ function Dashboard() {
             <CardDescription>Conversion rate and traffic over time</CardDescription>
           </CardHeader>
           <CardContent>
-            {safeDataAccess(performanceData).length > 0 ? (
+            {performanceData && performanceData.length > 0 ? (
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={safeDataAccess(performanceData)}>
+                <LineChart data={performanceData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis yAxisId="left" />
                   <YAxis yAxisId="right" orientation="right" />
                   <Tooltip 
                     formatter={(value, name) => {
-                      if (name === 'conversion') {
-                        return [`${typeof value === 'number' ? value.toFixed(1) : '0'}%`, 'Conversion Rate']
+                      try {
+                        if (name === 'conversion') {
+                          return [`${typeof value === 'number' && !isNaN(value) ? value.toFixed(1) : '0'}%`, 'Conversion Rate']
+                        }
+                        return [`${typeof value === 'number' && !isNaN(value) ? value.toLocaleString() : '0'}`, 'Traffic']
+                      } catch (error) {
+                        console.error('Tooltip formatter error:', error)
+                        return ['0', 'Error']
                       }
-                      return [`${typeof value === 'number' ? value.toLocaleString() : '0'}`, 'Traffic']
                     }}
                   />
                   <Legend />
-                  <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="oklch(0.6 0.2 20)" strokeWidth={2} name="Conversion Rate" />
-                  <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="oklch(0.25 0.08 240)" strokeWidth={2} name="Traffic" />
+                  <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="#ff6b35" strokeWidth={2} name="Conversion Rate" />
+                  <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="#1e40af" strokeWidth={2} name="Traffic" />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
@@ -379,7 +406,7 @@ function AIAgentsView() {
     }
   }
 
-  const filteredAgents = filterType === "all" ? safeAiAgents : safeAiAgents.filter(agent => agent?.type === filterType)
+  const filteredAgents = filterType === "all" ? safeAiAgents : safeAiAgents.filter(agent => agent && agent.type === filterType)
   const agentTypes = ["all", "social", "messaging", "content", "pricing", "analytics", "forecasting", "support"]
 
   // Safe calculation functions
@@ -515,7 +542,7 @@ function AIAgentsView() {
             onClick={() => setFilterType(type)}
             className="capitalize"
           >
-            {type === "all" ? "All Agents" : `${type} (${safeAiAgents.filter(a => a?.type === type).length})`}
+            {type === "all" ? "All Agents" : `${type} (${safeAiAgents.filter(a => a && a.type === type).length})`}
           </Button>
         ))}
       </div>
