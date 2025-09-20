@@ -57,8 +57,8 @@ export function FloatingAIChat() {
   const [position, setPosition] = useState<ChatPosition>({
     x: 20,
     y: 20,
-    width: 350,
-    height: 500
+    width: Math.min(380, window.innerWidth - 40),
+    height: Math.min(600, window.innerHeight - 40)
   })
 
   const chatRef = useRef<HTMLDivElement>(null)
@@ -71,6 +71,35 @@ export function FloatingAIChat() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Handle window resize to keep chat in viewport
+  useEffect(() => {
+    const handleResize = () => {
+      setPosition(prev => ({
+        ...prev,
+        x: Math.max(10, Math.min(prev.x, window.innerWidth - prev.width - 10)),
+        y: Math.max(10, Math.min(prev.y, window.innerHeight - prev.height - 10)),
+        width: Math.min(prev.width, window.innerWidth - 20),
+        height: Math.min(prev.height, window.innerHeight - 20)
+      }))
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Ensure proper mobile positioning
+  useEffect(() => {
+    if (window.innerWidth < 640) { // Mobile breakpoint
+      setPosition(prev => ({
+        ...prev,
+        x: 10,
+        y: 10,
+        width: window.innerWidth - 20,
+        height: window.innerHeight - 20
+      }))
+    }
+  }, [isOpen])
 
   // Quick suggestions
   const quickSuggestions = [
@@ -230,29 +259,39 @@ export function FloatingAIChat() {
 
   const toggleMaximize = () => {
     if (isMaximized) {
-      setPosition({ x: 20, y: 20, width: 350, height: 500 })
+      setPosition({ 
+        x: 20, 
+        y: 20, 
+        width: Math.min(380, window.innerWidth - 40), 
+        height: Math.min(600, window.innerHeight - 40) 
+      })
       setIsMaximized(false)
     } else {
-      setPosition({ x: 0, y: 0, width: window.innerWidth, height: window.innerHeight })
+      setPosition({ 
+        x: 0, 
+        y: 0, 
+        width: window.innerWidth, 
+        height: window.innerHeight 
+      })
       setIsMaximized(true)
     }
   }
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
         <div className="relative">
           <Button
             size="lg"
-            className="rounded-full h-16 w-16 shadow-xl hover:shadow-2xl transition-all duration-300 bg-primary hover:bg-primary/90 animate-bounce"
+            className="rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl hover:shadow-2xl transition-all duration-300 bg-primary hover:bg-primary/90 animate-bounce"
             onClick={() => setIsOpen(true)}
           >
-            <Robot className="h-7 w-7" />
+            <Robot className="h-6 w-6 sm:h-7 sm:w-7" />
           </Button>
           <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs px-2 py-1 rounded-full shadow-lg">
             Demo
           </div>
-          <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden sm:block">
             Try AI Chat!
           </div>
         </div>
@@ -262,10 +301,10 @@ export function FloatingAIChat() {
 
   const chatStyle = {
     position: 'fixed' as const,
-    left: position.x,
-    top: position.y,
-    width: isMinimized ? 300 : position.width,
-    height: isMinimized ? 60 : position.height,
+    left: Math.max(10, Math.min(position.x, window.innerWidth - position.width - 10)),
+    top: Math.max(10, Math.min(position.y, window.innerHeight - position.height - 10)),
+    width: isMinimized ? Math.min(300, window.innerWidth - 20) : Math.min(position.width, window.innerWidth - 20),
+    height: isMinimized ? 60 : Math.min(position.height, window.innerHeight - 20),
     zIndex: 1000,
     cursor: isDragging ? 'grabbing' : 'default',
   }
@@ -276,7 +315,9 @@ export function FloatingAIChat() {
       style={chatStyle}
       className={`shadow-2xl border-2 transition-all duration-300 ${
         isDragging ? 'shadow-3xl' : ''
-      } ${isMaximized ? 'rounded-none' : 'rounded-lg'}`}
+      } ${isMaximized ? 'rounded-none' : 'rounded-lg'} ${
+        window.innerWidth < 640 ? 'chat-mobile-adjust' : ''
+      }`}
       onMouseDown={handleMouseDown}
     >
       {/* Chat Header */}
@@ -345,23 +386,23 @@ export function FloatingAIChat() {
 
       {/* Chat Content */}
       {!isMinimized && (
-        <CardContent className="p-0 flex flex-col h-full">
+        <CardContent className="p-0 flex flex-col overflow-hidden" style={{ height: 'calc(100% - 80px)' }}>
           {/* Messages */}
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
+          <ScrollArea className="flex-1 px-4 py-2" style={{ maxHeight: 'calc(100% - 200px)' }}>
+            <div className="space-y-4 pb-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
+                    className={`max-w-[85%] p-3 rounded-lg break-words ${
                       message.isUser
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-muted text-muted-foreground'
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
                     
                     {!message.isUser && message.isHelpful === undefined && message.id !== "welcome" && (
                       <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/20">
@@ -398,7 +439,7 @@ export function FloatingAIChat() {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-muted text-muted-foreground p-3 rounded-lg max-w-[80%]">
+                  <div className="bg-muted text-muted-foreground p-3 rounded-lg max-w-[85%]">
                     <div className="flex items-center gap-2">
                       <Robot className="h-4 w-4" />
                       <span className="text-sm">AI is thinking</span>
@@ -418,30 +459,30 @@ export function FloatingAIChat() {
 
           {/* Quick Suggestions */}
           {messages.length <= 1 && (
-            <div className="p-4 border-t bg-muted/30">
+            <div className="px-4 py-3 border-t bg-muted/30 max-h-48 overflow-y-auto">
               <p className="text-sm font-medium text-foreground mb-3">💡 Try asking me about:</p>
               <div className="grid grid-cols-1 gap-2">
-                {quickSuggestions.slice(0, 6).map((suggestion, index) => (
+                {quickSuggestions.slice(0, 4).map((suggestion, index) => (
                   <Button
                     key={index}
                     variant="outline"
                     size="sm"
-                    className="justify-start text-sm h-9 hover:bg-primary hover:text-primary-foreground transition-colors"
+                    className="justify-start text-xs h-8 hover:bg-primary hover:text-primary-foreground transition-colors text-left p-2"
                     onClick={() => handleSendMessage(suggestion)}
                   >
-                    <span className="text-left">{suggestion}</span>
+                    <span className="truncate">{suggestion}</span>
                   </Button>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-3 text-center">
-                🚀 This is a fully functional demo - try any question!
+              <p className="text-xs text-muted-foreground mt-2 text-center">
+                🚀 Fully functional demo
               </p>
             </div>
           )}
 
-          {/* Input */}
-          <div className="p-4 border-t bg-background/95 backdrop-blur-sm">
-            <div className="flex gap-2">
+          {/* Input - Fixed at bottom */}
+          <div className="chat-input-container p-3 border-t bg-background/95 backdrop-blur-sm mt-auto shrink-0">
+            <div className="flex gap-2 items-end">
               <Input
                 placeholder={t('chat.typeMessage')}
                 value={inputMessage}
@@ -453,14 +494,14 @@ export function FloatingAIChat() {
                   }
                 }}
                 disabled={isLoading}
-                className="flex-1 focus:ring-2 focus:ring-primary/20"
+                className="flex-1 focus:ring-2 focus:ring-primary/20 min-h-[40px] resize-none"
                 autoFocus
               />
               <Button
                 size="sm"
                 onClick={() => handleSendMessage()}
                 disabled={!inputMessage.trim() || isLoading}
-                className={`transition-all duration-200 ${
+                className={`transition-all duration-200 h-10 w-10 p-0 shrink-0 ${
                   inputMessage.trim() ? 'bg-primary hover:bg-primary/90' : ''
                 }`}
               >
@@ -472,11 +513,11 @@ export function FloatingAIChat() {
               </Button>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground truncate">
                 {t('chat.poweredBy')}
               </p>
               <p className="text-xs text-muted-foreground">
-                {isLoading ? 'AI is typing...' : 'Press Enter to send'}
+                {isLoading ? 'AI typing...' : 'Enter to send'}
               </p>
             </div>
           </div>

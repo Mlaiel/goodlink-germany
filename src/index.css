@@ -157,4 +157,27 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
+
+  /* Ensure chat is always visible on mobile */
+  @media (max-width: 640px) {
+    .chat-mobile-adjust {
+      position: fixed !important;
+      top: 10px !important;
+      left: 10px !important;
+      right: 10px !important;
+      bottom: 10px !important;
+      width: calc(100vw - 20px) !important;
+      height: calc(100vh - 20px) !important;
+      max-height: calc(100vh - 20px) !important;
+    }
+  }
+
+  /* Chat input always visible */
+  .chat-input-container {
+    position: sticky;
+    bottom: 0;
+    background: var(--background);
+    border-top: 1px solid var(--border);
+    z-index: 10;
+  }
 }
