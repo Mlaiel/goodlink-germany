@@ -353,6 +353,14 @@ const translations = {
     'cart.addedToCart': 'Added to cart',
     'cart.removedFromCart': 'Removed from cart',
     'cart.quantityUpdated': 'Quantity updated',
+    
+    // Agent Status
+    'agents.statusUpdated': 'Agent status updated',
+    'agents.configSaved': 'Configuration saved',
+    'agents.successRate': 'Success Rate',
+    'agents.tasks': 'Tasks',
+    'agents.pause': 'Pause',
+    'agents.activate': 'Activate',
   },
   
   de: {
@@ -695,6 +703,14 @@ const translations = {
     'cart.addedToCart': 'Zum Warenkorb hinzugefügt',
     'cart.removedFromCart': 'Aus Warenkorb entfernt',
     'cart.quantityUpdated': 'Menge aktualisiert',
+    
+    // Agent Status
+    'agents.statusUpdated': 'Agent-Status aktualisiert',
+    'agents.configSaved': 'Konfiguration gespeichert',
+    'agents.successRate': 'Erfolgsrate',
+    'agents.tasks': 'Aufgaben',
+    'agents.pause': 'Pausieren',
+    'agents.activate': 'Aktivieren',
   },
   
   zh: {
@@ -1037,6 +1053,14 @@ const translations = {
     'cart.addedToCart': '已添加到购物车',
     'cart.removedFromCart': '已从购物车移除',
     'cart.quantityUpdated': '数量已更新',
+    
+    // Agent Status
+    'agents.statusUpdated': '代理状态已更新',
+    'agents.configSaved': '配置已保存',
+    'agents.successRate': '成功率',
+    'agents.tasks': '任务',
+    'agents.pause': '暂停',
+    'agents.activate': '激活',
   },
   
   fr: {
@@ -1303,6 +1327,14 @@ const translations = {
     'cart.addedToCart': 'Ajouté au panier',
     'cart.removedFromCart': 'Retiré du panier',
     'cart.quantityUpdated': 'Quantité mise à jour',
+    
+    // Agent Status
+    'agents.statusUpdated': 'Statut de l\'agent mis à jour',
+    'agents.configSaved': 'Configuration sauvegardée',
+    'agents.successRate': 'Taux de succès',
+    'agents.tasks': 'Tâches',
+    'agents.pause': 'Pause',
+    'agents.activate': 'Activer',
   }
 }
 

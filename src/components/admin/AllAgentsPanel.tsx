@@ -367,7 +367,7 @@ export function AllAgentsPanel() {
           : agent
       )
     )
-    toast.success("Statut de l'agent mis à jour")
+    toast.success(t('agents.statusUpdated'))
   }
 
   const updateAgentSettings = (agentId: string, newSettings: Record<string, any>) => {
@@ -378,7 +378,7 @@ export function AllAgentsPanel() {
           : agent
       )
     )
-    toast.success("Paramètres sauvegardés")
+    toast.success(t('agents.configSaved'))
   }
 
   const getStatusColor = (status: string) => {
@@ -414,12 +414,12 @@ export function AllAgentsPanel() {
   }
 
   const categories = [
-    { id: "marketplace", name: "Marketplaces", count: (agents || []).filter(a => a.category === "marketplace").length },
-    { id: "social", name: "Réseaux Sociaux", count: (agents || []).filter(a => a.category === "social").length },
-    { id: "messaging", name: "Messagerie", count: (agents || []).filter(a => a.category === "messaging").length },
-    { id: "ai", name: "IA Spécialisée", count: (agents || []).filter(a => a.category === "ai").length },
-    { id: "content", name: "Contenu", count: (agents || []).filter(a => a.category === "content").length },
-    { id: "analytics", name: "Analytics", count: (agents || []).filter(a => a.category === "analytics").length }
+    { id: "marketplace", name: t('nav.marketplaces'), count: (agents || []).filter(a => a.category === "marketplace").length },
+    { id: "social", name: t('agents.social'), count: (agents || []).filter(a => a.category === "social").length },
+    { id: "messaging", name: t('agents.messaging'), count: (agents || []).filter(a => a.category === "messaging").length },
+    { id: "ai", name: t('agents.analytics'), count: (agents || []).filter(a => a.category === "ai").length },
+    { id: "content", name: t('agents.content'), count: (agents || []).filter(a => a.category === "content").length },
+    { id: "analytics", name: t('agents.analytics'), count: (agents || []).filter(a => a.category === "analytics").length }
   ]
 
   const filteredAgents = (agents || []).filter(agent => agent.category === activeCategory)
@@ -429,20 +429,20 @@ export function AllAgentsPanel() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Tous les Agents IA</h2>
+          <h2 className="text-2xl font-bold">{t('agents.allAgents')}</h2>
           <p className="text-muted-foreground">
-            Gestion centralisée de tous vos agents automatisés
+            {t('agents.allAgentsDesc')}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <Badge variant="outline" className="bg-green-50 border-green-200">
-            {(agents || []).filter(a => a.status === "active").length} Actifs
+            {(agents || []).filter(a => a.status === "active").length} {t('common.active')}
           </Badge>
           <Badge variant="outline" className="bg-yellow-50 border-yellow-200">
-            {(agents || []).filter(a => a.status === "paused").length} En Pause
+            {(agents || []).filter(a => a.status === "paused").length} {t('agents.pause')}
           </Badge>
           <Badge variant="outline" className="bg-blue-50 border-blue-200">
-            {(agents || []).filter(a => a.status === "training").length} En Formation
+            {(agents || []).filter(a => a.status === "training").length} {t('agents.training')}
           </Badge>
         </div>
       </div>
@@ -501,7 +501,7 @@ export function AllAgentsPanel() {
                     
                     <div className="space-y-2">
                       <div className="flex justify-between items-center text-sm">
-                        <span>Taux de succès</span>
+                        <span>{t('agents.successRate')}</span>
                         <span className="font-medium">{agent.performance.successRate}%</span>
                       </div>
                       <Progress value={agent.performance.successRate} className="h-2" />
@@ -509,12 +509,12 @@ export function AllAgentsPanel() {
 
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
-                        <div className="text-muted-foreground">Tâches</div>
+                        <div className="text-muted-foreground">{t('agents.tasks')}</div>
                         <div className="font-medium">{agent.performance.tasksCompleted.toLocaleString()}</div>
                       </div>
                       {agent.performance.revenue && (
                         <div>
-                          <div className="text-muted-foreground">Revenus</div>
+                          <div className="text-muted-foreground">{t('dashboard.revenue')}</div>
                           <div className="font-medium text-green-600">
                             €{agent.performance.revenue.toLocaleString()}
                           </div>
@@ -533,9 +533,9 @@ export function AllAgentsPanel() {
                         className="flex-1"
                       >
                         {agent.status === "active" ? (
-                          <><Pause className="h-4 w-4 mr-1" /> Pause</>
+                          <><Pause className="h-4 w-4 mr-1" /> {t('agents.pause')}</>
                         ) : (
-                          <><Play className="h-4 w-4 mr-1" /> Activer</>
+                          <><Play className="h-4 w-4 mr-1" /> {t('agents.activate')}</>
                         )}
                       </Button>
                       <Button
@@ -567,7 +567,7 @@ export function AllAgentsPanel() {
                   {selectedAgentData.icon}
                 </div>
                 <div>
-                  <CardTitle>Configuration - {selectedAgentData.name}</CardTitle>
+                  <CardTitle>{t('Configuration')} - {selectedAgentData.name}</CardTitle>
                   <CardDescription>{selectedAgentData.description}</CardDescription>
                 </div>
               </div>
@@ -576,7 +576,7 @@ export function AllAgentsPanel() {
                 size="sm"
                 onClick={() => setSelectedAgent(null)}
               >
-                Fermer
+                {t('common.cancel')}
               </Button>
             </div>
           </CardHeader>
@@ -595,7 +595,7 @@ export function AllAgentsPanel() {
                           updateAgentSettings(selectedAgentData.id, { [key]: checked })
                         }
                       />
-                      <span className="text-sm">{value ? 'Activé' : 'Désactivé'}</span>
+                      <span className="text-sm">{value ? t('common.active') : t('common.inactive')}</span>
                     </div>
                   ) : typeof value === 'number' ? (
                     <div className="space-y-2">
@@ -635,11 +635,11 @@ export function AllAgentsPanel() {
 
             <div className="flex justify-end gap-2">
               <Button variant="outline">
-                Réinitialiser
+                {t('common.cancel')}
               </Button>
-              <Button onClick={() => toast.success("Configuration sauvegardée")}>
+              <Button onClick={() => toast.success(t('agents.configSaved'))}>
                 <FloppyDisk className="h-4 w-4 mr-2" />
-                Sauvegarder
+                {t('common.save')}
               </Button>
             </div>
           </CardContent>
