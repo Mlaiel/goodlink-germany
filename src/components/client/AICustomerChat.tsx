@@ -53,8 +53,17 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
   const [isOpen, setIsOpen] = useKV<boolean>("chat-is-open", false)
   const [isMinimized, setIsMinimized] = useKV<boolean>("chat-is-minimized", false)
   const [isMaximized, setIsMaximized] = useKV<boolean>("chat-is-maximized", false)
-  const [position, setPosition] = useKV<{x: number, y: number}>("chat-position", { x: 24, y: 24 })
-  const [size, setSize] = useKV<{width: number, height: number}>("chat-size", { width: 384, height: 500 })
+  
+  // Calculate safe initial position
+  const getInitialPosition = () => {
+    if (typeof window !== 'undefined') {
+      return { x: Math.max(10, window.innerWidth - 408), y: 50 }
+    }
+    return { x: 50, y: 50 }
+  }
+  
+  const [position, setPosition] = useKV<{x: number, y: number}>("chat-position", getInitialPosition())
+  const [size, setSize] = useKV<{width: number, height: number}>("chat-size", { width: 384, height: 600 })
   const [messages, setMessages] = useKV<Message[]>("chat-messages", [])
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -102,14 +111,15 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging && !isMaximized) {
         const currentSize = size || { width: 384, height: 600 }
-        const newX = Math.max(0, Math.min(window.innerWidth - currentSize.width, e.clientX - dragStart.x))
-        const newY = Math.max(0, Math.min(window.innerHeight - currentSize.height, e.clientY - dragStart.y))
+        // Ensure the chat window stays within viewport bounds with padding
+        const newX = Math.max(10, Math.min(window.innerWidth - currentSize.width - 10, e.clientX - dragStart.x))
+        const newY = Math.max(10, Math.min(window.innerHeight - currentSize.height - 10, e.clientY - dragStart.y))
         setPosition({ x: newX, y: newY })
       }
       
       if (isResizing && !isMaximized) {
         const newWidth = Math.max(320, Math.min(800, resizeStart.width + (e.clientX - resizeStart.x)))
-        const newHeight = Math.max(400, Math.min(800, resizeStart.height + (e.clientY - resizeStart.y)))
+        const newHeight = Math.max(400, Math.min(Math.min(800, window.innerHeight - 100), resizeStart.height + (e.clientY - resizeStart.y)))
         setSize({ width: newWidth, height: newHeight })
       }
     }
@@ -372,16 +382,22 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
     )
   }
 
-  const currentPosition = position || { x: 24, y: 24 }
-  const currentSize = size || { width: 384, height: 500 }
+  const currentPosition = position || getInitialPosition()
+  const currentSize = size || { width: 384, height: 600 }
+
+  // Ensure the chat window stays within visible bounds
+  const safePosition = {
+    x: Math.max(10, Math.min((typeof window !== 'undefined' ? window.innerWidth : 1024) - currentSize.width - 10, currentPosition.x)),
+    y: Math.max(10, Math.min((typeof window !== 'undefined' ? window.innerHeight : 768) - currentSize.height - 10, currentPosition.y))
+  }
 
   return (
     <motion.div
       ref={chatRef}
       className={`fixed z-50 ${className}`}
       style={{
-        left: isMaximized ? 0 : currentPosition.x,
-        top: isMaximized ? 0 : currentPosition.y,
+        left: isMaximized ? 0 : safePosition.x,
+        top: isMaximized ? 0 : safePosition.y,
         width: isMaximized ? '100vw' : currentSize.width,
         height: isMaximized ? '100vh' : (isMinimized ? 'auto' : currentSize.height),
       }}
@@ -389,7 +405,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
     >
-      <Card className={`flex flex-col h-full shadow-2xl border-0 bg-white/95 backdrop-blur-sm transition-all duration-200 ${isMaximized ? 'rounded-none' : 'rounded-lg'} ${isDragging ? 'shadow-3xl scale-105' : ''} ${isResizing ? 'shadow-3xl' : ''}`}>
+      <Card className={`flex flex-col h-full shadow-2xl border-2 bg-white transition-all duration-200 ${isMaximized ? 'rounded-none' : 'rounded-lg'} ${isDragging ? 'shadow-3xl scale-105 border-blue-400' : ''} ${isResizing ? 'shadow-3xl border-purple-400' : ''}`}>
         {/* Header */}
         <div 
           className={`flex items-center justify-between p-3 border-b bg-gradient-to-r from-blue-600 to-purple-600 text-white select-none ${isMaximized ? 'rounded-none' : 'rounded-t-lg'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -620,7 +636,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
             </div>
 
             {/* Input Area - Fixed at bottom */}
-            <div className="flex-shrink-0 p-4 border-t bg-white/95 backdrop-blur-sm">
+            <div className="flex-shrink-0 p-4 border-t bg-white rounded-b-lg">
               <div className="flex gap-2 items-end">
                 <div className="flex-1">
                   <Input
@@ -629,14 +645,14 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
                     placeholder={t("chat.typeMessage")}
                     onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
                     disabled={isTyping}
-                    className="w-full min-h-[40px] resize-none"
+                    className="w-full min-h-[40px] resize-none border-2 focus:border-blue-500"
                     autoFocus
                   />
                 </div>
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isTyping}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 h-[40px] px-4"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 h-[40px] px-4 shrink-0"
                 >
                   <PaperPlaneTilt className="h-4 w-4" />
                 </Button>
