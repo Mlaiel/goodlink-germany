@@ -7,6 +7,7 @@ import { LanguageSelector } from "@/components/LanguageSelector"
 import { HomePage } from "@/components/client/HomePage"
 import { ShopCatalog } from "@/components/client/ShopCatalog"
 import { BlogReader } from "@/components/client/BlogReader"
+import { AboutPage } from "@/components/client/AboutPage"
 import { AICustomerChat } from "@/components/client/AICustomerChat"
 import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
@@ -81,33 +82,7 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
       case "blog":
         return <BlogReader />
       case "about":
-        return (
-          <div className="space-y-8">
-            <div className="text-center space-y-4">
-              <h1 className="text-4xl font-bold">{t("client.aboutTitle") || "About Goodlink Germany"}</h1>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {t("client.aboutDesc") || "We are a leading AI-powered commerce platform connecting customers with premium products from trusted brands worldwide."}
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">{t("client.ourMission") || "Our Mission"}</h2>
-                <p className="text-muted-foreground">
-                  {t("client.missionDesc") || "To revolutionize online shopping through artificial intelligence, providing personalized experiences and connecting customers with the perfect products."}
-                </p>
-              </div>
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">{t("client.ourValues") || "Our Values"}</h2>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• {t("Quality first approach")}</li>
-                  <li>• {t("Customer satisfaction")}</li>
-                  <li>• {t("Innovation through AI")}</li>
-                  <li>• {t("Sustainable practices")}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        )
+        return <AboutPage />
       case "contact":
         return (
           <div className="space-y-8">
