@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useKV } from "@github/spark/hooks"
 import { useLanguage } from "@/components/LanguageContext"
 import { LanguageSelector } from "@/components/LanguageSelector"
-import { LoginDialog } from "@/components/auth/LoginDialog"
+import { LoginInterface } from "@/components/client/LoginInterface"
 import { CartButton } from "@/components/cart/ShoppingCart"
 import { FloatingAIChat } from "@/components/chat/FloatingAIChat"
 import { Button } from "@/components/ui/button"
@@ -41,7 +41,10 @@ interface User {
   email: string
   firstName: string
   lastName: string
-  isLoggedIn: boolean
+  company?: string
+  businessType?: string
+  country?: string
+  phone?: string
 }
 
 export function CustomerWebsite({ onSwitchMode }: ClientInterfaceProps) {
@@ -153,7 +156,7 @@ export function CustomerWebsite({ onSwitchMode }: ClientInterfaceProps) {
           <div className="flex items-center gap-3">
             <CartButton />
             
-            {user?.isLoggedIn ? (
+            {user ? (
               <div className="flex items-center gap-3">
                 <div className="text-sm">
                   <span className="font-medium">{t('user.welcome')}, {user.firstName}</span>
@@ -685,11 +688,12 @@ export function CustomerWebsite({ onSwitchMode }: ClientInterfaceProps) {
         </div>
       </footer>
 
-      <LoginDialog 
-        isOpen={isLoginOpen} 
-        onClose={() => setIsLoginOpen(false)} 
-        onLogin={handleLogin}
-      />
+      {isLoginOpen && (
+        <LoginInterface 
+          onClose={() => setIsLoginOpen(false)} 
+          onLoginSuccess={handleLogin}
+        />
+      )}
 
       <FloatingAIChat />
     </div>
