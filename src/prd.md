@@ -2,187 +2,171 @@
 
 ## Core Purpose & Success
 
-**Mission Statement**: Goodlink Germany is a comprehensive AI-powered commerce platform that automates and optimizes multi-marketplace selling, inventory management, and customer engagement for German e-commerce businesses.
+**Mission Statement**: Create a unified, AI-powered multi-marketplace commerce management platform that automates inventory synchronization, content generation, customer service, and sales optimization across all major European and global marketplaces.
 
-**Success Indicators**:
-- 25-40% revenue growth within 6 months through improved marketplace performance
-- 50% reduction in manual inventory management time through real-time synchronization
-- 100% increase in organic traffic via AI-generated multilingual content
-- 60-second average response time for customer inquiries via AI agents
+**Success Indicators**: 
+- 25-40% revenue growth within 6 months
+- 50% reduction in manual operational time
+- 100% increase in organic traffic through AI content
+- Sub-60 second customer response times across all channels
 
-**Experience Qualities**: Professional, Intelligent, Efficient
+**Experience Qualities**: Intelligent, Automated, Comprehensive
 
 ## Project Classification & Approach
 
-**Complexity Level**: Complex Application (advanced functionality, multiple integrations, real-time data)
+**Complexity Level**: Complex Application (advanced functionality with multi-platform integration)
+**Primary User Activity**: Managing and optimizing multi-marketplace e-commerce operations
 
-**Primary User Activity**: Acting and Interacting - users actively manage their commerce operations through the dashboard
+## Core Problem Analysis
+
+**Specific Problem**: E-commerce businesses struggle to efficiently manage inventory, content, customer service, and pricing across multiple marketplaces while maintaining competitive advantage and compliance.
+
+**User Context**: Business owners and e-commerce managers need real-time visibility and automated management of their entire marketplace ecosystem without constant manual intervention.
+
+**Critical Path**: Dashboard Overview → Marketplace Management → Inventory Sync → AI Agent Configuration → Performance Monitoring
+
+**Key Moments**: 
+1. Real-time inventory synchronization across all platforms
+2. AI-generated content that converts and ranks well
+3. Automated customer service that maintains high satisfaction
 
 ## Essential Features
 
-### 1. Real-Time Inventory Synchronization
-**Functionality**: Automatically synchronizes inventory levels across Amazon, eBay, OTTO, Kaufland, bol.com, and other connected marketplaces in real-time
-**Purpose**: Prevent overselling, maintain accurate stock levels, and ensure marketplace compliance
-**Success Criteria**: 
-- Sub-5-second sync latency between marketplaces
-- 99.9% sync success rate
-- Automatic error detection and retry mechanisms
-- Visual status indicators for all inventory items
+### Real-Time Inventory Synchronization
+- **Functionality**: Automatically sync stock levels across Amazon, eBay, OTTO, Kaufland, bol.com, Cdiscount, and other marketplaces
+- **Purpose**: Prevent overselling and maintain accurate stock levels
+- **Success Criteria**: 99.5% sync accuracy with sub-5-minute update times
 
-### 2. Multi-Marketplace Management
-**Functionality**: Unified dashboard for managing listings, orders, and performance across all connected marketplaces
-**Purpose**: Centralize marketplace operations and provide holistic business insights
-**Success Criteria**:
-- Single-click marketplace connection setup
-- Consolidated revenue and performance reporting
-- Automated compliance checking for marketplace policies
+### AI-Powered Content Generation
+- **Functionality**: Generate product listings, blog posts, and marketing content in multiple languages (EN/DE/ZH)
+- **Purpose**: Scale content creation while maintaining SEO optimization
+- **Success Criteria**: 80+ SEO scores and 15% improvement in conversion rates
 
-### 3. AI Agent Control Center
-**Functionality**: Deploy and monitor AI agents for listing optimization, price management, customer service, and content generation
-**Purpose**: Automate repetitive tasks and optimize performance through machine learning
-**Success Criteria**:
-- 90%+ AI agent success rates
-- Real-time performance monitoring and alerts
-- Configurable agent parameters and scheduling
+### Multi-Channel Customer Service
+- **Functionality**: WhatsApp, Discord, Telegram integration with AI-powered responses
+- **Purpose**: Provide 24/7 customer support across all communication channels
+- **Success Criteria**: 94%+ customer satisfaction with automated responses
 
-### 4. Product Catalog Management
-**Functionality**: Centralized product management with AI-powered listing generation and optimization
-**Purpose**: Streamline product onboarding and maintain consistent branding across marketplaces
-**Success Criteria**:
-- Bulk product import/export capabilities
-- Automated listing generation for new products
-- Marketplace-specific optimization recommendations
+### Marketplace Analytics & Optimization
+- **Functionality**: Performance tracking, pricing optimization, and competitor analysis
+- **Purpose**: Data-driven decision making for market strategy
+- **Success Criteria**: 20% improvement in Buy Box percentage
 
-### 5. Blog & Content Management
-**Functionality**: AI-powered blog creation and SEO optimization system for driving organic traffic and establishing thought leadership
-**Purpose**: Generate multilingual, SEO-optimized content to attract potential customers and build brand authority
-**Success Criteria**:
-- AI-generated blog posts with 90%+ SEO scores
-- Multi-language content support (EN/DE/ZH)
-- Automated keyword research and content optimization
-- Analytics tracking for content performance and traffic generation
-
-### 6. WhatsApp Business API Integration
-**Functionality**: Automated customer service and communication via WhatsApp Business API with AI-powered responses
-**Purpose**: Provide 24/7 customer support, order updates, and product assistance through the most popular messaging platform
-**Success Criteria**:
-- Sub-60-second average response time for customer inquiries
-- 90%+ automated response accuracy for common queries
-- Seamless handoff to human agents for complex issues
-- Multilingual support (EN/DE/ZH) with context awareness
-- Integration with order management for real-time status updates
-
-### 7. Social Media & Messaging AI Agents
-**Functionality**: Comprehensive automation across social media platforms (Instagram, TikTok, YouTube, Facebook, LinkedIn, Twitter, Pinterest) and messaging platforms (WhatsApp, Discord, Telegram)
-**Purpose**: Maintain consistent brand presence, engage customers, and drive traffic across all digital touchpoints
-**Success Criteria**:
-- Automated content posting and engagement across 7+ platforms
-- 85%+ engagement rate improvement through AI optimization
-- Unified analytics dashboard for cross-platform performance
-- Smart content adaptation per platform requirements
-- Community management with automated moderation and responses
+### Headless E-Commerce Shop
+- **Functionality**: Direct-to-consumer online store with AI personalization
+- **Purpose**: Reduce dependency on marketplace fees and build direct customer relationships
+- **Success Criteria**: 3.5% conversion rate and growing customer base
 
 ## Design Direction
 
 ### Visual Tone & Identity
-
-**Emotional Response**: The design should evoke confidence, efficiency, and technological sophistication while remaining approachable for users of varying technical expertise.
-
-**Design Personality**: Modern, professional, and data-driven with subtle technological elements that convey AI capabilities without overwhelming the user.
-
-**Visual Metaphors**: Clean dashboards, real-time data flows, connected networks, and automated processes that reflect the platform's integration capabilities.
-
-**Simplicity Spectrum**: Balanced approach - rich functionality presented through a clean, organized interface with progressive disclosure for advanced features.
+**Emotional Response**: Professional confidence with intelligent automation
+**Design Personality**: Clean, modern, data-driven interface that feels powerful yet approachable
+**Visual Metaphors**: Dashboard command center, interconnected systems, AI assistance
+**Simplicity Spectrum**: Rich interface with progressive disclosure - complex data made simple
 
 ### Color Strategy
-
-**Color Scheme Type**: Analogous with professional accents
-**Primary Color**: Deep navy blue (oklch(0.25 0.08 240)) - conveys trust, professionalism, and technological sophistication
-**Secondary Colors**: Light grays and soft blues for supporting UI elements
-**Accent Color**: Warm orange (oklch(0.6 0.2 20)) - draws attention to important actions and success states
-**Color Psychology**: Blue builds trust and reliability, orange adds energy and urgency for key actions
-**Color Accessibility**: All color combinations exceed WCAG AA contrast ratios (4.5:1 minimum)
+**Color Scheme Type**: Custom palette with accent highlights
+**Primary Color**: Deep navy blue (professional, trustworthy) - `oklch(0.25 0.08 240)`
+**Secondary Colors**: Clean whites and light grays for backgrounds
+**Accent Color**: Orange highlights for actions and alerts - `oklch(0.6 0.2 20)`
+**Color Psychology**: Navy conveys trust and stability, orange provides energy and action
+**Color Accessibility**: WCAG AA compliant with 4.5:1 contrast ratios minimum
 
 **Foreground/Background Pairings**:
-- Primary text on background: oklch(0.25 0.08 240) on oklch(1 0 0) - 16.1:1 contrast
-- Card text on card background: oklch(0.25 0.08 240) on oklch(0.98 0.005 240) - 15.2:1 contrast
-- Primary button text: oklch(1 0 0) on oklch(0.25 0.08 240) - 16.1:1 contrast
-- Accent button text: oklch(1 0 0) on oklch(0.6 0.2 20) - 5.8:1 contrast
+- Main text on background: `oklch(0.25 0.08 240)` on `oklch(1 0 0)` ✓ 4.8:1
+- Card text on card background: `oklch(0.25 0.08 240)` on `oklch(0.98 0.005 240)` ✓ 4.6:1
+- Primary button text: `oklch(1 0 0)` on `oklch(0.25 0.08 240)` ✓ 4.8:1
+- Accent text: `oklch(1 0 0)` on `oklch(0.6 0.2 20)` ✓ 4.5:1
 
 ### Typography System
-
-**Font Pairing Strategy**: Sans-serif primary font (Inter) for clean readability with monospace secondary font (JetBrains Mono) for technical data
-**Typographic Hierarchy**: Clear distinction between headings (bold, larger), body text (regular weight), and data displays (monospace, medium weight)
-**Font Personality**: Modern, readable, and technical without being intimidating
-**Readability Focus**: Generous line spacing (1.5x), optimal line lengths, and appropriate font sizes for different screen sizes
-**Typography Consistency**: Consistent spacing scale and weight relationships throughout the interface
-**Selected Fonts**: Inter (Google Fonts) for UI text, JetBrains Mono for code/data display
-**Legibility Check**: Both fonts tested across various sizes and weights for optimal readability
+**Font Pairing Strategy**: Inter for UI (clean, modern) + JetBrains Mono for data/code
+**Typographic Hierarchy**: Clear distinction between headers (24px), subheaders (18px), body (16px), captions (14px)
+**Font Personality**: Professional, highly legible, data-friendly
+**Readability Focus**: 1.5x line height for body text, generous spacing
+**Typography Consistency**: Consistent font weights (400, 500, 600, 700)
+**Which fonts**: Inter and JetBrains Mono from Google Fonts
+**Legibility Check**: Both fonts tested for clarity at small sizes and data display
 
 ### Visual Hierarchy & Layout
-
-**Attention Direction**: Dashboard cards and metrics draw initial attention, followed by action buttons and navigation elements
-**White Space Philosophy**: Generous spacing between components to create breathing room and visual clarity
-**Grid System**: 12-column responsive grid with consistent gutters and breakpoints
-**Responsive Approach**: Mobile-first design that progressively enhances for larger screens
-**Content Density**: Balanced information density that provides comprehensive data without overwhelming users
+**Attention Direction**: Primary actions in orange, secondary in navy, data visualization in blues
+**White Space Philosophy**: Generous spacing to prevent cognitive overload
+**Grid System**: 12-column responsive grid with consistent 16px base spacing
+**Responsive Approach**: Mobile-first design with progressive enhancement
+**Content Density**: Balanced - enough information without overwhelming
 
 ### Animations
-
-**Purposeful Meaning**: Subtle animations indicate data updates, loading states, and successful actions
-**Hierarchy of Movement**: Priority given to sync status indicators, real-time data updates, and user feedback
-**Contextual Appropriateness**: Professional, subtle animations that enhance rather than distract from functionality
+**Purposeful Meaning**: Smooth transitions show system responsiveness and data updates
+**Hierarchy of Movement**: Critical alerts get attention, data updates are subtle
+**Contextual Appropriateness**: Professional, fast transitions that don't delay workflow
 
 ### UI Elements & Component Selection
-
 **Component Usage**: 
-- Cards for grouped information and dashboards
-- Tables for detailed inventory and transaction data
-- Badges for status indicators and categories
-- Progress bars for sync status and success rates
-- Tabs for organizing different functional areas
+- Cards for data grouping and modules
+- Tables for detailed data display
+- Charts for performance visualization
+- Badges for status indicators
+- Tabs for feature organization
 
-**Component Customization**: Consistent border radius (0.5rem), subtle shadows, and branded color applications
-**Component States**: Clear hover, active, and disabled states for all interactive elements
-**Icon Selection**: Phosphor icons for consistency and clarity across all interface elements
-**Component Hierarchy**: Primary actions (sync, configure) emphasized over secondary actions (edit, view)
-**Spacing System**: Consistent 4px base unit scaling (4, 8, 12, 16, 24, 32px)
-**Mobile Adaptation**: Touch-friendly target sizes (minimum 44px), simplified navigation, and optimized data tables
+**Component Customization**: shadcn/ui components with custom color scheme
+**Component States**: Clear hover, active, disabled, and loading states
+**Icon Selection**: Phosphor icons for consistency and clarity
+**Component Hierarchy**: Primary (orange), secondary (navy), tertiary (gray)
+**Spacing System**: 4px base unit scaling (4, 8, 16, 24, 32, 48px)
+**Mobile Adaptation**: Responsive components that stack and resize appropriately
 
-### Real-Time Data Visualization
-
-**Live Updates**: WebSocket connections for real-time inventory sync status and marketplace data
-**Status Indicators**: Color-coded badges and icons for quick status recognition
-**Progress Tracking**: Visual progress bars and counters for sync operations and success rates
-**Error Handling**: Clear error states with actionable retry mechanisms
-**Performance Metrics**: Real-time KPI cards showing revenue, orders, and sync statistics
+### Visual Consistency Framework
+**Design System Approach**: Component-based design with systematic patterns
+**Style Guide Elements**: Color palette, typography, spacing, component behavior
+**Visual Rhythm**: Consistent card spacing, button placement, and data presentation
+**Brand Alignment**: Professional AI-forward identity that builds trust
 
 ### Accessibility & Readability
-
-**Contrast Goal**: WCAG AA compliance minimum with AAA standards where possible
-**Keyboard Navigation**: Full keyboard accessibility with logical tab order
-**Screen Reader Support**: Proper ARIA labels and semantic HTML structure
-**Motion Preferences**: Respect for reduced motion preferences in animations
+**Contrast Goal**: WCAG AA compliance minimum, targeting AAA where possible
+**Keyboard Navigation**: Full keyboard access to all interactive elements
+**Screen Reader Support**: Proper ARIA labels and semantic markup
+**Focus Indicators**: Clear, visible focus states for all interactive elements
 
 ## Implementation Considerations
 
-**Scalability Needs**: Architecture supports adding new marketplaces and AI agents without major refactoring
-**Testing Focus**: Real-time sync accuracy, error handling, and performance under high data loads
+**Scalability Needs**: Support for additional marketplaces and AI agents
+**Testing Focus**: Cross-browser compatibility, performance under load, data accuracy
 **Critical Questions**: 
-- How to handle marketplace API rate limits during peak sync periods?
-- What backup mechanisms exist if real-time sync fails?
-- How to balance real-time updates with user interface performance?
+- How quickly can we onboard new marketplaces?
+- What happens during API outages?
+- How do we ensure data privacy compliance?
 
-## Technical Architecture
+**Technical Constraints**:
+- Real-time data synchronization requirements
+- Multiple third-party API rate limits
+- GDPR compliance for EU operations
+- Multi-language content generation quality
 
-**Frontend**: React with TypeScript, Tailwind CSS, shadcn/ui components
-**State Management**: React hooks with persistent storage for user preferences and data
-**Real-Time Updates**: WebSocket connections for live inventory sync and notifications
-**Data Visualization**: Recharts for performance dashboards and trend analysis
-**Notifications**: Sonner toast system for user feedback and alerts
+## Edge Cases & Problem Scenarios
+
+**Potential Obstacles**:
+- Marketplace API changes breaking synchronization
+- AI content generation producing inappropriate results
+- High-volume periods overwhelming system capacity
+- Customer service escalation beyond AI capabilities
+
+**Edge Case Handling**:
+- Fallback mechanisms for API failures
+- Human review workflows for AI content
+- Auto-scaling for traffic spikes
+- Clear escalation paths to human support
 
 ## Reflection
 
-This approach uniquely combines enterprise-grade commerce functionality with consumer-friendly design patterns. The real-time inventory synchronization addresses a critical pain point for multi-marketplace sellers while the AI agent system provides scalable automation. The design balances data density with usability, ensuring both novice and expert users can effectively manage complex commerce operations.
+**Unique Approach**: This solution uniquely combines real-time inventory management with AI-powered content and customer service, creating a truly automated marketplace management system.
 
-The platform's strength lies in its unified approach to marketplace management, reducing context switching and providing comprehensive insights through a single interface. The emphasis on real-time data and automated processes aligns with modern commerce demands for speed and accuracy.
+**Key Assumptions**: 
+- Businesses want full automation with oversight capabilities
+- AI quality will be sufficient for customer-facing content
+- Integration complexity can be abstracted from users
+
+**Exceptional Elements**: 
+- Unified multi-marketplace view with real-time sync
+- AI agents that handle multiple business functions
+- Progressive disclosure of complex e-commerce data
+- Multilingual AI capabilities for global markets

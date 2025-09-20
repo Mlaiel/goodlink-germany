@@ -399,7 +399,7 @@ export function WhatsAppDashboard() {
                           {contact.phone} • {contact.orderCount} orders
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          Last: {contact.lastMessage.toLocaleTimeString()}
+                          Last: {new Date(contact.lastMessage).toLocaleTimeString()}
                         </div>
                       </div>
                       <Button size="sm" variant="outline">
@@ -433,7 +433,7 @@ export function WhatsAppDashboard() {
                         <div className="text-sm">{message.message}</div>
                         <div className="flex items-center gap-1 mt-1">
                           <span className="text-xs opacity-70">
-                            {message.timestamp.toLocaleTimeString()}
+                            {new Date(message.timestamp).toLocaleTimeString()}
                           </span>
                           {message.isAutomated && (
                             <Robot className="h-3 w-3 opacity-70" />

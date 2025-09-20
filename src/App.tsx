@@ -115,9 +115,9 @@ function Dashboard() {
     { name: 'Jun', amazon: 67000, ebay: 18500, otto: 12500 }
   ].map(item => ({
     ...item,
-    amazon: item.amazon || 0,
-    ebay: item.ebay || 0,
-    otto: item.otto || 0
+    amazon: Number(item.amazon) || 0,
+    ebay: Number(item.ebay) || 0,
+    otto: Number(item.otto) || 0
   }))
 
   const performanceData = [
@@ -127,147 +127,169 @@ function Dashboard() {
     { name: 'Week 4', conversion: 3.9, traffic: 15600 }
   ].map(item => ({
     ...item,
-    conversion: item.conversion || 0,
-    traffic: item.traffic || 0
+    conversion: Number(item.conversion) || 0,
+    traffic: Number(item.traffic) || 0
   }))
   
   // Sample data for demonstration - ensure data is always available and safely structured
   
   return (
-    <div className="space-y-6">
-      {/* KPI Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <TrendUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">€98,263</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,393</div>
-            <p className="text-xs text-muted-foreground">
-              +12% from last week
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Buy Box %</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">87.3%</div>
-            <p className="text-xs text-muted-foreground">
-              +2.4% from yesterday
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">AI Automations</CardTitle>
-            <Robot className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">17/17</div>
-            <p className="text-xs text-muted-foreground">
-              All agents active
-            </p>
-          </CardContent>
-        </Card>
+    <ErrorBoundary fallback={
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Warning className="h-12 w-12 text-orange-500 mx-auto" />
+          <h1 className="text-2xl font-bold">Dashboard Loading</h1>
+          <p className="text-muted-foreground">Initializing commerce platform...</p>
+        </div>
       </div>
+    }>
+      <div className="space-y-6">
+        {/* KPI Cards */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <TrendUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">€98,263</div>
+              <p className="text-xs text-muted-foreground">
+                +20.1% from last month
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
+              <Package className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">1,393</div>
+              <p className="text-xs text-muted-foreground">
+                +12% from last week
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Buy Box %</CardTitle>
+              <CheckCircle className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">87.3%</div>
+              <p className="text-xs text-muted-foreground">
+                +2.4% from yesterday
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">AI Automations</CardTitle>
+              <Robot className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">17/17</div>
+              <p className="text-xs text-muted-foreground">
+                All agents active
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-      {/* Charts */}
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Revenue by Marketplace</CardTitle>
-            <CardDescription>Monthly revenue across all connected platforms</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {revenueData && revenueData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={revenueData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip 
-                    formatter={(value, name) => {
-                      try {
-                        if (typeof value === 'number' && !isNaN(value)) {
-                          return [`€${value.toLocaleString()}`, name]
-                        }
-                        return ['€0', name || 'Unknown']
-                      } catch (error) {
-                        console.error('Tooltip formatter error:', error)
-                        return ['€0', 'Error']
-                      }
-                    }}
-                  />
-                  <Legend />
-                  <Bar dataKey="amazon" stackId="a" fill="#ff6b35" name="Amazon" />
-                  <Bar dataKey="ebay" stackId="a" fill="#1e40af" name="eBay" />
-                  <Bar dataKey="otto" stackId="a" fill="#7c3aed" name="OTTO" />
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-[300px] flex items-center justify-center text-muted-foreground">
-                No data available
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        {/* Charts */}
+        <div className="grid gap-4 lg:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Revenue by Marketplace</CardTitle>
+              <CardDescription>Monthly revenue across all connected platforms</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ErrorBoundary fallback={
+                <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                  Chart loading error
+                </div>
+              }>
+                {revenueData && revenueData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={revenueData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip 
+                        formatter={(value, name) => {
+                          try {
+                            if (typeof value === 'number' && !isNaN(value)) {
+                              return [`€${value.toLocaleString()}`, name || 'Unknown']
+                            }
+                            return ['€0', name || 'Unknown']
+                          } catch (error) {
+                            console.error('Tooltip formatter error:', error)
+                            return ['€0', 'Error']
+                          }
+                        }}
+                      />
+                      <Legend />
+                      <Bar dataKey="amazon" stackId="a" fill="#ff6b35" name="Amazon" />
+                      <Bar dataKey="ebay" stackId="a" fill="#1e40af" name="eBay" />
+                      <Bar dataKey="otto" stackId="a" fill="#7c3aed" name="OTTO" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                    No data available
+                  </div>
+                )}
+              </ErrorBoundary>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Performance Trends</CardTitle>
-            <CardDescription>Conversion rate and traffic over time</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {performanceData && performanceData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={performanceData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis yAxisId="left" />
-                  <YAxis yAxisId="right" orientation="right" />
-                  <Tooltip 
-                    formatter={(value, name) => {
-                      try {
-                        if (name === 'conversion') {
-                          return [`${typeof value === 'number' && !isNaN(value) ? value.toFixed(1) : '0'}%`, 'Conversion Rate']
-                        }
-                        return [`${typeof value === 'number' && !isNaN(value) ? value.toLocaleString() : '0'}`, 'Traffic']
-                      } catch (error) {
-                        console.error('Tooltip formatter error:', error)
-                        return ['0', 'Error']
-                      }
-                    }}
-                  />
-                  <Legend />
-                  <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="#ff6b35" strokeWidth={2} name="Conversion Rate" />
-                  <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="#1e40af" strokeWidth={2} name="Traffic" />
-                </LineChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-[300px] flex items-center justify-center text-muted-foreground">
-                No data available
-              </div>
-            )}
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Performance Trends</CardTitle>
+              <CardDescription>Conversion rate and traffic over time</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ErrorBoundary fallback={
+                <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                  Chart loading error
+                </div>
+              }>
+                {performanceData && performanceData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={performanceData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis yAxisId="left" />
+                      <YAxis yAxisId="right" orientation="right" />
+                      <Tooltip 
+                        formatter={(value, name) => {
+                          try {
+                            if (name === 'conversion') {
+                              return [`${typeof value === 'number' && !isNaN(value) ? value.toFixed(1) : '0'}%`, 'Conversion Rate']
+                            }
+                            return [`${typeof value === 'number' && !isNaN(value) ? value.toLocaleString() : '0'}`, 'Traffic']
+                          } catch (error) {
+                            console.error('Tooltip formatter error:', error)
+                            return ['0', 'Error']
+                          }
+                        }}
+                      />
+                      <Legend />
+                      <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="#ff6b35" strokeWidth={2} name="Conversion Rate" />
+                      <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="#1e40af" strokeWidth={2} name="Traffic" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                    No data available
+                  </div>
+                )}
+              </ErrorBoundary>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }
 
@@ -379,11 +401,17 @@ function AIAgentsView() {
 
   const handleConfigureAgent = (agent: any) => {
     try {
+      if (!agent) {
+        console.error('Agent is null or undefined')
+        toast.error('Invalid agent data')
+        return
+      }
+      
       const agentConfig = {
-        id: (agent?.name || 'unknown').toLowerCase().replace(/\s+/g, '-'),
-        name: agent?.name || 'Unknown Agent',
-        type: agent?.type || 'default',
-        status: agent?.status || 'inactive',
+        id: String(agent?.name || 'unknown').toLowerCase().replace(/\s+/g, '-'),
+        name: String(agent?.name || 'Unknown Agent'),
+        type: String(agent?.type || 'default'),
+        status: String(agent?.status || 'inactive'),
         settings: (agentConfigs && agentConfigs[agent?.name]) || {}
       }
       setSelectedAgent(agentConfig)
@@ -409,10 +437,10 @@ function AIAgentsView() {
   const filteredAgents = filterType === "all" ? safeAiAgents : safeAiAgents.filter(agent => agent && agent.type === filterType)
   const agentTypes = ["all", "social", "messaging", "content", "pricing", "analytics", "forecasting", "support"]
 
-  // Safe calculation functions
+  // Safe calculation functions with null checks
   const getActiveAgentsCount = () => {
     try {
-      return safeAiAgents.filter(a => a?.status === 'active').length
+      return safeAiAgents.filter(a => a && a.status === 'active').length
     } catch (error) {
       console.error('Error counting active agents:', error)
       return 0
@@ -421,7 +449,7 @@ function AIAgentsView() {
 
   const getTrainingAgentsCount = () => {
     try {
-      return safeAiAgents.filter(a => a?.status === 'training').length
+      return safeAiAgents.filter(a => a && a.status === 'training').length
     } catch (error) {
       console.error('Error counting training agents:', error)
       return 0
@@ -431,8 +459,10 @@ function AIAgentsView() {
   const getAverageSuccessRate = () => {
     try {
       if (safeAiAgents.length === 0) return 0
-      const totalSuccess = safeAiAgents.reduce((acc, a) => acc + (a?.success || 0), 0)
-      return Math.round(totalSuccess / safeAiAgents.length)
+      const validAgents = safeAiAgents.filter(a => a && typeof a.success === 'number')
+      if (validAgents.length === 0) return 0
+      const totalSuccess = validAgents.reduce((acc, a) => acc + (a.success || 0), 0)
+      return Math.round(totalSuccess / validAgents.length)
     } catch (error) {
       console.error('Error calculating success rate:', error)
       return 0
@@ -441,7 +471,7 @@ function AIAgentsView() {
 
   const getTotalProcessed = () => {
     try {
-      return safeAiAgents.reduce((acc, a) => acc + (a?.processed || 0), 0)
+      return safeAiAgents.filter(a => a && typeof a.processed === 'number').reduce((acc, a) => acc + (a.processed || 0), 0)
     } catch (error) {
       console.error('Error calculating total processed:', error)
       return 0
@@ -767,125 +797,139 @@ function ProductsView() {
 function App() {
   const [activeTab, setActiveTab] = useKV("active-tab", "dashboard")
 
-  return (
-    <ErrorBoundary>
-      <div className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="border-b bg-card">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">G</span>
+  // Progressive error checking
+  try {
+    return (
+      <ErrorBoundary>
+        <div className="min-h-screen bg-background">
+          {/* Header */}
+          <header className="border-b bg-card">
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                    <span className="text-primary-foreground font-bold text-sm">G</span>
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-bold">Goodlink Germany</h1>
+                    <p className="text-sm text-muted-foreground">AI Commerce Platform</p>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="text-xl font-bold">Goodlink Germany</h1>
-                  <p className="text-sm text-muted-foreground">AI Commerce Platform</p>
-                </div>
+                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                  <CheckCircle className="h-3 w-3 mr-1" />
+                  All Systems Operational
+                </Badge>
               </div>
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                All Systems Operational
-              </Badge>
             </div>
-          </div>
-        </header>
+          </header>
 
-        {/* Main Content */}
-        <main className="container mx-auto px-4 py-8">
-          <ErrorBoundary>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-8">
-                <TabsTrigger value="dashboard" className="flex items-center gap-2">
-                  <ChartLine className="h-4 w-4" />
-                  Dashboard
-                </TabsTrigger>
-                <TabsTrigger value="marketplaces" className="flex items-center gap-2">
-                  <Storefront className="h-4 w-4" />
-                  Marketplaces
-                </TabsTrigger>
-                <TabsTrigger value="products" className="flex items-center gap-2">
-                  <Package className="h-4 w-4" />
-                  Products
-                </TabsTrigger>
-                <TabsTrigger value="inventory" className="flex items-center gap-2">
-                  <Database className="h-4 w-4" />
-                  Inventory Sync
-                </TabsTrigger>
-                <TabsTrigger value="shop" className="flex items-center gap-2">
-                  <Storefront className="h-4 w-4" />
-                  Shop
-                </TabsTrigger>
-                <TabsTrigger value="blog" className="flex items-center gap-2">
-                  <Article className="h-4 w-4" />
-                  Blog
-                </TabsTrigger>
-                <TabsTrigger value="whatsapp" className="flex items-center gap-2">
-                  <WhatsappLogo className="h-4 w-4" />
-                  WhatsApp
-                </TabsTrigger>
-                <TabsTrigger value="ai-agents" className="flex items-center gap-2">
-                  <Robot className="h-4 w-4" />
-                  AI Agents
-                </TabsTrigger>
-              </TabsList>
+          {/* Main Content */}
+          <main className="container mx-auto px-4 py-8">
+            <ErrorBoundary>
+              <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsList className="grid w-full grid-cols-8">
+                  <TabsTrigger value="dashboard" className="flex items-center gap-2">
+                    <ChartLine className="h-4 w-4" />
+                    Dashboard
+                  </TabsTrigger>
+                  <TabsTrigger value="marketplaces" className="flex items-center gap-2">
+                    <Storefront className="h-4 w-4" />
+                    Marketplaces
+                  </TabsTrigger>
+                  <TabsTrigger value="products" className="flex items-center gap-2">
+                    <Package className="h-4 w-4" />
+                    Products
+                  </TabsTrigger>
+                  <TabsTrigger value="inventory" className="flex items-center gap-2">
+                    <Database className="h-4 w-4" />
+                    Inventory Sync
+                  </TabsTrigger>
+                  <TabsTrigger value="shop" className="flex items-center gap-2">
+                    <Storefront className="h-4 w-4" />
+                    Shop
+                  </TabsTrigger>
+                  <TabsTrigger value="blog" className="flex items-center gap-2">
+                    <Article className="h-4 w-4" />
+                    Blog
+                  </TabsTrigger>
+                  <TabsTrigger value="whatsapp" className="flex items-center gap-2">
+                    <WhatsappLogo className="h-4 w-4" />
+                    WhatsApp
+                  </TabsTrigger>
+                  <TabsTrigger value="ai-agents" className="flex items-center gap-2">
+                    <Robot className="h-4 w-4" />
+                    AI Agents
+                  </TabsTrigger>
+                </TabsList>
 
-              <TabsContent value="dashboard" className="mt-6">
-                <ErrorBoundary>
-                  <Dashboard />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="dashboard" className="mt-6">
+                  <ErrorBoundary>
+                    <Dashboard />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="marketplaces" className="mt-6">
-                <ErrorBoundary>
-                  <MarketplacesView />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="marketplaces" className="mt-6">
+                  <ErrorBoundary>
+                    <MarketplacesView />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="products" className="mt-6">
-                <ErrorBoundary>
-                  <ProductsView />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="products" className="mt-6">
+                  <ErrorBoundary>
+                    <ProductsView />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="inventory" className="mt-6">
-                <ErrorBoundary>
-                  <InventorySyncDashboard />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="inventory" className="mt-6">
+                  <ErrorBoundary>
+                    <InventorySyncDashboard />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="shop" className="mt-6">
-                <ErrorBoundary>
-                  <ShopDashboard />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="shop" className="mt-6">
+                  <ErrorBoundary>
+                    <ShopDashboard />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="blog" className="mt-6">
-                <ErrorBoundary>
-                  <BlogDashboard />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="blog" className="mt-6">
+                  <ErrorBoundary>
+                    <BlogDashboard />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="whatsapp" className="mt-6">
-                <ErrorBoundary>
-                  <WhatsAppDashboard />
-                </ErrorBoundary>
-              </TabsContent>
+                <TabsContent value="whatsapp" className="mt-6">
+                  <ErrorBoundary>
+                    <WhatsAppDashboard />
+                  </ErrorBoundary>
+                </TabsContent>
 
-              <TabsContent value="ai-agents" className="mt-6">
-                <ErrorBoundary>
-                  <AIAgentsView />
-                </ErrorBoundary>
-              </TabsContent>
-            </Tabs>
-          </ErrorBoundary>
-        </main>
+                <TabsContent value="ai-agents" className="mt-6">
+                  <ErrorBoundary>
+                    <AIAgentsView />
+                  </ErrorBoundary>
+                </TabsContent>
+              </Tabs>
+            </ErrorBoundary>
+          </main>
 
-        {/* Toast notifications */}
-        <Toaster />
+          {/* Toast notifications */}
+          <Toaster />
+        </div>
+      </ErrorBoundary>
+    )
+  } catch (error) {
+    console.error('App component error:', error)
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Warning className="h-8 w-8 text-orange-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">Application Error</h1>
+          <p className="text-muted-foreground">Please check the console for details and refresh the page.</p>
+        </div>
       </div>
-    </ErrorBoundary>
-  )
+    )
+  }
 }
 
 export default App
