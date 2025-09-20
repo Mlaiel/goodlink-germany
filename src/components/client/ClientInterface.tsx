@@ -7,6 +7,7 @@ import { LanguageSelector } from "@/components/LanguageSelector"
 import { HomePage } from "@/components/client/HomePage"
 import { ShopCatalog } from "@/components/client/ShopCatalog"
 import { BlogReader } from "@/components/client/BlogReader"
+import { AICustomerChat } from "@/components/client/AICustomerChat"
 import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
 import { 
   House, 
@@ -296,6 +297,9 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
           </div>
         </div>
       </footer>
+
+      {/* AI Customer Chat */}
+      <AICustomerChat />
     </div>
   )
 }

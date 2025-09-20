@@ -112,6 +112,25 @@ const translations = {
     'dashboard.performance': 'Performance Trends',
     'dashboard.marketplaceRevenue': 'Revenue by Marketplace',
     
+    // Chat
+    'chat.aiAssistant': 'AI Assistant',
+    'chat.onlineNow': 'Online now',
+    'chat.typeMessage': 'Type your message...',
+    'chat.helpful': 'Helpful?',
+    'chat.helpfulFeedback': 'Helpful feedback received',
+    'chat.feedbackReceived': 'Feedback received',
+    'chat.poweredBy': 'Powered by Goodlink AI • Available 24/7',
+    'chat.showPopularProducts': 'Show me popular products',
+    'chat.findElectronics': 'Help me find electronics',
+    'chat.bestDeals': 'What are your best deals?',
+    'chat.customerSupport': 'I need customer support',
+    'chat.shippingInfo': 'Tell me more about shipping',
+    'chat.productCategories': 'Show me product categories',
+    'chat.returnsInfo': 'How do returns work?',
+    'chat.humanSupport': 'Contact human support',
+    'chat.tryAgain': 'Try again',
+    'chat.errorResponse': "I apologize, I'm having trouble responding right now. Please try again or contact our human support team.",
+    
     // Language names
     'lang.english': 'English',
     'lang.german': 'Deutsch',
@@ -217,6 +236,25 @@ const translations = {
     'dashboard.automations': 'KI-Automatisierungen',
     'dashboard.performance': 'Leistungstrends',
     'dashboard.marketplaceRevenue': 'Umsatz nach Marktplatz',
+    
+    // Chat
+    'chat.aiAssistant': 'KI-Assistent',
+    'chat.onlineNow': 'Jetzt online',
+    'chat.typeMessage': 'Nachricht eingeben...',
+    'chat.helpful': 'Hilfreich?',
+    'chat.helpfulFeedback': 'Hilfreiches Feedback erhalten',
+    'chat.feedbackReceived': 'Feedback erhalten',
+    'chat.poweredBy': 'Angetrieben von Goodlink KI • 24/7 verfügbar',
+    'chat.showPopularProducts': 'Zeige mir beliebte Produkte',
+    'chat.findElectronics': 'Hilf mir Elektronik zu finden',
+    'chat.bestDeals': 'Was sind eure besten Angebote?',
+    'chat.customerSupport': 'Ich brauche Kundensupport',
+    'chat.shippingInfo': 'Erzähl mir mehr über Versand',
+    'chat.productCategories': 'Zeige mir Produktkategorien',
+    'chat.returnsInfo': 'Wie funktionieren Rücksendungen?',
+    'chat.humanSupport': 'Menschlichen Support kontaktieren',
+    'chat.tryAgain': 'Erneut versuchen',
+    'chat.errorResponse': 'Entschuldigung, ich habe gerade Probleme beim Antworten. Bitte versuchen Sie es erneut oder kontaktieren Sie unser menschliches Support-Team.',
     
     // Language names
     'lang.english': 'English',
@@ -324,6 +362,25 @@ const translations = {
     'dashboard.performance': '性能趋势',
     'dashboard.marketplaceRevenue': '按市场平台的收入',
     
+    // Chat
+    'chat.aiAssistant': 'AI助手',
+    'chat.onlineNow': '现在在线',
+    'chat.typeMessage': '输入您的消息...',
+    'chat.helpful': '有帮助吗？',
+    'chat.helpfulFeedback': '收到有用反馈',
+    'chat.feedbackReceived': '已收到反馈',
+    'chat.poweredBy': 'Goodlink AI 驱动 • 24/7 可用',
+    'chat.showPopularProducts': '给我看热门产品',
+    'chat.findElectronics': '帮我找电子产品',
+    'chat.bestDeals': '你们最好的优惠是什么？',
+    'chat.customerSupport': '我需要客户支持',
+    'chat.shippingInfo': '告诉我更多关于运输的信息',
+    'chat.productCategories': '给我看产品类别',
+    'chat.returnsInfo': '退货如何工作？',
+    'chat.humanSupport': '联系人工支持',
+    'chat.tryAgain': '再试一次',
+    'chat.errorResponse': '抱歉，我现在回复有困难。请重试或联系我们的人工支持团队。',
+    
     // Language names
     'lang.english': 'English',
     'lang.german': 'Deutsch',
@@ -429,6 +486,25 @@ const translations = {
     'dashboard.automations': 'Automatisations IA',
     'dashboard.performance': 'Tendances de performance',
     'dashboard.marketplaceRevenue': 'Revenus par place de marché',
+    
+    // Chat
+    'chat.aiAssistant': 'Assistant IA',
+    'chat.onlineNow': 'En ligne maintenant',
+    'chat.typeMessage': 'Tapez votre message...',
+    'chat.helpful': 'Utile?',
+    'chat.helpfulFeedback': 'Retour utile reçu',
+    'chat.feedbackReceived': 'Retour reçu',
+    'chat.poweredBy': 'Alimenté par Goodlink IA • Disponible 24/7',
+    'chat.showPopularProducts': 'Montrez-moi les produits populaires',
+    'chat.findElectronics': 'Aidez-moi à trouver de l\'électronique',
+    'chat.bestDeals': 'Quelles sont vos meilleures offres?',
+    'chat.customerSupport': 'J\'ai besoin du support client',
+    'chat.shippingInfo': 'Parlez-moi plus de la livraison',
+    'chat.productCategories': 'Montrez-moi les catégories de produits',
+    'chat.returnsInfo': 'Comment fonctionnent les retours?',
+    'chat.humanSupport': 'Contacter le support humain',
+    'chat.tryAgain': 'Réessayer',
+    'chat.errorResponse': 'Je m\'excuse, j\'ai des difficultés à répondre maintenant. Veuillez réessayer ou contacter notre équipe de support humain.',
     
     // Language names
     'lang.english': 'English',
