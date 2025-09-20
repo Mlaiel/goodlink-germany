@@ -445,9 +445,9 @@ export function AgentAutomationConfig() {
     <Card 
       key={agent.id}
       className={`cursor-pointer transition-all hover:shadow-lg ${
-        selectedAgent === agent.id.split('-')[0] ? 'ring-2 ring-primary shadow-lg' : ''
+        selectedAgent === (agent.id || '').split('-')[0] ? 'ring-2 ring-primary shadow-lg' : ''
       }`}
-      onClick={() => setSelectedAgent(agent.id.split('-')[0])}
+      onClick={() => setSelectedAgent((agent.id || '').split('-')[0])}
     >
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">

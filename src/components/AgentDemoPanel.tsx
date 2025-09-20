@@ -627,7 +627,7 @@ Bullets:
 • 🔧 Professional installation support included
 • 💎 Premium quality with 2-year warranty
 
-Keywords: ${demoInput.toLowerCase().split(' ').slice(0, 5).join(', ')}
+Keywords: ${(demoInput || '').toLowerCase().split(' ').slice(0, 5).join(', ')}
 Compliance: ✓ All regulations met`
         break
         

@@ -1418,16 +1418,40 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useKV<Language>('app-language', 'en')
 
   const t = (key: string): string => {
-    const currentLang = language || 'en'
-    return translations[currentLang]?.[key] || translations.en[key] || key
+    try {
+      const currentLang = language || 'en'
+      // Ensure the language is valid
+      const validLang = ['en', 'de', 'zh', 'fr'].includes(currentLang) ? currentLang : 'en'
+      return translations[validLang as Language]?.[key] || translations.en[key] || key
+    } catch (error) {
+      console.warn('Translation error for key:', key, error)
+      return key
+    }
   }
 
   const safeSetLanguage = (lang: Language) => {
-    setLanguage(lang)
+    try {
+      // Validate language before setting
+      if (['en', 'de', 'zh', 'fr'].includes(lang)) {
+        setLanguage(lang)
+      } else {
+        console.warn('Invalid language:', lang, 'defaulting to English')
+        setLanguage('en')
+      }
+    } catch (error) {
+      console.error('Error setting language:', error)
+      setLanguage('en')
+    }
+  }
+
+  const contextValue = {
+    language: language || 'en',
+    setLanguage: safeSetLanguage,
+    t
   }
 
   return (
-    <LanguageContext.Provider value={{ language: language || 'en', setLanguage: safeSetLanguage, t }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   )

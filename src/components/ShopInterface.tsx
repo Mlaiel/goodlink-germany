@@ -513,7 +513,7 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
                   <Avatar className="h-16 w-16">
                     <AvatarImage src={userProfile.avatar} />
                     <AvatarFallback>
-                      {userProfile.name.split(' ').map(n => n[0]).join('')}
+                      {(userProfile.name || '').split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
                   <div>

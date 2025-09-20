@@ -1245,7 +1245,7 @@ export function AIAgentsConfig() {
                                 ...selectedAgent,
                                 notifications: { 
                                   ...selectedAgent.notifications, 
-                                  recipients: e.target.value.split(",").map(email => email.trim())
+                                  recipients: (e.target.value || '').split(",").map(email => email.trim())
                                 }
                               })}
                               placeholder="email1@example.com, email2@example.com"
