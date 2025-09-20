@@ -23,9 +23,13 @@ import {
   Minus,
   Eye,
   FunnelSimple as Filter,
-  MagnifyingGlass as Search
+  MagnifyingGlass as Search,
+  UserCircle,
+  Storefront,
+  ShieldCheck
 } from '@phosphor-icons/react'
 import { useLanguage } from './LanguageContext'
+import { LanguageSelector } from './LanguageSelector'
 
 interface Product {
   id: number
@@ -54,7 +58,11 @@ interface UserProfile {
   totalSpent: number
 }
 
-export function ShopInterface() {
+interface ShopInterfaceProps {
+  onSwitchMode?: (mode: "admin" | "client" | "shop") => void
+}
+
+export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
   const { t } = useLanguage()
   const [activeTab, setActiveTab] = useKV('shop-active-tab', 'products')
   const [cart, setCart] = useKV<CartItem[]>('shop-cart', [])
@@ -232,6 +240,32 @@ export function ShopInterface() {
     return (cart || []).reduce((total, item) => total + item.quantity, 0)
   }
 
+  const renderModeSelector = () => onSwitchMode ? (
+    <div className="flex items-center gap-2">
+      <button 
+        onClick={() => onSwitchMode("admin")}
+        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted"
+      >
+        <ShieldCheck className="h-4 w-4" />
+        Admin
+      </button>
+      <button 
+        onClick={() => onSwitchMode("client")}
+        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted"
+      >
+        <UserCircle className="h-4 w-4" />
+        Client
+      </button>
+      <button 
+        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded-md"
+      >
+        <Storefront className="h-4 w-4" />
+        Shop
+      </button>
+      <LanguageSelector />
+    </div>
+  ) : <LanguageSelector />
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -259,6 +293,7 @@ export function ShopInterface() {
               </Badge>
             )}
           </Button>
+          {renderModeSelector()}
         </div>
       </div>
 
