@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/LanguageContext"
-import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
+
 import { 
   ChatCircle, 
   X, 
@@ -399,11 +399,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
             <DotsSixVertical className="h-4 w-4 opacity-60" />
             <div className="relative flex items-center gap-2">
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                <img 
-                  src={goodlinkLogo} 
-                  alt="Goodlink" 
-                  className="h-5 w-auto opacity-90"
-                />
+                <div className="text-xs font-bold text-white">GL</div>
               </div>
               <Robot className="h-6 w-6" />
               <motion.div

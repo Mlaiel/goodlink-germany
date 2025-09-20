@@ -10,7 +10,7 @@ import { BlogReader } from "@/components/client/BlogReader"
 import { AboutPage } from "@/components/client/AboutPage"
 import { AICustomerChat } from "@/components/client/AICustomerChat"
 import { Footer } from "@/components/Footer"
-import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
+
 import { 
   House, 
   Storefront, 
@@ -112,14 +112,9 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
       <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            {/* Logo & Brand */}
+            {/* Brand */}
             <div className="flex items-center gap-4 flex-shrink-0">
-              <img 
-                src={goodlinkLogo} 
-                alt="Goodlink Germany" 
-                className="h-12 w-auto"
-              />
-              <div className="hidden sm:block">
+              <div>
                 <div className="text-xl font-bold text-slate-800">
                   Goodlink
                 </div>

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/components/LanguageContext"
 import { LanguageSelector } from "@/components/LanguageSelector"
 import { ShopDashboard } from "@/components/shop/ShopDashboard"
-import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
+
 import { 
   ShoppingBag, 
   Star, 
@@ -65,11 +65,14 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <img 
-                src={goodlinkLogo} 
-                alt="Goodlink Germany Logo" 
-                className="h-12 w-auto"
-              />
+              <div className="text-center">
+                <div className="text-xl font-bold text-slate-800">
+                  Goodlink
+                </div>
+                <div className="text-sm font-semibold text-slate-600 tracking-wider">
+                  GERMANY
+                </div>
+              </div>
               <div className="border-l pl-4">
                 <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
                   Goodlink Store

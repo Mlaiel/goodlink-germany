@@ -1,6 +1,6 @@
 import React from "react"
 import { useLanguage } from "@/components/LanguageContext"
-import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
+
 import { Heart, Globe, Shield } from "@phosphor-icons/react"
 
 export function Footer() {
@@ -13,11 +13,14 @@ export function Footer() {
           {/* Logo & Company */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-4 mb-4">
-              <img 
-                src={goodlinkLogo} 
-                alt="Goodlink Germany Logo" 
-                className="h-10 w-auto"
-              />
+              <div className="text-center">
+                <div className="text-lg font-bold text-slate-800">
+                  Goodlink
+                </div>
+                <div className="text-xs font-semibold text-slate-600 tracking-wider">
+                  GERMANY
+                </div>
+              </div>
               <div>
                 <h3 className="font-bold text-lg text-slate-800">
                   Goodlink Germany

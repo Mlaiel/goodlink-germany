@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useLanguage } from "@/components/LanguageContext"
-import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
+
 import {
   Article,
   MagnifyingGlass,
@@ -342,11 +342,11 @@ The businesses that succeed in cross-border e-commerce are those that combine gl
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-4 mb-4">
           <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-3 rounded-xl border border-border/50">
-            <img 
-              src={goodlinkLogo} 
-              alt="Goodlink Germany" 
-              className="h-8 w-auto"
-            />
+            <div className="text-center">
+              <div className="text-sm font-bold text-slate-800">
+                GL
+              </div>
+            </div>
           </div>
           <Article className="h-8 w-8 text-primary" />
         </div>

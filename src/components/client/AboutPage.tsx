@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Users, Calendar, TrendUp, Globe, Heart } from "@phosphor-icons/react"
 import { useLanguage } from "@/components/LanguageContext"
-import goodlinkLogo from "@/assets/images/goodlink-logo.svg"
+
 
 const teamMembers = [
   {
@@ -157,11 +157,14 @@ export function AboutPage() {
         <div className="text-center space-y-6">
           <div className="flex justify-center mb-8">
             <div className="bg-gradient-to-br from-white via-blue-50 to-purple-50 p-8 rounded-2xl shadow-lg border border-border/50">
-              <img 
-                src={goodlinkLogo} 
-                alt="Goodlink Germany Logo" 
-                className="h-16 w-auto mx-auto"
-              />
+              <div className="text-center">
+                <div className="text-2xl font-bold text-slate-800">
+                  Goodlink
+                </div>
+                <div className="text-sm font-semibold text-slate-600 tracking-wider">
+                  GERMANY
+                </div>
+              </div>
             </div>
           </div>
           <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
