@@ -40,23 +40,6 @@ import {
 } from "@phosphor-icons/react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts"
 
-// Sample data for demonstration
-const revenueData = [
-  { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
-  { name: 'Feb', amazon: 52000, ebay: 15000, otto: 9500 },
-  { name: 'Mar', amazon: 48000, ebay: 13500, otto: 10200 },
-  { name: 'Apr', amazon: 61000, ebay: 16800, otto: 11000 },
-  { name: 'May', amazon: 55000, ebay: 14200, otto: 9800 },
-  { name: 'Jun', amazon: 67000, ebay: 18500, otto: 12500 }
-]
-
-const performanceData = [
-  { name: 'Week 1', conversion: 3.2, traffic: 12500 },
-  { name: 'Week 2', conversion: 3.8, traffic: 13200 },
-  { name: 'Week 3', conversion: 4.1, traffic: 14800 },
-  { name: 'Week 4', conversion: 3.9, traffic: 15600 }
-]
-
 const marketplaces = [
   { name: "Amazon", status: "connected", orders: 847, revenue: "€67,234", sync: "2 min ago", icon: "🛒" },
   { name: "eBay", status: "connected", orders: 234, revenue: "€18,542", sync: "5 min ago", icon: "🏪" },
@@ -88,6 +71,23 @@ const aiAgents = [
 
 function Dashboard() {
   const [selectedPeriod, setSelectedPeriod] = useKV("dashboard-period", "30d")
+  
+  // Sample data for demonstration - moved inside component to ensure availability
+  const revenueData = [
+    { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
+    { name: 'Feb', amazon: 52000, ebay: 15000, otto: 9500 },
+    { name: 'Mar', amazon: 48000, ebay: 13500, otto: 10200 },
+    { name: 'Apr', amazon: 61000, ebay: 16800, otto: 11000 },
+    { name: 'May', amazon: 55000, ebay: 14200, otto: 9800 },
+    { name: 'Jun', amazon: 67000, ebay: 18500, otto: 12500 }
+  ]
+
+  const performanceData = [
+    { name: 'Week 1', conversion: 3.2, traffic: 12500 },
+    { name: 'Week 2', conversion: 3.8, traffic: 13200 },
+    { name: 'Week 3', conversion: 4.1, traffic: 14800 },
+    { name: 'Week 4', conversion: 3.9, traffic: 15600 }
+  ]
   
   return (
     <div className="space-y-6">
@@ -151,18 +151,24 @@ function Dashboard() {
             <CardDescription>Monthly revenue across all connected platforms</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={revenueData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="amazon" stackId="a" fill="oklch(0.6 0.2 20)" />
-                <Bar dataKey="ebay" stackId="a" fill="oklch(0.25 0.08 240)" />
-                <Bar dataKey="otto" stackId="a" fill="oklch(0.6 0.02 240)" />
-              </BarChart>
-            </ResponsiveContainer>
+            {revenueData && revenueData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={revenueData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="amazon" stackId="a" fill="oklch(0.6 0.2 20)" />
+                  <Bar dataKey="ebay" stackId="a" fill="oklch(0.25 0.08 240)" />
+                  <Bar dataKey="otto" stackId="a" fill="oklch(0.6 0.02 240)" />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                No data available
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -172,18 +178,24 @@ function Dashboard() {
             <CardDescription>Conversion rate and traffic over time</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis yAxisId="left" />
-                <YAxis yAxisId="right" orientation="right" />
-                <Tooltip />
-                <Legend />
-                <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="oklch(0.6 0.2 20)" strokeWidth={2} />
-                <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="oklch(0.25 0.08 240)" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
+            {performanceData && performanceData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={performanceData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis yAxisId="left" />
+                  <YAxis yAxisId="right" orientation="right" />
+                  <Tooltip />
+                  <Legend />
+                  <Line yAxisId="left" type="monotone" dataKey="conversion" stroke="oklch(0.6 0.2 20)" strokeWidth={2} />
+                  <Line yAxisId="right" type="monotone" dataKey="traffic" stroke="oklch(0.25 0.08 240)" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                No data available
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -203,7 +215,7 @@ function MarketplacesView() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {marketplaces.map((marketplace) => (
+        {marketplaces && marketplaces.length > 0 ? marketplaces.map((marketplace) => (
           <Card key={marketplace.name}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -238,7 +250,11 @@ function MarketplacesView() {
               </div>
             </CardContent>
           </Card>
-        ))}
+        )) : (
+          <div className="col-span-3 text-center text-muted-foreground">
+            No marketplaces configured
+          </div>
+        )}
       </div>
     </div>
   )
@@ -492,7 +508,7 @@ function AIAgentsView() {
       ) : null}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredAgents.map((agent) => (
+        {filteredAgents && filteredAgents.length > 0 ? filteredAgents.map((agent) => (
           <Card key={agent.name} className="cursor-pointer hover:bg-muted/50 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -534,7 +550,11 @@ function AIAgentsView() {
               </div>
             </CardContent>
           </Card>
-        ))}
+        )) : (
+          <div className="col-span-3 text-center text-muted-foreground">
+            No agents available
+          </div>
+        )}
       </div>
     </div>
   )
@@ -573,7 +593,7 @@ function ProductsView() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {products?.map((product) => (
+            {products && products.length > 0 ? products.map((product) => (
               <div key={product.id} className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -585,7 +605,7 @@ function ProductsView() {
                     <span>•</span>
                     <span>Stock: {product.stock}</span>
                     <span>•</span>
-                    <span>{product.marketplaces.join(", ")}</span>
+                    <span>{product.marketplaces?.join(", ") || "No marketplaces"}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -596,7 +616,11 @@ function ProductsView() {
                   </Button>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="text-center text-muted-foreground py-8">
+                No products found
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
