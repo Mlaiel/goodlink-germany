@@ -18,7 +18,9 @@ import {
   Trash,
   Resize,
   CaretDown,
-  CaretUp
+  CaretUp,
+  ArrowUp,
+  ArrowDown
 } from "@phosphor-icons/react"
 
 interface Message {
@@ -103,17 +105,22 @@ export function FloatingAIChat() {
 
   // Quick suggestions
   const quickSuggestions = [
-    "Show me medical devices",
-    "Find automotive parts", 
+    "Show me medical devices with MDR certification",
+    "Find automotive parts for electric vehicles", 
+    "I need EMC compliant electronic connectors",
+    "Show me precision mechanical components",
     "What compliance certificates do you provide?",
     "Tell me about shipping to Europe",
     "I need volume pricing for bulk orders",
     "Connect me with technical support",
-    "Show me your product catalog",
+    "Show me your medical device catalog",
+    "Find automotive brake system components",
+    "I need high-speed electronic connectors",
+    "Show me industrial castors and wheels",
     "How do I contact your sales team?",
-    "What is Good-Link Germany's history?",
-    "Help me find connectors and cables",
-    "I need EMC/ROHS certified components",
+    "What is Good-Link Germany's compliance process?",
+    "Help me find ISO 13485 certified devices",
+    "I need IATF 16949 automotive components",
     "Contact human support specialist"
   ]
 
@@ -167,39 +174,51 @@ export function FloatingAIChat() {
     // Add demo mode indicator
     const demoPrefix = "🤖 Demo Mode: "
     
-    if (message.includes('medical') || message.includes('device') || message.includes('hospital') || message.includes('health')) {
-      return demoPrefix + "Excellent! We specialize in medical devices with over 800+ certified components. Our medical portfolio includes diagnostic equipment, patient monitoring devices, surgical instruments, and medical electronics. All products meet strict EU MDR/CE standards. Our Shenzhen medical division has 20+ years of experience. Would you like to explore specific medical categories or need compliance documentation?"
+    // Medical Agent Responses
+    if (message.includes('medical') || message.includes('device') || message.includes('hospital') || message.includes('health') || message.includes('diagnostic') || message.includes('patient') || message.includes('surgical')) {
+      return demoPrefix + "🏥 Medical Device Expert AI activated: Excellent! We specialize in medical devices with over 800+ certified components. Our medical portfolio includes diagnostic equipment, patient monitoring devices, surgical instruments, and medical electronics. All products meet strict EU MDR/CE standards with ISO 13485:2016 compliance. Our Shenzhen medical division has 20+ years of experience in healthcare solutions. I can help with device classification, regulatory guidance, clinical data interpretation, and risk assessment. Would you like to explore specific medical categories or need compliance documentation?"
     }
     
-    if (message.includes('automotive') || message.includes('car') || message.includes('vehicle') || message.includes('motor')) {
-      return demoPrefix + "Perfect! Our automotive division offers 600+ premium components including electric motors, sensors, connectors, castors, and wiring harnesses. All parts meet EMC/ROHS standards and are tested for European markets. We serve major automotive manufacturers with reliable China-Europe supply chains. What specific automotive components can I help you find?"
+    // Automotive Agent Responses  
+    if (message.includes('automotive') || message.includes('car') || message.includes('vehicle') || message.includes('motor') || message.includes('brake') || message.includes('engine') || message.includes('transmission')) {
+      return demoPrefix + "🚗 Automotive Components AI activated: Perfect! Our automotive division offers 600+ premium components including electric motors, sensors, connectors, castors, and wiring harnesses. All parts meet IATF 16949:2016, EMC/ROHS standards and are tested for European markets. We serve major automotive manufacturers with reliable China-Europe supply chains. I can assist with component specifications, quality standards verification, functional safety assessment (ISO 26262), and supply chain optimization. What specific automotive components can I help you find?"
+    }
+    
+    // Electronics Agent Responses
+    if (message.includes('connector') || message.includes('cable') || message.includes('electronic') || message.includes('circuit') || message.includes('sensor') || message.includes('switch') || message.includes('plug')) {
+      return demoPrefix + "🔌 Electronics & Connectors AI activated: Great choice! We offer 500+ connector variants and electronic components with full EMC/EMI compliance. Our portfolio includes high-speed connectors, power supplies, sensors, switches, and electronic assemblies. All products meet IPC-A-610, IEC 61000 series, and RoHS Directive standards. I can help with connector specification matching, signal integrity analysis, EMC compliance verification, and material compatibility checks. Need specific connector types or technical specifications?"
+    }
+    
+    // Mechanical Agent Responses
+    if (message.includes('castor') || message.includes('wheel') || message.includes('bearing') || message.includes('mechanical') || message.includes('fastener') || message.includes('spring') || message.includes('gasket')) {
+      return demoPrefix + "⚙️ Mechanical Components AI activated: Excellent! We provide 400+ mechanical parts including castors, wheels, bearings, fasteners, springs, gaskets, and machined components. All parts meet ISO 9001:2015, DIN standards, and ASTM specifications. I can assist with material selection guidance, load calculations, manufacturing process optimization, dimensional tolerance analysis, and stress testing protocols. Looking for specific mechanical components or load requirements?"
     }
     
     if (message.includes('price') || message.includes('cost') || message.includes('quote') || message.includes('pricing')) {
-      return demoPrefix + "For competitive pricing on our medical and automotive components, our sales team provides personalized quotes based on volume and specifications. We offer attractive discounts for bulk orders and long-term partnerships. Contact us at sales@goodlink-germany.com or through our sales team for detailed pricing. Volume pricing starts at 100+ units."
+      return demoPrefix + "💰 Pricing Specialist: For competitive pricing on our medical and automotive components, our sales team provides personalized quotes based on volume and specifications. We offer attractive discounts for bulk orders and long-term partnerships. Medical devices start from €50-5000+ depending on complexity. Automotive components range €5-500+ per unit. Volume pricing begins at 100+ units with up to 25% savings. Contact: sales@goodlink-germany.com for detailed pricing."
     }
     
     if (message.includes('shipping') || message.includes('delivery') || message.includes('logistics')) {
-      return demoPrefix + "We offer fast, reliable shipping from our 3 warehouses: Shenzhen, Shanghai, and Hong Kong. Delivery times: Europe (5-7 days), Global (7-14 days). We use DHL, UPS, and other premium carriers. Free shipping available for orders over €500. Our logistics team handles all customs and compliance documentation."
+      return demoPrefix + "🚚 Logistics Expert: We offer fast, reliable shipping from our 3 warehouses: Shenzhen, Shanghai, and Hong Kong. Delivery times: Europe (5-7 days), Global (7-14 days). We use DHL, UPS, and other premium carriers. Free shipping available for orders over €500. Our logistics team handles all customs, compliance documentation, and temperature-controlled shipping for sensitive medical devices."
     }
     
-    if (message.includes('compliance') || message.includes('certificate') || message.includes('standard') || message.includes('regulation')) {
-      return demoPrefix + "Compliance is our top priority! Medical devices: Full MDR/CE certification with detailed documentation. Automotive: EMC/ROHS compliance guaranteed. We provide complete certification packages including test reports, declarations of conformity, and technical files. Our compliance team ensures all products meet European standards before shipment."
+    if (message.includes('compliance') || message.includes('certificate') || message.includes('standard') || message.includes('regulation') || message.includes('mdr') || message.includes('iso') || message.includes('ce')) {
+      return demoPrefix + "🛡️ Compliance Specialist: Compliance is our top priority! Medical devices: Full MDR/CE certification with detailed documentation, ISO 13485:2016, IEC 62304 for software. Automotive: IATF 16949:2016, ISO 26262 functional safety, EMC/ROHS compliance guaranteed. Electronics: IPC standards, RoHS directive compliance. We provide complete certification packages including test reports, declarations of conformity, and technical files."
     }
     
-    if (message.includes('support') || message.includes('help') || message.includes('contact') || message.includes('human')) {
-      return demoPrefix + "Our expert technical support team is available in German, English, and Chinese. We provide pre-sale consultation, technical specifications, installation guidance, and after-sales support. Available 24/7 for urgent technical questions. Contact: support@goodlink-germany.com or call our Cologne office."
+    if (message.includes('support') || message.includes('help') || message.includes('contact') || message.includes('human') || message.includes('technical')) {
+      return demoPrefix + "🎯 Technical Support: Our expert technical support team is available in German, English, and Chinese. We provide pre-sale consultation, technical specifications, installation guidance, and after-sales support. Available 24/7 for urgent technical questions. Our specialists include: Medical Device Engineers, Automotive Quality Experts, Electronics Design Engineers, Mechanical Engineering Consultants. Contact: support@goodlink-germany.com"
     }
     
     if (message.includes('company') || message.includes('about') || message.includes('history') || message.includes('background')) {
-      return demoPrefix + "Good-Link Germany was founded in 2020 as the European branch of Good-Link China (est. 2004). We're based in Cologne with 78+ employees across China and Germany. 2023 revenue: €93M. We specialize in medical devices and automotive components, bridging Europe and China with cultural expertise and reliable partnerships."
+      return demoPrefix + "🏢 Company Info: Good-Link Germany was founded in 2020 as the European branch of Good-Link China (est. 2004). We're based in Cologne with 78+ employees across China and Germany. 2023 revenue: €93M. We specialize in medical devices and automotive components, bridging Europe and China with cultural expertise and reliable partnerships. Our focus: Premium quality, regulatory compliance, and long-term customer relationships."
     }
     
     if (message.includes('catalog') || message.includes('products') || message.includes('browse') || message.includes('categories')) {
-      return demoPrefix + "Browse our comprehensive catalog: 🏥 Medical Devices (800+ components), 🚗 Automotive Parts (600+ components), 🔌 Connectors & Cables (500+ variants), ⚙️ Motors & Sensors (300+ models), 🛞 Mechanical Components (400+ parts). All products feature detailed specifications, compliance certificates, and technical documentation."
+      return demoPrefix + "📋 Product Catalog: Browse our comprehensive catalog organized by specialized AI agents: 🏥 Medical Devices (800+ components) - Diagnostic, monitoring, surgical, therapeutic. 🚗 Automotive Parts (600+ components) - Engine, electrical, brake, transmission systems. 🔌 Connectors & Cables (500+ variants) - High-speed, power, industrial connectors. ⚙️ Mechanical Components (400+ parts) - Castors, bearings, fasteners, precision parts. All with detailed specs and compliance certificates."
     }
     
-    return demoPrefix + "Hello! I'm your AI assistant for Good-Link Germany, your trusted bridge between Europe and China for premium medical devices and automotive components. I can help with product searches, technical specifications, compliance questions, pricing information, and connecting you with our expert sales team. What can I assist you with today?"
+    return demoPrefix + "Hello! I'm your AI assistant for Good-Link Germany, powered by specialized expert agents for medical devices, automotive components, electronics, and mechanical parts. I can help with product searches, technical specifications, compliance questions, pricing information, and connecting you with our expert sales team. Each product category has a dedicated AI specialist with deep industry knowledge. What can I assist you with today?"
   }
 
   const handleFeedback = (messageId: string, isHelpful: boolean) => {
@@ -277,6 +296,52 @@ export function FloatingAIChat() {
     }
   }
 
+  // Move chat window up by 50px
+  const moveUp = () => {
+    setPosition(prev => ({
+      ...prev,
+      y: Math.max(10, prev.y - 50)
+    }))
+    toast.success("Fenêtre déplacée vers le haut", { duration: 1000 })
+  }
+
+  // Move chat window down by 50px
+  const moveDown = () => {
+    setPosition(prev => ({
+      ...prev,
+      y: Math.min(window.innerHeight - prev.height - 10, prev.y + 50)
+    }))
+    toast.success("Fenêtre déplacée vers le bas", { duration: 1000 })
+  }
+
+  // Keyboard shortcuts for vertical movement
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle keyboard shortcuts when chat is open and focused
+      if (!isOpen || document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') {
+        return
+      }
+
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key) {
+          case 'ArrowUp':
+            e.preventDefault()
+            moveUp()
+            break
+          case 'ArrowDown':
+            e.preventDefault()
+            moveDown()
+            break
+        }
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+      return () => document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
+
   if (!isOpen) {
     return (
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
@@ -332,11 +397,36 @@ export function FloatingAIChat() {
           </div>
           
           <div className="flex items-center gap-1">
+            {/* Vertical Movement Controls Group */}
+            <div className="flex items-center gap-0.5 mr-1 bg-primary-foreground/10 rounded-md p-0.5">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 w-7 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                onClick={moveUp}
+                title="Monter (Ctrl+↑)"
+              >
+                <ArrowUp className="h-3.5 w-3.5" />
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 w-7 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                onClick={moveDown}
+                title="Descendre (Ctrl+↓)"
+              >
+                <ArrowDown className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+            
+            {/* Window Controls */}
             <Button
               variant="ghost"
               size="sm"
               className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
               onClick={() => setIsMinimized(!isMinimized)}
+              title={isMinimized ? "Agrandir" : "Réduire"}
             >
               {isMinimized ? <CaretUp className="h-4 w-4" /> : <CaretDown className="h-4 w-4" />}
             </Button>
@@ -347,6 +437,7 @@ export function FloatingAIChat() {
                 size="sm"
                 className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
                 onClick={toggleMaximize}
+                title="Plein écran"
               >
                 <ArrowsOutSimple className="h-4 w-4" />
               </Button>
@@ -358,6 +449,7 @@ export function FloatingAIChat() {
                 size="sm"
                 className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
                 onClick={toggleMaximize}
+                title="Fenêtrer"
               >
                 <ArrowsInSimple className="h-4 w-4" />
               </Button>
@@ -368,6 +460,7 @@ export function FloatingAIChat() {
               size="sm"
               className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
               onClick={clearChat}
+              title="Vider le chat"
             >
               <Trash className="h-4 w-4" />
             </Button>
@@ -377,6 +470,7 @@ export function FloatingAIChat() {
               size="sm"
               className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
               onClick={() => setIsOpen(false)}
+              title="Fermer"
             >
               <X className="h-4 w-4" />
             </Button>

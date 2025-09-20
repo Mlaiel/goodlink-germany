@@ -11,6 +11,7 @@ import { BlogConfigPanel } from "@/components/admin/BlogConfigPanel"
 import { SpecializedAgentsManager } from "@/components/admin/specialized-agents/SpecializedAgentsManager"
 import { SpecializedAgentDemo } from "@/components/admin/specialized-agents/SpecializedAgentDemo"
 import { AdvancedSpecializedAgentDemo } from "@/components/admin/specialized-agents/AdvancedSpecializedAgentDemo"
+import { ProductCategoryAgents } from "@/components/admin/specialized-agents/ProductCategoryAgents"
 import { InventorySyncDashboard } from "@/components/InventorySyncDashboard"
 import { BlogDashboard } from "@/components/BlogDashboard"
 import { WhatsAppDashboard } from "@/components/WhatsAppDashboard"
@@ -330,12 +331,16 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
           </TabsContent>
 
           <TabsContent value="specialized-agents" className="space-y-6">
-            <Tabs defaultValue="management" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+            <Tabs defaultValue="category-experts" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="category-experts">{t("Product Category Experts")}</TabsTrigger>
                 <TabsTrigger value="management">{t("Management")}</TabsTrigger>
                 <TabsTrigger value="demo">{t("Basic Demo")}</TabsTrigger>
                 <TabsTrigger value="advanced">{t("Advanced Demo")}</TabsTrigger>
               </TabsList>
+              <TabsContent value="category-experts">
+                <ProductCategoryAgents />
+              </TabsContent>
               <TabsContent value="management">
                 <SpecializedAgentsManager />
               </TabsContent>
