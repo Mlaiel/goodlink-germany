@@ -451,25 +451,45 @@ export function AdminPanel() {
 
   return (
     <div className="space-y-8">
-      {/* Header Section */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {t('admin.title')} Control Center
-          </h1>
-          <p className="text-lg text-muted-foreground mt-2">
-            Comprehensive system administration and configuration management
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <Badge variant="outline" className={`${getHealthColor(systemMetrics.systemHealth)} border-current px-4 py-2`}>
-            {getHealthIcon(systemMetrics.systemHealth)}
-            <span className="ml-2 font-medium">System {systemMetrics.systemHealth}</span>
-          </Badge>
-          <Button size="lg" className="bg-gradient-to-r from-primary to-accent">
-            <CloudCheck className="h-4 w-4 mr-2" />
-            Save All Changes
-          </Button>
+      {/* Modern Header Section */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 text-white">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div className="relative flex items-center justify-between">
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                <Shield className="h-8 w-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-white">
+                  Administrative Control Center
+                </h1>
+                <p className="text-slate-300 text-lg">
+                  Complete system management and configuration
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                {getHealthIcon(systemMetrics.systemHealth)}
+                <span className="font-medium text-white">System {systemMetrics.systemHealth}</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                <Activity className="h-4 w-4 text-white" />
+                <span className="font-medium text-white">Uptime {systemMetrics.uptime}</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-end gap-4">
+            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-xl">
+              <CloudCheck className="h-5 w-5 mr-2" />
+              Save All Changes
+            </Button>
+            <div className="text-right text-sm text-slate-300">
+              <div>Last updated: {new Date().toLocaleTimeString()}</div>
+              <div>{systemMetrics.totalUsers.toLocaleString()} registered users</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -524,54 +544,146 @@ export function AdminPanel() {
         </Card>
       </div>
 
-      {/* Main Configuration Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-11 h-auto p-1 bg-muted/50 rounded-xl">
-          <TabsTrigger value="overview" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <BarChart3 className="h-5 w-5" />
-            <span className="text-sm font-medium">Overview</span>
-          </TabsTrigger>
-          <TabsTrigger value="system" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Settings className="h-5 w-5" />
-            <span className="text-sm font-medium">System</span>
-          </TabsTrigger>
-          <TabsTrigger value="ai-agents" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Robot className="h-5 w-5" />
-            <span className="text-sm font-medium">AI Agents</span>
-          </TabsTrigger>
-          <TabsTrigger value="monitoring" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Activity className="h-5 w-5" />
-            <span className="text-sm font-medium">Monitoring</span>
-          </TabsTrigger>
-          <TabsTrigger value="marketplace-agents" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Storefront className="h-5 w-5" />
-            <span className="text-sm font-medium">Marketplace</span>
-          </TabsTrigger>
-          <TabsTrigger value="specialized" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Shield className="h-5 w-5" />
-            <span className="text-sm font-medium">Specialists</span>
-          </TabsTrigger>
-          <TabsTrigger value="marketplaces" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Package className="h-5 w-5" />
-            <span className="text-sm font-medium">Platforms</span>
-          </TabsTrigger>
-          <TabsTrigger value="shop" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="text-sm font-medium">Shop</span>
-          </TabsTrigger>
-          <TabsTrigger value="blog" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Article className="h-5 w-5" />
-            <span className="text-sm font-medium">Blog</span>
-          </TabsTrigger>
-          <TabsTrigger value="social" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <FacebookLogo className="h-5 w-5" />
-            <span className="text-sm font-medium">Social</span>
-          </TabsTrigger>
-          <TabsTrigger value="users" className="flex flex-col items-center gap-2 p-4 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-            <Users className="h-5 w-5" />
-            <span className="text-sm font-medium">Users</span>
-          </TabsTrigger>
-        </TabsList>
+      {/* Modern Navigation Categories */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+        <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-2">
+          {/* Dashboard & Analytics */}
+          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-blue-500 bg-gradient-to-br from-blue-50/50 to-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors">
+                  <BarChart3 className="h-6 w-6 text-blue-600" />
+                </div>
+                <Badge variant="secondary" className="bg-blue-100 text-blue-700">Core</Badge>
+              </div>
+              <h3 className="font-semibold text-lg mb-2 text-blue-900">Dashboard & Analytics</h3>
+              <p className="text-sm text-blue-600 mb-4">System overview, performance metrics, and real-time monitoring</p>
+              <div className="space-y-2">
+                <TabsTrigger value="overview" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-100 transition-all">
+                  <Eye className="h-4 w-4 mr-2" />
+                  System Overview
+                </TabsTrigger>
+                <TabsTrigger value="monitoring" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-100 transition-all">
+                  <Activity className="h-4 w-4 mr-2" />
+                  Performance Monitor
+                </TabsTrigger>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AI & Automation */}
+          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-purple-500 bg-gradient-to-br from-purple-50/50 to-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition-colors">
+                  <Robot className="h-6 w-6 text-purple-600" />
+                </div>
+                <Badge variant="secondary" className="bg-purple-100 text-purple-700">AI</Badge>
+              </div>
+              <h3 className="font-semibold text-lg mb-2 text-purple-900">AI & Automation</h3>
+              <p className="text-sm text-purple-600 mb-4">Configure AI agents, automation settings, and intelligent workflows</p>
+              <div className="space-y-2">
+                <TabsTrigger value="ai-agents" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-purple-100 transition-all">
+                  <Robot className="h-4 w-4 mr-2" />
+                  AI Agents Config
+                </TabsTrigger>
+                <TabsTrigger value="marketplace-agents" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-purple-100 transition-all">
+                  <Storefront className="h-4 w-4 mr-2" />
+                  Marketplace Agents
+                </TabsTrigger>
+                <TabsTrigger value="specialized" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-purple-100 transition-all">
+                  <Shield className="h-4 w-4 mr-2" />
+                  Specialized Agents
+                </TabsTrigger>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Commerce & Sales */}
+          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-green-500 bg-gradient-to-br from-green-50/50 to-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors">
+                  <ShoppingCart className="h-6 w-6 text-green-600" />
+                </div>
+                <Badge variant="secondary" className="bg-green-100 text-green-700">Commerce</Badge>
+              </div>
+              <h3 className="font-semibold text-lg mb-2 text-green-900">Commerce & Sales</h3>
+              <p className="text-sm text-green-600 mb-4">Shop configuration, marketplace integration, and sales management</p>
+              <div className="space-y-2">
+                <TabsTrigger value="shop" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-green-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-green-100 transition-all">
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Shop Settings
+                </TabsTrigger>
+                <TabsTrigger value="marketplaces" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-green-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-green-100 transition-all">
+                  <Package className="h-4 w-4 mr-2" />
+                  Marketplace Platforms
+                </TabsTrigger>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Content & Marketing */}
+          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-orange-500 bg-gradient-to-br from-orange-50/50 to-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-orange-100 rounded-xl group-hover:bg-orange-200 transition-colors">
+                  <Article className="h-6 w-6 text-orange-600" />
+                </div>
+                <Badge variant="secondary" className="bg-orange-100 text-orange-700">Content</Badge>
+              </div>
+              <h3 className="font-semibold text-lg mb-2 text-orange-900">Content & Marketing</h3>
+              <p className="text-sm text-orange-600 mb-4">Blog management, social media automation, and content strategy</p>
+              <div className="space-y-2">
+                <TabsTrigger value="blog" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-orange-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-orange-100 transition-all">
+                  <Article className="h-4 w-4 mr-2" />
+                  Blog Configuration
+                </TabsTrigger>
+                <TabsTrigger value="social" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-orange-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-orange-100 transition-all">
+                  <FacebookLogo className="h-4 w-4 mr-2" />
+                  Social Media
+                </TabsTrigger>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* System Administration Section */}
+        <Card className="bg-gradient-to-r from-slate-50/50 to-slate-100/50 border-2 border-slate-200">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3 text-xl">
+              <div className="p-2 bg-slate-200 rounded-lg">
+                <Settings className="h-6 w-6 text-slate-600" />
+              </div>
+              System Administration
+            </CardTitle>
+            <CardDescription className="text-slate-600">
+              Core system settings, user management, and security configuration
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-2">
+              <TabsTrigger value="system" className="modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 border-transparent data-[state=active]:border-slate-500 data-[state=active]:bg-slate-600 data-[state=active]:text-white hover:bg-slate-100 transition-all">
+                <div className="p-2 bg-slate-200 data-[state=active]:bg-slate-500 rounded-lg">
+                  <Settings className="h-5 w-5 text-slate-600 data-[state=active]:text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold">System Configuration</div>
+                  <div className="text-sm opacity-70">Core settings, security, performance</div>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger value="users" className="modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 border-transparent data-[state=active]:border-slate-500 data-[state=active]:bg-slate-600 data-[state=active]:text-white hover:bg-slate-100 transition-all">
+                <div className="p-2 bg-slate-200 data-[state=active]:bg-slate-500 rounded-lg">
+                  <Users className="h-5 w-5 text-slate-600 data-[state=active]:text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold">User Management</div>
+                  <div className="text-sm opacity-70">User accounts, roles, permissions</div>
+                </div>
+              </TabsTrigger>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">

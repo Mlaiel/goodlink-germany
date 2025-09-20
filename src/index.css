@@ -180,4 +180,39 @@
     border-top: 1px solid var(--border);
     z-index: 10;
   }
+
+  /* Modern admin panel styling */
+  .admin-nav-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .admin-nav-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Enhanced tab triggers */
+  .modern-tab-trigger {
+    transition: all 0.2s ease-in-out;
+    border-radius: 12px;
+    border: 2px solid transparent;
+  }
+
+  .modern-tab-trigger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .modern-tab-trigger[data-state="active"] {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Gradient text for headings */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
