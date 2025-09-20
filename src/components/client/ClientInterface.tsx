@@ -50,7 +50,7 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
         className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-sm"
       >
         <User className="h-4 w-4" />
-        {t("Website")}
+        {t('nav.client') || 'Website'}
       </Button>
       <Button 
         variant="outline"
@@ -59,17 +59,17 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
         className="inline-flex items-center gap-2 hover:bg-purple-50 hover:border-purple-200 transition-colors"
       >
         <Storefront className="h-4 w-4" />
-        Dashboard
+        {t('nav.dashboard') || 'Dashboard'}
       </Button>
     </div>
   )
 
   const navigationItems = [
-    { id: "home", label: t("Home"), icon: <House className="h-5 w-5" /> },
-    { id: "shop", label: t("Shop"), icon: <Storefront className="h-5 w-5" /> },
-    { id: "blog", label: t("Blog"), icon: <Article className="h-5 w-5" /> },
-    { id: "about", label: t("About"), icon: <Info className="h-5 w-5" /> },
-    { id: "contact", label: t("Contact"), icon: <Phone className="h-5 w-5" /> }
+    { id: "home", label: t("nav.home") || "Home", icon: <House className="h-5 w-5" /> },
+    { id: "shop", label: t("nav.shop") || "Shop", icon: <Storefront className="h-5 w-5" /> },
+    { id: "blog", label: t("nav.blog") || "Blog", icon: <Article className="h-5 w-5" /> },
+    { id: "about", label: t("nav.about") || "About", icon: <Info className="h-5 w-5" /> },
+    { id: "contact", label: t("nav.contact") || "Contact", icon: <Phone className="h-5 w-5" /> }
   ]
 
   const renderContent = () => {
@@ -84,20 +84,20 @@ export function ClientInterface({ onSwitchMode }: ClientInterfaceProps) {
         return (
           <div className="space-y-8">
             <div className="text-center space-y-4">
-              <h1 className="text-4xl font-bold">{t("About Goodlink Germany")}</h1>
+              <h1 className="text-4xl font-bold">{t("client.aboutTitle") || "About Goodlink Germany"}</h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {t("We are a leading AI-powered commerce platform connecting customers with premium products from trusted brands worldwide.")}
+                {t("client.aboutDesc") || "We are a leading AI-powered commerce platform connecting customers with premium products from trusted brands worldwide."}
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">{t("Our Mission")}</h2>
+                <h2 className="text-2xl font-semibold">{t("client.ourMission") || "Our Mission"}</h2>
                 <p className="text-muted-foreground">
-                  {t("To revolutionize online shopping through artificial intelligence, providing personalized experiences and connecting customers with the perfect products.")}
+                  {t("client.missionDesc") || "To revolutionize online shopping through artificial intelligence, providing personalized experiences and connecting customers with the perfect products."}
                 </p>
               </div>
               <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">{t("Our Values")}</h2>
+                <h2 className="text-2xl font-semibold">{t("client.ourValues") || "Our Values"}</h2>
                 <ul className="space-y-2 text-muted-foreground">
                   <li>• {t("Quality first approach")}</li>
                   <li>• {t("Customer satisfaction")}</li>

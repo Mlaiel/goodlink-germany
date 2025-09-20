@@ -29,6 +29,10 @@ const translations = {
     'nav.orders': 'My Orders',
     'nav.logout': 'Logout',
     'nav.login': 'Login',
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.contact': 'Contact',
+    'nav.client': 'Website',
     
     // Common
     'common.loading': 'Loading...',
@@ -60,6 +64,16 @@ const translations = {
     'admin.settings': 'Global Settings',
     'admin.analytics': 'Advanced Analytics',
     'admin.logs': 'System Logs',
+    'admin.coreManagement': 'Core Management',
+    'admin.configuration': 'Configuration',
+    'admin.aiAutomation': 'AI & Automation',
+    'admin.systemMonitoring': 'System & Monitoring',
+    'admin.shopConfig': 'Shop Configuration',
+    'admin.blogConfig': 'Blog Configuration',
+    'admin.sync': 'Synchronization',
+    'admin.monitoring': 'Monitoring',
+    'admin.userManagement': 'User Management System',
+    'admin.userManagementDesc': 'Manage user accounts, permissions, and access control',
     
     // Shop
     'shop.title': 'Goodlink Store',
@@ -136,6 +150,13 @@ const translations = {
     'lang.german': 'Deutsch',
     'lang.chinese': '中文',
     'lang.french': 'Français',
+    
+    // Client
+    'client.aboutTitle': 'About Goodlink Germany',
+    'client.aboutDesc': 'We are a leading AI-powered commerce platform connecting customers with premium products from trusted brands worldwide.',
+    'client.ourMission': 'Our Mission',
+    'client.missionDesc': 'To revolutionize online shopping through artificial intelligence, providing personalized experiences and connecting customers with the perfect products.',
+    'client.ourValues': 'Our Values',
   },
   
   de: {
@@ -154,6 +175,10 @@ const translations = {
     'nav.orders': 'Meine Bestellungen',
     'nav.logout': 'Abmelden',
     'nav.login': 'Anmelden',
+    'nav.home': 'Start',
+    'nav.about': 'Über uns',
+    'nav.contact': 'Kontakt',
+    'nav.client': 'Website',
     
     // Common
     'common.loading': 'Laden...',
@@ -185,6 +210,16 @@ const translations = {
     'admin.settings': 'Globale Einstellungen',
     'admin.analytics': 'Erweiterte Analytik',
     'admin.logs': 'Systemprotokolle',
+    'admin.coreManagement': 'Kernverwaltung',
+    'admin.configuration': 'Konfiguration',
+    'admin.aiAutomation': 'KI & Automatisierung',
+    'admin.systemMonitoring': 'System & Überwachung',
+    'admin.shopConfig': 'Shop-Konfiguration',
+    'admin.blogConfig': 'Blog-Konfiguration',
+    'admin.sync': 'Synchronisation',
+    'admin.monitoring': 'Überwachung',
+    'admin.userManagement': 'Benutzerverwaltungssystem',
+    'admin.userManagementDesc': 'Verwalten Sie Benutzerkonten, Berechtigungen und Zugriffskontrolle',
     
     // Shop
     'shop.title': 'Goodlink Store',
@@ -261,6 +296,13 @@ const translations = {
     'lang.german': 'Deutsch',
     'lang.chinese': '中文',
     'lang.french': 'Français',
+    
+    // Client
+    'client.aboutTitle': 'Über Goodlink Germany',
+    'client.aboutDesc': 'Wir sind eine führende KI-gestützte Commerce-Plattform, die Kunden mit Premium-Produkten von vertrauenswürdigen Marken weltweit verbindet.',
+    'client.ourMission': 'Unsere Mission',
+    'client.missionDesc': 'Online-Shopping durch künstliche Intelligenz zu revolutionieren, personalisierte Erfahrungen zu bieten und Kunden mit den perfekten Produkten zu verbinden.',
+    'client.ourValues': 'Unsere Werte',
   },
   
   zh: {
@@ -279,6 +321,10 @@ const translations = {
     'nav.orders': '我的订单',
     'nav.logout': '退出登录',
     'nav.login': '登录',
+    'nav.home': '首页',
+    'nav.about': '关于我们',
+    'nav.contact': '联系我们',
+    'nav.client': '网站',
     
     // Common
     'common.loading': '加载中...',
@@ -310,6 +356,16 @@ const translations = {
     'admin.settings': '全局设置',
     'admin.analytics': '高级分析',
     'admin.logs': '系统日志',
+    'admin.coreManagement': '核心管理',
+    'admin.configuration': '配置',
+    'admin.aiAutomation': 'AI与自动化',
+    'admin.systemMonitoring': '系统与监控',
+    'admin.shopConfig': '商店配置',
+    'admin.blogConfig': '博客配置',
+    'admin.sync': '同步',
+    'admin.monitoring': '监控',
+    'admin.userManagement': '用户管理系统',
+    'admin.userManagementDesc': '管理用户账户、权限和访问控制',
     
     // Shop
     'shop.title': 'Goodlink 商店',
@@ -386,6 +442,13 @@ const translations = {
     'lang.german': 'Deutsch',
     'lang.chinese': '中文',
     'lang.french': 'Français',
+    
+    // Client
+    'client.aboutTitle': '关于Goodlink Germany',
+    'client.aboutDesc': '我们是领先的AI驱动商务平台，连接客户与全球值得信赖品牌的优质产品。',
+    'client.ourMission': '我们的使命',
+    'client.missionDesc': '通过人工智能革新在线购物，提供个性化体验，将客户与完美产品连接。',
+    'client.ourValues': '我们的价值观',
   },
   
   fr: {
@@ -404,6 +467,10 @@ const translations = {
     'nav.orders': 'Mes commandes',
     'nav.logout': 'Déconnexion',
     'nav.login': 'Connexion',
+    'nav.home': 'Accueil',
+    'nav.about': 'À propos',
+    'nav.contact': 'Contact',
+    'nav.client': 'Site web',
     
     // Common
     'common.loading': 'Chargement...',
@@ -435,6 +502,16 @@ const translations = {
     'admin.settings': 'Paramètres globaux',
     'admin.analytics': 'Analyses avancées',
     'admin.logs': 'Journaux système',
+    'admin.coreManagement': 'Gestion principale',
+    'admin.configuration': 'Configuration',
+    'admin.aiAutomation': 'IA et automatisation',
+    'admin.systemMonitoring': 'Système et surveillance',
+    'admin.shopConfig': 'Configuration boutique',
+    'admin.blogConfig': 'Configuration blog',
+    'admin.sync': 'Synchronisation',
+    'admin.monitoring': 'Surveillance',
+    'admin.userManagement': 'Système de gestion des utilisateurs',
+    'admin.userManagementDesc': 'Gérer les comptes utilisateurs, les permissions et le contrôle d\'accès',
     
     // Shop
     'shop.title': 'Boutique Goodlink',
@@ -511,6 +588,13 @@ const translations = {
     'lang.german': 'Deutsch',
     'lang.chinese': '中文',
     'lang.french': 'Français',
+    
+    // Client
+    'client.aboutTitle': 'À propos de Goodlink Germany',
+    'client.aboutDesc': 'Nous sommes une plateforme de commerce alimentée par l\'IA qui connecte les clients avec des produits premium de marques de confiance dans le monde entier.',
+    'client.ourMission': 'Notre Mission',
+    'client.missionDesc': 'Révolutionner les achats en ligne grâce à l\'intelligence artificielle, en offrant des expériences personnalisées et en connectant les clients avec les produits parfaits.',
+    'client.ourValues': 'Nos Valeurs',
   }
 }
 

@@ -102,65 +102,185 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 bg-muted/50 p-1 rounded-lg shadow-sm">
-            <TabsTrigger 
-              value="dashboard" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <ChartLine className="h-4 w-4" />
-              Dashboard
-            </TabsTrigger>
-            <TabsTrigger 
-              value="users" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <Users className="h-4 w-4" />
-              Users
-            </TabsTrigger>
-            <TabsTrigger 
-              value="shop-config" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <ShoppingBag className="h-4 w-4" />
-              Shop Config
-            </TabsTrigger>
-            <TabsTrigger 
-              value="blog-config" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <Article className="h-4 w-4" />
-              Blog Config
-            </TabsTrigger>
-            <TabsTrigger 
-              value="agents" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <Robot className="h-4 w-4" />
-              AI Agents
-            </TabsTrigger>
-            <TabsTrigger 
-              value="inventory" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <Database className="h-4 w-4" />
-              Sync
-            </TabsTrigger>
-            <TabsTrigger 
-              value="monitoring" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <Activity className="h-4 w-4" />
-              Monitoring
-            </TabsTrigger>
-            <TabsTrigger 
-              value="settings" 
-              className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
-            >
-              <Gear className="h-4 w-4" />
-              Settings
-            </TabsTrigger>
-          </TabsList>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+          {/* Reorganized navigation with clear separation */}
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t('admin.title')}</h2>
+              <p className="text-muted-foreground">{t('admin.overview')}</p>
+            </div>
+            
+            {/* Main Admin Navigation - Grid Layout for better separation */}
+            <div className="grid grid-cols-4 gap-4">
+              {/* Core Management Section */}
+              <div className="col-span-4 mb-4">
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                  {t('admin.coreManagement') || 'Core Management'}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setActiveTab('dashboard')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'dashboard' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <ChartLine className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('nav.dashboard')}</div>
+                        <div className="text-xs opacity-70">System overview & metrics</div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveTab('users')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'users' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Users className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.users')}</div>
+                        <div className="text-xs opacity-70">User accounts & permissions</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Configuration Section */}
+              <div className="col-span-4 mb-4">
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                  {t('admin.configuration') || 'Configuration'}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setActiveTab('shop-config')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'shop-config' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <ShoppingBag className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.shopConfig') || 'Shop Config'}</div>
+                        <div className="text-xs opacity-70">Store settings & preferences</div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveTab('blog-config')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'blog-config' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Article className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.blogConfig') || 'Blog Config'}</div>
+                        <div className="text-xs opacity-70">Content management settings</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* AI & Automation Section */}
+              <div className="col-span-4 mb-4">
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                  {t('admin.aiAutomation') || 'AI & Automation'}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setActiveTab('agents')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'agents' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Robot className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('nav.agents')}</div>
+                        <div className="text-xs opacity-70">AI agent configuration</div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveTab('inventory')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'inventory' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Database className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.sync') || 'Sync'}</div>
+                        <div className="text-xs opacity-70">Inventory synchronization</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* System & Monitoring Section */}
+              <div className="col-span-4">
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                  {t('admin.systemMonitoring') || 'System & Monitoring'}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setActiveTab('monitoring')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'monitoring' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Activity className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.monitoring') || 'Monitoring'}</div>
+                        <div className="text-xs opacity-70">System health & analytics</div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveTab('settings')}
+                    className={`p-4 rounded-lg border transition-all text-left ${
+                      activeTab === 'settings' 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-md' 
+                        : 'bg-card hover:bg-muted border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Gear className="h-5 w-5" />
+                      <div>
+                        <div className="font-medium">{t('admin.settings')}</div>
+                        <div className="text-xs opacity-70">Global system settings</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <TabsContent value="dashboard" className="space-y-6">
             <AdminDashboard />
@@ -170,9 +290,9 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
             <div className="grid gap-6">
               <div className="text-center py-12">
                 <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">User Management System</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('admin.userManagement') || 'User Management System'}</h3>
                 <p className="text-muted-foreground">
-                  Manage user accounts, permissions, and access control
+                  {t('admin.userManagementDesc') || 'Manage user accounts, permissions, and access control'}
                 </p>
               </div>
             </div>
