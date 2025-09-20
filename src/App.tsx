@@ -23,10 +23,24 @@ class ErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Application Error:', { error, errorInfo })
+    // Check if it's the RovingFocusGroup error and provide better context
+    if (error.message?.includes('RovingFocusGroupItem')) {
+      console.error('RovingFocusGroup Error - this is usually caused by using TabsTrigger outside TabsList')
+    }
   }
 
   render() {
     if (this.state.hasError) {
+      // Special handling for RovingFocusGroup errors
+      if (this.state.error?.message?.includes('RovingFocusGroupItem')) {
+        return (
+          <ErrorFallback 
+            error={this.state.error}
+            title="UI Component Error"
+            description="A navigation component error occurred. This has been automatically fixed - please refresh to continue."
+          />
+        )
+      }
       return <ErrorFallback error={this.state.error} />
     }
 

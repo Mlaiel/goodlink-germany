@@ -546,6 +546,21 @@ export function AdminPanel() {
 
       {/* Modern Navigation Categories */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+        {/* Tab Navigation */}
+        <TabsList className="hidden">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="monitoring">Monitoring</TabsTrigger>
+          <TabsTrigger value="ai-agents">AI Agents</TabsTrigger>
+          <TabsTrigger value="marketplace-agents">Marketplace Agents</TabsTrigger>
+          <TabsTrigger value="specialized">Specialized</TabsTrigger>
+          <TabsTrigger value="shop">Shop</TabsTrigger>
+          <TabsTrigger value="marketplaces">Marketplaces</TabsTrigger>
+          <TabsTrigger value="blog">Blog</TabsTrigger>
+          <TabsTrigger value="social">Social</TabsTrigger>
+          <TabsTrigger value="system">System</TabsTrigger>
+          <TabsTrigger value="users">Users</TabsTrigger>
+        </TabsList>
+
         <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-2">
           {/* Dashboard & Analytics */}
           <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-blue-500 bg-gradient-to-br from-blue-50/50 to-white">
@@ -559,14 +574,28 @@ export function AdminPanel() {
               <h3 className="font-semibold text-lg mb-2 text-blue-900">Dashboard & Analytics</h3>
               <p className="text-sm text-blue-600 mb-4">System overview, performance metrics, and real-time monitoring</p>
               <div className="space-y-2">
-                <TabsTrigger value="overview" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-100 transition-all">
+                <button 
+                  onClick={() => setActiveTab("overview")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "overview" 
+                      ? "bg-blue-600 text-white shadow-md" 
+                      : "hover:bg-blue-100"
+                  }`}
+                >
                   <Eye className="h-4 w-4 mr-2" />
                   System Overview
-                </TabsTrigger>
-                <TabsTrigger value="monitoring" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-100 transition-all">
+                </button>
+                <button 
+                  onClick={() => setActiveTab("monitoring")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "monitoring" 
+                      ? "bg-blue-600 text-white shadow-md" 
+                      : "hover:bg-blue-100"
+                  }`}
+                >
                   <Activity className="h-4 w-4 mr-2" />
                   Performance Monitor
-                </TabsTrigger>
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -583,18 +612,39 @@ export function AdminPanel() {
               <h3 className="font-semibold text-lg mb-2 text-purple-900">AI & Automation</h3>
               <p className="text-sm text-purple-600 mb-4">Configure AI agents, automation settings, and intelligent workflows</p>
               <div className="space-y-2">
-                <TabsTrigger value="ai-agents" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-purple-100 transition-all">
+                <button 
+                  onClick={() => setActiveTab("ai-agents")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "ai-agents" 
+                      ? "bg-purple-600 text-white shadow-md" 
+                      : "hover:bg-purple-100"
+                  }`}
+                >
                   <Robot className="h-4 w-4 mr-2" />
                   AI Agents Config
-                </TabsTrigger>
-                <TabsTrigger value="marketplace-agents" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-purple-100 transition-all">
+                </button>
+                <button 
+                  onClick={() => setActiveTab("marketplace-agents")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "marketplace-agents" 
+                      ? "bg-purple-600 text-white shadow-md" 
+                      : "hover:bg-purple-100"
+                  }`}
+                >
                   <Storefront className="h-4 w-4 mr-2" />
                   Marketplace Agents
-                </TabsTrigger>
-                <TabsTrigger value="specialized" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-purple-100 transition-all">
+                </button>
+                <button 
+                  onClick={() => setActiveTab("specialized")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "specialized" 
+                      ? "bg-purple-600 text-white shadow-md" 
+                      : "hover:bg-purple-100"
+                  }`}
+                >
                   <Shield className="h-4 w-4 mr-2" />
                   Specialized Agents
-                </TabsTrigger>
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -611,14 +661,28 @@ export function AdminPanel() {
               <h3 className="font-semibold text-lg mb-2 text-green-900">Commerce & Sales</h3>
               <p className="text-sm text-green-600 mb-4">Shop configuration, marketplace integration, and sales management</p>
               <div className="space-y-2">
-                <TabsTrigger value="shop" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-green-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-green-100 transition-all">
+                <button 
+                  onClick={() => setActiveTab("shop")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "shop" 
+                      ? "bg-green-600 text-white shadow-md" 
+                      : "hover:bg-green-100"
+                  }`}
+                >
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   Shop Settings
-                </TabsTrigger>
-                <TabsTrigger value="marketplaces" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-green-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-green-100 transition-all">
+                </button>
+                <button 
+                  onClick={() => setActiveTab("marketplaces")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "marketplaces" 
+                      ? "bg-green-600 text-white shadow-md" 
+                      : "hover:bg-green-100"
+                  }`}
+                >
                   <Package className="h-4 w-4 mr-2" />
                   Marketplace Platforms
-                </TabsTrigger>
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -635,14 +699,28 @@ export function AdminPanel() {
               <h3 className="font-semibold text-lg mb-2 text-orange-900">Content & Marketing</h3>
               <p className="text-sm text-orange-600 mb-4">Blog management, social media automation, and content strategy</p>
               <div className="space-y-2">
-                <TabsTrigger value="blog" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-orange-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-orange-100 transition-all">
+                <button 
+                  onClick={() => setActiveTab("blog")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "blog" 
+                      ? "bg-orange-600 text-white shadow-md" 
+                      : "hover:bg-orange-100"
+                  }`}
+                >
                   <Article className="h-4 w-4 mr-2" />
                   Blog Configuration
-                </TabsTrigger>
-                <TabsTrigger value="social" className="modern-tab-trigger w-full justify-start p-3 rounded-lg data-[state=active]:bg-orange-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-orange-100 transition-all">
+                </button>
+                <button 
+                  onClick={() => setActiveTab("social")}
+                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
+                    activeTab === "social" 
+                      ? "bg-orange-600 text-white shadow-md" 
+                      : "hover:bg-orange-100"
+                  }`}
+                >
                   <FacebookLogo className="h-4 w-4 mr-2" />
                   Social Media
-                </TabsTrigger>
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -663,24 +741,54 @@ export function AdminPanel() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2">
-              <TabsTrigger value="system" className="modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 border-transparent data-[state=active]:border-slate-500 data-[state=active]:bg-slate-600 data-[state=active]:text-white hover:bg-slate-100 transition-all">
-                <div className="p-2 bg-slate-200 data-[state=active]:bg-slate-500 rounded-lg">
-                  <Settings className="h-5 w-5 text-slate-600 data-[state=active]:text-white" />
+              <button 
+                onClick={() => setActiveTab("system")}
+                className={`modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
+                  activeTab === "system" 
+                    ? "border-slate-500 bg-slate-600 text-white" 
+                    : "border-transparent hover:bg-slate-100"
+                }`}
+              >
+                <div className={`p-2 rounded-lg ${
+                  activeTab === "system" 
+                    ? "bg-slate-500" 
+                    : "bg-slate-200"
+                }`}>
+                  <Settings className={`h-5 w-5 ${
+                    activeTab === "system" 
+                      ? "text-white" 
+                      : "text-slate-600"
+                  }`} />
                 </div>
                 <div className="text-left">
                   <div className="font-semibold">System Configuration</div>
                   <div className="text-sm opacity-70">Core settings, security, performance</div>
                 </div>
-              </TabsTrigger>
-              <TabsTrigger value="users" className="modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 border-transparent data-[state=active]:border-slate-500 data-[state=active]:bg-slate-600 data-[state=active]:text-white hover:bg-slate-100 transition-all">
-                <div className="p-2 bg-slate-200 data-[state=active]:bg-slate-500 rounded-lg">
-                  <Users className="h-5 w-5 text-slate-600 data-[state=active]:text-white" />
+              </button>
+              <button 
+                onClick={() => setActiveTab("users")}
+                className={`modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
+                  activeTab === "users" 
+                    ? "border-slate-500 bg-slate-600 text-white" 
+                    : "border-transparent hover:bg-slate-100"
+                }`}
+              >
+                <div className={`p-2 rounded-lg ${
+                  activeTab === "users" 
+                    ? "bg-slate-500" 
+                    : "bg-slate-200"
+                }`}>
+                  <Users className={`h-5 w-5 ${
+                    activeTab === "users" 
+                      ? "text-white" 
+                      : "text-slate-600"
+                  }`} />
                 </div>
                 <div className="text-left">
                   <div className="font-semibold">User Management</div>
                   <div className="text-sm opacity-70">User accounts, roles, permissions</div>
                 </div>
-              </TabsTrigger>
+              </button>
             </div>
           </CardContent>
         </Card>
