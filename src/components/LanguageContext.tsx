@@ -144,6 +144,9 @@ const translations = {
     'chat.humanSupport': 'Contact human support',
     'chat.tryAgain': 'Try again',
     'chat.errorResponse': "I apologize, I'm having trouble responding right now. Please try again or contact our human support team.",
+    'chat.clearChat': 'Clear conversation',
+    'chat.closeChat': 'Close chat',
+    'chat.escToClose': 'ESC to close',
     
     // Language names
     'lang.english': 'English',
@@ -290,6 +293,9 @@ const translations = {
     'chat.humanSupport': 'Menschlichen Support kontaktieren',
     'chat.tryAgain': 'Erneut versuchen',
     'chat.errorResponse': 'Entschuldigung, ich habe gerade Probleme beim Antworten. Bitte versuchen Sie es erneut oder kontaktieren Sie unser menschliches Support-Team.',
+    'chat.clearChat': 'Gespräch löschen',
+    'chat.closeChat': 'Chat schließen',
+    'chat.escToClose': 'ESC zum Schließen',
     
     // Language names
     'lang.english': 'English',
@@ -436,6 +442,9 @@ const translations = {
     'chat.humanSupport': '联系人工支持',
     'chat.tryAgain': '再试一次',
     'chat.errorResponse': '抱歉，我现在回复有困难。请重试或联系我们的人工支持团队。',
+    'chat.clearChat': '清除对话',
+    'chat.closeChat': '关闭聊天',
+    'chat.escToClose': 'ESC键关闭',
     
     // Language names
     'lang.english': 'English',
@@ -582,6 +591,9 @@ const translations = {
     'chat.humanSupport': 'Contacter le support humain',
     'chat.tryAgain': 'Réessayer',
     'chat.errorResponse': 'Je m\'excuse, j\'ai des difficultés à répondre maintenant. Veuillez réessayer ou contacter notre équipe de support humain.',
+    'chat.clearChat': 'Effacer la conversation',
+    'chat.closeChat': 'Fermer le chat',
+    'chat.escToClose': 'ESC pour fermer',
     
     // Language names
     'lang.english': 'English',

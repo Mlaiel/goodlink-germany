@@ -60,6 +60,20 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
     scrollToBottom()
   }, [messages])
 
+  // Keyboard shortcut to close chat (Escape key)
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, setIsOpen])
+
   // Initialize with welcome message if no messages
   useEffect(() => {
     if (!messages || messages.length === 0) {
@@ -226,7 +240,8 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       >
         <Button
           onClick={() => setIsOpen((prev) => true)}
-          className="rounded-full w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-xl relative"
+          className="rounded-full w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl relative"
+          title={t("chat.aiAssistant")}
         >
           <ChatCircle className="h-8 w-8 text-white" />
           {/* Pulse indicator */}
@@ -235,6 +250,14 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
             animate={{ scale: [1, 1.2, 1], opacity: [0.7, 0, 0.7] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
+          {/* Notification badge */}
+          <motion.div
+            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <span className="text-white text-xs font-bold">●</span>
+          </motion.div>
         </Button>
       </motion.div>
     )
@@ -270,6 +293,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
               size="sm"
               onClick={clearChat}
               className="text-white hover:bg-white/20 h-8 w-8 p-0"
+              title={t("chat.clearChat")}
             >
               <Sparkle className="h-4 w-4" />
             </Button>
@@ -277,9 +301,10 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen((prev) => false)}
-              className="text-white hover:bg-white/20 h-8 w-8 p-0"
+              className="text-white hover:bg-white/20 hover:bg-red-500/20 h-9 w-9 p-0 border border-white/20 hover:border-white/40 transition-all duration-200"
+              title={t("chat.closeChat")}
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5 font-bold" weight="bold" />
             </Button>
           </div>
         </div>
@@ -464,7 +489,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
             </Button>
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            {t("chat.poweredBy")}
+            {t("chat.poweredBy")} • {t("chat.escToClose")}
           </p>
         </div>
       </Card>
