@@ -63,7 +63,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
   }
   
   const [position, setPosition] = useKV<{x: number, y: number}>("chat-position", getInitialPosition())
-  const [size, setSize] = useKV<{width: number, height: number}>("chat-size", { width: 384, height: 600 })
+  const [size, setSize] = useKV<{width: number, height: number}>("chat-size", { width: 384, height: 500 })
   const [messages, setMessages] = useKV<Message[]>("chat-messages", [])
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -103,7 +103,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       x: e.clientX,
       y: e.clientY,
       width: size?.width || 384,
-      height: size?.height || 600
+      height: size?.height || 500
     })
   }
 
@@ -119,7 +119,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       
       if (isResizing && !isMaximized) {
         const newWidth = Math.max(320, Math.min(800, resizeStart.width + (e.clientX - resizeStart.x)))
-        const newHeight = Math.max(400, Math.min(Math.min(800, window.innerHeight - 100), resizeStart.height + (e.clientY - resizeStart.y)))
+        const newHeight = Math.max(300, Math.min(Math.min(800, window.innerHeight - 100), resizeStart.height + (e.clientY - resizeStart.y)))
         setSize({ width: newWidth, height: newHeight })
       }
     }
@@ -383,7 +383,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
   }
 
   const currentPosition = position || getInitialPosition()
-  const currentSize = size || { width: 384, height: 600 }
+  const currentSize = size || { width: 384, height: 500 }
 
   // Ensure the chat window stays within visible bounds
   const safePosition = {
@@ -475,8 +475,9 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
             <div 
               className="flex-1 overflow-y-auto p-4 space-y-4" 
               style={{ 
-                height: isMaximized ? 'calc(100vh - 180px)' : currentSize.height - 180,
-                minHeight: '200px'
+                height: isMaximized ? 'calc(100vh - 140px)' : Math.max(200, currentSize.height - 140),
+                minHeight: '200px',
+                maxHeight: isMaximized ? 'calc(100vh - 140px)' : Math.max(200, currentSize.height - 140)
               }}
             >
               <AnimatePresence>
@@ -635,8 +636,8 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area - Fixed at bottom */}
-            <div className="flex-shrink-0 p-4 border-t bg-white rounded-b-lg">
+            {/* Input Area - Fixed at bottom with guaranteed visibility */}
+            <div className="flex-shrink-0 p-3 border-t bg-white rounded-b-lg" style={{ minHeight: '80px' }}>
               <div className="flex gap-2 items-end">
                 <div className="flex-1">
                   <Input
@@ -645,7 +646,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
                     placeholder={t("chat.typeMessage")}
                     onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
                     disabled={isTyping}
-                    className="w-full min-h-[40px] resize-none border-2 focus:border-blue-500"
+                    className="w-full h-[40px] resize-none border-2 focus:border-blue-500"
                     autoFocus
                   />
                 </div>
@@ -657,7 +658,7 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
                   <PaperPlaneTilt className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 mt-2 text-center">
+              <p className="text-xs text-gray-500 mt-1 text-center">
                 {t("chat.poweredBy")} Good-Link Germany AI
               </p>
             </div>
