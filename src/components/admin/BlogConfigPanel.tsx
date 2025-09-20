@@ -97,18 +97,22 @@ export function BlogConfigPanel() {
     seoScoreThreshold: 80,
     
     // AI Settings
-    writingStyle: 'Professional, informative, engaging with industry expertise',
+    writingStyle: 'Professional, technical, authoritative with medical and automotive industry expertise',
     contentCategories: [
-      'E-commerce Strategies',
-      'AI in Business',
-      'Cross-border Trade',
-      'Marketplace Optimization',
-      'Customer Experience',
-      'Technology Trends',
-      'Digital Marketing',
-      'Supply Chain Management'
+      'Medical Device Regulations',
+      'Automotive Industry Trends', 
+      'China-EU Trade Relations',
+      'Medical Technology Innovation',
+      'Automotive Components Guide',
+      'Regulatory Compliance (CE/MDR)',
+      'Supply Chain Optimization',
+      'B2B E-commerce Strategies',
+      'Quality Assurance Standards',
+      'Cross-border Medical Trade',
+      'Automotive Electronics',
+      'Manufacturing Excellence'
     ],
-    targetAudience: 'E-commerce business owners, online marketplace sellers, digital marketing professionals, international trade companies',
+    targetAudience: 'Medical device manufacturers, automotive suppliers, B2B procurement professionals, regulatory compliance officers, international trade companies',
     brandVoice: 'professional',
     contentTone: 'informative',
     

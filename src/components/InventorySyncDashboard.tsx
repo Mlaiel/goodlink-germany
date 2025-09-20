@@ -51,55 +51,89 @@ export function InventorySyncDashboard() {
   const [inventoryItems] = useKV<InventoryItem[]>("inventory-items", [
     {
       id: "1",
-      sku: "GL-001",
-      name: "Premium Wireless Headphones",
-      currentStock: 45,
-      marketplaceStock: { amazon: 43, ebay: 45, otto: 44 },
+      sku: "GL-MED-001",
+      name: "Medical ECG Cable Assembly 12-lead",
+      currentStock: 145,
+      marketplaceStock: { amazon: 142, ebay: 145, otto: 143 },
       lastSync: new Date(),
       syncStatus: 'synced'
     },
     {
       id: "2", 
-      sku: "GL-002",
-      name: "Smart Fitness Tracker",
-      currentStock: 23,
-      marketplaceStock: { amazon: 20, ebay: 23, otto: 22 },
+      sku: "GL-AUTO-002",
+      name: "Automotive Wire Harness Premium",
+      currentStock: 73,
+      marketplaceStock: { amazon: 70, ebay: 73, otto: 72 },
       lastSync: new Date(Date.now() - 300000),
       syncStatus: 'pending'
     },
     {
       id: "3",
-      sku: "GL-003", 
-      name: "Bluetooth Speaker",
-      currentStock: 67,
-      marketplaceStock: { amazon: 65, ebay: 0, otto: 67 },
+      sku: "GL-MED-003", 
+      name: "Medical Pressure Sensor High-Precision",
+      currentStock: 28,
+      marketplaceStock: { amazon: 25, ebay: 0, otto: 28 },
       lastSync: new Date(Date.now() - 1800000),
       syncStatus: 'error'
+    },
+    {
+      id: "4",
+      sku: "GL-AUTO-004",
+      name: "Automotive Connector Set 32-pin",
+      currentStock: 89,
+      marketplaceStock: { amazon: 87, ebay: 89, kaufland: 86 },
+      lastSync: new Date(Date.now() - 600000),
+      syncStatus: 'synced'
+    },
+    {
+      id: "5",
+      sku: "GL-MED-005",
+      name: "Medical Motor for Infusion Pump",
+      currentStock: 12,
+      marketplaceStock: { amazon: 10, ebay: 12, otto: 11 },
+      lastSync: new Date(Date.now() - 900000),
+      syncStatus: 'pending'
     }
   ])
 
   const [syncRules] = useKV<SyncRule[]>("inventory-sync-rules", [
     {
       id: "1",
-      name: "Low Stock Auto-Reorder",
-      trigger: "stock < 10",
-      action: "Create reorder notification",
+      name: "Medical Device Stock Alert",
+      trigger: "medical stock < 25",
+      action: "Create urgent reorder notification",
       enabled: true,
       frequency: "immediate"
     },
     {
       id: "2",
-      name: "Evening Inventory Sync", 
+      name: "Automotive Parts Sync", 
       trigger: "daily 18:00",
-      action: "Full marketplace sync",
+      action: "Full automotive marketplace sync",
       enabled: true,
       frequency: "daily"
     },
     {
       id: "3",
-      name: "Stock Discrepancy Alert",
-      trigger: "marketplace != local",
-      action: "Send alert email",
+      name: "Medical Compliance Check",
+      trigger: "stock discrepancy > 5%",
+      action: "Generate compliance alert",
+      enabled: true,
+      frequency: "hourly"
+    },
+    {
+      id: "4",
+      name: "B2B Inventory Update",
+      trigger: "weekdays 09:00",
+      action: "Sync B2B customer inventory",
+      enabled: true,
+      frequency: "weekdays"
+    },
+    {
+      id: "5",
+      name: "Critical Component Alert",
+      trigger: "critical stock < 10",
+      action: "Notify warehouse & procurement",
       enabled: true,
       frequency: "immediate"
     }

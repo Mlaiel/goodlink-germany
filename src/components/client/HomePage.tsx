@@ -26,63 +26,63 @@ export function HomePage({ onNavigate }: HomePageProps) {
   const features = [
     {
       icon: <ShoppingCart className="h-6 w-6" />,
-      title: t("Quality Products"),
-      description: t("Curated selection of premium products from trusted brands worldwide")
+      title: t("Medical Grade Quality"),
+      description: t("Certified medical devices and automotive components meeting EU/CE standards")
     },
     {
       icon: <Truck className="h-6 w-6" />,
-      title: t("Fast Shipping"), 
-      description: t("Quick and reliable delivery across Germany and Europe")
+      title: t("China-EU Bridge"), 
+      description: t("Direct sourcing from trusted manufacturers in Shenzhen, Shanghai, and Hong Kong")
     },
     {
       icon: <Shield className="h-6 w-6" />,
-      title: t("Secure Payment"),
-      description: t("Safe and secure payment processing with multiple options")
+      title: t("Compliance Assured"),
+      description: t("Full regulatory compliance for medical devices (MDR/CE) and automotive (EMC/ROHS)")
     },
     {
       icon: <ChatCircle className="h-6 w-6" />,
-      title: t("AI Support"),
-      description: t("24/7 intelligent customer support in multiple languages")
+      title: t("Expert Support"),
+      description: t("Technical support from specialists in German, English, and Chinese")
     }
   ]
 
   const stats = [
-    { label: t("Happy Customers"), value: "50,000+", icon: <Users className="h-5 w-5" /> },
-    { label: t("Products"), value: "10,000+", icon: <Package className="h-5 w-5" /> },
-    { label: t("Countries"), value: "25+", icon: <Globe className="h-5 w-5" /> },
-    { label: t("Rating"), value: "4.8/5", icon: <Star className="h-5 w-5" /> }
+    { label: t("B2B Partners"), value: "500+", icon: <Users className="h-5 w-5" /> },
+    { label: t("Components"), value: "2,000+", icon: <Package className="h-5 w-5" /> },
+    { label: t("Years Experience"), value: "20+", icon: <Globe className="h-5 w-5" /> },
+    { label: t("Revenue 2023"), value: "€93M", icon: <TrendUp className="h-5 w-5" /> }
   ]
 
   const categories = [
     {
-      name: t("Electronics"),
-      image: "📱",
-      count: "2,500+ products"
+      name: t("Medical Devices"),
+      image: "🏥",
+      count: "800+ components",
+      description: "ECG cables, pressure sensors, infusion pump motors"
     },
     {
-      name: t("Home & Garden"), 
-      image: "🏠",
-      count: "1,800+ products"
-    },
-    {
-      name: t("Fashion"),
-      image: "👕",
-      count: "3,200+ products"
-    },
-    {
-      name: t("Health & Beauty"),
-      image: "💄",
-      count: "1,500+ products"
-    },
-    {
-      name: t("Sports & Outdoor"),
-      image: "⚽",
-      count: "900+ products"
-    },
-    {
-      name: t("Automotive"),
+      name: t("Automotive Parts"), 
       image: "🚗",
-      count: "700+ products"
+      count: "600+ components",
+      description: "Wire harnesses, connectors, CAN bus cables"
+    },
+    {
+      name: t("Connectors & Cables"),
+      image: "🔌",
+      count: "500+ variants",
+      description: "Medical grade and automotive certified connections"
+    },
+    {
+      name: t("Motors & Sensors"),
+      image: "⚙️",
+      count: "300+ models",
+      description: "Precision motors, sensors for medical and automotive use"
+    },
+    {
+      name: t("Mechanical Components"),
+      image: "🛞",
+      count: "400+ parts",
+      description: "Castors, housings, mechanical assemblies"
     }
   ]
 
@@ -93,15 +93,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
         <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
-              {t("🚀 AI-Powered Commerce Platform")}
+              {t("🏥 Medical & Automotive Excellence")}
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                {t("Welcome to Goodlink Germany")}
+                {t("Good-Link Germany")}
               </span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              {t("Discover premium products with AI-powered shopping experience. Quality, convenience, and innovation all in one place.")}
+              {t("Premium medical devices and automotive components. Your trusted bridge between Europe and China since 2020.")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
@@ -110,7 +110,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all"
               >
                 <ShoppingCart className="h-5 w-5 mr-2" />
-                {t("Shop Now")}
+                {t("Browse Catalog")}
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Button>
               <Button 

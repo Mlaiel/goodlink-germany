@@ -74,49 +74,44 @@ class ErrorBoundary extends React.Component<
 }
 
 const marketplaces = [
-  { name: "Amazon", status: "connected", orders: 847, revenue: "€67,234", sync: "2 min ago", icon: "🛒" },
-  { name: "eBay", status: "connected", orders: 234, revenue: "€18,542", sync: "5 min ago", icon: "🏪" },
-  { name: "OTTO", status: "connected", orders: 156, revenue: "€12,487", sync: "3 min ago", icon: "🏬" },
-  { name: "Kaufland", status: "error", orders: 0, revenue: "€0", sync: "2 hours ago", icon: "🛍️" },
-  { name: "Cdiscount", status: "syncing", orders: 89, revenue: "€6,743", sync: "syncing...", icon: "🛒" },
-  { name: "bol.com", status: "connected", orders: 67, revenue: "€4,521", sync: "1 min ago", icon: "📦" }
+  { name: "Amazon", status: "connected", orders: 247, revenue: "€89,234", sync: "2 min ago", icon: "🏥", category: "Medical Devices" },
+  { name: "eBay", status: "connected", orders: 134, revenue: "€45,542", sync: "5 min ago", icon: "🚗", category: "Automotive Parts" },
+  { name: "OTTO", status: "connected", orders: 89, revenue: "€32,487", sync: "3 min ago", icon: "🔌", category: "Connectors" },
+  { name: "Kaufland", status: "error", orders: 0, revenue: "€0", sync: "2 hours ago", icon: "⚙️", category: "Components" },
+  { name: "Cdiscount", status: "syncing", orders: 56, revenue: "€18,743", sync: "syncing...", icon: "⚕️", category: "Medical" },
+  { name: "bol.com", status: "connected", orders: 78, revenue: "€28,521", sync: "1 min ago", icon: "🛞", category: "Mechanical" }
 ]
 
 const aiAgents = [
-  { name: "Listing Generator", status: "active", processed: 145, success: 92, type: "content" },
-  { name: "Price Optimizer", status: "active", processed: 1247, success: 88, type: "pricing" },
-  { name: "Review Analyzer", status: "active", processed: 567, success: 95, type: "analytics" },
-  { name: "Inventory Forecaster", status: "training", processed: 89, success: 78, type: "forecasting" },
-  { name: "Chat Assistant", status: "active", processed: 234, success: 89, type: "support" },
-  { name: "Content Translator", status: "active", processed: 678, success: 96, type: "content" },
-  { name: "Instagram Marketer", status: "active", processed: 324, success: 91, type: "social" },
-  { name: "TikTok Creator", status: "active", processed: 156, success: 87, type: "social" },
-  { name: "YouTube Optimizer", status: "active", processed: 89, success: 94, type: "social" },
-  { name: "Facebook Ads Manager", status: "active", processed: 445, success: 89, type: "social" },
-  { name: "LinkedIn B2B Agent", status: "active", processed: 267, success: 85, type: "social" },
-  { name: "Twitter Engagement Bot", status: "active", processed: 523, success: 92, type: "social" },
-  { name: "Pinterest Visual Agent", status: "active", processed: 178, success: 88, type: "social" },
-  { name: "WhatsApp Business Agent", status: "active", processed: 892, success: 94, type: "messaging" },
-  { name: "Discord Community Manager", status: "active", processed: 456, success: 89, type: "messaging" },
-  { name: "Telegram Marketing Bot", status: "active", processed: 634, success: 91, type: "messaging" },
-  { name: "Social Analytics Agent", status: "active", processed: 1247, success: 96, type: "social" }
+  { name: "Medical Listing Compliance", status: "active", processed: 145, success: 98, type: "content", description: "CE/MDR compliance checker" },
+  { name: "B2B Price Optimizer", status: "active", processed: 890, success: 91, type: "pricing", description: "Volume pricing for business customers" },
+  { name: "Technical Review Analyzer", status: "active", processed: 367, success: 95, type: "analytics", description: "Medical device feedback analysis" },
+  { name: "Inventory Forecaster", status: "training", processed: 289, success: 87, type: "forecasting", description: "Medical/automotive demand prediction" },
+  { name: "Technical Support Chat", status: "active", processed: 534, success: 92, type: "support", description: "German/English/Chinese support" },
+  { name: "Content Translator", status: "active", processed: 678, success: 96, type: "content", description: "EN/DE/ZH technical translations" },
+  { name: "LinkedIn B2B Agent", status: "active", processed: 267, success: 89, type: "social", description: "Medical industry networking" },
+  { name: "Technical Blog Writer", status: "active", processed: 89, success: 94, type: "content", description: "Medical/automotive content" },
+  { name: "WhatsApp Business Agent", status: "active", processed: 892, success: 94, type: "messaging", description: "Customer service automation" },
+  { name: "Discord Community Manager", status: "active", processed: 456, success: 89, type: "messaging", description: "Technical communities" },
+  { name: "Telegram B2B Bot", status: "active", processed: 634, success: 91, type: "messaging", description: "Supplier communication" },
+  { name: "Compliance Monitor", status: "active", processed: 1247, success: 96, type: "compliance", description: "Regulatory compliance tracking" }
 ]
 
 export function Dashboard() {
   const { t } = useLanguage()
   const [selectedPeriod, setSelectedPeriod] = useKV("dashboard-period", "30d")
   const revenueData = [
-    { name: 'Jan', amazon: 45000, ebay: 12000, otto: 8000 },
-    { name: 'Feb', amazon: 52000, ebay: 15000, otto: 9500 },
-    { name: 'Mar', amazon: 48000, ebay: 13500, otto: 10200 },
-    { name: 'Apr', amazon: 61000, ebay: 16800, otto: 11000 },
-    { name: 'May', amazon: 55000, ebay: 14200, otto: 9800 },
-    { name: 'Jun', amazon: 67000, ebay: 18500, otto: 12500 }
+    { name: 'Jan', medical: 185000, automotive: 142000, connectors: 98000 },
+    { name: 'Feb', medical: 198000, automotive: 155000, connectors: 105000 },
+    { name: 'Mar', medical: 176000, automotive: 148000, connectors: 112000 },
+    { name: 'Apr', medical: 221000, automotive: 168000, connectors: 118000 },
+    { name: 'May', medical: 205000, automotive: 162000, connectors: 109000 },
+    { name: 'Jun', medical: 234000, automotive: 178000, connectors: 125000 }
   ].map(item => ({
     ...item,
-    amazon: Number(item.amazon) || 0,
-    ebay: Number(item.ebay) || 0,
-    otto: Number(item.otto) || 0
+    medical: Number(item.medical) || 0,
+    automotive: Number(item.automotive) || 0,
+    connectors: Number(item.connectors) || 0
   }))
 
   const performanceData = [
@@ -226,9 +221,9 @@ export function Dashboard() {
                         }}
                       />
                       <Legend />
-                      <Bar dataKey="amazon" stackId="a" fill="#ff6b35" name="Amazon" />
-                      <Bar dataKey="ebay" stackId="a" fill="#1e40af" name="eBay" />
-                      <Bar dataKey="otto" stackId="a" fill="#7c3aed" name="OTTO" />
+                      <Bar dataKey="medical" stackId="a" fill="#0ea5e9" name="Medical Devices" />
+                      <Bar dataKey="automotive" stackId="a" fill="#ef4444" name="Automotive Parts" />
+                      <Bar dataKey="connectors" stackId="a" fill="#8b5cf6" name="Connectors & Cables" />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (

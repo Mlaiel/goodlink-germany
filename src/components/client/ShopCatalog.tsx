@@ -44,87 +44,111 @@ export function ShopCatalog({ onNavigate }: ShopCatalogProps) {
   const [cart, setCart] = useState<{[key: string]: number}>({})
   const [wishlist, setWishlist] = useState<string[]>([])
 
-  // Mock products data
+  // Medical devices and automotive components catalog
   const products: Product[] = [
     {
       id: "1",
-      name: "Premium Wireless Headphones",
-      price: 149.99,
-      originalPrice: 199.99,
-      rating: 4.8,
-      reviews: 2847,
-      image: "🎧",
-      category: "electronics",
+      name: "Medical ECG Cable Assembly - 12-lead",
+      price: 189.99,
+      originalPrice: 220.00,
+      rating: 4.9,
+      reviews: 847,
+      image: "🏥",
+      category: "medical",
       inStock: true,
       fastShipping: true,
-      discount: 25
+      discount: 14
     },
     {
       id: "2", 
-      name: "Smart Fitness Tracker",
-      price: 89.99,
-      rating: 4.6,
-      reviews: 1523,
-      image: "⌚",
-      category: "electronics",
+      name: "Automotive Wire Harness - Premium Series",
+      price: 95.50,
+      rating: 4.7,
+      reviews: 523,
+      image: "🚗",
+      category: "automotive",
       inStock: true,
       fastShipping: true
     },
     {
       id: "3",
-      name: "Organic Cotton T-Shirt",
-      price: 29.99,
-      rating: 4.7,
-      reviews: 892,
-      image: "👕",
-      category: "fashion",
+      name: "Medical Pressure Sensor - High Precision",
+      price: 340.00,
+      rating: 4.8,
+      reviews: 292,
+      image: "⚕️",
+      category: "medical",
       inStock: true,
       fastShipping: false
     },
     {
       id: "4",
-      name: "Professional Kitchen Knife Set",
-      price: 199.99,
-      originalPrice: 299.99,
-      rating: 4.9,
+      name: "Automotive Connector Set - 32-pin",
+      price: 67.99,
+      originalPrice: 89.99,
+      rating: 4.6,
       reviews: 1234,
-      image: "🔪",
-      category: "home",
+      image: "🔌",
+      category: "automotive",
       inStock: true,
       fastShipping: true,
-      discount: 33
+      discount: 24
     },
     {
       id: "5",
-      name: "Gaming Mechanical Keyboard",
-      price: 129.99,
-      rating: 4.5,
-      reviews: 3421,
-      image: "⌨️",
-      category: "electronics",
+      name: "Medical Motor for Infusion Pump",
+      price: 429.99,
+      rating: 4.9,
+      reviews: 167,
+      image: "⚙️",
+      category: "medical",
       inStock: false,
       fastShipping: false
     },
     {
       id: "6",
-      name: "Luxury Skincare Set",
-      price: 89.99,
+      name: "Industrial Castor Wheels - Medical Grade",
+      price: 156.00,
       rating: 4.8,
-      reviews: 567,
-      image: "💄",
-      category: "beauty",
+      reviews: 445,
+      image: "🛞",
+      category: "medical",
       inStock: true,
       fastShipping: true
+    },
+    {
+      id: "7",
+      name: "Automotive CAN Bus Cable - 2m",
+      price: 45.90,
+      rating: 4.5,
+      reviews: 789,
+      image: "📡",
+      category: "automotive", 
+      inStock: true,
+      fastShipping: true
+    },
+    {
+      id: "8",
+      name: "Medical Device Housing - Sterilizable",
+      price: 289.00,
+      originalPrice: 350.00,
+      rating: 4.7,
+      reviews: 134,
+      image: "📦",
+      category: "medical",
+      inStock: true,
+      fastShipping: false,
+      discount: 17
     }
   ]
 
   const categories = [
-    { value: "all", label: t("All Categories") },
-    { value: "electronics", label: t("Electronics") },
-    { value: "fashion", label: t("Fashion") },
-    { value: "home", label: t("Home & Garden") },
-    { value: "beauty", label: t("Beauty & Health") },
-    { value: "sports", label: t("Sports & Outdoor") }
+    { value: "all", label: t("All Products") },
+    { value: "medical", label: t("Medical Devices") },
+    { value: "automotive", label: t("Automotive Components") },
+    { value: "connectors", label: t("Connectors & Cables") },
+    { value: "sensors", label: t("Sensors & Electronics") },
+    { value: "mechanical", label: t("Mechanical Parts") }
   ]
 
   const sortOptions = [

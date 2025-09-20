@@ -178,20 +178,36 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
 
   const generateAIResponse = async (userMessage: string): Promise<Message> => {
     // Create prompt using global spark object
-    const prompt = `You are a friendly AI customer support assistant for Goodlink Germany, an AI-powered e-commerce platform. 
+    const prompt = `You are a knowledgeable AI customer support assistant for Good-Link Germany, a premium B2B supplier of medical devices and automotive components. We bridge European and Chinese markets, founded in 2020 with offices in Cologne, Germany and manufacturing partnerships in Shenzhen, Shanghai, and Hong Kong.
     
     Customer message: "${userMessage}"
     Language: ${language}
     
-    Respond in ${language} language. Be helpful, friendly, and provide specific product recommendations when appropriate.
+    Respond in ${language} language. Be professional, technically knowledgeable, and focus on:
     
-    If the customer asks about:
-    - Products: Suggest relevant categories and mention popular items
-    - Shipping: Mention free shipping over €29, fast delivery
-    - Returns: 30-day return policy, easy process
-    - Support: Available 24/7, multiple contact methods
+    Our Specialties:
+    - Medical devices (ECG cables, pressure sensors, infusion pump motors, medical housings)
+    - Automotive components (wire harnesses, connectors, CAN bus cables)
+    - Industrial connectors and cables
+    - Mechanical components (castors, motors, sensors)
     
-    Keep responses concise but informative. Include emojis appropriately.`
+    Business Information:
+    - B2B focus with volume pricing available
+    - CE/MDR compliance for medical devices
+    - EMC/ROHS compliance for automotive
+    - Shipping from China and Germany warehouses
+    - Technical support in German, English, and Chinese
+    - €500+ minimum for free shipping (B2B orders)
+    - Revenue: €93M in 2023, 78 employees across 5 offices
+    
+    If customer asks about:
+    - Products: Focus on medical/automotive applications and compliance
+    - Shipping: International B2B logistics, express available
+    - Technical specs: Offer detailed technical documentation
+    - Compliance: Highlight CE marking, medical device regulations
+    - Support: Multilingual technical team available
+    
+    Keep responses professional yet approachable. Use medical/automotive industry terminology when appropriate.`
 
     try {
       const response = await window.spark.llm(prompt, "gpt-4o-mini")
@@ -200,32 +216,51 @@ export function AICustomerChat({ className = "" }: AICustomerChatProps) {
       let products: Product[] = []
       let suggestions: string[] = []
       
-      if (userMessage.toLowerCase().includes('electronic') || userMessage.toLowerCase().includes('tech')) {
+      if (userMessage.toLowerCase().includes('medical') || userMessage.toLowerCase().includes('device') || userMessage.toLowerCase().includes('ecg') || userMessage.toLowerCase().includes('sensor')) {
         products = [
           {
             id: "1",
-            name: "Wireless Headphones Pro",
-            price: "€89.99",
-            image: "/api/placeholder/80/80",
-            rating: 4.8,
-            category: "Electronics"
+            name: "Medical ECG Cable Assembly 12-lead",
+            price: "€189.99",
+            image: "🏥",
+            rating: 4.9,
+            category: "Medical Devices"
           },
           {
             id: "2", 
-            name: "Smart Watch Series 5",
-            price: "€299.99",
-            image: "/api/placeholder/80/80",
+            name: "Medical Pressure Sensor High-Precision",
+            price: "€340.00",
+            image: "⚕️",
+            rating: 4.8,
+            category: "Medical Sensors"
+          }
+        ]
+      } else if (userMessage.toLowerCase().includes('automotive') || userMessage.toLowerCase().includes('car') || userMessage.toLowerCase().includes('wire') || userMessage.toLowerCase().includes('connector')) {
+        products = [
+          {
+            id: "3",
+            name: "Automotive Wire Harness Premium",
+            price: "€95.50",
+            image: "🚗",
+            rating: 4.7,
+            category: "Automotive Components"
+          },
+          {
+            id: "4",
+            name: "Automotive Connector Set 32-pin",
+            price: "€67.99",
+            image: "🔌",
             rating: 4.6,
-            category: "Electronics"
+            category: "Connectors"
           }
         ]
       }
       
       suggestions = [
-        t("chat.shippingInfo"),
-        t("chat.productCategories"),
-        t("chat.returnsInfo"),
-        t("chat.humanSupport")
+        t("Technical Documentation"),
+        t("Compliance Certificates"),
+        t("Volume Pricing"),
+        t("Technical Support")
       ]
 
       return {

@@ -96,21 +96,21 @@ export function ShopConfigPanel() {
   const { t } = useLanguage()
   
   const defaultConfig: ShopConfig = {
-    shopName: "Goodlink Germany Shop",
-    shopDescription: "AI-powered multi-marketplace e-commerce platform",
+    shopName: "Goodlink Germany Medical & Automotive",
+    shopDescription: "Premium medical devices, automotive components and connectors. Bridging Europe-China trade since 2020.",
     shopLogo: "",
     shopUrl: "https://shop.goodlink-germany.com",
-    contactEmail: "info@goodlink-germany.com",
-    supportPhone: "+49 (0) 123 456 789",
+    contactEmail: "info@goodlink-germany.com", 
+    supportPhone: "+49 (0) 221 XXX XXXX", // Cologne number
     
-    primaryColor: "#1e293b",
-    secondaryColor: "#ef4444",
+    primaryColor: "#0f172a", // Deep navy reflecting medical precision
+    secondaryColor: "#dc2626", // Professional red for automotive
     theme: "light",
     
     defaultCurrency: "EUR",
-    defaultLanguage: "de",
-    supportedCurrencies: ["EUR", "USD", "GBP"],
-    supportedLanguages: ["de", "en", "zh", "fr"],
+    defaultLanguage: "de", 
+    supportedCurrencies: ["EUR", "USD", "CNY", "HKD"], // Added Chinese currencies
+    supportedLanguages: ["de", "en", "zh", "fr"], // Multi-language for international trade
     
     enableStripe: true,
     enablePaypal: true,
@@ -120,8 +120,8 @@ export function ShopConfigPanel() {
     enableGooglePay: true,
     
     enableFreeShipping: true,
-    freeShippingThreshold: 50,
-    shippingZones: ["DE", "EU", "Worldwide"],
+    freeShippingThreshold: 500, // Higher threshold for B2B medical/automotive
+    shippingZones: ["DE", "EU", "China", "Hong Kong", "Worldwide"],
     enableExpressShipping: true,
     
     enableReviews: true,
@@ -137,8 +137,8 @@ export function ShopConfigPanel() {
     enableSitemap: true,
     
     enableStockManagement: true,
-    lowStockThreshold: 10,
-    enableBackorders: false,
+    lowStockThreshold: 25, // Higher threshold for medical/automotive inventory
+    enableBackorders: true, // Important for specialized components
     
     enableSSL: true,
     enable2FA: true,
