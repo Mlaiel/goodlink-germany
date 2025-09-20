@@ -376,7 +376,7 @@ function AIAgentsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-2">
               <TrendUp className="h-4 w-4 text-green-600" />
-              <div className="text-2xl font-bold">{(aiAgents.reduce((acc, a) => acc + (a.processed || 0), 0) || 0).toLocaleString()}</div>
+              <div className="text-2xl font-bold">{(aiAgents?.reduce((acc, a) => acc + (a.processed || 0), 0) || 0).toLocaleString()}</div>
             </div>
             <p className="text-xs text-muted-foreground">Total Processed</p>
           </CardContent>
