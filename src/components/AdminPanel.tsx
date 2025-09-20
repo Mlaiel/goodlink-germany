@@ -57,6 +57,7 @@ import { AgentAutomationConfig } from './admin/AgentAutomationConfig'
 import { AgentPerformanceDashboard } from './admin/AgentPerformanceDashboard'
 import { AgentDemoPanel } from './AgentDemoPanel'
 import { AgentUsageGuide } from './AgentUsageGuide'
+import { DemoInterface } from './DemoInterface'
 
 interface SystemMetrics {
   uptime: string
@@ -1124,14 +1125,7 @@ export function AdminPanel() {
 
         {/* Agent Demos Tab */}
         <TabsContent value="agent-demos" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <AgentDemoPanel />
-            </div>
-            <div className="lg:col-span-1">
-              <AgentUsageGuide />
-            </div>
-          </div>
+          <DemoInterface />
         </TabsContent>
 
         {/* Marketplace Settings Tab */}
