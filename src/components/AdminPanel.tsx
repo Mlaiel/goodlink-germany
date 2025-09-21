@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Badge } from '@/components/ui/badge'
-import { Switch } from '@/components/ui/switc
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '
+import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Label } from '@/components/ui/label'
-import { AlertTriangle, Brain, TrendingUp, Shop
+import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-interface Agent {
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
-import { AlertTriangle, Brain, TrendingUp, ShoppingCart, MessageSquare, Zap, Settings, Eye, Play, Pause, RotateCw } from '@phosphor-icons/react'
+import { Warning, Brain, TrendUp, ShoppingCart, ChatCircle, Lightning, Gear, Eye, Play, Pause, ArrowClockwise } from '@phosphor-icons/react'
 import { useLanguage } from './LanguageContext'
-import { useKV } from '@github/spark/hooks'
+  performance: number
 
-interface Agent {
+}
   id: string
   enabled: boo
   type: string
@@ -22,57 +22,57 @@ interface Agent {
   performance: number
 
   icon: React.ReactNode
-}
+ 
 
-interface AgentConfig {
+  const agents: Agent[]
   enabled: boolean
       name: t('List
-  frequency: string
-  model: string
-  instructions: string
+    {
+      name: t('
+      status: 'active'
  
 
       id: 'inventory-forecaste
-  const { t, currentLanguage } = useLanguage()
-  const [activeTab, setActiveTab] = useState('overview')
-  const [agentConfigs, setAgentConfigs] = useKV<Record<string, AgentConfig>>('agent-configs', {})
+      type: 'Operations',
+      performance: 76,
+      icon: <Brain className="h-5 w-5" />
 
-  const agents: Agent[] = [
+      name: t('Review Analy
     {
-      id: 'listing-optimizer',
-      name: t('Listing Optimizer'),
-      type: 'Marketplace',
-      status: 'active',
-      performance: 92,
-      description: t('Optimizes product listings across Amazon, eBay, and other marketplaces'),
-      icon: <ShoppingCart className="h-5 w-5" />
+      description: t('Analyzes
     },
-    {
-      id: 'price-monitor',
-      name: t('Price Monitor'),
-      type: 'Analytics',
-      status: 'active',
-      performance: 88,
-      description: t('Monitors competitor prices and adjusts pricing strategies'),
-      icon: <TrendingUp className="h-5 w-5" />
-    },
-    {
+      id: 'ad-optimizer',
+      type: 'Marketing'
+      performance: 85,
+      icon: <Lightning className="h-5 w-5" />
+  ]
+  cons
+     
+        enabled: true,
+        frequency: 'hourly',
+        instructions: ''
+        ...updates
+    }))
+
+    return (agentConfigs || {})[agentId] ||
+      
+     
       id: 'customer-service',
       name: t('Customer Service Bot'),
       type: 'Customer Support',
       status: 'active',
       performance: 94,
       description: t('Handles customer inquiries in multiple languages'),
-      icon: <MessageSquare className="h-5 w-5" />
+          <p className="text-muted-foreground"
     },
     {
       id: 'inventory-forecaster',
       name: t('Inventory Forecaster'),
-        ...prev[agentId],
+            <TabsTrigger 
       status: 'training',
-    }))
+            <div class
       description: t('Predicts demand and optimizes inventory levels'),
-  const getAgentConfig = (agentId: string
+                  <Brain className="h-4 w
       
     {
       id: 'review-analyzer',
@@ -84,49 +84,48 @@ interface AgentConfig {
       icon: <Eye className="h-5 w-5" />
     },
     {
-        <div className="m
+                </CardCon
       name: t('Ad Campaign Optimizer'),
       type: 'Marketing',
       status: 'active',
-
+                <CardC
       description: t('Optimizes advertising campaigns and budgets'),
-            <TabsTrigger value="overvie
+                  </p>
     }
    
 
   const updateAgentConfig = (agentId: string, updates: Partial<AgentConfig>) => {
-    setAgentConfigs(prev => ({
+                  <div className="tex
       ...prev,
       [agentId]: {
-                </Card
+            </div>
         threshold: 80,
-                    {agents.
+                <CardHeader>
         model: 'gpt-4',
         instructions: '',
-        ...prev[agentId],
-              </Ca
+                <CardContent clas
+                  
       }
        
   }
 
   const getAgentConfig = (agentId: string): AgentConfig => {
-                    {Math.round(agent
+                        <span className="text
       enabled: true,
       threshold: 80,
       frequency: 'hourly',
       model: 'gpt-4',
       instructions: ''
     }
-  }
+   
 
   const runAgentDemo = async (agentId: string) => {
-                  <p className=
     console.log(`Running demo for agent: ${agentId}`)
-   
+  }
 
           
     <div className="min-h-screen bg-background">
-                  <AlertTriangle className="h
+                    <div className="flex item
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">{t('AI Agent Control Center')}</h1>
           <p className="text-muted-foreground">
@@ -140,7 +139,7 @@ interface AgentConfig {
             <TabsTrigger value="agents">{t('AI Agents')}</TabsTrigger>
             <TabsTrigger value="configuration">{t('Configuration')}</TabsTrigger>
             <TabsTrigger value="monitoring">{t('Monitoring')}</TabsTrigger>
-                    <
+                     
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -162,9 +161,9 @@ interface AgentConfig {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">{t('Average Performance')}</CardTitle>
-                      </div>
+
                 </CardHeader>
-                      <div cl
+                            v
                   <div className="text-2xl font-bold">
                     {Math.round(agents.reduce((acc, a) => acc + a.performance, 0) / agents.length)}%
                   </div>
@@ -172,15 +171,15 @@ interface AgentConfig {
                     {t('across all agents')}
                       
                 </CardContent>
-                    <
+                     
 
-              </Card
+                    
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">{t('Tasks Completed')}</CardTitle>
-                  <Zap className="h-4 w-4 text-muted-foreground" />
+                            </SelectTrigger>
                 </CardHeader>
                 <CardContent>
-                  <Card key={agent.id} className="admin-nav-card"
+                          </Select>
                   <p className="text-xs text-muted-foreground">
                     {t('in the last 24 hours')}
                   </p>
@@ -190,19 +189,19 @@ interface AgentConfig {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">{t('Errors')}</CardTitle>
-                        <div className="flex justify-between text-sm">
+                            className="flex-1"
                 </CardHeader>
-                        </div
+                          </B
                   <div className="text-2xl font-bold">3</div>
                   <p className="text-xs text-muted-foreground">
                     {t('requiring attention')}
                   </p>
                 </CardContent>
-                     
+              })}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    
+                <Car
                 <CardHeader>
                   <CardTitle>{t('Agent Performance')}</CardTitle>
                   <CardDescription>
@@ -222,13 +221,13 @@ interface AgentConfig {
                       <div className="flex items-center space-x-2">
                         <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
                           {t(agent.status)}
-                            <Sel
+                        <SelectT
                         <span className="text-sm font-medium">{agent.performance}%</span>
                       </div>
-                    </div>
+                        </
                   ))}
                 </CardContent>
-                     
+
 
                     
                 <CardHeader>
@@ -244,23 +243,23 @@ interface AgentConfig {
                       <div className="flex-1">
                         <p className="text-sm">{t('Listing Optimizer updated 47 product titles')}</p>
                         <p className="text-xs text-muted-foreground">2 {t('minutes ago')}</p>
-                            
-                          
+                    <div cla
+                      <Swi
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                       <div className="flex-1">
                         <p className="text-sm">{t('Price Monitor adjusted 12 product prices')}</p>
                         <p className="text-xs text-muted-foreground">15 {t('minutes ago')}</p>
-                            
-                    </div>
+                      </div>
+                      <Swi
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                       <div className="flex-1">
                         <p className="text-sm">{t('Customer Service Bot responded to 23 inquiries')}</p>
                         <p className="text-xs text-muted-foreground">1 {t('hour ago')}</p>
-                      </div>
+              </CardContent>
                     </div>
-                        
+                  </Card
                 </CardContent>
                     <
             </div>
@@ -270,17 +269,17 @@ interface AgentConfig {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {agents.map((agent) => {
                 const config = getAgentConfig(agent.id)
-                  {t('Co
+                    <div
                   <Card key={agent.id} className="admin-nav-card">
-              <CardContent class
+                    <Progress va
                       <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold">{t('General
+                    <div className="flex items-center justify-between
                           {agent.icon}
                           <CardTitle className="text-lg">{agent.name}</CardTitle>
                         </div>
                         <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
                           {t(agent.status)}
-                          <Selec
+                  <CardDescripti
                       </div>
                       <CardDescription>{agent.description}</CardDescription>
                     </CardHeader>
@@ -288,7 +287,7 @@ interface AgentConfig {
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span>{t('Performance')}</span>
-                        </SelectTrigger>
+                      <div className="flex-1">
                         </div>
                         <Progress value={agent.performance} className="h-2" />
                       </div>
@@ -302,7 +301,7 @@ interface AgentConfig {
                           </Label>
                           <Switch
                             id={`${agent.id}-enabled`}
-                      </Select>
+                    <div className="text-2xl font-bo
                             onCheckedChange={(checked) => 
                               updateAgentConfig(agent.id, { enabled: checked })
                             }
@@ -322,19 +321,19 @@ interface AgentConfig {
                               }
                               className="w-20"
                             />
-                    <div className="flex items-center justify-between">
-                          </div>
-                    </div>
 
-                      <Label>{t('GDPR Compliance Mo
+                          </div>
+
+
+
                           <Label className="text-sm">{t('Execution Frequency')}</Label>
                           <Select
                             value={config.frequency}
                             onValueChange={(value) => 
                               updateAgentConfig(agent.id, { frequency: value })
-                    <div clas
+
                           >
-                    </div>
+
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -352,21 +351,21 @@ interface AgentConfig {
                             onValueChange={(value) => 
                               updateAgentConfig(agent.id, { model: value })
                             }
-                    <Progre
+
                             <SelectTrigger>
-                  <div className="space-y-3">
+
                             </SelectTrigger>
-                      <span className="text
+
                               <SelectItem value="gpt-4">GPT-4</SelectItem>
                               <SelectItem value="gpt-4-mini">GPT-4 Mini</SelectItem>
                               <SelectItem value="claude-3">Claude 3</SelectItem>
                             </SelectContent>
                           </Select>
-                    </div>
+
 
 
                           <Label className="text-sm">{t('Custom Instructions')}</Label>
-                      <span classNa
+
                             placeholder={t('Enter custom instructions for this agent...')}
                             value={config.instructions}
                             onChange={(e) => 
@@ -378,27 +377,27 @@ interface AgentConfig {
 
                         <div className="flex space-x-2">
                           <Button
-                      <AlertTriangle className="h-4 w-4 text-orang
+
                             size="sm"
-                        <p className="text-xs
+
                             className="flex-1"
-                    
+
                             <Play className="h-4 w-4 mr-1" />
                             {t('Run Demo')}
                           </Button>
                           <Button
                             size="sm"
-                    <div className="flex item
+
                           >
-                        <p className="text-sm">{t('Inventory
+
                           </Button>
-                    </div>
+
                       </div>
                     </CardContent>
                   </Card>
-            <Card
+
               })}
-                <C
+
           </TabsContent>
 
           <TabsContent value="configuration" className="space-y-6">
@@ -408,13 +407,13 @@ interface AgentConfig {
                 <CardDescription>
                   {t('Configure global settings that apply to all AI agents')}
                 </CardDescription>
-                    <div cl
+
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">{t('General Settings')}</h3>
                     
-    </div>
+
                       <Label>{t('Default AI Model')}</Label>
                       <Select defaultValue="gpt-4">
                         <SelectTrigger>
@@ -568,7 +567,7 @@ interface AgentConfig {
                 <CardContent>
 
                     <div className="flex items-start space-x-3">
-                      <AlertTriangle className="h-4 w-4 text-orange-500 mt-0.5" />
+
                       <div className="flex-1">
                         <p className="text-sm">{t('Price Monitor: Rate limit exceeded')}</p>
                         <p className="text-xs text-muted-foreground">5 {t('minutes ago')}</p>
@@ -576,7 +575,7 @@ interface AgentConfig {
                     </div>
                     
                     <div className="flex items-start space-x-3">
-                      <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5" />
+
                       <div className="flex-1">
                         <p className="text-sm">{t('Listing Optimizer: API connection failed')}</p>
                         <p className="text-xs text-muted-foreground">12 {t('minutes ago')}</p>
@@ -584,7 +583,7 @@ interface AgentConfig {
                     </div>
 
                     <div className="flex items-start space-x-3">
-                      <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5" />
+
                       <div className="flex-1">
                         <p className="text-sm">{t('Inventory Forecaster: Low confidence prediction')}</p>
                         <p className="text-xs text-muted-foreground">1 {t('hour ago')}</p>
