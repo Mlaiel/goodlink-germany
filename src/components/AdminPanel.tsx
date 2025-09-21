@@ -465,32 +465,32 @@ export function AdminPanel() {
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-white">
-                  Administrative Control Center
+                  {t('admin.title')}
                 </h1>
                 <p className="text-slate-300 text-lg">
-                  Complete system management and configuration
+                  {t('admin.systemManagementDesc')}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
                 {getHealthIcon(systemMetrics.systemHealth)}
-                <span className="font-medium text-white">System {systemMetrics.systemHealth}</span>
+                <span className="font-medium text-white">{t('common.status')} {systemMetrics.systemHealth}</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
                 <Activity className="h-4 w-4 text-white" />
-                <span className="font-medium text-white">Uptime {systemMetrics.uptime}</span>
+                <span className="font-medium text-white">{t('system.uptime')} {systemMetrics.uptime}</span>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-end gap-4">
             <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-xl">
               <CloudCheck className="h-5 w-5 mr-2" />
-              Save All Changes
+              {t('common.save')} All Changes
             </Button>
             <div className="text-right text-sm text-slate-300">
               <div>Last updated: {new Date().toLocaleTimeString()}</div>
-              <div>{systemMetrics.totalUsers.toLocaleString()} registered users</div>
+              <div>{systemMetrics.totalUsers.toLocaleString()} registered {t('admin.users')}</div>
             </div>
           </div>
         </div>
@@ -502,7 +502,7 @@ export function AdminPanel() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-green-600">System Uptime</p>
+                <p className="text-sm font-medium text-green-600">{t('system.uptime')}</p>
                 <p className="text-3xl font-bold text-green-700">{systemMetrics.uptime}</p>
               </div>
               <Clock className="h-8 w-8 text-green-500" />
@@ -514,7 +514,7 @@ export function AdminPanel() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-600">Active Users</p>
+                <p className="text-sm font-medium text-blue-600">{t('common.active')} {t('admin.users')}</p>
                 <p className="text-3xl font-bold text-blue-700">{systemMetrics.activeUsers.toLocaleString()}</p>
               </div>
               <Users className="h-8 w-8 text-blue-500" />
@@ -526,7 +526,7 @@ export function AdminPanel() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-purple-600">Total Orders</p>
+                <p className="text-sm font-medium text-purple-600">{t('common.total')} Orders</p>
                 <p className="text-3xl font-bold text-purple-700">{systemMetrics.totalOrders.toLocaleString()}</p>
               </div>
               <ShoppingCart className="h-8 w-8 text-purple-500" />
@@ -538,7 +538,7 @@ export function AdminPanel() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-orange-600">AI Agents</p>
+                <p className="text-sm font-medium text-orange-600">{t('nav.agents')}</p>
                 <p className="text-3xl font-bold text-orange-700">12</p>
               </div>
               <Robot className="h-8 w-8 text-orange-500" />
@@ -575,8 +575,8 @@ export function AdminPanel() {
                 </div>
                 <Badge variant="secondary" className="bg-blue-100 text-blue-700">Core</Badge>
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-blue-900">Dashboard & Analytics</h3>
-              <p className="text-sm text-blue-600 mb-4">System overview, performance metrics, and real-time monitoring</p>
+              <h3 className="font-semibold text-lg mb-2 text-blue-900">{t('admin.overview')} & {t('admin.analytics')}</h3>
+              <p className="text-sm text-blue-600 mb-4">{t('admin.systemMonitoring')} and real-time {t('admin.monitoring')}</p>
               <div className="space-y-2">
                 <button 
                   onClick={() => setActiveTab("overview")}
@@ -587,7 +587,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Eye className="h-4 w-4 mr-2" />
-                  System Overview
+                  {t('admin.overview')}
                 </button>
                 <button 
                   onClick={() => setActiveTab("monitoring")}
@@ -598,7 +598,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Activity className="h-4 w-4 mr-2" />
-                  Performance Monitor
+                  {t('admin.monitoring')}
                 </button>
               </div>
             </CardContent>
@@ -613,8 +613,8 @@ export function AdminPanel() {
                 </div>
                 <Badge variant="secondary" className="bg-purple-100 text-purple-700">AI</Badge>
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-purple-900">AI & Automation</h3>
-              <p className="text-sm text-purple-600 mb-4">Configure AI agents, automation settings, and intelligent workflows</p>
+              <h3 className="font-semibold text-lg mb-2 text-purple-900">{t('admin.aiAutomation')}</h3>
+              <p className="text-sm text-purple-600 mb-4">{t('common.configure')} AI agents, automation settings, and intelligent workflows</p>
               <div className="space-y-2">
                 <button 
                   onClick={() => setActiveTab("ai-agents")}
@@ -625,7 +625,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Robot className="h-4 w-4 mr-2" />
-                  AI Agents Config
+                  {t('nav.agents')} {t('common.configuration')}
                 </button>
                 <button 
                   onClick={() => setActiveTab("marketplace-agents")}
@@ -636,7 +636,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Storefront className="h-4 w-4 mr-2" />
-                  Marketplace Agents
+                  {t('nav.marketplaces')} {t('nav.agents')}
                 </button>
                 <button 
                   onClick={() => setActiveTab("specialized")}
@@ -647,7 +647,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Shield className="h-4 w-4 mr-2" />
-                  Specialized Agents
+                  {t('agents.specializedAgents')}
                 </button>
                 <button 
                   onClick={() => setActiveTab("agent-demos")}
@@ -658,7 +658,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Eye className="h-4 w-4 mr-2" />
-                  Agent Demos & Training
+                  {t('common.demo')} & {t('common.training')}
                 </button>
               </div>
             </CardContent>
@@ -673,8 +673,8 @@ export function AdminPanel() {
                 </div>
                 <Badge variant="secondary" className="bg-green-100 text-green-700">Commerce</Badge>
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-green-900">Commerce & Sales</h3>
-              <p className="text-sm text-green-600 mb-4">Shop configuration, marketplace integration, and sales management</p>
+              <h3 className="font-semibold text-lg mb-2 text-green-900">{t('admin.configuration')} & Sales</h3>
+              <p className="text-sm text-green-600 mb-4">{t('admin.shopConfig')}, marketplace integration, and sales management</p>
               <div className="space-y-2">
                 <button 
                   onClick={() => setActiveTab("shop")}
@@ -685,7 +685,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <ShoppingCart className="h-4 w-4 mr-2" />
-                  Shop Settings
+                  {t('nav.shop')} {t('admin.settings')}
                 </button>
                 <button 
                   onClick={() => setActiveTab("marketplaces")}
@@ -696,7 +696,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Package className="h-4 w-4 mr-2" />
-                  Marketplace Platforms
+                  {t('nav.marketplaces')} Platforms
                 </button>
               </div>
             </CardContent>
@@ -712,7 +712,7 @@ export function AdminPanel() {
                 <Badge variant="secondary" className="bg-orange-100 text-orange-700">Content</Badge>
               </div>
               <h3 className="font-semibold text-lg mb-2 text-orange-900">Content & Marketing</h3>
-              <p className="text-sm text-orange-600 mb-4">Blog management, social media automation, and content strategy</p>
+              <p className="text-sm text-orange-600 mb-4">{t('admin.blogConfig')}, social media automation, and content strategy</p>
               <div className="space-y-2">
                 <button 
                   onClick={() => setActiveTab("blog")}
@@ -723,7 +723,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <Article className="h-4 w-4 mr-2" />
-                  Blog Configuration
+                  {t('nav.blog')} {t('common.configuration')}
                 </button>
                 <button 
                   onClick={() => setActiveTab("social")}
@@ -734,7 +734,7 @@ export function AdminPanel() {
                   }`}
                 >
                   <FacebookLogo className="h-4 w-4 mr-2" />
-                  Social Media
+                  {t('agents.social')} Media
                 </button>
               </div>
             </CardContent>
@@ -748,10 +748,10 @@ export function AdminPanel() {
               <div className="p-2 bg-slate-200 rounded-lg">
                 <Settings className="h-6 w-6 text-slate-600" />
               </div>
-              System Administration
+              {t('admin.systemMonitoring')}
             </CardTitle>
             <CardDescription className="text-slate-600">
-              Core system settings, user management, and security configuration
+              {t('admin.coreManagement')}, {t('admin.userManagement')}, and security configuration
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -776,8 +776,8 @@ export function AdminPanel() {
                   }`} />
                 </div>
                 <div className="text-left">
-                  <div className="font-semibold">System Configuration</div>
-                  <div className="text-sm opacity-70">Core settings, security, performance</div>
+                  <div className="font-semibold">{t('admin.configuration')} System</div>
+                  <div className="text-sm opacity-70">{t('admin.coreManagement')}, security, performance</div>
                 </div>
               </button>
               <button 
@@ -800,8 +800,8 @@ export function AdminPanel() {
                   }`} />
                 </div>
                 <div className="text-left">
-                  <div className="font-semibold">User Management</div>
-                  <div className="text-sm opacity-70">User accounts, roles, permissions</div>
+                  <div className="font-semibold">{t('admin.userManagement')}</div>
+                  <div className="text-sm opacity-70">{t('admin.users')} accounts, roles, permissions</div>
                 </div>
               </button>
             </div>
@@ -815,9 +815,9 @@ export function AdminPanel() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="h-5 w-5" />
-                System Performance Monitor
+                {t('system.performance')} {t('admin.monitoring')}
               </CardTitle>
-              <CardDescription>Real-time server performance and resource utilization</CardDescription>
+              <CardDescription>Real-time server {t('common.performance')} and resource utilization</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6 md:grid-cols-3">
@@ -825,7 +825,7 @@ export function AdminPanel() {
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium flex items-center gap-2">
                       <Database className="h-4 w-4" />
-                      Memory Usage
+                      {t('common.memory')} {t('common.usage')}
                     </span>
                     <span className="text-sm font-bold text-blue-600">{systemMetrics.memoryUsage}%</span>
                   </div>
@@ -841,7 +841,7 @@ export function AdminPanel() {
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium flex items-center gap-2">
                       <Activity className="h-4 w-4" />
-                      CPU Usage
+                      {t('common.cpu')} {t('common.usage')}
                     </span>
                     <span className="text-sm font-bold text-green-600">{systemMetrics.cpuUsage}%</span>
                   </div>
@@ -857,7 +857,7 @@ export function AdminPanel() {
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium flex items-center gap-2">
                       <Database className="h-4 w-4" />
-                      Disk Usage
+                      {t('common.disk')} {t('common.usage')}
                     </span>
                     <span className="text-sm font-bold text-orange-600">{systemMetrics.diskUsage}%</span>
                   </div>
@@ -877,7 +877,7 @@ export function AdminPanel() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <FileText className="h-5 w-5" />
-                Recent System Activity
+                {t('common.recent')} System {t('common.activity')}
               </CardTitle>
               <CardDescription>Latest system events and notifications</CardDescription>
             </CardHeader>
@@ -914,9 +914,9 @@ export function AdminPanel() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Settings className="h-5 w-5" />
-                  Basic System Configuration
+                  Basic {t('common.status')} {t('admin.configuration')}
                 </CardTitle>
-                <CardDescription>Core system settings and preferences</CardDescription>
+                <CardDescription>Core system {t('admin.settings')} and preferences</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">

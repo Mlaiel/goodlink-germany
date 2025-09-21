@@ -48,11 +48,16 @@ const translations = {
     'common.export': 'Export',
     'common.import': 'Import',
     'common.configure': 'Configure',
-    'common.demo': 'Demo',
     'common.performance': 'Performance',
     'common.training': 'Training',
     'common.examples': 'Examples',
     'common.configuration': 'Configuration',
+    'common.memory': 'Memory',
+    'common.cpu': 'CPU',
+    'common.disk': 'Disk',
+    'common.usage': 'Usage',
+    'common.recent': 'Recent',
+    'common.activity': 'Activity',
     
     // Agent Demo Panel
     'agent.tryAgent': 'Try the Agent',
@@ -104,6 +109,7 @@ const translations = {
     'admin.monitoring': 'Monitoring',
     'admin.userManagement': 'User Management System',
     'admin.userManagementDesc': 'Manage user accounts, permissions, and access control',
+    'admin.systemManagementDesc': 'Complete system management and configuration',
     
     // Shop
     'shop.title': 'Goodlink Store',
@@ -325,6 +331,9 @@ const translations = {
     'system.online': 'System Online',
     'system.offline': 'System Offline',
     'system.maintenance': 'Maintenance Mode',
+    'system.operational': 'All Systems Operational',
+    'system.uptime': 'System Uptime',
+    'system.performance': 'System Performance',
     
     // Language names
     'lang.english': 'English',
@@ -503,6 +512,7 @@ const translations = {
     'admin.monitoring': 'Überwachung',
     'admin.userManagement': 'Benutzerverwaltungssystem',
     'admin.userManagementDesc': 'Verwalten Sie Benutzerkonten, Berechtigungen und Zugriffskontrolle',
+    'admin.systemManagementDesc': 'Vollständige Systemverwaltung und Konfiguration',
     
     // Shop
     'shop.title': 'Goodlink Store',
@@ -548,11 +558,16 @@ const translations = {
     'agents.support': 'Support',
     
     // Agent Demo Panel (German)
-    'common.demo': 'Demo',
     'common.performance': 'Leistung',
     'common.training': 'Training',
     'common.examples': 'Beispiele',
     'common.configuration': 'Konfiguration',
+    'common.memory': 'Speicher',
+    'common.cpu': 'CPU',
+    'common.disk': 'Festplatte',
+    'common.usage': 'Nutzung',
+    'common.recent': 'Letzte',
+    'common.activity': 'Aktivität',
     'agent.tryAgent': 'Agent testen',
     'agent.enterInput': 'Geben Sie Ihre eigene Eingabe ein, um zu sehen, wie der Agent sie verarbeitet',
     'agent.input': 'Eingabe',
@@ -754,6 +769,9 @@ const translations = {
     'system.online': 'System Online',
     'system.offline': 'System Offline',
     'system.maintenance': 'Wartungsmodus',
+    'system.operational': 'Alle Systeme betriebsbereit',
+    'system.uptime': 'System-Betriebszeit',
+    'system.performance': 'Systemleistung',
     
     // Language names
     'lang.english': 'English',
@@ -914,6 +932,17 @@ const translations = {
     'common.total': '总计',
     'common.view': '查看',
     'common.back': '返回',
+    'common.demo': '演示',
+    'common.performance': '性能',
+    'common.training': '训练',
+    'common.examples': '示例',
+    'common.configuration': '配置',
+    'common.memory': '内存',
+    'common.cpu': 'CPU',
+    'common.disk': '磁盘',
+    'common.usage': '使用率',
+    'common.recent': '最近',
+    'common.activity': '活动',
     
     // Admin Panel
     'admin.title': '管理控制中心',
@@ -932,6 +961,7 @@ const translations = {
     'admin.monitoring': '监控',
     'admin.userManagement': '用户管理系统',
     'admin.userManagementDesc': '管理用户账户、权限和访问控制',
+    'admin.systemManagementDesc': '完整的系统管理和配置',
     
     // Shop
     'shop.title': 'Goodlink 商店',
@@ -1153,6 +1183,9 @@ const translations = {
     'system.online': '系统在线',
     'system.offline': '系统离线',
     'system.maintenance': '维护模式',
+    'system.operational': '所有系统正常运行',
+    'system.uptime': '系统运行时间',
+    'system.performance': '系统性能',
     
     // Language names
     'lang.english': 'English',
@@ -1313,6 +1346,17 @@ const translations = {
     'common.total': 'Total',
     'common.view': 'Voir',
     'common.back': 'Retour',
+    'common.demo': 'Démo',
+    'common.performance': 'Performance',
+    'common.training': 'Formation',
+    'common.examples': 'Exemples',
+    'common.configuration': 'Configuration',
+    'common.memory': 'Mémoire',
+    'common.cpu': 'CPU',
+    'common.disk': 'Disque',
+    'common.usage': 'Utilisation',
+    'common.recent': 'Récent',
+    'common.activity': 'Activité',
     
     // Admin Panel
     'admin.title': 'Centre de contrôle Admin',
@@ -1331,6 +1375,7 @@ const translations = {
     'admin.monitoring': 'Surveillance',
     'admin.userManagement': 'Système de gestion des utilisateurs',
     'admin.userManagementDesc': 'Gérer les comptes utilisateurs, les permissions et le contrôle d\'accès',
+    'admin.systemManagementDesc': 'Gestion complète du système et configuration',
     
     // Shop
     'shop.title': 'Boutique Goodlink',
@@ -1476,6 +1521,9 @@ const translations = {
     'system.online': 'Système en ligne',
     'system.offline': 'Système hors ligne',
     'system.maintenance': 'Mode maintenance',
+    'system.operational': 'Tous les systèmes opérationnels',
+    'system.uptime': 'Temps de fonctionnement système',
+    'system.performance': 'Performance système',
     
     // Language names
     'lang.english': 'English',

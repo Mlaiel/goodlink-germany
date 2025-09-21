@@ -31,14 +31,14 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
         className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border rounded-lg hover:bg-muted transition-colors"
       >
         <UserCircle className="h-4 w-4" />
-        Client Interface
+        {t('nav.client')} Interface
       </button>
       <button 
         onClick={() => onSwitchMode("shop")}
         className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border rounded-lg hover:bg-muted transition-colors"
       >
         <Storefront className="h-4 w-4" />
-        Shop Interface
+        {t('nav.shop')} Interface
       </button>
       <LanguageSelector />
     </div>
@@ -58,7 +58,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
                   Goodlink Germany
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  Administrative Control Center - Complete System Management
+                  {t('admin.systemManagementDesc')}
                 </p>
               </div>
             </div>
@@ -66,7 +66,7 @@ export function AdminInterface({ onSwitchMode }: AdminInterfaceProps) {
               {renderModeSelector()}
               <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 px-3 py-1">
                 <CheckCircle className="h-4 w-4 mr-2" />
-                All Systems Operational
+                {t('system.operational')}
               </Badge>
             </div>
           </div>
