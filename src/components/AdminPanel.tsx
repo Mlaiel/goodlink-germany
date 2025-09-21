@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useKV } from '@github/spark/hooks'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
@@ -256,1797 +256,1796 @@ export function AdminPanel() {
     backupFrequency: 'daily',
     enableDebugMode: false,
     logLevel: 'info',
-    maxFileSize: 10,
-    allowedFileTypes: 'jpg,jpeg,png,gif,pdf,doc,docx',
-    smtpHost: 'smtp.gmail.com',
-    smtpPort: 587,
-    smtpUsername: '',
-    smtpPassword: '',
-    enableSSL: true
+    smtpPassword: ''
   }
+  const defaultAISettings: AIAg
+    chatbotLanguag
+    listingAgentEnabl
+    inventoryAgentEna
+    blogAgentEnable
+   
 
-  const defaultAISettings: AIAgentSettings = {
-    chatbotEnabled: true,
-    chatbotLanguages: ['de', 'en', 'zh', 'fr'],
-    chatbotResponseTime: 2,
-    listingAgentEnabled: true,
-    priceAgentEnabled: true,
-    inventoryAgentEnabled: true,
-    reviewAgentEnabled: true,
-    blogAgentEnabled: true,
-    prospectingAgentEnabled: true,
-    socialMediaAgentEnabled: true,
-    whatsappAgentEnabled: true,
-    telegramAgentEnabled: true,
-    discordAgentEnabled: true,
     aiModelProvider: 'openai',
-    maxTokensPerRequest: 4000,
-    temperatureSetting: 0.7,
-    enableContextMemory: true,
+    temperatureSetting: 0
     maxConversationLength: 20
-  }
 
-  const defaultMarketplaceSettings: MarketplaceSettings = {
     amazonEnabled: true,
-    amazonApiKey: '',
     amazonSecretKey: '',
-    amazonMarketplaceId: 'A1PA6795UKMFR9',
     ebayEnabled: true,
-    ebayApiKey: '',
     ebaySecretKey: '',
-    kauflandEnabled: true,
     kauflandApiKey: '',
-    ottoEnabled: true,
     ottoApiKey: '',
-    cdiscountEnabled: true,
     cdiscountApiKey: '',
-    bolEnabled: true,
     bolApiKey: '',
-    allegroEnabled: true,
     allegroApiKey: '',
-    walmartEnabled: true,
     walmartApiKey: '',
-    autoSyncInventory: true,
     syncFrequency: 15,
-    enablePriceMonitoring: true,
     priceUpdateFrequency: 60,
-    enableOrderSync: true,
     orderSyncFrequency: 30
-  }
 
-  const defaultShopSettings: ShopSettings = {
     shopEnabled: true,
-    shopName: 'Goodlink Germany Shop',
-    shopDescription: 'Premium medical devices and automotive components',
-    shopLogo: '',
-    shopCurrency: 'EUR',
-    taxRate: 19,
+   
+
     shippingEnabled: true,
-    freeShippingThreshold: 100,
     enablePaypal: true,
-    paypalClientId: '',
-    enableStripe: true,
-    stripePublishableKey: '',
+    enableStripe: tru
     stripeSecretKey: '',
-    enableKlarna: true,
     klarnaUsername: '',
-    klarnaPassword: '',
-    enableInventoryTracking: true,
-    lowStockThreshold: 10,
-    enableReviews: true,
-    enableWishlist: true,
-    enableCompareProducts: true,
-    enableCoupons: true,
+    enableInventoryTra
+    enableReviews: 
+    enableCompareProdu
     enableGiftCards: true,
-    enableMultiCurrency: true,
-    enableGeoLocation: true,
-    enableSocialLogin: true,
-    enableGuestCheckout: true
-  }
+    enableGeoLocation: 
+    enableGuestCheckou
 
-  const defaultBlogSettings: BlogSettings = {
     blogEnabled: true,
-    blogTitle: 'Goodlink Germany Blog',
-    blogDescription: 'Latest insights on medical devices and automotive components',
-    postsPerPage: 10,
-    enableComments: true,
-    moderateComments: true,
-    enableSEO: true,
-    autoGeneratePosts: true,
-    postGenerationFrequency: 'weekly',
-    enableSocialSharing: true,
-    enableNewsletterSignup: true,
-    enableRSS: true,
+    blogDescription: 'La
+    enableComments: t
+    enableSEO: tru
+    postGenerationFrequen
+    enableNewsletterSi
     enableSitemap: true,
-    defaultPostStatus: 'published',
-    enablePostScheduling: true,
-    enableFeaturedImages: true,
+    enablePostScheduli
     enableCategories: true,
-    enableTags: true,
-    enableAuthorProfiles: true,
-    enableRelatedPosts: true
+    enableAuthorProfil
   }
-
-  const defaultSocialSettings: SocialMediaSettings = {
-    facebookEnabled: true,
+  const defaultSocialSettings
     facebookPageId: '',
-    facebookAccessToken: '',
-    instagramEnabled: true,
-    instagramAccountId: '',
-    instagramAccessToken: '',
-    twitterEnabled: true,
-    twitterApiKey: '',
-    twitterApiSecret: '',
+    instagramEnabled: true
+   
+
     twitterAccessToken: '',
-    twitterAccessTokenSecret: '',
-    linkedinEnabled: true,
-    linkedinCompanyId: '',
+    linkedinEnabled: t
     linkedinAccessToken: '',
-    autoPostProducts: true,
     autoPostBlogPosts: true,
-    postFrequency: 'daily',
-    enableHashtags: true,
-    defaultHashtags: '#medical #automotive #goodlink #germany',
-    enableAnalytics: true
-  }
+    enableHashtag
+    enableAnalytics: tru
 
-  // State management
-  const [systemSettings, setSystemSettings] = useKV<SystemSettings>('admin-system-settings', defaultSystemSettings)
-  const [aiSettings, setAISettings] = useKV<AIAgentSettings>('admin-ai-settings', defaultAISettings)
-  const [marketplaceSettings, setMarketplaceSettings] = useKV<MarketplaceSettings>('admin-marketplace-settings', defaultMarketplaceSettings)
-  const [shopSettings, setShopSettings] = useKV<ShopSettings>('admin-shop-settings', defaultShopSettings)
-  const [blogSettings, setBlogSettings] = useKV<BlogSettings>('admin-blog-settings', defaultBlogSettings)
-  const [socialSettings, setSocialSettings] = useKV<SocialMediaSettings>('admin-social-settings', defaultSocialSettings)
+  const [systemSettings, s
+  const [marketplaceSettings, s
+  const [blogSettings, 
 
-  // Mock data - in real app this would come from APIs
-  const systemMetrics: SystemMetrics = {
-    uptime: '99.9%',
+  const systemMetrics: 
     totalUsers: 15847,
-    activeUsers: 2341,
     totalOrders: 45678,
-    systemHealth: 'healthy',
     memoryUsage: 68,
-    cpuUsage: 42,
     diskUsage: 73
-  }
 
-  const userStats: UserStats = {
     totalRegistered: 15847,
-    activeToday: 2341,
     newThisWeek: 156,
-    premiumUsers: 892
   }
-
   const recentLogs = [
-    { id: 1, level: 'info', message: 'AI agent training completed successfully', timestamp: '2024-01-15 14:32:21', user: 'ai-service' },
-    { id: 2, level: 'warning', message: 'High memory usage detected on server', timestamp: '2024-01-15 14:28:45', user: 'system' },
-    { id: 3, level: 'error', message: 'Amazon API rate limit exceeded', timestamp: '2024-01-15 14:25:12', user: 'marketplace-sync' },
-    { id: 4, level: 'info', message: 'Daily backup completed successfully', timestamp: '2024-01-15 14:20:00', user: 'backup-service' },
-    { id: 5, level: 'info', message: 'New product listings generated', timestamp: '2024-01-15 14:15:33', user: 'listing-agent' }
+    { id: 2, level: 'warning', m
+    { id: 4, level: 'inf
   ]
-
-  const getHealthColor = (health: SystemMetrics['systemHealth']) => {
-    switch (health) {
-      case 'healthy': return 'text-green-600'
-      case 'warning': return 'text-orange-600' 
-      case 'critical': return 'text-red-600'
-      default: return 'text-gray-600'
+  const getHealthColor = (heal
+      case 'healthy': return
+      case 'critical': retur
     }
-  }
 
-  const getHealthIcon = (health: SystemMetrics['systemHealth']) => {
-    switch (health) {
-      case 'healthy': return <CheckCircle className="h-4 w-4" />
-      case 'warning': return <AlertTriangle className="h-4 w-4" />
-      case 'critical': return <AlertTriangle className="h-4 w-4" />
-      default: return <Activity className="h-4 w-4" />
-    }
-  }
 
+      case 'warning': return <AlertTriangle c
+      default: return 
+  }
   const getLevelIcon = (level: string) => {
-    switch (level) {
-      case 'error': return <AlertTriangle className="h-4 w-4 text-red-500" />
-      case 'warning': return <AlertTriangle className="h-4 w-4 text-orange-500" />
-      case 'info': return <CheckCircle className="h-4 w-4 text-blue-500" />
-      default: return <Activity className="h-4 w-4 text-gray-500" />
+      case 'error': r
+      case 'info': return
     }
-  }
 
-  return (
-    <div className="space-y-8">
-      {/* Modern Header Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 text-white">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-        <div className="relative flex items-center justify-between">
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-                <Shield className="h-8 w-8 text-white" />
-              </div>
+    <div className="space-y-
+      <div className="relative overflo
+        <div className="relati
+            <div className="flex 
+                <Shi
               <div>
-                <h1 className="text-3xl font-bold text-white">
-                  {t('admin.title')}
-                </h1>
-                <p className="text-slate-300 text-lg">
-                  {t('admin.systemManagementDesc')}
+                  {t('admin.title')
+                <p className="t
                 </p>
-              </div>
             </div>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-                {getHealthIcon(systemMetrics.systemHealth)}
-                <span className="font-medium text-white">{t('common.status')} {systemMetrics.systemHealth}</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-                <Activity className="h-4 w-4 text-white" />
-                <span className="font-medium text-white">{t('system.uptime')} {systemMetrics.uptime}</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col items-end gap-4">
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-xl">
-              <CloudCheck className="h-5 w-5 mr-2" />
-              {t('common.save')} All Changes
+              <div cl
+                <span className
+              <div className
+   
+
+          <div className="flex flex-col items-end gap-
+              <CloudCheck 
             </Button>
-            <div className="text-right text-sm text-slate-300">
-              <div>Last updated: {new Date().toLocaleTimeString()}</div>
-              <div>{systemMetrics.totalUsers.toLocaleString()} registered {t('admin.users')}</div>
+              <div>Last upda
             </div>
-          </div>
         </div>
-      </div>
 
-      {/* Quick Stats Overview */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-l-4 border-l-green-500 bg-gradient-to-r from-green-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
+      <div className="gri
+          <CardContent
               <div>
-                <p className="text-sm font-medium text-green-600">{t('system.uptime')}</p>
-                <p className="text-3xl font-bold text-green-700">{systemMetrics.uptime}</p>
-              </div>
-              <Clock className="h-8 w-8 text-green-500" />
-            </div>
+                <p classNam
+              <Clock className="h
           </CardContent>
-        </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
+          <CardContent class
               <div>
-                <p className="text-sm font-medium text-blue-600">{t('common.active')} {t('admin.users')}</p>
-                <p className="text-3xl font-bold text-blue-700">{systemMetrics.activeUsers.toLocaleString()}</p>
-              </div>
-              <Users className="h-8 w-8 text-blue-500" />
-            </div>
+                <p className
+              <Users classN
           </CardContent>
-        </Card>
 
-        <Card className="border-l-4 border-l-purple-500 bg-gradient-to-r from-purple-50 to-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-purple-600">{t('common.total')} Orders</p>
-                <p className="text-3xl font-bold text-purple-700">{systemMetrics.totalOrders.toLocaleString()}</p>
-              </div>
-              <ShoppingCart className="h-8 w-8 text-purple-500" />
-            </div>
+          <CardContent cl
+   
+
+              <Shoppi
           </CardContent>
-        </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-gradient-to-r from-orange-50 to-white">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-orange-600">{t('nav.agents')}</p>
                 <p className="text-3xl font-bold text-orange-700">12</p>
-              </div>
               <Robot className="h-8 w-8 text-orange-500" />
-            </div>
-          </CardContent>
-        </Card>
+
       </div>
+      {/* Modern Navigation Categories *
+        {/* Tab Navi
+          <TabsTrigger
+          <TabsTrigger
+          <TabsTrigger 
+          <TabsTrigger value
+          <TabsTrigg
+          <TabsTr
+        </TabsLis
+   
 
-      {/* Modern Navigation Categories */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-        {/* Tab Navigation */}
-        <TabsList className="hidden">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="monitoring">Monitoring</TabsTrigger>
-          <TabsTrigger value="ai-agents">AI Agents</TabsTrigger>
-          <TabsTrigger value="marketplace-agents">Marketplace Agents</TabsTrigger>
-          <TabsTrigger value="specialized">Specialized</TabsTrigger>
-          <TabsTrigger value="agent-demos">Agent Demos</TabsTrigger>
-          <TabsTrigger value="shop">Shop</TabsTrigger>
-          <TabsTrigger value="marketplaces">Marketplaces</TabsTrigger>
-          <TabsTrigger value="blog">Blog</TabsTrigger>
-          <TabsTrigger value="social">Social</TabsTrigger>
-          <TabsTrigger value="system">System</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
-        </TabsList>
+              <div className="fl
+                  <BarChart
+                <Badge
+              <h3 cla
+              <div cl
+   
 
-        <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-2">
-          {/* Dashboard & Analytics */}
-          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-blue-500 bg-gradient-to-br from-blue-50/50 to-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors">
-                  <BarChart3 className="h-6 w-6 text-blue-600" />
-                </div>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700">Core</Badge>
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-blue-900">{t('admin.overview')} & {t('admin.analytics')}</h3>
-              <p className="text-sm text-blue-600 mb-4">{t('admin.systemMonitoring')} and real-time {t('admin.monitoring')}</p>
-              <div className="space-y-2">
-                <button 
-                  onClick={() => setActiveTab("overview")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "overview" 
-                      ? "bg-blue-600 text-white shadow-md" 
-                      : "hover:bg-blue-100"
-                  }`}
+                      
                 >
-                  <Eye className="h-4 w-4 mr-2" />
                   {t('admin.overview')}
-                </button>
                 <button 
-                  onClick={() => setActiveTab("monitoring")}
                   className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "monitoring" 
                       ? "bg-blue-600 text-white shadow-md" 
-                      : "hover:bg-blue-100"
-                  }`}
-                >
-                  <Activity className="h-4 w-4 mr-2" />
-                  {t('admin.monitoring')}
-                </button>
-              </div>
-            </CardContent>
-          </Card>
+   
 
-          {/* AI & Automation */}
-          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-purple-500 bg-gradient-to-br from-purple-50/50 to-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition-colors">
-                  <Robot className="h-6 w-6 text-purple-600" />
-                </div>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700">AI</Badge>
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-purple-900">{t('admin.aiAutomation')}</h3>
-              <p className="text-sm text-purple-600 mb-4">{t('common.configure')} AI agents, automation settings, and intelligent workflows</p>
-              <div className="space-y-2">
-                <button 
+                </button>
+            </CardCon
+
+          <Card className="admin-nav-card group
+              <div className="flex items-cen
+                  <Robot className="h
+     
+   
+
                   onClick={() => setActiveTab("ai-agents")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "ai-agents" 
-                      ? "bg-purple-600 text-white shadow-md" 
+                    a
                       : "hover:bg-purple-100"
-                  }`}
                 >
-                  <Robot className="h-4 w-4 mr-2" />
                   {t('nav.agents')} {t('common.configuration')}
-                </button>
                 <button 
-                  onClick={() => setActiveTab("marketplace-agents")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "marketplace-agents" 
-                      ? "bg-purple-600 text-white shadow-md" 
-                      : "hover:bg-purple-100"
-                  }`}
-                >
-                  <Storefront className="h-4 w-4 mr-2" />
-                  {t('nav.marketplaces')} {t('nav.agents')}
-                </button>
-                <button 
+     
+   
+
+                  <Storefront className="h-
+                </bu
                   onClick={() => setActiveTab("specialized")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
                     activeTab === "specialized" 
-                      ? "bg-purple-600 text-white shadow-md" 
                       : "hover:bg-purple-100"
-                  }`}
                 >
-                  <Shield className="h-4 w-4 mr-2" />
-                  {t('agents.specializedAgents')}
-                </button>
-                <button 
-                  onClick={() => setActiveTab("agent-demos")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "agent-demos" 
-                      ? "bg-purple-600 text-white shadow-md" 
-                      : "hover:bg-purple-100"
-                  }`}
-                >
-                  <Eye className="h-4 w-4 mr-2" />
-                  {t('common.demo')} & {t('common.training')}
-                </button>
-              </div>
-            </CardContent>
-          </Card>
+     
+   
 
-          {/* Commerce & Sales */}
-          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-green-500 bg-gradient-to-br from-green-50/50 to-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors">
+          
+                  }`}
+                  <Eye className="h
+                </button>
+            </CardContent>
+
+          <Card className="admin-nav-
+              <div className="flex items-center justi
                   <ShoppingCart className="h-6 w-6 text-green-600" />
-                </div>
-                <Badge variant="secondary" className="bg-green-100 text-green-700">Commerce</Badge>
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-green-900">{t('admin.configuration')} & Sales</h3>
-              <p className="text-sm text-green-600 mb-4">{t('admin.shopConfig')}, marketplace integration, and sales management</p>
-              <div className="space-y-2">
-                <button 
+                <Badge variant="secondary" className="bg-
+              <h3 cl
+              <div 
                   onClick={() => setActiveTab("shop")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "shop" 
-                      ? "bg-green-600 text-white shadow-md" 
-                      : "hover:bg-green-100"
-                  }`}
+                    activeTab === "s
+                     
                 >
-                  <ShoppingCart className="h-4 w-4 mr-2" />
-                  {t('nav.shop')} {t('admin.settings')}
-                </button>
-                <button 
-                  onClick={() => setActiveTab("marketplaces")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "marketplaces" 
-                      ? "bg-green-600 text-white shadow-md" 
-                      : "hover:bg-green-100"
+                  {t('nav.shop')} {t('admin.setting
+                <but
+                  cl
+                  
                   }`}
-                >
                   <Package className="h-4 w-4 mr-2" />
-                  {t('nav.marketplaces')} Platforms
                 </button>
-              </div>
             </CardContent>
-          </Card>
 
-          {/* Content & Marketing */}
-          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-orange-500 bg-gradient-to-br from-orange-50/50 to-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-orange-100 rounded-xl group-hover:bg-orange-200 transition-colors">
+          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-o
+              <div className="flex items-center justify-bet
                   <Article className="h-6 w-6 text-orange-600" />
-                </div>
-                <Badge variant="secondary" className="bg-orange-100 text-orange-700">Content</Badge>
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-orange-900">Content & Marketing</h3>
-              <p className="text-sm text-orange-600 mb-4">{t('admin.blogConfig')}, social media automation, and content strategy</p>
-              <div className="space-y-2">
-                <button 
+                <Bad
+              <h3 
+              <d
                   onClick={() => setActiveTab("blog")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
                     activeTab === "blog" 
-                      ? "bg-orange-600 text-white shadow-md" 
                       : "hover:bg-orange-100"
-                  }`}
                 >
-                  <Article className="h-4 w-4 mr-2" />
-                  {t('nav.blog')} {t('common.configuration')}
-                </button>
+                  {t(
                 <button 
-                  onClick={() => setActiveTab("social")}
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                    activeTab === "social" 
+                  className={`modern-tab-trigger w-full justify-start p-
                       ? "bg-orange-600 text-white shadow-md" 
-                      : "hover:bg-orange-100"
-                  }`}
-                >
-                  <FacebookLogo className="h-4 w-4 mr-2" />
-                  {t('agents.social')} Media
-                </button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* System Administration Section */}
-        <Card className="bg-gradient-to-r from-slate-50/50 to-slate-100/50 border-2 border-slate-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-2 bg-slate-200 rounded-lg">
-                <Settings className="h-6 w-6 text-slate-600" />
-              </div>
-              {t('admin.systemMonitoring')}
-            </CardTitle>
-            <CardDescription className="text-slate-600">
-              {t('admin.coreManagement')}, {t('admin.userManagement')}, and security configuration
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 md:grid-cols-2">
-              <button 
-                onClick={() => setActiveTab("system")}
-                className={`modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
-                  activeTab === "system" 
-                    ? "border-slate-500 bg-slate-600 text-white" 
-                    : "border-transparent hover:bg-slate-100"
-                }`}
-              >
-                <div className={`p-2 rounded-lg ${
-                  activeTab === "system" 
-                    ? "bg-slate-500" 
-                    : "bg-slate-200"
-                }`}>
-                  <Settings className={`h-5 w-5 ${
-                    activeTab === "system" 
-                      ? "text-white" 
-                      : "text-slate-600"
-                  }`} />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold">{t('admin.configuration')} System</div>
-                  <div className="text-sm opacity-70">{t('admin.coreManagement')}, security, performance</div>
-                </div>
-              </button>
-              <button 
-                onClick={() => setActiveTab("users")}
-                className={`modern-tab-trigger flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
-                  activeTab === "users" 
-                    ? "border-slate-500 bg-slate-600 text-white" 
-                    : "border-transparent hover:bg-slate-100"
-                }`}
-              >
-                <div className={`p-2 rounded-lg ${
-                  activeTab === "users" 
-                    ? "bg-slate-500" 
-                    : "bg-slate-200"
-                }`}>
-                  <Users className={`h-5 w-5 ${
-                    activeTab === "users" 
-                      ? "text-white" 
-                      : "text-slate-600"
-                  }`} />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold">{t('admin.userManagement')}</div>
-                  <div className="text-sm opacity-70">{t('admin.users')} accounts, roles, permissions</div>
-                </div>
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-6">
-          {/* Resource Usage */}
-          <Card className="bg-gradient-to-r from-muted/50 to-background">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5" />
-                {t('system.performance')} {t('admin.monitoring')}
-              </CardTitle>
-              <CardDescription>Real-time server {t('common.performance')} and resource utilization</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6 md:grid-cols-3">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium flex items-center gap-2">
-                      <Database className="h-4 w-4" />
-                      {t('common.memory')} {t('common.usage')}
-                    </span>
-                    <span className="text-sm font-bold text-blue-600">{systemMetrics.memoryUsage}%</span>
-                  </div>
-                  <div className="w-full bg-secondary rounded-full h-3">
-                    <div 
-                      className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500 shadow-sm" 
-                      style={{ width: `${systemMetrics.memoryUsage}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium flex items-center gap-2">
-                      <Activity className="h-4 w-4" />
-                      {t('common.cpu')} {t('common.usage')}
-                    </span>
-                    <span className="text-sm font-bold text-green-600">{systemMetrics.cpuUsage}%</span>
-                  </div>
-                  <div className="w-full bg-secondary rounded-full h-3">
-                    <div 
-                      className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500 shadow-sm" 
-                      style={{ width: `${systemMetrics.cpuUsage}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium flex items-center gap-2">
-                      <Database className="h-4 w-4" />
-                      {t('common.disk')} {t('common.usage')}
-                    </span>
-                    <span className="text-sm font-bold text-orange-600">{systemMetrics.diskUsage}%</span>
-                  </div>
-                  <div className="w-full bg-secondary rounded-full h-3">
-                    <div 
-                      className="bg-gradient-to-r from-orange-500 to-orange-600 h-3 rounded-full transition-all duration-500 shadow-sm" 
-                      style={{ width: `${systemMetrics.diskUsage}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Recent Activity Logs */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                {t('common.recent')} System {t('common.activity')}
-              </CardTitle>
-              <CardDescription>Latest system events and notifications</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentLogs.map((log) => (
-                  <div key={log.id} className="flex items-start gap-4 p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
-                    {getLevelIcon(log.level)}
-                    <div className="flex-1 space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium text-sm">{log.message}</span>
-                        <Badge variant={log.level === 'error' ? 'destructive' : log.level === 'warning' ? 'secondary' : 'default'} className="text-xs">
-                          {log.level.toUpperCase()}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                        <span>{log.timestamp}</span>
-                        <span>•</span>
-                        <span>{log.user}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* System Settings Tab */}
-        <TabsContent value="system" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Basic Settings */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="h-5 w-5" />
-                  Basic {t('common.status')} {t('admin.configuration')}
-                </CardTitle>
-                <CardDescription>Core system {t('admin.settings')} and preferences</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="siteName">Site Name</Label>
-                    <Input 
-                      id="siteName"
-                      value={systemSettings?.siteName || ''}
-                      onChange={(e) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, siteName: e.target.value }))
-                      }
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="siteUrl">Site URL</Label>
-                    <Input 
-                      id="siteUrl"
-                      value={systemSettings?.siteUrl || ''}
-                      onChange={(e) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, siteUrl: e.target.value }))
-                      }
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="adminEmail">Administrator Email</Label>
-                    <Input 
-                      id="adminEmail"
-                      type="email"
-                      value={systemSettings?.adminEmail || ''}
-                      onChange={(e) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, adminEmail: e.target.value }))
-                      }
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="timezone">Timezone</Label>
-                    <Select 
-                      value={systemSettings?.timezone || 'Europe/Berlin'}
-                      onValueChange={(value) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, timezone: value }))
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Europe/Berlin">Europe/Berlin</SelectItem>
-                        <SelectItem value="Europe/London">Europe/London</SelectItem>
-                        <SelectItem value="Europe/Paris">Europe/Paris</SelectItem>
-                        <SelectItem value="America/New_York">America/New_York</SelectItem>
-                        <SelectItem value="Asia/Shanghai">Asia/Shanghai</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="defaultLanguage">Default Language</Label>
-                    <Select 
-                      value={systemSettings?.defaultLanguage || 'de'}
-                      onValueChange={(value) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, defaultLanguage: value }))
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="de">German</SelectItem>
-                        <SelectItem value="en">English</SelectItem>
-                        <SelectItem value="fr">French</SelectItem>
-                        <SelectItem value="zh">Chinese</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Security & Performance */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Security className="h-5 w-5" />
-                  Security & Performance
-                </CardTitle>
-                <CardDescription>System security and performance configurations</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Maintenance Mode</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Enable maintenance mode to restrict access
-                      </p>
-                    </div>
-                    <Switch 
-                      checked={systemSettings?.maintenanceMode || false}
-                      onCheckedChange={(checked) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, maintenanceMode: checked }))
-                      }
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Allow Registrations</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Allow new users to create accounts
-                      </p>
-                    </div>
-                    <Switch 
-                      checked={systemSettings?.allowRegistrations || true}
-                      onCheckedChange={(checked) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, allowRegistrations: checked }))
-                      }
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Enable Cache</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Enable system caching for better performance
-                      </p>
-                    </div>
-                    <Switch 
-                      checked={systemSettings?.enableCache || true}
-                      onCheckedChange={(checked) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, enableCache: checked }))
-                      }
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Debug Mode</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Enable debug mode for development
-                      </p>
-                    </div>
-                    <Switch 
-                      checked={systemSettings?.enableDebugMode || false}
-                      onCheckedChange={(checked) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, enableDebugMode: checked }))
-                      }
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="maxUsers">Max Concurrent Users</Label>
-                    <Input 
-                      id="maxUsers"
-                      type="number" 
-                      value={systemSettings?.maxConcurrentUsers || 1000}
-                      onChange={(e) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ 
-                          ...prev, 
-                          maxConcurrentUsers: parseInt(e.target.value) || 1000 
-                        }))
-                      }
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
-                    <Input 
-                      id="sessionTimeout"
-                      type="number" 
-                      value={systemSettings?.sessionTimeout || 30}
-                      onChange={(e) => 
-                        setSystemSettings((prev = defaultSystemSettings) => ({ 
-                          ...prev, 
-                          sessionTimeout: parseInt(e.target.value) || 30 
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        {/* AI Agents Tab */}
-        <TabsContent value="ai-agents" className="space-y-6">
-          <AgentAutomationConfig />
-        </TabsContent>
-        
-        {/* Agent Monitoring Tab */}
-        <TabsContent value="monitoring" className="space-y-6">
-          <AgentPerformanceDashboard />
-        </TabsContent>
-        
-        <TabsContent value="marketplace-agents" className="space-y-6">
-          <MarketplaceAgentsPanel />
-        </TabsContent>
-
-        {/* Specialized Agents Tab */}
-        <TabsContent value="specialized" className="space-y-6">
-          <SpecializedAgentsPanel />
-        </TabsContent>
-
-        {/* Agent Demos Tab */}
-        <TabsContent value="agent-demos" className="space-y-6">
-          <DemoInterface />
-        </TabsContent>
-
-        {/* Marketplace Settings Tab */}
-        <TabsContent value="marketplaces" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Amazon Configuration */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Package className="h-5 w-5" />
-                  Amazon Marketplace
-                </CardTitle>
-                <CardDescription>Configure Amazon SP-API integration</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Enable Amazon Integration</Label>
-                  <Switch 
-                    checked={marketplaceSettings?.amazonEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, amazonEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="amazonApiKey">Amazon API Key</Label>
-                  <Input 
-                    id="amazonApiKey"
-                    type="password"
-                    placeholder="Enter Amazon SP-API Key"
-                    value={marketplaceSettings?.amazonApiKey || ''}
-                    onChange={(e) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, amazonApiKey: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="amazonSecretKey">Amazon Secret Key</Label>
-                  <Input 
-                    id="amazonSecretKey"
-                    type="password"
-                    placeholder="Enter Amazon Secret Key"
-                    value={marketplaceSettings?.amazonSecretKey || ''}
-                    onChange={(e) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, amazonSecretKey: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="amazonMarketplaceId">Marketplace ID</Label>
-                  <Select 
-                    value={marketplaceSettings?.amazonMarketplaceId || 'A1PA6795UKMFR9'}
-                    onValueChange={(value) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, amazonMarketplaceId: value }))
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="A1PA6795UKMFR9">Amazon.de (Germany)</SelectItem>
-                      <SelectItem value="ATVPDKIKX0DER">Amazon.com (US)</SelectItem>
-                      <SelectItem value="A1F83G8C2ARO7P">Amazon.co.uk (UK)</SelectItem>
-                      <SelectItem value="A13V1IB3VIYZZH">Amazon.fr (France)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Other Marketplaces */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Storefront className="h-5 w-5" />
-                  Other Marketplaces
-                </CardTitle>
-                <CardDescription>Configure additional marketplace integrations</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>eBay</Label>
-                    <p className="text-sm text-muted-foreground">European eBay marketplace</p>
-                  </div>
-                  <Switch 
-                    checked={marketplaceSettings?.ebayEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, ebayEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Kaufland.de</Label>
-                    <p className="text-sm text-muted-foreground">German marketplace</p>
-                  </div>
-                  <Switch 
-                    checked={marketplaceSettings?.kauflandEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, kauflandEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>OTTO.de</Label>
-                    <p className="text-sm text-muted-foreground">German online marketplace</p>
-                  </div>
-                  <Switch 
-                    checked={marketplaceSettings?.ottoEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, ottoEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Cdiscount</Label>
-                    <p className="text-sm text-muted-foreground">French marketplace</p>
-                  </div>
-                  <Switch 
-                    checked={marketplaceSettings?.cdiscountEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, cdiscountEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>bol.com</Label>
-                    <p className="text-sm text-muted-foreground">Netherlands marketplace</p>
-                  </div>
-                  <Switch 
-                    checked={marketplaceSettings?.bolEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, bolEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Allegro</Label>
-                    <p className="text-sm text-muted-foreground">Polish marketplace</p>
-                  </div>
-                  <Switch 
-                    checked={marketplaceSettings?.allegroEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, allegroEnabled: checked }))
-                    }
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sync Settings */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sync className="h-5 w-5" />
-                Synchronization Settings
-              </CardTitle>
-              <CardDescription>Configure automatic synchronization across marketplaces</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6 md:grid-cols-3">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Label>Auto Sync Inventory</Label>
-                    <Switch 
-                      checked={marketplaceSettings?.autoSyncInventory || true}
-                      onCheckedChange={(checked) => 
-                        setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, autoSyncInventory: checked }))
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Sync Frequency (minutes)</Label>
-                    <Input 
-                      type="number" 
-                      value={marketplaceSettings?.syncFrequency || 15}
-                      onChange={(e) => 
-                        setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ 
-                          ...prev, 
-                          syncFrequency: parseInt(e.target.value) || 15 
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Label>Price Monitoring</Label>
-                    <Switch 
-                      checked={marketplaceSettings?.enablePriceMonitoring || true}
-                      onCheckedChange={(checked) => 
-                        setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, enablePriceMonitoring: checked }))
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Price Update Frequency (minutes)</Label>
-                    <Input 
-                      type="number" 
-                      value={marketplaceSettings?.priceUpdateFrequency || 60}
-                      onChange={(e) => 
-                        setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ 
-                          ...prev, 
-                          priceUpdateFrequency: parseInt(e.target.value) || 60 
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Label>Order Sync</Label>
-                    <Switch 
-                      checked={marketplaceSettings?.enableOrderSync || true}
-                      onCheckedChange={(checked) => 
-                        setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ ...prev, enableOrderSync: checked }))
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Order Sync Frequency (minutes)</Label>
-                    <Input 
-                      type="number" 
-                      value={marketplaceSettings?.orderSyncFrequency || 30}
-                      onChange={(e) => 
-                        setMarketplaceSettings((prev = defaultMarketplaceSettings) => ({ 
-                          ...prev, 
-                          orderSyncFrequency: parseInt(e.target.value) || 30 
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        {/* Shop Settings Tab */}
-        <TabsContent value="shop" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Basic Shop Settings */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <ShoppingCart className="h-5 w-5" />
-                  Shop Configuration
-                </CardTitle>
-                <CardDescription>Configure your online shop settings</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Enable Shop</Label>
-                  <Switch 
-                    checked={shopSettings?.shopEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, shopEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="shopName">Shop Name</Label>
-                  <Input 
-                    id="shopName"
-                    value={shopSettings?.shopName || ''}
-                    onChange={(e) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, shopName: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="shopDescription">Shop Description</Label>
-                  <Textarea 
-                    id="shopDescription"
-                    value={shopSettings?.shopDescription || ''}
-                    onChange={(e) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, shopDescription: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="shopCurrency">Default Currency</Label>
-                  <Select 
-                    value={shopSettings?.shopCurrency || 'EUR'}
-                    onValueChange={(value) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, shopCurrency: value }))
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="EUR">Euro (EUR)</SelectItem>
-                      <SelectItem value="USD">US Dollar (USD)</SelectItem>
-                      <SelectItem value="GBP">British Pound (GBP)</SelectItem>
-                      <SelectItem value="CHF">Swiss Franc (CHF)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="taxRate">Tax Rate (%)</Label>
-                  <Input 
-                    id="taxRate"
-                    type="number"
-                    step="0.01"
-                    value={shopSettings?.taxRate || 19}
-                    onChange={(e) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ 
-                        ...prev, 
-                        taxRate: parseFloat(e.target.value) || 19 
-                      }))
-                    }
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Payment Methods */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CurrencyDollar className="h-5 w-5" />
-                  Payment Methods
-                </CardTitle>
-                <CardDescription>Configure accepted payment methods</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>PayPal</Label>
-                    <p className="text-sm text-muted-foreground">Accept PayPal payments</p>
-                  </div>
-                  <Switch 
-                    checked={shopSettings?.enablePaypal || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enablePaypal: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Stripe</Label>
-                    <p className="text-sm text-muted-foreground">Accept credit card payments</p>
-                  </div>
-                  <Switch 
-                    checked={shopSettings?.enableStripe || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableStripe: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Klarna</Label>
-                    <p className="text-sm text-muted-foreground">Buy now, pay later</p>
-                  </div>
-                  <Switch 
-                    checked={shopSettings?.enableKlarna || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableKlarna: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="freeShippingThreshold">Free Shipping Threshold (€)</Label>
-                  <Input 
-                    id="freeShippingThreshold"
-                    type="number"
-                    value={shopSettings?.freeShippingThreshold || 100}
-                    onChange={(e) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ 
-                        ...prev, 
-                        freeShippingThreshold: parseFloat(e.target.value) || 100 
-                      }))
-                    }
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Shop Features */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Eye className="h-5 w-5" />
-                Shop Features
-              </CardTitle>
-              <CardDescription>Enable or disable shop features</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-3">
-                <div className="flex items-center justify-between">
-                  <Label>Product Reviews</Label>
-                  <Switch 
-                    checked={shopSettings?.enableReviews || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableReviews: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Wishlist</Label>
-                  <Switch 
-                    checked={shopSettings?.enableWishlist || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableWishlist: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Compare Products</Label>
-                  <Switch 
-                    checked={shopSettings?.enableCompareProducts || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableCompareProducts: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Coupons</Label>
-                  <Switch 
-                    checked={shopSettings?.enableCoupons || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableCoupons: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Gift Cards</Label>
-                  <Switch 
-                    checked={shopSettings?.enableGiftCards || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableGiftCards: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Guest Checkout</Label>
-                  <Switch 
-                    checked={shopSettings?.enableGuestCheckout || true}
-                    onCheckedChange={(checked) => 
-                      setShopSettings((prev = defaultShopSettings) => ({ ...prev, enableGuestCheckout: checked }))
-                    }
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Blog Settings Tab */}
-        <TabsContent value="blog" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Article className="h-5 w-5" />
-                  Blog Configuration
-                </CardTitle>
-                <CardDescription>Configure your blog settings and features</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Enable Blog</Label>
-                  <Switch 
-                    checked={blogSettings?.blogEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, blogEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="blogTitle">Blog Title</Label>
-                  <Input 
-                    id="blogTitle"
-                    value={blogSettings?.blogTitle || ''}
-                    onChange={(e) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, blogTitle: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="blogDescription">Blog Description</Label>
-                  <Textarea 
-                    id="blogDescription"
-                    value={blogSettings?.blogDescription || ''}
-                    onChange={(e) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, blogDescription: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="postsPerPage">Posts Per Page</Label>
-                  <Input 
-                    id="postsPerPage"
-                    type="number"
-                    value={blogSettings?.postsPerPage || 10}
-                    onChange={(e) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ 
-                        ...prev, 
-                        postsPerPage: parseInt(e.target.value) || 10 
-                      }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Auto-Generate Posts</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Use AI to generate blog posts automatically
-                    </p>
-                  </div>
-                  <Switch 
-                    checked={blogSettings?.autoGeneratePosts || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, autoGeneratePosts: checked }))
-                    }
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <PaintBrush className="h-5 w-5" />
-                  Blog Features
-                </CardTitle>
-                <CardDescription>Enable or disable blog features</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Comments</Label>
-                  <Switch 
-                    checked={blogSettings?.enableComments || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, enableComments: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Social Sharing</Label>
-                  <Switch 
-                    checked={blogSettings?.enableSocialSharing || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, enableSocialSharing: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Newsletter Signup</Label>
-                  <Switch 
-                    checked={blogSettings?.enableNewsletterSignup || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, enableNewsletterSignup: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>RSS Feed</Label>
-                  <Switch 
-                    checked={blogSettings?.enableRSS || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, enableRSS: checked }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>SEO Optimization</Label>
-                  <Switch 
-                    checked={blogSettings?.enableSEO || true}
-                    onCheckedChange={(checked) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, enableSEO: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="postGenerationFrequency">Post Generation Frequency</Label>
-                  <Select 
-                    value={blogSettings?.postGenerationFrequency || 'weekly'}
-                    onValueChange={(value) => 
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, postGenerationFrequency: value }))
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="weekly">Weekly</SelectItem>
-                      <SelectItem value="monthly">Monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        {/* Social Media Tab */}
-        <TabsContent value="social" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Facebook & Instagram */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FacebookLogo className="h-5 w-5" />
-                  Facebook & Instagram
-                </CardTitle>
-                <CardDescription>Configure Facebook and Instagram integration</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Enable Facebook</Label>
-                  <Switch 
-                    checked={socialSettings?.facebookEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, facebookEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="facebookPageId">Facebook Page ID</Label>
-                  <Input 
-                    id="facebookPageId"
-                    value={socialSettings?.facebookPageId || ''}
-                    onChange={(e) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, facebookPageId: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Enable Instagram</Label>
-                  <Switch 
-                    checked={socialSettings?.instagramEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, instagramEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="instagramAccountId">Instagram Account ID</Label>
-                  <Input 
-                    id="instagramAccountId"
-                    value={socialSettings?.instagramAccountId || ''}
-                    onChange={(e) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, instagramAccountId: e.target.value }))
-                    }
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Twitter & LinkedIn */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TwitterLogo className="h-5 w-5" />
-                  Twitter & LinkedIn
-                </CardTitle>
-                <CardDescription>Configure Twitter and LinkedIn integration</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Enable Twitter</Label>
-                  <Switch 
-                    checked={socialSettings?.twitterEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, twitterEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="twitterApiKey">Twitter API Key</Label>
-                  <Input 
-                    id="twitterApiKey"
-                    type="password"
-                    value={socialSettings?.twitterApiKey || ''}
-                    onChange={(e) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, twitterApiKey: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label>Enable LinkedIn</Label>
-                  <Switch 
-                    checked={socialSettings?.linkedinEnabled || true}
-                    onCheckedChange={(checked) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, linkedinEnabled: checked }))
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="linkedinCompanyId">LinkedIn Company ID</Label>
-                  <Input 
-                    id="linkedinCompanyId"
-                    value={socialSettings?.linkedinCompanyId || ''}
-                    onChange={(e) => 
-                      setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, linkedinCompanyId: e.target.value }))
-                    }
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Automation Settings */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Robot className="h-5 w-5" />
-                Social Media Automation
-              </CardTitle>
-              <CardDescription>Configure automated social media posting</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6 md:grid-cols-3">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Label>Auto-Post Products</Label>
-                    <Switch 
-                      checked={socialSettings?.autoPostProducts || true}
-                      onCheckedChange={(checked) => 
-                        setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, autoPostProducts: checked }))
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label>Auto-Post Blog Posts</Label>
-                    <Switch 
-                      checked={socialSettings?.autoPostBlogPosts || true}
-                      onCheckedChange={(checked) => 
-                        setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, autoPostBlogPosts: checked }))
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Post Frequency</Label>
-                    <Select 
-                      value={socialSettings?.postFrequency || 'daily'}
-                      onValueChange={(value) => 
-                        setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, postFrequency: value }))
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="hourly">Hourly</SelectItem>
-                        <SelectItem value="daily">Daily</SelectItem>
-                        <SelectItem value="weekly">Weekly</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label>Enable Hashtags</Label>
-                    <Switch 
-                      checked={socialSettings?.enableHashtags || true}
-                      onCheckedChange={(checked) => 
-                        setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, enableHashtags: checked }))
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="defaultHashtags">Default Hashtags</Label>
-                    <Textarea 
-                      id="defaultHashtags"
-                      placeholder="#medical #automotive #goodlink #germany"
-                      value={socialSettings?.defaultHashtags || ''}
-                      onChange={(e) => 
-                        setSocialSettings((prev = defaultSocialSettings) => ({ ...prev, defaultHashtags: e.target.value }))
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Users Tab */}
-        <TabsContent value="users" className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-4">
-            <Card className="border-l-4 border-l-blue-500">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-blue-600">Total Registered</p>
-                    <p className="text-2xl font-bold text-blue-700">{userStats.totalRegistered.toLocaleString()}</p>
-                  </div>
-                  <Users className="h-8 w-8 text-blue-500" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-green-500">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-green-600">Active Today</p>
-                    <p className="text-2xl font-bold text-green-700">{userStats.activeToday.toLocaleString()}</p>
-                  </div>
-                  <Activity className="h-8 w-8 text-green-500" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-purple-500">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-purple-600">New This Week</p>
-                    <p className="text-2xl font-bold text-purple-700">{userStats.newThisWeek}</p>
-                  </div>
-                  <UserCheck className="h-8 w-8 text-purple-500" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-amber-500">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-amber-600">Premium Users</p>
-                    <p className="text-2xl font-bold text-amber-700">{userStats.premiumUsers}</p>
-                  </div>
-                  <Shield className="h-8 w-8 text-amber-500" />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                User Management
-              </CardTitle>
-              <CardDescription>Search, filter, and manage user accounts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <Input placeholder="Search users by name or email..." className="flex-1" />
-                  <Button>
-                    <Eye className="h-4 w-4 mr-2" />
-                    Search
-                  </Button>
-                  <Button variant="outline">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Export Users
-                  </Button>
-                  <Button variant="outline">
-                    <ListPlus className="h-4 w-4 mr-2" />
-                    Add User
-                  </Button>
-                </div>
+                  
                 
-                <div className="border rounded-xl overflow-hidden">
-                  <div className="p-4 border-b bg-muted/30">
-                    <div className="grid grid-cols-6 gap-4 font-semibold text-sm">
-                      <span>User</span>
-                      <span>Email</span>
-                      <span>Role</span>
-                      <span>Status</span>
-                      <span>Registration</span>
-                      <span>Actions</span>
-                    </div>
+              
+            
+
+        {/* System Administration 
+          <CardHeader>
+              <div className="p-2 bg-slate-200 rounded-lg">
+              </div>
+            </CardTitle>
+              {t('a
+          </CardHeader>
+            <div className="grid gap-4 md:grid-cols-2">
+                onCl
+                  activeTab === "system" 
+                  
+              >
+               
+
+                  <Settings className={`h-5 w-5 ${
+                      ? "text-white" 
+                  }`} />
+                <di
+                  <div className="text-sm opacity-70">{t('admin.coreManagement')}
+              </button>
+                onCl
+                  activeTab === "users" 
+                  
+              >
+               
+
+                  <Users className={`h-5 w-5 ${
+                      ? "text-white" 
+                  }`} />
+                <di
+                  <div className="text-sm opacity-70">{t('admin.users')} accounts, 
+              </button>
+          </CardCont
+
+        <TabsConte
+          <Card classNam
+              <
+
+              <CardDescription>Real-time server {t('common.performance')} and resource utilization
+            <CardContent>
+                <div className="space-y-3">
+                   
+                      {t('common.memory')} {t('common.usage')}
+                    <span className="text-sm font-bold text-blue-600">{s
+                  <d
+                      className="bg-gradient-to-r from-blue
+                  
+                </div>
+               
+            
+
+                    <span className="text-
+                  <div className="w-full bg-secondary rounded-full h-3">
+                      classNam
+                    />
+                </div>
+                <div className="space-y-3">
+                    <span className="text-sm font-medium flex it
+                      {t('common.disk')} {t('common.usage')}
+                    <span className="text-sm font-bold text-orange-6
+                  <div className="w-full bg-secondary rounded-full h
+                      className="bg-gradient-to-r from
+                    />
+                </div>
+            </CardContent>
+
+          <Card>
+              <Card
+
+              <CardDescription>Latest system events and notificati
+            <CardContent>
+                {recentLogs.map((log) => (
+                    {getLevelIcon(log.lev
+                      <div className="flex items-center justify-betwee
+                        <Badge variant={log.level === 'error' ? 'destructive' : log.level === 'warning
+                        </Badge>
+                      
+                        <span>•</span>
+                    
                   </div>
-                  <div className="divide-y">
-                    {[1,2,3,4,5].map((i) => (
-                      <div key={i} className="p-4 hover:bg-muted/20 transition-colors">
-                        <div className="grid grid-cols-6 gap-4 items-center text-sm">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                              <span className="text-primary font-medium">U{i}</span>
-                            </div>
-                            <span className="font-medium">User {i}</span>
-                          </div>
-                          <span className="text-muted-foreground">user{i}@goodlink-germany.com</span>
-                          <Badge variant={i === 1 ? "default" : "secondary"}>
-                            {i === 1 ? "Admin" : "Customer"}
-                          </Badge>
-                          <Badge variant={i % 2 === 0 ? "default" : "secondary"} className={i % 2 === 0 ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"}>
-                            {i % 2 === 0 ? "Active" : "Inactive"}
-                          </Badge>
-                          <span className="text-muted-foreground">2024-01-{String(i).padStart(2, '0')}</span>
-                          <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
-                              <Eye className="h-3 w-3 mr-1" />
-                              View
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Settings className="h-3 w-3 mr-1" />
-                              Edit
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+              </div>
+          </Card>
+
+        <TabsContent value="system" className="space-y-6">
+            {/* Basic Settings */}
+              <CardHeader>
+                  <Settings className="h-5 w-5" />
+                </CardTitle>
+              </CardH
+                <
+                    <Label htmlFor="siteName">Site
+                      id="siteNam
+                      onC
+                      }
+                  </div>
+                  <div className="space-y-2">
+                    <Input 
+                      value={systemSettings?.siteUrl || ''}
+                        setSystemSettings((
+                    /
+
+                    <Label htmlFor="adminEmail">Adminis
+                      id="adminEmail"
+                      val
+                    
+                    />
+
+
+                      value={syst
+                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, timezone: value }))
+                    >
+                        <SelectValue />
+                      <SelectContent>
+                        <SelectItem value="Europe/London">Europ
+                      
+                      </SelectContent>
+                  </
+                  <div className="space-y-2">
+                    <Select 
+                      onValueChange={(val
+                      }
+                      <SelectTrigger>
+                      </SelectTrigger>
+                        <SelectItem value="de"
+                        <SelectItem value="fr">French</Select
+                      </SelectContent>
+                  </d
+              </C
+
+            <Card>
+                <CardTitl
+                  Securi
+                <CardDescription>System security and performance con
+              <CardContent className="space-y-6">
+                  <div className="flex items-center jus
+                      <Label>Maintenance Mode</Label>
+                        Enable maintenance mo
+                    <
+                 
+                        setSystemSettings((prev = default
+                    />
+
+                    <div
+                      <p className="text-sm text-muted-foregr
+                      </p>
+                    <Switch 
+                      onCheckedChange={(checked) => 
+                      }
+                  </d
+                 
+                      <Label>Enable Cache</Label>
+                        Enable syste
+                    </div
+                      ch
+                        setSystemSettings((prev = defaultSyst
+                    />
+
+                    <div className="space-y-0.5">
+                      <p className="text-sm t
+                     
+                 
+                      onCheckedChange={(checked) =
+                      }
+                  </div>
+                  <d
+                    <Input
+                 
+
+                          ...prev,
+                        }))
+                    />
+
+                    <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
+                      id="sessionTimeout"
+                      
+                        setSystemSettings((prev = defaultSystemSettings) => ({ 
+                    
+                      }
+                  </div>
+              </CardContent>
+          </div>
+
+        <TabsContent value="ai-agents" className="space-y-6">
+        </TabsContent>
+        {/* Agent Monitoring Tab */}
+          <AgentPerformanceDashboard />
+        
+          <Market
+
+        <TabsContent value="spe
+        </TabsContent>
+        {/* Agent Demos 
+          <DemoInterface />
+
+        <TabsContent value="marketplaces" classNa
+            {/* Amazon Configuration */}
+              <CardHeader>
+                  <Pa
+                <
+              </CardHeader>
+                <div className="flex it
+                  <Switch
+                    
+                    }
+                <
+
+                    id="amazonApiKey"
+                    placeholder="Enter Amazon SP-API Key"
+                    onChange={(e) => 
+                    }
+                </div>
+                  <Label htmlFor="amazonSecretKey">Amazon Secret 
+                    id
+                    placeholder="Enter Amazon Secret Key"
+                    
+                    }
+                </div>
+                  <Label htmlFor="amazonM
+                    valu
+                      setMarketplaceSettings((prev = d
+                  >
+                      <SelectValue />
+                    <SelectContent>
+                      <SelectItem value="ATVP
+                     
+                 
+              </CardContent>
+
+            <Card>
+                <CardTit
+                  Other Marketplaces
+                <CardDescription>Configure additional marketplace integrations</CardDescription>
+              <CardContent className="space
+                  <div className="space-y-0.5">
+                    <p className="text-sm tex
+                  <Sw
+                 
+                    }
+                </div>
+                  <div cl
+                    
+                  <Switch 
+                 
+              
+
+                  <div className="space-y-0.5
+                    <p className="text-sm text-muted-foreground">German online marketplace</p>
+                  <Swi
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <d
+                    <p className="t
+                  <Switc
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <div 
+                    <p 
+                  <Switch 
+                    on
+                    }
+                </div>
+                  <div className="space-y
+                    <p className="text-sm text-muted-foreground">
+                  <Switch 
+                   
+               
+                </div>
+            </Card>
+
+          <Card>
+              <CardT
+                Synchronization Settings
+              <CardDescription>Configure au
+            <CardContent>
+                <div className="space-y-
+                    <Lab
+                      
+                        setMarketplaceSetti
+                    />
+                  <div className="space-y-2">
+                    <I
+                      v
+                      
+                          syncFrequency: parseInt(e.t
+                      }
+                  </div>
+
+                  <div className="flex items-center justify-b
+                   
+               
+                      }
+                  </div>
+                    <Label>Price Upda
+                      type="number" 
+                    
+                          ...prev, 
+                        }))
+                    />
+                </div>
+                <div cla
+                    <L
+                      checked={marketplaceS
+                        setMarketplaceSettings((prev = defaultMarketpl
+                    />
+                  <div
+                    <In
+                  
+                        
+               
+
+                  </div>
+              </div>
+          </Card>
+        {/* Shop Settings Tab */}
+          <div className
+            <Card>
+                <CardTitle className="flex items
+                  Shop Configuration
+                <CardDescr
+              <CardContent className="space-y-4">
+                  <Label>
+                    check
+                      setShopSettings((prev = defaultShop
+                  />
+                <div className="space-y-2">
+                  <Input 
+                    value={shopSettings?.shopName || '
+                      setShopSetti
+                  />
+                <div className="space-y-2">
+                  <Texta
+                    value={shopSettings?.shopDescription || ''}
+                      set
+                  />
+                <div className="space-y-2">
+                  <Sel
+                    onVa
+                    }
+
+                    </SelectTrigger>
+                      <SelectItem value="EUR">Euro (EUR)</SelectItem>
+                      <SelectItem value="GBP">British Pound (GBP)</SelectItem>
+                    </SelectContent>
+                </div>
+                  <Label ht
+                    id="taxRate"
+                    step
+                    onChange={(e) => 
+                        .
+                      }))
+                  />
+              </CardCo
+
+            <Card>
+
+                  Payment Methods
+                <CardDescription>Configure accepted payment methods</
+              <CardContent className="space-y-4">
+                  <div className="space-y-0.5">
+                    <p className
+                  <Switch 
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <div cl
+                    <p className="text-sm text-muted-foreground">Accept credit card payments</p>
+                  <Switch 
+                    on
+                    }
+                </div>
+                  <d
+                    <p cla
+                 
+
+                    }
+                
+                  <Label
+                    id="freeShippingThreshold"
+                    value={shopSettings?.freeShi
+                      setShopSettings(
+                        fr
+                    }
+                </div>
+            </Card>
+
+          <Card>
+              <CardTitle className="flex items-center gap-2">
+                Shop Features
+              <CardDescription>Enable or disable shop 
+            <CardContent>
+                <div className="flex items-center justify-between">
+                  <Switch 
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <Label>Wishlist</Label>
+                    checked={shopSettings?.enableWis
+                      setShopSettings(
+                  />
+                <div classNa
+                  <Switch 
+                    onCh
+                   
+                </di
+                  <Label>C
+                 
+                      
+
+                <div className="fle
+                  <Switch 
+                    onCheckedChange={(checked) => 
+                    }
+                </
+                  <Label>G
+                    checked={shopSettings?.enableGuestCheckout 
+                      setShopSettings((prev = defa
+                  />
+              </div>
+          </Card>
+
+        <TabsContent value="blog" className="spac
+            <Card>
+                <CardTitle className="flex it
+                  Blog Configuration
+                <CardDescri
+              <CardContent classNam
+                  <Label>Enable Blog</Label>
+                    checked={blogSettin
+                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, blogEnabled: checked }))
+                  />
+                <div c
+                  <Input
+
+                      setBlogSettings((prev =
+                  />
+                <div classN
+                  <Textarea 
+                    value={blogSettings?.blogDescription ||
+                      setBlogSettings((
+                  />
+                <div cl
+                  <Inp
+                    type
+
+                        ...prev, 
+                      }))
+                  />
+                <div className="flex 
+                    <Label>Auto-Ge
+                      Use AI to generate blog posts automatica
+                  </div>
+                    checked={blogSettings?.autoGeneratePosts || true}
+                      s
+                  />
+              </CardCont
+
+              <CardHeader>
+                  <PaintBrush className="h-5 w-5" />
+                </CardTitle>
+              </CardHeader>
+                <div className="flex items-cente
+                  <Switch 
+                    onC
+                    }
+                </div>
+                  <Label>Social Sharing
+                    checked={blogSetti
+                      setBlogSettings
+                  />
+                <div className="flex items-center justify-between">
+                  <Switch 
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <Label>RSS 
+                    chec
+
+                  />
+                <div className="flex items-center justify-between">
+                  <Switch 
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <Labe
+                    v
+                      setBlogSettings
+                  >
+                      <SelectValue />
+                    <SelectContent>
+                      <SelectItem value="weekly">Weekly</SelectIte
+                    </SelectContent>
+                </div>
+            </Card>
+        </TabsContent>
+        {/* Social Media Tab 
+          <div className
+            <Card>
+                <CardTitle c
+                  F
+
+              <CardContent className="spac
+                  
+                    checke
+                      setSocialSettings((prev = defaultSocialSe
+                  />
+                <div className="space-y-
+                  <Input 
+                    value={socialSettings?.facebookPageId || ''}
+                      setSo
+                  />
+                <div className="flex items-
+                  <Switch 
+                    onCheckedChange={(checked) =>
+                    }
+                </div>
+                  <Label htmlFor="instagramAccountId">Instagram Ac
+                    id="in
+                    onChan
+                    }
+                </div>
+            </Card>
+            {/* Twitter & LinkedIn */}
+              <CardHead
+                  <Twi
+                </CardTi
+
+                <div className="flex items-center justify-between">
+                  <Switch 
+                    onCheckedChange={(checked) => 
+                    }
+                </div>
+                  <Label h
+                    id="tw
+                    value={s
+                      setSocialSettings((prev = defaultSocialSettings) => 
+                  />
+                <div className="flex items-center justify-between">
+                  <Swit
+                    on
+                    }
+
+                  <Label htmlFor="linkedinCompanyId">LinkedIn Company
+                    id="linkedinCompanyId"
+                    onChange={(e) => 
+                    }
+                </div>
+            </Card>
+
+          <Card>
+              <CardTitle className="flex items-center gap-2">
+                Social Media Automation
+              <CardDescription>Configure automated social media posting</CardDescription>
+            <CardConten
+                <div c
+                    <Lab
+
+                        setSocialSettings((prev = defaultSocialSettin
+                    />
+                  <div className="flex items-ce
+                    <Switch 
+                      onCheckedChange={(checked) => 
+                      }
+                  </div>
+
+                  <div className="space-y-2">
+                    <Select 
+                      onValueChange={(value) => 
+                      }
+                      
+                      </
+
+                        <SelectItem value="we
+                    </Select>
+                  <div clas
+                    <Switch 
+                      onCheckedChang
+                      }
+                  </div>
+
+                  <div className="s
+                    <Textarea 
+                      place
+                      o
+                      
+                  </div>
+
+          </Card>
+
+        <TabsContent value=
+            <Card className="border-l-4 b
+                <div className="flex
+                    <p className="text-sm font-medium text-blue-60
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            </Card>
+            <Card className="border-l-4 border-l-green-500">
+                <div classN
+                    <p 
+                  </di
+                </div>
+            </Card>
+            <Card className=
+                <di
+                
+                  </di
+
+            </Card>
+            <Card className="border-l-4 border-l-amber-500">
+                <div className="fle
+                    <p
+        
+                </div>
+            </Card>
+
+            <CardHeade
+        
+              </CardTitle>
+            </CardHeader>
+              <div cla
+
+                    <Eye className="h-
+                  </Button>
+                    <FileText classN
+                  </Bu
+
+                  </Button>
+                
+                  <div clas
+                      
+
+                      <span>Registration
+                    </div>
+                  <div className="divide-y">
+                      <div key={i} class
+                  
+                          
+                            <span className="font-medium">User 
+                          <span className="text-m
+                            {i === 1
+                          <B
+                          </Badge>
+                          <
+                              <Eye className="h-3
+                            </Button>
+                              <Settings className="h-3 w-3
+                          
+                        </div>
+                    ))}
+                </div>
+            </CardCon
+        </TabsConten
     </div>
-  )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
