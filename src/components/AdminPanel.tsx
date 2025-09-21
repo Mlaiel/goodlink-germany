@@ -1,2050 +1,626 @@
 import React, { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Switch } from '@/components/ui/switc
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '
 import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
+import { AlertTriangle, Brain, TrendingUp, Shop
 import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Slider } from '@/components/ui/slider'
-import { 
-  Shield, 
-  Users, 
-  Gear as Settings, 
-  ChartBar as BarChart3, 
-  FileText, 
-  Database,
-  Activity,
-  Warning as AlertTriangle,
-  CheckCircle,
-  Clock,
-  TrendUp,
-  UserCheck,
-  Globe,
-  Robot,
-  ShoppingCart,
-  Package,
-  Storefront,
-  Article,
-  ArrowsClockwise as Sync,
-  Eye,
-  ShieldCheck as Security,
-  EnvelopeSimple as Mail,
-  Bell,
-  WhatsappLogo,
-  DiscordLogo,
-  TelegramLogo,
-  InstagramLogo,
-  FacebookLogo,
-  TwitterLogo,
-  CloudCheck,
-  CurrencyDollar,
-  PaintBrush,
-  Code,
-  Key,
-  ListPlus,
-  ChartLine as Graph
-} from '@phosphor-icons/react'
+interface Agent {
+import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
+import { AlertTriangle, Brain, TrendingUp, ShoppingCart, MessageSquare, Zap, Settings, Eye, Play, Pause, RotateCw } from '@phosphor-icons/react'
 import { useLanguage } from './LanguageContext'
-import { SpecializedAgentsPanel } from './admin/SpecializedAgentsPanel'
-import { AIAgentMonitoringDashboard } from './admin/AIAgentMonitoringDashboard'
-import { MarketplaceAgentsPanel } from './admin/MarketplaceAgentsPanel'
-import { AIAgentsConfig } from './admin/AIAgentsConfig'
-import { AgentAutomationConfig } from './admin/AgentAutomationConfig'
-import { AgentPerformanceDashboard } from './admin/AgentPerformanceDashboard'
-import { AgentDemoPanel } from './AgentDemoPanel'
-import { AgentUsageGuide } from './AgentUsageGuide'
-import { DemoInterface } from './DemoInterface'
+import { useKV } from '@github/spark/hooks'
 
-interface SystemMetrics {
-  uptime: string
-  totalUsers: number
-  activeUsers: number
-  totalOrders: number
-  systemHealth: 'healthy' | 'warning' | 'critical'
-  memoryUsage: number
-  cpuUsage: number
-  diskUsage: number
+interface Agent {
+  id: string
+  enabled: boo
+  type: string
+  model: string
+  performance: number
+
+  icon: React.ReactNode
 }
 
-interface UserStats {
-  totalRegistered: number
-  activeToday: number
-  newThisWeek: number
-  premiumUsers: number
-}
+interface AgentConfig {
+  enabled: boolean
+      name: t('List
+  frequency: string
+  model: string
+  instructions: string
+ 
 
-interface SystemSettings {
-  maintenanceMode: boolean
-  allowRegistrations: boolean
-  enableNotifications: boolean
-  enableAnalytics: boolean
-  maxConcurrentUsers: number
-  sessionTimeout: number
-  siteName: string
-  siteUrl: string
-  adminEmail: string
-  timezone: string
-  defaultLanguage: string
-  enableMultiLanguage: boolean
-  enableSEO: boolean
-  enableCache: boolean
-  cacheTimeout: number
-  backupEnabled: boolean
-  backupFrequency: string
-  enableDebugMode: boolean
-  logLevel: string
-  maxFileSize: number
-  allowedFileTypes: string
-  smtpHost: string
-  smtpPort: number
-  smtpUsername: string
-  smtpPassword: string
-  enableSSL: boolean
-}
+      id: 'inventory-forecaste
+  const { t, currentLanguage } = useLanguage()
+  const [activeTab, setActiveTab] = useState('overview')
+  const [agentConfigs, setAgentConfigs] = useKV<Record<string, AgentConfig>>('agent-configs', {})
 
-interface AIAgentSettings {
-  chatbotEnabled: boolean
-  chatbotLanguages: string[]
-  chatbotResponseTime: number
-  listingAgentEnabled: boolean
-  priceAgentEnabled: boolean
-  inventoryAgentEnabled: boolean
-  reviewAgentEnabled: boolean
-  blogAgentEnabled: boolean
-  prospectingAgentEnabled: boolean
-  socialMediaAgentEnabled: boolean
-  whatsappAgentEnabled: boolean
-  telegramAgentEnabled: boolean
-  discordAgentEnabled: boolean
-  aiModelProvider: string
-  maxTokensPerRequest: number
-  temperatureSetting: number
-  enableContextMemory: boolean
-  maxConversationLength: number
-}
+  const agents: Agent[] = [
+    {
+      id: 'listing-optimizer',
+      name: t('Listing Optimizer'),
+      type: 'Marketplace',
+      status: 'active',
+      performance: 92,
+      description: t('Optimizes product listings across Amazon, eBay, and other marketplaces'),
+      icon: <ShoppingCart className="h-5 w-5" />
+    },
+    {
+      id: 'price-monitor',
+      name: t('Price Monitor'),
+      type: 'Analytics',
+      status: 'active',
+      performance: 88,
+      description: t('Monitors competitor prices and adjusts pricing strategies'),
+      icon: <TrendingUp className="h-5 w-5" />
+    },
+    {
+      id: 'customer-service',
+      name: t('Customer Service Bot'),
+      type: 'Customer Support',
+      status: 'active',
+      performance: 94,
+      description: t('Handles customer inquiries in multiple languages'),
+      icon: <MessageSquare className="h-5 w-5" />
+    },
+    {
+      id: 'inventory-forecaster',
+      name: t('Inventory Forecaster'),
+        ...prev[agentId],
+      status: 'training',
+    }))
+      description: t('Predicts demand and optimizes inventory levels'),
+  const getAgentConfig = (agentId: string
+      
+    {
+      id: 'review-analyzer',
+      name: t('Review Analyzer'),
+      type: 'Analytics',
+      status: 'active',
+      performance: 90,
+      description: t('Analyzes customer reviews for insights and sentiment'),
+      icon: <Eye className="h-5 w-5" />
+    },
+    {
+        <div className="m
+      name: t('Ad Campaign Optimizer'),
+      type: 'Marketing',
+      status: 'active',
 
-interface MarketplaceSettings {
-  amazonEnabled: boolean
-  amazonApiKey: string
-  amazonSecretKey: string
-  amazonMarketplaceId: string
-  ebayEnabled: boolean
-  ebayApiKey: string
-  ebaySecretKey: string
-  kauflandEnabled: boolean
-  kauflandApiKey: string
-  ottoEnabled: boolean
-  ottoApiKey: string
-  cdiscountEnabled: boolean
-  cdiscountApiKey: string
-  bolEnabled: boolean
-  bolApiKey: string
-  allegroEnabled: boolean
-  allegroApiKey: string
-  walmartEnabled: boolean
-  walmartApiKey: string
-  autoSyncInventory: boolean
-  syncFrequency: number
-  enablePriceMonitoring: boolean
-  priceUpdateFrequency: number
-  enableOrderSync: boolean
-  orderSyncFrequency: number
-}
-
-interface ShopSettings {
-  shopEnabled: boolean
-  shopName: string
-  shopDescription: string
-  shopLogo: string
-  shopCurrency: string
-  taxRate: number
-  shippingEnabled: boolean
-  freeShippingThreshold: number
-  enablePaypal: boolean
-  paypalClientId: string
-  enableStripe: boolean
-  stripePublishableKey: string
-  stripeSecretKey: string
-  enableKlarna: boolean
-  klarnaUsername: string
-  klarnaPassword: string
-  enableInventoryTracking: boolean
-  lowStockThreshold: number
-  enableReviews: boolean
-  enableWishlist: boolean
-  enableCompareProducts: boolean
-  enableCoupons: boolean
-  enableGiftCards: boolean
-  enableMultiCurrency: boolean
-  enableGeoLocation: boolean
-  enableSocialLogin: boolean
-  enableGuestCheckout: boolean
-}
-
-interface BlogSettings {
-  blogEnabled: boolean
-  blogTitle: string
-  blogDescription: string
-  postsPerPage: number
-  enableComments: boolean
-  moderateComments: boolean
-  enableSEO: boolean
-  autoGeneratePosts: boolean
-  postGenerationFrequency: string
-  enableSocialSharing: boolean
-  enableNewsletterSignup: boolean
-  enableRSS: boolean
-  enableSitemap: boolean
-  defaultPostStatus: string
-  enablePostScheduling: boolean
-  enableFeaturedImages: boolean
-  enableCategories: boolean
-  enableTags: boolean
-  enableAuthorProfiles: boolean
-  enableRelatedPosts: boolean
-}
-
-interface SocialMediaSettings {
-  facebookEnabled: boolean
-  facebookPageId: string
-  facebookAccessToken: string
-  instagramEnabled: boolean
-  instagramAccountId: string
-  instagramAccessToken: string
-  twitterEnabled: boolean
-  twitterApiKey: string
-  twitterApiSecret: string
-  twitterAccessToken: string
-  twitterAccessTokenSecret: string
-  linkedinEnabled: boolean
-  linkedinCompanyId: string
-  linkedinAccessToken: string
-  autoPostProducts: boolean
-  autoPostBlogPosts: boolean
-  postFrequency: string
-  enableHashtags: boolean
-  defaultHashtags: string
-  enableAnalytics: boolean
-}
-
-export function AdminPanel() {
-  const { t } = useLanguage()
-  const [activeTab, setActiveTab] = useKV('admin-active-tab', 'overview')
-  
-  // Default settings
-  const defaultSystemSettings: SystemSettings = {
-    maintenanceMode: false,
-    allowRegistrations: true,
-    enableNotifications: true,
-    enableAnalytics: true,
-    maxConcurrentUsers: 1000,
-    sessionTimeout: 30,
-    siteName: 'Goodlink Germany',
-    siteUrl: 'https://goodlink-germany.com',
-    adminEmail: 'admin@goodlink-germany.com',
-    timezone: 'Europe/Berlin',
-    defaultLanguage: 'de',
-    enableMultiLanguage: true,
-    enableSEO: true,
-    enableCache: true,
-    cacheTimeout: 3600,
-    backupEnabled: true,
-    backupFrequency: 'daily',
-    enableDebugMode: false,
-    logLevel: 'info',
-    smtpPassword: ''
-  }
-  const defaultAISettings: AIAg
-    chatbotLanguag
-    listingAgentEnabl
-    inventoryAgentEna
-    blogAgentEnable
-   
-
-    aiModelProvider: 'openai',
-    temperatureSetting: 0
-    maxConversationLength: 20
-
-    amazonEnabled: true,
-    amazonSecretKey: '',
-    ebayEnabled: true,
-    ebaySecretKey: '',
-    kauflandApiKey: '',
-    ottoApiKey: '',
-    cdiscountApiKey: '',
-    bolApiKey: '',
-    allegroApiKey: '',
-    walmartApiKey: '',
-    syncFrequency: 15,
-    priceUpdateFrequency: 60,
-    orderSyncFrequency: 30
-
-    shopEnabled: true,
-   
-
-    shippingEnabled: true,
-    enablePaypal: true,
-    enableStripe: tru
-    stripeSecretKey: '',
-    klarnaUsername: '',
-    enableInventoryTra
-    enableReviews: 
-    enableCompareProdu
-    enableGiftCards: true,
-    enableGeoLocation: 
-    enableGuestCheckou
-
-    blogEnabled: true,
-    blogDescription: 'La
-    enableComments: t
-    enableSEO: tru
-    postGenerationFrequen
-    enableNewsletterSi
-    enableSitemap: true,
-    enablePostScheduli
-    enableCategories: true,
-    enableAuthorProfil
-  }
-  const defaultSocialSettings
-    facebookPageId: '',
-    instagramEnabled: true
-   
-
-    twitterAccessToken: '',
-    linkedinEnabled: t
-    linkedinAccessToken: '',
-    autoPostBlogPosts: true,
-    enableHashtag
-    enableAnalytics: tru
-
-  const [systemSettings, s
-  const [marketplaceSettings, s
-  const [blogSettings, 
-
-  const systemMetrics: 
-    totalUsers: 15847,
-    totalOrders: 45678,
-    memoryUsage: 68,
-    diskUsage: 73
-
-    totalRegistered: 15847,
-    newThisWeek: 156,
-  }
-  const recentLogs = [
-    { id: 2, level: 'warning', m
-    { id: 4, level: 'inf
-  ]
-  const getHealthColor = (heal
-      case 'healthy': return
-      case 'critical': retur
+      description: t('Optimizes advertising campaigns and budgets'),
+            <TabsTrigger value="overvie
     }
+   
 
-
-      case 'warning': return <AlertTriangle c
-      default: return 
+  const updateAgentConfig = (agentId: string, updates: Partial<AgentConfig>) => {
+    setAgentConfigs(prev => ({
+      ...prev,
+      [agentId]: {
+                </Card
+        threshold: 80,
+                    {agents.
+        model: 'gpt-4',
+        instructions: '',
+        ...prev[agentId],
+              </Ca
+      }
+       
   }
-  const getLevelIcon = (level: string) => {
-      case 'error': r
-      case 'info': return
+
+  const getAgentConfig = (agentId: string): AgentConfig => {
+                    {Math.round(agent
+      enabled: true,
+      threshold: 80,
+      frequency: 'hourly',
+      model: 'gpt-4',
+      instructions: ''
     }
+  }
 
-    <div className="space-y-
-      <div className="relative overflo
-        <div className="relati
-            <div className="flex 
-                <Shi
-              <div>
-                  {t('admin.title')
-                <p className="t
-                </p>
-            </div>
-              <div cl
-                <span className
-              <div className
-   
-
-          <div className="flex flex-col items-end gap-
-              <CloudCheck 
-            </Button>
-              <div>Last upda
-            </div>
-        </div>
-
-      <div className="gri
-          <CardContent
-              <div>
-                <p classNam
-              <Clock className="h
-          </CardContent>
-
-          <CardContent class
-              <div>
-                <p className
-              <Users classN
-          </CardContent>
-
-          <CardContent cl
-   
-
-              <Shoppi
-          </CardContent>
-
-          <CardContent className="p-6">
-              <div>
-                <p className="text-3xl font-bold text-orange-700">12</p>
-              <Robot className="h-8 w-8 text-orange-500" />
-
-      </div>
-      {/* Modern Navigation Categories *
-        {/* Tab Navi
-          <TabsTrigger
-          <TabsTrigger
-          <TabsTrigger 
-          <TabsTrigger value
-          <TabsTrigg
-          <TabsTr
-        </TabsLis
-   
-
-              <div className="fl
-                  <BarChart
-                <Badge
-              <h3 cla
-              <div cl
-   
-
-                      
-                >
-                  {t('admin.overview')}
-                <button 
-                  className={`modern-tab-trigger w-full justify-start p-3 rounded-lg transition-all flex items-center ${
-                      ? "bg-blue-600 text-white shadow-md" 
-   
-
-                </button>
-            </CardCon
-
-          <Card className="admin-nav-card group
-              <div className="flex items-cen
-                  <Robot className="h
-     
-   
-
-                  onClick={() => setActiveTab("ai-agents")}
-                    a
-                      : "hover:bg-purple-100"
-                >
-                  {t('nav.agents')} {t('common.configuration')}
-                <button 
-     
-   
-
-                  <Storefront className="h-
-                </bu
-                  onClick={() => setActiveTab("specialized")}
-                    activeTab === "specialized" 
-                      : "hover:bg-purple-100"
-                >
-     
+  const runAgentDemo = async (agentId: string) => {
+                  <p className=
+    console.log(`Running demo for agent: ${agentId}`)
    
 
           
-                  }`}
-                  <Eye className="h
-                </button>
-            </CardContent>
+    <div className="min-h-screen bg-background">
+                  <AlertTriangle className="h
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">{t('AI Agent Control Center')}</h1>
+          <p className="text-muted-foreground">
+            {t('Configure and monitor your AI agents for automated marketplace management')}
+          </p>
+        </div>
 
-          <Card className="admin-nav-
-              <div className="flex items-center justi
-                  <ShoppingCart className="h-6 w-6 text-green-600" />
-                <Badge variant="secondary" className="bg-
-              <h3 cl
-              <div 
-                  onClick={() => setActiveTab("shop")}
-                    activeTab === "s
-                     
-                >
-                  {t('nav.shop')} {t('admin.setting
-                <but
-                  cl
-                  
-                  }`}
-                  <Package className="h-4 w-4 mr-2" />
-                </button>
-            </CardContent>
-
-          <Card className="admin-nav-card group hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-o
-              <div className="flex items-center justify-bet
-                  <Article className="h-6 w-6 text-orange-600" />
-                <Bad
-              <h3 
-              <d
-                  onClick={() => setActiveTab("blog")}
-                    activeTab === "blog" 
-                      : "hover:bg-orange-100"
-                >
-                  {t(
-                <button 
-                  className={`modern-tab-trigger w-full justify-start p-
-                      ? "bg-orange-600 text-white shadow-md" 
-                  
-                
-              
-            
-
-        {/* System Administration 
-          <CardHeader>
-              <div className="p-2 bg-slate-200 rounded-lg">
-              </div>
-            </CardTitle>
-              {t('a
-          </CardHeader>
-            <div className="grid gap-4 md:grid-cols-2">
-                onCl
-                  activeTab === "system" 
-                  
-              >
-               
-
-                  <Settings className={`h-5 w-5 ${
-                      ? "text-white" 
-                  }`} />
-                <di
-                  <div className="text-sm opacity-70">{t('admin.coreManagement')}
-              </button>
-                onCl
-                  activeTab === "users" 
-                  
-              >
-               
-
-                  <Users className={`h-5 w-5 ${
-                      ? "text-white" 
-                  }`} />
-                <di
-                  <div className="text-sm opacity-70">{t('admin.users')} accounts, 
-              </button>
-          </CardCont
-
-        <TabsConte
-          <Card classNam
-              <
-
-              <CardDescription>Real-time server {t('common.performance')} and resource utilization
-            <CardContent>
-                <div className="space-y-3">
-                   
-                      {t('common.memory')} {t('common.usage')}
-                    <span className="text-sm font-bold text-blue-600">{s
-                  <d
-                      className="bg-gradient-to-r from-blue
-                  
-                </div>
-               
-            
-
-                    <span className="text-
-                  <div className="w-full bg-secondary rounded-full h-3">
-                      classNam
-                    />
-                </div>
-                <div className="space-y-3">
-                    <span className="text-sm font-medium flex it
-                      {t('common.disk')} {t('common.usage')}
-                    <span className="text-sm font-bold text-orange-6
-                  <div className="w-full bg-secondary rounded-full h
-                      className="bg-gradient-to-r from
-                    />
-                </div>
-            </CardContent>
-
-          <Card>
-              <Card
-
-              <CardDescription>Latest system events and notificati
-            <CardContent>
-                {recentLogs.map((log) => (
-                    {getLevelIcon(log.lev
-                      <div className="flex items-center justify-betwee
-                        <Badge variant={log.level === 'error' ? 'destructive' : log.level === 'warning
-                        </Badge>
-                      
-                        <span>•</span>
-                    
-                  </div>
-              </div>
-          </Card>
-
-        <TabsContent value="system" className="space-y-6">
-            {/* Basic Settings */}
-              <CardHeader>
-                  <Settings className="h-5 w-5" />
-                </CardTitle>
-              </CardH
-                <
-                    <Label htmlFor="siteName">Site
-                      id="siteNam
-                      onC
-                      }
-                  </div>
-                  <div className="space-y-2">
-                    <Input 
-                      value={systemSettings?.siteUrl || ''}
-                        setSystemSettings((
-                    /
-
-                    <Label htmlFor="adminEmail">Adminis
-                      id="adminEmail"
-                      val
-                    
-                    />
-
-
-                      value={syst
-                        setSystemSettings((prev = defaultSystemSettings) => ({ ...prev, timezone: value }))
-                    >
-                        <SelectValue />
-                      <SelectContent>
-                        <SelectItem value="Europe/London">Europ
-                      
-                      </SelectContent>
-                  </
-                  <div className="space-y-2">
-                    <Select 
-                      onValueChange={(val
-                      }
-                      <SelectTrigger>
-                      </SelectTrigger>
-                        <SelectItem value="de"
-                        <SelectItem value="fr">French</Select
-                      </SelectContent>
-                  </d
-              </C
-
-            <Card>
-                <CardTitl
-                  Securi
-                <CardDescription>System security and performance con
-              <CardContent className="space-y-6">
-                  <div className="flex items-center jus
-                      <Label>Maintenance Mode</Label>
-                        Enable maintenance mo
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="overview">{t('Overview')}</TabsTrigger>
+            <TabsTrigger value="agents">{t('AI Agents')}</TabsTrigger>
+            <TabsTrigger value="configuration">{t('Configuration')}</TabsTrigger>
+            <TabsTrigger value="monitoring">{t('Monitoring')}</TabsTrigger>
                     <
-                 
-                        setSystemSettings((prev = default
-                    />
 
-                    <div
-                      <p className="text-sm text-muted-foregr
-                      </p>
-                    <Switch 
-                      onCheckedChange={(checked) => 
-                      }
-                  </d
-                 
-                      <Label>Enable Cache</Label>
-                        Enable syste
-                    </div
-                      ch
-                        setSystemSettings((prev = defaultSyst
-                    />
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">{t('Active Agents')}</CardTitle>
+                  <Brain className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {agents.filter(a => a.status === 'active').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {t('of')} {agents.length} {t('total agents')}
+                  </p>
+                </CardContent>
+              </Card>
 
-                    <div className="space-y-0.5">
-                      <p className="text-sm t
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">{t('Average Performance')}</CardTitle>
+                      </div>
+                </CardHeader>
+                      <div cl
+                  <div className="text-2xl font-bold">
+                    {Math.round(agents.reduce((acc, a) => acc + a.performance, 0) / agents.length)}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {t('across all agents')}
+                      
+                </CardContent>
+                    <
+
+              </Card
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">{t('Tasks Completed')}</CardTitle>
+                  <Zap className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <Card key={agent.id} className="admin-nav-card"
+                  <p className="text-xs text-muted-foreground">
+                    {t('in the last 24 hours')}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">{t('Errors')}</CardTitle>
+                        <div className="flex justify-between text-sm">
+                </CardHeader>
+                        </div
+                  <div className="text-2xl font-bold">3</div>
+                  <p className="text-xs text-muted-foreground">
+                    {t('requiring attention')}
+                  </p>
+                </CardContent>
                      
-                 
-                      onCheckedChange={(checked) =
-                      }
-                  </div>
-                  <d
-                    <Input
-                 
+            </div>
 
-                          ...prev,
-                        }))
-                    />
-
-                    <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
-                      id="sessionTimeout"
-                      
-                        setSystemSettings((prev = defaultSystemSettings) => ({ 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     
-                      }
-                  </div>
-              </CardContent>
-          </div>
-
-        <TabsContent value="ai-agents" className="space-y-6">
-        </TabsContent>
-        {/* Agent Monitoring Tab */}
-          <AgentPerformanceDashboard />
-        
-          <Market
-
-        <TabsContent value="spe
-        </TabsContent>
-        {/* Agent Demos 
-          <DemoInterface />
-
-        <TabsContent value="marketplaces" classNa
-            {/* Amazon Configuration */}
-              <CardHeader>
-                  <Pa
-                <
-              </CardHeader>
-                <div className="flex it
-                  <Switch
-                    
-                    }
-                <
-
-                    id="amazonApiKey"
-                    placeholder="Enter Amazon SP-API Key"
-                    onChange={(e) => 
-                    }
-                </div>
-                  <Label htmlFor="amazonSecretKey">Amazon Secret 
-                    id
-                    placeholder="Enter Amazon Secret Key"
-                    
-                    }
-                </div>
-                  <Label htmlFor="amazonM
-                    valu
-                      setMarketplaceSettings((prev = d
-                  >
-                      <SelectValue />
-                    <SelectContent>
-                      <SelectItem value="ATVP
-                     
-                 
-              </CardContent>
-
-            <Card>
-                <CardTit
-                  Other Marketplaces
-                <CardDescription>Configure additional marketplace integrations</CardDescription>
-              <CardContent className="space
-                  <div className="space-y-0.5">
-                    <p className="text-sm tex
-                  <Sw
-                 
-                    }
-                </div>
-                  <div cl
-                    
-                  <Switch 
-                 
-              
-
-                  <div className="space-y-0.5
-                    <p className="text-sm text-muted-foreground">German online marketplace</p>
-                  <Swi
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <d
-                    <p className="t
-                  <Switc
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <div 
-                    <p 
-                  <Switch 
-                    on
-                    }
-                </div>
-                  <div className="space-y
-                    <p className="text-sm text-muted-foreground">
-                  <Switch 
-                   
-               
-                </div>
-            </Card>
-
-          <Card>
-              <CardT
-                Synchronization Settings
-              <CardDescription>Configure au
-            <CardContent>
-                <div className="space-y-
-                    <Lab
-                      
-                        setMarketplaceSetti
-                    />
-                  <div className="space-y-2">
-                    <I
-                      v
-                      
-                          syncFrequency: parseInt(e.t
-                      }
-                  </div>
-
-                  <div className="flex items-center justify-b
-                   
-               
-                      }
-                  </div>
-                    <Label>Price Upda
-                      type="number" 
-                    
-                          ...prev, 
-                        }))
-                    />
-                </div>
-                <div cla
-                    <L
-                      checked={marketplaceS
-                        setMarketplaceSettings((prev = defaultMarketpl
-                    />
-                  <div
-                    <In
-                  
-                        
-               
-
-                  </div>
-              </div>
-          </Card>
-        {/* Shop Settings Tab */}
-          <div className
-            <Card>
-                <CardTitle className="flex items
-                  Shop Configuration
-                <CardDescr
-              <CardContent className="space-y-4">
-                  <Label>
-                    check
-                      setShopSettings((prev = defaultShop
-                  />
-                <div className="space-y-2">
-                  <Input 
-                    value={shopSettings?.shopName || '
-                      setShopSetti
-                  />
-                <div className="space-y-2">
-                  <Texta
-                    value={shopSettings?.shopDescription || ''}
-                      set
-                  />
-                <div className="space-y-2">
-                  <Sel
-                    onVa
-                    }
-
-                    </SelectTrigger>
-                      <SelectItem value="EUR">Euro (EUR)</SelectItem>
-                      <SelectItem value="GBP">British Pound (GBP)</SelectItem>
-                    </SelectContent>
-                </div>
-                  <Label ht
-                    id="taxRate"
-                    step
-                    onChange={(e) => 
-                        .
-                      }))
-                  />
-              </CardCo
-
-            <Card>
-
-                  Payment Methods
-                <CardDescription>Configure accepted payment methods</
-              <CardContent className="space-y-4">
-                  <div className="space-y-0.5">
-                    <p className
-                  <Switch 
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <div cl
-                    <p className="text-sm text-muted-foreground">Accept credit card payments</p>
-                  <Switch 
-                    on
-                    }
-                </div>
-                  <d
-                    <p cla
-                 
-
-                    }
-                
-                  <Label
-                    id="freeShippingThreshold"
-                    value={shopSettings?.freeShi
-                      setShopSettings(
-                        fr
-                    }
-                </div>
-            </Card>
-
-          <Card>
-              <CardTitle className="flex items-center gap-2">
-                Shop Features
-              <CardDescription>Enable or disable shop 
-            <CardContent>
-                <div className="flex items-center justify-between">
-                  <Switch 
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <Label>Wishlist</Label>
-                    checked={shopSettings?.enableWis
-                      setShopSettings(
-                  />
-                <div classNa
-                  <Switch 
-                    onCh
-                   
-                </di
-                  <Label>C
-                 
-                      
-
-                <div className="fle
-                  <Switch 
-                    onCheckedChange={(checked) => 
-                    }
-                </
-                  <Label>G
-                    checked={shopSettings?.enableGuestCheckout 
-                      setShopSettings((prev = defa
-                  />
-              </div>
-          </Card>
-
-        <TabsContent value="blog" className="spac
-            <Card>
-                <CardTitle className="flex it
-                  Blog Configuration
-                <CardDescri
-              <CardContent classNam
-                  <Label>Enable Blog</Label>
-                    checked={blogSettin
-                      setBlogSettings((prev = defaultBlogSettings) => ({ ...prev, blogEnabled: checked }))
-                  />
-                <div c
-                  <Input
-
-                      setBlogSettings((prev =
-                  />
-                <div classN
-                  <Textarea 
-                    value={blogSettings?.blogDescription ||
-                      setBlogSettings((
-                  />
-                <div cl
-                  <Inp
-                    type
-
-                        ...prev, 
-                      }))
-                  />
-                <div className="flex 
-                    <Label>Auto-Ge
-                      Use AI to generate blog posts automatica
-                  </div>
-                    checked={blogSettings?.autoGeneratePosts || true}
-                      s
-                  />
-              </CardCont
-
-              <CardHeader>
-                  <PaintBrush className="h-5 w-5" />
-                </CardTitle>
-              </CardHeader>
-                <div className="flex items-cente
-                  <Switch 
-                    onC
-                    }
-                </div>
-                  <Label>Social Sharing
-                    checked={blogSetti
-                      setBlogSettings
-                  />
-                <div className="flex items-center justify-between">
-                  <Switch 
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <Label>RSS 
-                    chec
-
-                  />
-                <div className="flex items-center justify-between">
-                  <Switch 
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <Labe
-                    v
-                      setBlogSettings
-                  >
-                      <SelectValue />
-                    <SelectContent>
-                      <SelectItem value="weekly">Weekly</SelectIte
-                    </SelectContent>
-                </div>
-            </Card>
-        </TabsContent>
-        {/* Social Media Tab 
-          <div className
-            <Card>
-                <CardTitle c
-                  F
-
-              <CardContent className="spac
-                  
-                    checke
-                      setSocialSettings((prev = defaultSocialSe
-                  />
-                <div className="space-y-
-                  <Input 
-                    value={socialSettings?.facebookPageId || ''}
-                      setSo
-                  />
-                <div className="flex items-
-                  <Switch 
-                    onCheckedChange={(checked) =>
-                    }
-                </div>
-                  <Label htmlFor="instagramAccountId">Instagram Ac
-                    id="in
-                    onChan
-                    }
-                </div>
-            </Card>
-            {/* Twitter & LinkedIn */}
-              <CardHead
-                  <Twi
-                </CardTi
-
-                <div className="flex items-center justify-between">
-                  <Switch 
-                    onCheckedChange={(checked) => 
-                    }
-                </div>
-                  <Label h
-                    id="tw
-                    value={s
-                      setSocialSettings((prev = defaultSocialSettings) => 
-                  />
-                <div className="flex items-center justify-between">
-                  <Swit
-                    on
-                    }
-
-                  <Label htmlFor="linkedinCompanyId">LinkedIn Company
-                    id="linkedinCompanyId"
-                    onChange={(e) => 
-                    }
-                </div>
-            </Card>
-
-          <Card>
-              <CardTitle className="flex items-center gap-2">
-                Social Media Automation
-              <CardDescription>Configure automated social media posting</CardDescription>
-            <CardConten
-                <div c
-                    <Lab
-
-                        setSocialSettings((prev = defaultSocialSettin
-                    />
-                  <div className="flex items-ce
-                    <Switch 
-                      onCheckedChange={(checked) => 
-                      }
-                  </div>
-
-                  <div className="space-y-2">
-                    <Select 
-                      onValueChange={(value) => 
-                      }
-                      
-                      </
-
-                        <SelectItem value="we
-                    </Select>
-                  <div clas
-                    <Switch 
-                      onCheckedChang
-                      }
-                  </div>
-
-                  <div className="s
-                    <Textarea 
-                      place
-                      o
-                      
-                  </div>
-
-          </Card>
-
-        <TabsContent value=
-            <Card className="border-l-4 b
-                <div className="flex
-                    <p className="text-sm font-medium text-blue-60
-                  </div>
-                </div>
-            </Card>
-            <Card className="border-l-4 border-l-green-500">
-                <div classN
-                    <p 
-                  </di
-                </div>
-            </Card>
-            <Card className=
-                <di
-                
-                  </di
-
-            </Card>
-            <Card className="border-l-4 border-l-amber-500">
-                <div className="fle
-                    <p
-        
-                </div>
-            </Card>
-
-            <CardHeade
-        
-              </CardTitle>
-            </CardHeader>
-              <div cla
-
-                    <Eye className="h-
-                  </Button>
-                    <FileText classN
-                  </Bu
-
-                  </Button>
-                
-                  <div clas
-                      
-
-                      <span>Registration
-                    </div>
-                  <div className="divide-y">
-                      <div key={i} class
-                  
-                          
-                            <span className="font-medium">User 
-                          <span className="text-m
-                            {i === 1
-                          <B
-                          </Badge>
-                          <
-                              <Eye className="h-3
-                            </Button>
-                              <Settings className="h-3 w-3
-                          
+                <CardHeader>
+                  <CardTitle>{t('Agent Performance')}</CardTitle>
+                  <CardDescription>
+                    {t('Performance metrics for all active agents')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {agents.map((agent) => (
+                    <div key={agent.id} className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        {agent.icon}
+                        <div>
+                          <p className="text-sm font-medium">{agent.name}</p>
+                          <p className="text-xs text-muted-foreground">{agent.type}</p>
                         </div>
-                    ))}
-                </div>
-            </CardCon
-        </TabsConten
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
+                          {t(agent.status)}
+                            <Sel
+                        <span className="text-sm font-medium">{agent.performance}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+                     
+
+                    
+                <CardHeader>
+                  <CardTitle>{t('Recent Activity')}</CardTitle>
+                  <CardDescription>
+                    {t('Latest actions performed by AI agents')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <div className="flex-1">
+                        <p className="text-sm">{t('Listing Optimizer updated 47 product titles')}</p>
+                        <p className="text-xs text-muted-foreground">2 {t('minutes ago')}</p>
+                            
+                          
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <div className="flex-1">
+                        <p className="text-sm">{t('Price Monitor adjusted 12 product prices')}</p>
+                        <p className="text-xs text-muted-foreground">15 {t('minutes ago')}</p>
+                            
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                      <div className="flex-1">
+                        <p className="text-sm">{t('Customer Service Bot responded to 23 inquiries')}</p>
+                        <p className="text-xs text-muted-foreground">1 {t('hour ago')}</p>
+                      </div>
+                    </div>
+                        
+                </CardContent>
+                    <
+            </div>
+          </TabsContent>
+
+          <TabsContent value="agents" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {agents.map((agent) => {
+                const config = getAgentConfig(agent.id)
+                  {t('Co
+                  <Card key={agent.id} className="admin-nav-card">
+              <CardContent class
+                      <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold">{t('General
+                          {agent.icon}
+                          <CardTitle className="text-lg">{agent.name}</CardTitle>
+                        </div>
+                        <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
+                          {t(agent.status)}
+                          <Selec
+                      </div>
+                      <CardDescription>{agent.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>{t('Performance')}</span>
+                        </SelectTrigger>
+                        </div>
+                        <Progress value={agent.performance} className="h-2" />
+                      </div>
+
+                      <Separator />
+
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor={`${agent.id}-enabled`} className="text-sm">
+                            {t('Enabled')}
+                          </Label>
+                          <Switch
+                            id={`${agent.id}-enabled`}
+                      </Select>
+                            onCheckedChange={(checked) => 
+                              updateAgentConfig(agent.id, { enabled: checked })
+                            }
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-sm">{t('Performance Threshold')}</Label>
+                          <div className="flex items-center space-x-2">
+                            <Input
+                              type="number"
+                              min="0"
+                              max="100"
+                              value={config.threshold}
+                              onChange={(e) => 
+                                updateAgentConfig(agent.id, { threshold: parseInt(e.target.value) })
+                              }
+                              className="w-20"
+                            />
+                    <div className="flex items-center justify-between">
+                          </div>
+                    </div>
+
+                      <Label>{t('GDPR Compliance Mo
+                          <Label className="text-sm">{t('Execution Frequency')}</Label>
+                          <Select
+                            value={config.frequency}
+                            onValueChange={(value) => 
+                              updateAgentConfig(agent.id, { frequency: value })
+                    <div clas
+                          >
+                    </div>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="hourly">{t('Hourly')}</SelectItem>
+                              <SelectItem value="daily">{t('Daily')}</SelectItem>
+                              <SelectItem value="weekly">{t('Weekly')}</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label className="text-sm">{t('AI Model')}</Label>
+                          <Select
+                            value={config.model}
+                            onValueChange={(value) => 
+                              updateAgentConfig(agent.id, { model: value })
+                            }
+                    <Progre
+                            <SelectTrigger>
+                  <div className="space-y-3">
+                            </SelectTrigger>
+                      <span className="text
+                              <SelectItem value="gpt-4">GPT-4</SelectItem>
+                              <SelectItem value="gpt-4-mini">GPT-4 Mini</SelectItem>
+                              <SelectItem value="claude-3">Claude 3</SelectItem>
+                            </SelectContent>
+                          </Select>
+                    </div>
+
+
+                          <Label className="text-sm">{t('Custom Instructions')}</Label>
+                      <span classNa
+                            placeholder={t('Enter custom instructions for this agent...')}
+                            value={config.instructions}
+                            onChange={(e) => 
+                              updateAgentConfig(agent.id, { instructions: e.target.value })
+                            }
+                            rows={3}
+                          />
+                        </div>
+
+                        <div className="flex space-x-2">
+                          <Button
+                      <AlertTriangle className="h-4 w-4 text-orang
+                            size="sm"
+                        <p className="text-xs
+                            className="flex-1"
+                    
+                            <Play className="h-4 w-4 mr-1" />
+                            {t('Run Demo')}
+                          </Button>
+                          <Button
+                            size="sm"
+                    <div className="flex item
+                          >
+                        <p className="text-sm">{t('Inventory
+                          </Button>
+                    </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+            <Card
+              })}
+                <C
+          </TabsContent>
+
+          <TabsContent value="configuration" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('Global Agent Configuration')}</CardTitle>
+                <CardDescription>
+                  {t('Configure global settings that apply to all AI agents')}
+                </CardDescription>
+                    <div cl
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">{t('General Settings')}</h3>
+                    
     </div>
-}
+                      <Label>{t('Default AI Model')}</Label>
+                      <Select defaultValue="gpt-4">
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
 
+                          <SelectItem value="gpt-4">GPT-4</SelectItem>
+                          <SelectItem value="gpt-4-mini">GPT-4 Mini</SelectItem>
+                          <SelectItem value="claude-3">Claude 3</SelectItem>
 
+                      </Select>
 
 
+                    <div className="space-y-2">
+                      <Label>{t('Error Handling')}</Label>
+                      <Select defaultValue="retry">
+                        <SelectTrigger>
 
+                        </SelectTrigger>
 
+                          <SelectItem value="retry">{t('Retry on Error')}</SelectItem>
+                          <SelectItem value="stop">{t('Stop on Error')}</SelectItem>
+                          <SelectItem value="continue">{t('Continue with Warnings')}</SelectItem>
+                        </SelectContent>
+                      </Select>
 
 
 
+                      <Label>{t('Logging Level')}</Label>
+                      <Select defaultValue="info">
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
 
+                          <SelectItem value="debug">{t('Debug')}</SelectItem>
+                          <SelectItem value="info">{t('Info')}</SelectItem>
+                          <SelectItem value="warning">{t('Warning')}</SelectItem>
+                          <SelectItem value="error">{t('Error')}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
 
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">{t('Performance Settings')}</h3>
 
+                    <div className="space-y-2">
+                      <Label>{t('Max Concurrent Agents')}</Label>
+                      <Input type="number" min="1" max="10" defaultValue="5" />
 
 
 
+                      <Label>{t('Request Timeout (seconds)')}</Label>
+                      <Input type="number" min="30" max="300" defaultValue="120" />
 
 
+                    <div className="space-y-2">
+                      <Label>{t('Rate Limit (requests per minute)')}</Label>
+                      <Input type="number" min="10" max="1000" defaultValue="60" />
+                    </div>
+                  </div>
+                </div>
 
 
 
 
+                  <h3 className="text-lg font-semibold">{t('Security & Privacy')}</h3>
 
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center justify-between">
+                      <Label>{t('Enable Data Encryption')}</Label>
 
 
+                    
+                    <div className="flex items-center justify-between">
+                      <Label>{t('GDPR Compliance Mode')}</Label>
 
+                    </div>
 
+                    <div className="flex items-center justify-between">
+                      <Label>{t('Audit Logging')}</Label>
+                      <Switch defaultChecked />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
 
+                      <Switch defaultChecked />
 
+                  </div>
+                </div>
 
+                <div className="flex justify-end space-x-2">
+                  <Button variant="outline">{t('Reset to Defaults')}</Button>
 
+                </div>
 
+            </Card>
 
 
 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
+                <CardHeader>
+                  <CardTitle>{t('System Health')}</CardTitle>
+                  <CardDescription>
+                    {t('Monitor the overall health of your AI agent system')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">{t('CPU Usage')}</span>
+                      <span className="text-sm font-medium">23%</span>
 
+                    <Progress value={23} className="h-2" />
+                  </div>
 
 
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">{t('Memory Usage')}</span>
+                      <span className="text-sm font-medium">67%</span>
 
+                    <Progress value={67} className="h-2" />
 
 
 
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">{t('API Rate Limit')}</span>
+                      <span className="text-sm font-medium">45%</span>
 
+                    <Progress value={45} className="h-2" />
 
 
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">{t('Storage Usage')}</span>
+                      <span className="text-sm font-medium">34%</span>
+                    </div>
+                    <Progress value={34} className="h-2" />
+                  </div>
+                </CardContent>
 
 
 
+                <CardHeader>
+                  <CardTitle>{t('Error Log')}</CardTitle>
+                  <CardDescription>
+                    {t('Recent errors and warnings from AI agents')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
 
+                    <div className="flex items-start space-x-3">
+                      <AlertTriangle className="h-4 w-4 text-orange-500 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm">{t('Price Monitor: Rate limit exceeded')}</p>
+                        <p className="text-xs text-muted-foreground">5 {t('minutes ago')}</p>
 
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm">{t('Listing Optimizer: API connection failed')}</p>
+                        <p className="text-xs text-muted-foreground">12 {t('minutes ago')}</p>
 
+                    </div>
 
+                    <div className="flex items-start space-x-3">
+                      <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm">{t('Inventory Forecaster: Low confidence prediction')}</p>
+                        <p className="text-xs text-muted-foreground">1 {t('hour ago')}</p>
 
+                    </div>
+                  </div>
+                </CardContent>
 
+            </div>
 
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('Performance Analytics')}</CardTitle>
 
+                  {t('Detailed performance metrics and trends')}
 
+              </CardHeader>
 
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
+                    <div className="text-2xl font-bold text-green-600">94.7%</div>
+                    <p className="text-sm text-muted-foreground">{t('Success Rate')}</p>
+                  </div>
 
+                    <div className="text-2xl font-bold text-blue-600">2.3s</div>
+                    <p className="text-sm text-muted-foreground">{t('Avg Response Time')}</p>
 
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">15,247</div>
+                    <p className="text-sm text-muted-foreground">{t('Tasks Completed')}</p>
 
 
+              </CardContent>
 
+          </TabsContent>
+        </Tabs>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  )
