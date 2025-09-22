@@ -449,6 +449,33 @@ const translations = {
     'agents.tasks': 'Tasks',
     'agents.pause': 'Pause',
     'agents.activate': 'Activate',
+    
+    // Contact and Business Info
+    'Contact Us': 'Contact Us',
+    'Get in Touch': 'Get in Touch',
+    'Get in touch with our team for any questions or support.': 'Get in touch with our team for any questions or support.',
+    'Email': 'Email',
+    'Phone': 'Phone',
+    'Address': 'Address',
+    'Business Hours': 'Business Hours',
+    'Monday - Friday': 'Monday - Friday',
+    'Saturday': 'Saturday',
+    'Sunday': 'Sunday',
+    'Closed': 'Closed',
+    '24/7 AI Support Available': '24/7 AI Support Available',
+    
+    // Admin Blog Configuration
+    'Test Configuration': 'Test Configuration',
+    'Reset to Defaults': 'Reset to Defaults',
+    'Testing blog configuration...': 'Testing blog configuration...',
+    'Configuration test passed!': 'Configuration test passed!',
+    'Blog configuration updated': 'Blog configuration updated',
+    'Configuration exported': 'Configuration exported',
+    'Configuration imported successfully': 'Configuration imported successfully',
+    'Invalid configuration file': 'Invalid configuration file',
+    'Describe the desired tone and style for AI-generated content': 'Describe the desired tone and style for AI-generated content',
+    'Add new category': 'Add new category',
+    'Define the primary audience for content targeting': 'Define the primary audience for content targeting',
   },
   
   de: {
@@ -887,6 +914,33 @@ const translations = {
     'agents.tasks': 'Aufgaben',
     'agents.pause': 'Pausieren',
     'agents.activate': 'Aktivieren',
+    
+    // Contact and Business Info
+    'Contact Us': 'Kontaktieren Sie uns',
+    'Get in Touch': 'Kontakt aufnehmen',
+    'Get in touch with our team for any questions or support.': 'Kontaktieren Sie unser Team bei Fragen oder für Support.',
+    'Email': 'E-Mail',
+    'Phone': 'Telefon',
+    'Address': 'Adresse',
+    'Business Hours': 'Geschäftszeiten',
+    'Monday - Friday': 'Montag - Freitag',
+    'Saturday': 'Samstag',
+    'Sunday': 'Sonntag',
+    'Closed': 'Geschlossen',
+    '24/7 AI Support Available': '24/7 KI-Support verfügbar',
+    
+    // Admin Blog Configuration
+    'Test Configuration': 'Konfiguration testen',
+    'Reset to Defaults': 'Auf Standard zurücksetzen',
+    'Testing blog configuration...': 'Blog-Konfiguration wird getestet...',
+    'Configuration test passed!': 'Konfigurationstest bestanden!',
+    'Blog configuration updated': 'Blog-Konfiguration aktualisiert',
+    'Configuration exported': 'Konfiguration exportiert',
+    'Configuration imported successfully': 'Konfiguration erfolgreich importiert',
+    'Invalid configuration file': 'Ungültige Konfigurationsdatei',
+    'Describe the desired tone and style for AI-generated content': 'Beschreiben Sie den gewünschten Ton und Stil für KI-generierten Inhalt',
+    'Add new category': 'Neue Kategorie hinzufügen',
+    'Define the primary audience for content targeting': 'Definieren Sie die primäre Zielgruppe für Content-Targeting',
   },
   
   zh: {
@@ -1301,6 +1355,33 @@ const translations = {
     'agents.tasks': '任务',
     'agents.pause': '暂停',
     'agents.activate': '激活',
+    
+    // Contact and Business Info
+    'Contact Us': '联系我们',
+    'Get in Touch': '取得联系',
+    'Get in touch with our team for any questions or support.': '如有任何问题或需要支持，请联系我们的团队。',
+    'Email': '电子邮件',
+    'Phone': '电话',
+    'Address': '地址',
+    'Business Hours': '营业时间',
+    'Monday - Friday': '周一 - 周五',
+    'Saturday': '周六',
+    'Sunday': '周日',
+    'Closed': '休息',
+    '24/7 AI Support Available': '24/7 AI支持可用',
+    
+    // Admin Blog Configuration
+    'Test Configuration': '测试配置',
+    'Reset to Defaults': '重置为默认值',
+    'Testing blog configuration...': '正在测试博客配置...',
+    'Configuration test passed!': '配置测试通过！',
+    'Blog configuration updated': '博客配置已更新',
+    'Configuration exported': '配置已导出',
+    'Configuration imported successfully': '配置成功导入',
+    'Invalid configuration file': '无效的配置文件',
+    'Describe the desired tone and style for AI-generated content': '描述AI生成内容的期望语调和风格',
+    'Add new category': '添加新类别',
+    'Define the primary audience for content targeting': '定义内容定位的主要受众',
   },
   
   fr: {
@@ -1639,6 +1720,33 @@ const translations = {
     'agents.tasks': 'Tâches',
     'agents.pause': 'Pause',
     'agents.activate': 'Activer',
+    
+    // Contact and Business Info
+    'Contact Us': 'Nous contacter',
+    'Get in Touch': 'Prendre contact',
+    'Get in touch with our team for any questions or support.': 'Contactez notre équipe pour toute question ou support.',
+    'Email': 'E-mail',
+    'Phone': 'Téléphone',
+    'Address': 'Adresse',
+    'Business Hours': 'Heures d\'ouverture',
+    'Monday - Friday': 'Lundi - Vendredi',
+    'Saturday': 'Samedi',
+    'Sunday': 'Dimanche',
+    'Closed': 'Fermé',
+    '24/7 AI Support Available': 'Support IA 24/7 disponible',
+    
+    // Admin Blog Configuration
+    'Test Configuration': 'Tester la configuration',
+    'Reset to Defaults': 'Remettre aux valeurs par défaut',
+    'Testing blog configuration...': 'Test de la configuration du blog...',
+    'Configuration test passed!': 'Test de configuration réussi !',
+    'Blog configuration updated': 'Configuration du blog mise à jour',
+    'Configuration exported': 'Configuration exportée',
+    'Configuration imported successfully': 'Configuration importée avec succès',
+    'Invalid configuration file': 'Fichier de configuration invalide',
+    'Describe the desired tone and style for AI-generated content': 'Décrivez le ton et le style souhaités pour le contenu généré par IA',
+    'Add new category': 'Ajouter une nouvelle catégorie',
+    'Define the primary audience for content targeting': 'Définir l\'audience principale pour le ciblage de contenu',
   }
 }
 

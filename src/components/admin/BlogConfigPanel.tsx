@@ -76,7 +76,7 @@ interface BlogConfig {
 }
 
 export function BlogConfigPanel() {
-  const { language } = useLanguage()
+  const { t, language } = useLanguage()
   const [config, setConfig] = useKV<BlogConfig>("blog-config", {
     // Content Generation Settings
     autoPublish: false,
@@ -142,7 +142,7 @@ export function BlogConfigPanel() {
       if (!current) return { ...config!, ...updates }
       return { ...current, ...updates }
     })
-    toast.success("Blog configuration updated")
+    toast.success(t("Blog configuration updated"))
   }
 
   const exportConfig = () => {
@@ -155,7 +155,7 @@ export function BlogConfigPanel() {
     a.download = 'blog-config.json'
     a.click()
     URL.revokeObjectURL(url)
-    toast.success("Configuration exported")
+    toast.success(t("Configuration exported"))
   }
 
   const importConfig = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,9 +167,9 @@ export function BlogConfigPanel() {
       try {
         const importedConfig = JSON.parse(e.target?.result as string)
         setConfig(importedConfig)
-        toast.success("Configuration imported successfully")
+        toast.success(t("Configuration imported successfully"))
       } catch (error) {
-        toast.error("Invalid configuration file")
+        toast.error(t("Invalid configuration file"))
       }
     }
     reader.readAsText(file)
@@ -308,7 +308,7 @@ export function BlogConfigPanel() {
                     value={config.writingStyle}
                     onChange={(e) => updateConfig({ writingStyle: e.target.value })}
                     rows={3}
-                    placeholder="Describe the desired tone and style for AI-generated content"
+                    placeholder={t("Describe the desired tone and style for AI-generated content")}
                   />
                 </div>
               </CardContent>
@@ -404,7 +404,7 @@ export function BlogConfigPanel() {
                 </div>
                 <div className="flex gap-2">
                   <Input
-                    placeholder="Add new category"
+                    placeholder={t("Add new category")}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         const target = e.target as HTMLInputElement
@@ -426,7 +426,7 @@ export function BlogConfigPanel() {
                   value={config.targetAudience}
                   onChange={(e) => updateConfig({ targetAudience: e.target.value })}
                   rows={2}
-                  placeholder="Define the primary audience for content targeting"
+                  placeholder={t("Define the primary audience for content targeting")}
                 />
               </div>
             </CardContent>
@@ -796,19 +796,19 @@ export function BlogConfigPanel() {
                   <Button 
                     onClick={() => {
                       // Simulate testing configuration
-                      toast.info("Testing blog configuration...")
+                      toast.info(t("Testing blog configuration..."))
                       setTimeout(() => {
-                        toast.success("Configuration test passed!")
+                        toast.success(t("Configuration test passed!"))
                       }, 2000)
                     }}
                   >
                     <Play className="h-4 w-4 mr-2" />
-                    Test Configuration
+                    {t("Test Configuration")}
                   </Button>
                   
                   <Button variant="outline">
                     <Pause className="h-4 w-4 mr-2" />
-                    Reset to Defaults
+                    {t("Reset to Defaults")}
                   </Button>
                 </div>
               </div>
