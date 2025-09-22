@@ -1046,9 +1046,9 @@ Detailed results:
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Agent Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {agentDemos.map((agent) => (
           <Card 
             key={agent.id}
@@ -1057,22 +1057,22 @@ Detailed results:
             }`}
             onClick={() => setSelectedAgent(agent)}
           >
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-sm">
+            <CardHeader className="pb-2 sm:pb-3">
+              <CardTitle className="flex items-center gap-2 text-xs sm:text-sm">
                 {agent.icon}
                 {agent.name}
               </CardTitle>
-              <CardDescription className="text-xs">
+              <CardDescription className="text-[10px] sm:text-xs line-clamp-2">
                 {agent.description}
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-0">
               <div className="flex items-center justify-between">
-                <Badge variant="outline" className="text-xs">
+                <Badge variant="outline" className="text-[10px] sm:text-xs">
                   {agent.type}
                 </Badge>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <CheckCircle className="h-3 w-3 text-green-500" />
+                <div className="flex items-center gap-1 text-[10px] sm:text-xs text-muted-foreground">
+                  <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-green-500" />
                   {agent.training.accuracy}% accuracy
                 </div>
               </div>
@@ -1106,50 +1106,51 @@ Detailed results:
 
         <CardContent>
           <Tabs defaultValue="demo" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="demo">{t("agent.liveDemo")}</TabsTrigger>
-              <TabsTrigger value="examples">{t("common.examples")}</TabsTrigger>
-              <TabsTrigger value="performance">{t("common.performance")}</TabsTrigger>
-              <TabsTrigger value="config">{t("common.configuration")}</TabsTrigger>
-              <TabsTrigger value="training">{t("common.training")}</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 gap-1 admin-tabs-mobile">
+              <TabsTrigger value="demo" className="text-xs sm:text-sm">{t("agent.liveDemo")}</TabsTrigger>
+              <TabsTrigger value="examples" className="text-xs sm:text-sm">{t("common.examples")}</TabsTrigger>
+              <TabsTrigger value="performance" className="text-xs sm:text-sm hidden sm:flex">{t("common.performance")}</TabsTrigger>
+              <TabsTrigger value="config" className="text-xs sm:text-sm hidden sm:flex">{t("common.configuration")}</TabsTrigger>
+              <TabsTrigger value="training" className="text-xs sm:text-sm hidden sm:flex">{t("common.training")}</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="demo" className="mt-6">
-              <div className="space-y-6">
+            <TabsContent value="demo" className="mt-4 sm:mt-6">
+              <div className="space-y-4 sm:space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Play className="h-4 w-4" />
+                    <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <Play className="h-3 w-3 sm:h-4 sm:w-4" />
                       {t("agent.tryAgent")}
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-xs sm:text-sm">
                       {t("agent.enterInput")}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3 sm:space-y-4">
                     <div>
-                      <Label>{t("agent.input")}</Label>
+                      <Label className="text-xs sm:text-sm">{t("agent.input")}</Label>
                       <Textarea
                         value={demoInput}
                         onChange={(e) => setDemoInput(e.target.value)}
                         placeholder={t(`Enter input for ${selectedAgent.name}...`)}
-                        rows={4}
-                        className="mt-1"
+                        rows={3}
+                        className="mt-1 text-xs sm:text-sm"
                       />
                     </div>
                     <Button 
                       onClick={runCustomDemo} 
                       disabled={isRunningDemo || !demoInput.trim()}
-                      className="w-full"
+                      className="w-full text-xs sm:text-sm"
+                      size="sm"
                     >
                       {isRunningDemo ? (
                         <>
-                          <Lightning className="h-4 w-4 mr-2 animate-spin" />
+                          <Lightning className="h-3 w-3 sm:h-4 sm:w-4 mr-2 animate-spin" />
                           {t("agent.processing")}
                         </>
                       ) : (
                         <>
-                          <Robot className="h-4 w-4 mr-2" />
+                          <Robot className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                           {t("agent.runDemo")}
                         </>
                       )}
@@ -1157,47 +1158,48 @@ Detailed results:
                     
                     {/* Demo Output */}
                     {demoOutput && (
-                      <Card className="mt-4">
-                        <CardHeader>
+                      <Card className="mt-3 sm:mt-4">
+                        <CardHeader className="pb-2 sm:pb-4">
                           <div className="flex items-center justify-between">
-                            <CardTitle className="flex items-center gap-2">
-                              <Sparkle className="h-4 w-4 text-green-500" />
+                            <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                              <Sparkle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
                               {t("agent.demoOutput")}
                             </CardTitle>
                             <Button 
                               variant="ghost" 
                               size="sm"
                               onClick={() => copyToClipboard(demoOutput)}
+                              className="h-6 w-6 sm:h-8 sm:w-8 p-0"
                             >
-                              <Copy className="h-3 w-3" />
+                              <Copy className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                             </Button>
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <ScrollArea className="h-48">
-                            <pre className="text-sm bg-green-50 border border-green-200 p-4 rounded-md whitespace-pre-wrap">
+                          <ScrollArea className="h-32 sm:h-48">
+                            <pre className="text-[10px] sm:text-sm bg-green-50 border border-green-200 p-2 sm:p-4 rounded-md whitespace-pre-wrap">
                               {demoOutput}
                             </pre>
                           </ScrollArea>
                           
                           {demoMetrics && (
-                            <div className="mt-4 pt-4 border-t">
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t">
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                                 <div className="text-center">
-                                  <div className="text-sm text-muted-foreground">Processing Time</div>
-                                  <div className="font-semibold">{demoMetrics.processingTime}</div>
+                                  <div className="text-[10px] sm:text-sm text-muted-foreground">Processing Time</div>
+                                  <div className="font-semibold text-xs sm:text-sm">{demoMetrics.processingTime}</div>
                                 </div>
                                 <div className="text-center">
-                                  <div className="text-sm text-muted-foreground">Confidence</div>
-                                  <div className="font-semibold text-green-600">{demoMetrics.confidence}%</div>
+                                  <div className="text-[10px] sm:text-sm text-muted-foreground">Confidence</div>
+                                  <div className="font-semibold text-green-600 text-xs sm:text-sm">{demoMetrics.confidence}%</div>
                                 </div>
                                 <div className="text-center">
-                                  <div className="text-sm text-muted-foreground">Tokens Used</div>
-                                  <div className="font-semibold">{demoMetrics.tokensUsed.toLocaleString()}</div>
+                                  <div className="text-[10px] sm:text-sm text-muted-foreground">Tokens Used</div>
+                                  <div className="font-semibold text-xs sm:text-sm">{demoMetrics.tokensUsed.toLocaleString()}</div>
                                 </div>
                                 <div className="text-center">
-                                  <div className="text-sm text-muted-foreground">Cost Est.</div>
-                                  <div className="font-semibold">{demoMetrics.costEstimate}</div>
+                                  <div className="text-[10px] sm:text-sm text-muted-foreground">Cost Est.</div>
+                                  <div className="font-semibold text-xs sm:text-sm">{demoMetrics.costEstimate}</div>
                                 </div>
                               </div>
                             </div>
@@ -1210,18 +1212,18 @@ Detailed results:
 
                 {/* Capabilities Overview */}
                 <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Sparkle className="h-4 w-4" />
+                  <CardHeader className="pb-2 sm:pb-4">
+                    <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <Sparkle className="h-3 w-3 sm:h-4 sm:w-4" />
                       {t("agent.capabilities")}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                       {selectedAgent.capabilities.map((capability, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-500" />
-                          <span className="text-sm">{capability}</span>
+                          <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 flex-shrink-0" />
+                          <span className="text-xs sm:text-sm">{capability}</span>
                         </div>
                       ))}
                     </div>
@@ -1346,17 +1348,17 @@ Detailed results:
               </div>
             </TabsContent>
 
-            <TabsContent value="examples" className="mt-6">
-              <div className="space-y-6">
+            <TabsContent value="examples" className="mt-4 sm:mt-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Example Selection */}
-                <div className="flex gap-2 overflow-x-auto pb-2">
+                <div className="flex gap-1 sm:gap-2 overflow-x-auto pb-2">
                   {selectedAgent.examples.map((example, index) => (
                     <Button
                       key={index}
                       variant={activeExample === index ? "default" : "outline"}
                       size="sm"
                       onClick={() => setActiveExample(index)}
-                      className="whitespace-nowrap"
+                      className="whitespace-nowrap text-xs sm:text-sm flex-shrink-0"
                     >
                       {example.title}
                     </Button>
@@ -1365,41 +1367,42 @@ Detailed results:
 
                 {/* Example Display */}
                 {selectedAgent.examples[activeExample] && (
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <Card>
-                      <CardHeader>
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="text-lg">
+                      <CardHeader className="pb-2 sm:pb-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+                          <CardTitle className="text-sm sm:text-lg">
                             {selectedAgent.examples[activeExample].title}
                           </CardTitle>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
-                              <Lightning className="h-3 w-3" />
+                              <Lightning className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                               {selectedAgent.examples[activeExample].processingTime}
                             </div>
                             <div className="flex items-center gap-1">
-                              <Target className="h-3 w-3" />
+                              <Target className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                               {selectedAgent.examples[activeExample].confidence}% confidence
                             </div>
                           </div>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                           {/* Input */}
                           <div>
                             <div className="flex items-center justify-between mb-2">
-                              <Label className="text-sm font-medium">Input</Label>
+                              <Label className="text-xs sm:text-sm font-medium">Input</Label>
                               <Button 
                                 variant="ghost" 
                                 size="sm"
                                 onClick={() => copyToClipboard(selectedAgent.examples[activeExample].input)}
+                                className="h-6 w-6 sm:h-8 sm:w-8 p-0"
                               >
-                                <Copy className="h-3 w-3" />
+                                <Copy className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                               </Button>
                             </div>
-                            <ScrollArea className="h-40">
-                              <pre className="text-xs bg-muted p-3 rounded-md whitespace-pre-wrap">
+                            <ScrollArea className="h-32 sm:h-40">
+                              <pre className="text-[10px] sm:text-xs bg-muted p-2 sm:p-3 rounded-md whitespace-pre-wrap">
                                 {selectedAgent.examples[activeExample].input}
                               </pre>
                             </ScrollArea>
@@ -1408,31 +1411,32 @@ Detailed results:
                           {/* Output */}
                           <div>
                             <div className="flex items-center justify-between mb-2">
-                              <Label className="text-sm font-medium">Output</Label>
+                              <Label className="text-xs sm:text-sm font-medium">Output</Label>
                               <Button 
                                 variant="ghost" 
                                 size="sm"
                                 onClick={() => copyToClipboard(selectedAgent.examples[activeExample].output)}
+                                className="h-6 w-6 sm:h-8 sm:w-8 p-0"
                               >
-                                <Copy className="h-3 w-3" />
+                                <Copy className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                               </Button>
                             </div>
-                            <ScrollArea className="h-40">
-                              <pre className="text-xs bg-green-50 border border-green-200 p-3 rounded-md whitespace-pre-wrap">
+                            <ScrollArea className="h-32 sm:h-40">
+                              <pre className="text-[10px] sm:text-xs bg-green-50 border border-green-200 p-2 sm:p-3 rounded-md whitespace-pre-wrap">
                                 {selectedAgent.examples[activeExample].output}
                               </pre>
                             </ScrollArea>
                           </div>
                         </div>
 
-                        <Separator className="my-4" />
+                        <Separator className="my-3 sm:my-4" />
 
                         {/* Explanation */}
                         <div>
-                          <Label className="text-sm font-medium mb-2 block">
+                          <Label className="text-xs sm:text-sm font-medium mb-2 block">
                             How it works
                           </Label>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs sm:text-sm text-muted-foreground">
                             {selectedAgent.examples[activeExample].explanation}
                           </p>
                         </div>

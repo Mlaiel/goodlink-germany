@@ -200,7 +200,7 @@ export function AdminPanel() {
           </TabsTrigger>
           <TabsTrigger value="advanced-demo" className="modern-tab-trigger">
             <Lightning size={16} className="mr-2" />
-            Advanced Demo
+            {t('admin.agentSimulator')}
           </TabsTrigger>
         </TabsList>
 

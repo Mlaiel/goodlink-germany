@@ -92,16 +92,17 @@ export function FloatingAIChat() {
 
   // Ensure proper mobile positioning
   useEffect(() => {
-    if (window.innerWidth < 640) { // Mobile breakpoint
+    const isMobile = window.innerWidth < 768 // Mobile breakpoint
+    if (isMobile && isOpen) {
       setPosition(prev => ({
         ...prev,
         x: 10,
         y: 10,
         width: window.innerWidth - 20,
-        height: window.innerHeight - 20
+        height: isMaximized ? window.innerHeight - 20 : Math.min(window.innerHeight - 40, 600)
       }))
     }
-  }, [isOpen])
+  }, [isOpen, isMaximized])
 
   // Quick suggestions
   const quickSuggestions = [
@@ -348,15 +349,15 @@ export function FloatingAIChat() {
         <div className="relative">
           <Button
             size="lg"
-            className="rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl hover:shadow-2xl transition-all duration-300 bg-primary hover:bg-primary/90 animate-bounce"
+            className="rounded-full h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 shadow-xl hover:shadow-2xl transition-all duration-300 bg-primary hover:bg-primary/90 animate-bounce"
             onClick={() => setIsOpen(true)}
           >
-            <Robot className="h-6 w-6 sm:h-7 sm:w-7" />
+            <Robot className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
           </Button>
-          <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs px-2 py-1 rounded-full shadow-lg">
+          <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-accent text-accent-foreground text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full shadow-lg">
             Demo
           </div>
-          <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden sm:block">
+          <div className="absolute -left-16 sm:-left-20 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2 rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden sm:block">
             Try AI Chat!
           </div>
         </div>
@@ -366,10 +367,10 @@ export function FloatingAIChat() {
 
   const chatStyle = {
     position: 'fixed' as const,
-    left: Math.max(10, Math.min(position.x, window.innerWidth - position.width - 10)),
-    top: Math.max(10, Math.min(position.y, window.innerHeight - position.height - 10)),
-    width: isMinimized ? Math.min(300, window.innerWidth - 20) : Math.min(position.width, window.innerWidth - 20),
-    height: isMinimized ? 60 : Math.min(position.height, window.innerHeight - 20),
+    left: Math.max(5, Math.min(position.x, window.innerWidth - position.width - 5)),
+    top: Math.max(5, Math.min(position.y, window.innerHeight - position.height - 5)),
+    width: isMinimized ? Math.min(280, window.innerWidth - 10) : Math.min(position.width, window.innerWidth - 10),
+    height: isMinimized ? 60 : Math.min(position.height, window.innerHeight - 10),
     zIndex: 1000,
     cursor: isDragging ? 'grabbing' : 'default',
   }
@@ -380,43 +381,41 @@ export function FloatingAIChat() {
       style={chatStyle}
       className={`shadow-2xl border-2 transition-all duration-300 ${
         isDragging ? 'shadow-3xl' : ''
-      } ${isMaximized ? 'rounded-none' : 'rounded-lg'} ${
-        window.innerWidth < 640 ? 'chat-mobile-adjust' : ''
-      }`}
+      } ${isMaximized ? 'rounded-none' : 'rounded-lg'} mobile-chat-window`}
       onMouseDown={handleMouseDown}
     >
       {/* Chat Header */}
-      <CardHeader className="chat-header px-4 py-3 bg-primary text-primary-foreground cursor-grab active:cursor-grabbing">
+      <CardHeader className="chat-header px-3 py-2 sm:px-4 sm:py-3 bg-primary text-primary-foreground cursor-grab active:cursor-grabbing">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Robot className="h-5 w-5" />
+            <Robot className="h-4 w-4 sm:h-5 sm:w-5" />
             <div>
-              <CardTitle className="text-sm">{t('chat.aiAssistant')}</CardTitle>
-              <p className="text-xs opacity-80">{t('chat.onlineNow')}</p>
+              <CardTitle className="text-xs sm:text-sm">{t('chat.aiAssistant')}</CardTitle>
+              <p className="text-[10px] sm:text-xs opacity-80">{t('chat.onlineNow')}</p>
             </div>
           </div>
           
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             {/* Vertical Movement Controls Group */}
-            <div className="flex items-center gap-0.5 mr-1 bg-primary-foreground/10 rounded-md p-0.5">
+            <div className="hidden sm:flex items-center gap-0.5 mr-1 bg-primary-foreground/10 rounded-md p-0.5">
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-7 w-7 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                className="h-6 w-6 p-0 text-primary-foreground hover:bg-primary-foreground/20"
                 onClick={moveUp}
                 title="Monter (Ctrl+↑)"
               >
-                <ArrowUp className="h-3.5 w-3.5" />
+                <ArrowUp className="h-3 w-3" />
               </Button>
               
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-7 w-7 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                className="h-6 w-6 p-0 text-primary-foreground hover:bg-primary-foreground/20"
                 onClick={moveDown}
                 title="Descendre (Ctrl+↓)"
               >
-                <ArrowDown className="h-3.5 w-3.5" />
+                <ArrowDown className="h-3 w-3" />
               </Button>
             </div>
             
@@ -424,18 +423,18 @@ export function FloatingAIChat() {
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+              className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
               onClick={() => setIsMinimized(!isMinimized)}
               title={isMinimized ? "Agrandir" : "Réduire"}
             >
-              {isMinimized ? <CaretUp className="h-4 w-4" /> : <CaretDown className="h-4 w-4" />}
+              {isMinimized ? <CaretUp className="h-3 w-3 sm:h-4 sm:w-4" /> : <CaretDown className="h-3 w-3 sm:h-4 sm:w-4" />}
             </Button>
             
             {!isMaximized && (
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                className="hidden sm:flex h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
                 onClick={toggleMaximize}
                 title="Plein écran"
               >
@@ -447,32 +446,32 @@ export function FloatingAIChat() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
                 onClick={toggleMaximize}
                 title="Fenêtrer"
               >
-                <ArrowsInSimple className="h-4 w-4" />
+                <ArrowsInSimple className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             )}
             
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+              className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
               onClick={clearChat}
               title="Vider le chat"
             >
-              <Trash className="h-4 w-4" />
+              <Trash className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
             
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+              className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
               onClick={() => setIsOpen(false)}
               title="Fermer"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>
@@ -480,49 +479,49 @@ export function FloatingAIChat() {
 
       {/* Chat Content */}
       {!isMinimized && (
-        <CardContent className="p-0 flex flex-col overflow-hidden" style={{ height: 'calc(100% - 80px)' }}>
+        <CardContent className="p-0 flex flex-col overflow-hidden" style={{ height: 'calc(100% - 65px)' }}>
           {/* Messages */}
-          <ScrollArea className="flex-1 px-4 py-2" style={{ maxHeight: 'calc(100% - 200px)' }}>
-            <div className="space-y-4 pb-4">
+          <ScrollArea className="flex-1 px-3 py-2 sm:px-4 sm:py-2" style={{ maxHeight: 'calc(100% - 180px)' }}>
+            <div className="space-y-3 sm:space-y-4 pb-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] p-3 rounded-lg break-words ${
+                    className={`max-w-[90%] sm:max-w-[85%] p-2 sm:p-3 rounded-lg break-words text-sm ${
                       message.isUser
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-card border text-foreground shadow-sm'
                     }`}
                   >
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                    <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
                     
                     {!message.isUser && message.isHelpful === undefined && message.id !== "welcome" && (
                       <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/20">
-                        <span className="text-xs">{t('chat.helpful')}</span>
+                        <span className="text-[10px] sm:text-xs">{t('chat.helpful')}</span>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-6 w-6 p-0"
+                          className="h-5 w-5 sm:h-6 sm:w-6 p-0"
                           onClick={() => handleFeedback(message.id, true)}
                         >
-                          <ThumbsUp className="h-3 w-3" />
+                          <ThumbsUp className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-6 w-6 p-0"
+                          className="h-5 w-5 sm:h-6 sm:w-6 p-0"
                           onClick={() => handleFeedback(message.id, false)}
                         >
-                          <ThumbsDown className="h-3 w-3" />
+                          <ThumbsDown className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                         </Button>
                       </div>
                     )}
                     
                     {message.isHelpful !== undefined && (
                       <div className="mt-2 pt-2 border-t border-border/20">
-                        <Badge variant={message.isHelpful ? "default" : "secondary"} className="text-xs">
+                        <Badge variant={message.isHelpful ? "default" : "secondary"} className="text-[10px] sm:text-xs">
                           {message.isHelpful ? t('chat.helpfulFeedback') : t('chat.feedbackReceived')}
                         </Badge>
                       </div>
@@ -533,14 +532,14 @@ export function FloatingAIChat() {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-card border text-foreground p-3 rounded-lg max-w-[85%] shadow-sm">
+                  <div className="bg-card border text-foreground p-2 sm:p-3 rounded-lg max-w-[90%] sm:max-w-[85%] shadow-sm">
                     <div className="flex items-center gap-2">
-                      <Robot className="h-4 w-4" />
-                      <span className="text-sm">AI is thinking</span>
+                      <Robot className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="text-xs sm:text-sm">AI is thinking</span>
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-current rounded-full animate-pulse"></div>
-                        <div className="w-2 h-2 bg-current rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                        <div className="w-2 h-2 bg-current rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-current rounded-full animate-pulse"></div>
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-current rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-current rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                       </div>
                     </div>
                   </div>
@@ -553,30 +552,30 @@ export function FloatingAIChat() {
 
           {/* Quick Suggestions */}
           {messages.length <= 1 && (
-            <div className="px-4 py-3 border-t bg-card/50 max-h-48 overflow-y-auto">
-              <p className="text-sm font-medium text-foreground mb-3">💡 Try asking me about:</p>
-              <div className="grid grid-cols-1 gap-2">
-                {quickSuggestions.slice(0, 4).map((suggestion, index) => (
+            <div className="px-3 py-2 sm:px-4 sm:py-3 border-t bg-card/50 max-h-40 sm:max-h-48 overflow-y-auto">
+              <p className="text-xs sm:text-sm font-medium text-foreground mb-2 sm:mb-3">💡 Try asking me about:</p>
+              <div className="grid grid-cols-1 gap-1.5 sm:gap-2">
+                {quickSuggestions.slice(0, window.innerWidth < 768 ? 3 : 4).map((suggestion, index) => (
                   <Button
                     key={index}
                     variant="outline"
                     size="sm"
-                    className="justify-start text-xs h-8 hover:bg-primary hover:text-primary-foreground transition-colors text-left p-2 text-foreground border-border"
+                    className="justify-start text-[10px] sm:text-xs h-7 sm:h-8 hover:bg-primary hover:text-primary-foreground transition-colors text-left p-1.5 sm:p-2 text-foreground border-border"
                     onClick={() => handleSendMessage(suggestion)}
                   >
                     <span className="truncate">{suggestion}</span>
                   </Button>
                 ))}
               </div>
-              <p className="text-xs text-foreground/70 mt-2 text-center">
+              <p className="text-[10px] sm:text-xs text-foreground/70 mt-1.5 sm:mt-2 text-center">
                 🚀 Fully functional demo
               </p>
             </div>
           )}
 
           {/* Input - Fixed at bottom */}
-          <div className="chat-input-container p-3 border-t bg-background/95 backdrop-blur-sm mt-auto shrink-0">
-            <div className="flex gap-2 items-end">
+          <div className="chat-input-container p-2 sm:p-3 border-t bg-background/95 backdrop-blur-sm mt-auto shrink-0">
+            <div className="flex gap-1.5 sm:gap-2 items-end">
               <Input
                 placeholder={t('chat.typeMessage')}
                 value={inputMessage}
@@ -588,29 +587,29 @@ export function FloatingAIChat() {
                   }
                 }}
                 disabled={isLoading}
-                className="flex-1 focus:ring-2 focus:ring-primary/20 min-h-[40px] resize-none"
+                className="flex-1 focus:ring-2 focus:ring-primary/20 min-h-[36px] sm:min-h-[40px] resize-none text-xs sm:text-sm"
                 autoFocus
               />
               <Button
                 size="sm"
                 onClick={() => handleSendMessage()}
                 disabled={!inputMessage.trim() || isLoading}
-                className={`transition-all duration-200 h-10 w-10 p-0 shrink-0 ${
+                className={`transition-all duration-200 h-9 w-9 sm:h-10 sm:w-10 p-0 shrink-0 ${
                   inputMessage.trim() ? 'bg-primary hover:bg-primary/90' : ''
                 }`}
               >
                 {isLoading ? (
-                  <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
+                  <div className="animate-spin h-3 w-3 sm:h-4 sm:w-4 border-2 border-current border-t-transparent rounded-full" />
                 ) : (
-                  <PaperPlaneTilt className="h-4 w-4" />
+                  <PaperPlaneTilt className="h-3 w-3 sm:h-4 sm:w-4" />
                 )}
               </Button>
             </div>
-            <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-foreground/70 truncate">
+            <div className="flex items-center justify-between mt-1.5 sm:mt-2">
+              <p className="text-[10px] sm:text-xs text-foreground/70 truncate">
                 {t('chat.poweredBy')}
               </p>
-              <p className="text-xs text-foreground/70">
+              <p className="text-[10px] sm:text-xs text-foreground/70">
                 {isLoading ? 'AI typing...' : 'Enter to send'}
               </p>
             </div>
