@@ -1106,12 +1106,12 @@ Detailed results:
 
         <CardContent>
           <Tabs defaultValue="demo" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 gap-1 admin-tabs-mobile">
-              <TabsTrigger value="demo" className="text-xs sm:text-sm">{t("agent.liveDemo")}</TabsTrigger>
-              <TabsTrigger value="examples" className="text-xs sm:text-sm">{t("common.examples")}</TabsTrigger>
-              <TabsTrigger value="performance" className="text-xs sm:text-sm hidden sm:flex">{t("common.performance")}</TabsTrigger>
-              <TabsTrigger value="config" className="text-xs sm:text-sm hidden sm:flex">{t("common.configuration")}</TabsTrigger>
-              <TabsTrigger value="training" className="text-xs sm:text-sm hidden sm:flex">{t("common.training")}</TabsTrigger>
+            <TabsList className="grid w-full gap-1 admin-tabs-mobile grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+              <TabsTrigger value="demo" className="text-xs sm:text-sm p-2 sm:p-3">{t("agent.liveDemo")}</TabsTrigger>
+              <TabsTrigger value="examples" className="text-xs sm:text-sm p-2 sm:p-3">{t("common.examples")}</TabsTrigger>
+              <TabsTrigger value="performance" className="text-xs sm:text-sm p-2 sm:p-3 hidden lg:flex">{t("common.performance")}</TabsTrigger>
+              <TabsTrigger value="config" className="text-xs sm:text-sm p-2 sm:p-3 hidden lg:flex">{t("common.configuration")}</TabsTrigger>
+              <TabsTrigger value="training" className="text-xs sm:text-sm p-2 sm:p-3 hidden lg:flex">{t("common.training")}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="demo" className="mt-4 sm:mt-6">

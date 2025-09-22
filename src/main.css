@@ -221,59 +221,48 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
   .mobile-chat-window {
-    @media (max-width: 768px) {
-      position: fixed !important;
-      left: 5px !important;
-      right: 5px !important;
-      top: 5px !important;
-      bottom: 5px !important;
-      width: calc(100vw - 10px) !important;
-      height: calc(100vh - 10px) !important;
-      border-radius: 12px !important;
-      max-width: none !important;
-      max-height: none !important;
-    }
+    position: fixed !important;
+    left: 5px !important;
+    right: 5px !important;
+    top: 5px !important;
+    bottom: 5px !important;
+    width: calc(100vw - 10px) !important;
+    height: calc(100vh - 10px) !important;
+    border-radius: 12px !important;
+    max-width: none !important;
+    max-height: none !important;
   }
   
-  /* Mobile button spacing improvements */
   .touch-friendly-spacing {
-    @media (max-width: 768px) {
-      gap: 0.75rem !important;
-      padding: 0.5rem !important;
-    }
+    gap: 0.75rem !important;
+    padding: 0.5rem !important;
   }
   
   .mobile-button-group {
-    @media (max-width: 768px) {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 0.5rem !important;
-      width: 100% !important;
-    }
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
   }
   
   .mobile-button-group button {
-    @media (max-width: 768px) {
-      width: 100% !important;
-      min-height: 44px !important;
-      justify-content: center !important;
-    }
+    width: 100% !important;
+    min-height: 44px !important;
+    justify-content: center !important;
   }
   
   .admin-tabs-mobile {
-    @media (max-width: 768px) {
-      overflow-x: auto !important;
-      scrollbar-width: none !important;
-      -ms-overflow-style: none !important;
-    }
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
   
   .admin-tabs-mobile::-webkit-scrollbar {
-    @media (max-width: 768px) {
-      display: none !important;
-    }
+    display: none !important;
   }
-}
 }

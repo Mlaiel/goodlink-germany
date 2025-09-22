@@ -52,22 +52,87 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-3">{t("Quick Links")}</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>{t("About Us")}</li>
-              <li>{t("Products")}</li>
-              <li>{t("Blog")}</li>
-              <li>{t("Contact")}</li>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <button 
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("About Us")}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => {
+                    const shopSection = document.getElementById('shop-section');
+                    shopSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Products")}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => {
+                    const blogSection = document.getElementById('blog-section');
+                    blogSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Blog")}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => {
+                    const contactSection = document.getElementById('contact-section');
+                    contactSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Contact")}
+                </button>
+              </li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
             <h4 className="font-semibold mb-3">{t("Support")}</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>{t("Help Center")}</li>
-              <li>{t("Privacy Policy")}</li>
-              <li>{t("Terms of Service")}</li>
-              <li>{t("Shipping Info")}</li>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <button 
+                  onClick={() => alert(t("Help Center - Contact support@goodlink-germany.com"))}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Help Center")}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => alert(t("Privacy Policy - Coming soon"))}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Privacy Policy")}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => alert(t("Terms of Service - Coming soon"))}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Terms of Service")}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => alert(t("Shipping Info - Free worldwide shipping on orders over €500"))}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-left"
+                >
+                  {t("Shipping Info")}
+                </button>
+              </li>
             </ul>
           </div>
         </div>
