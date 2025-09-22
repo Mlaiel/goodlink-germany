@@ -40,14 +40,14 @@ import {
   Warning,
   Activity,
   CurrencyDollar,
-  Package,
+  Box,
   Eye,
   ChartBar,
   Calendar,
   Target,
   Palette,
   Storefront,
-  FloppyDisk
+  ShoppingBag
 } from "@phosphor-icons/react"
 
 interface Agent {
@@ -99,7 +99,7 @@ export function AllAgentsPanel() {
         description: "Synchronise inventaire et commandes eBay en temps réel",
         category: "marketplace",
         status: "active",
-        icon: <Package className="h-5 w-5" />,
+        icon: <ShoppingBag className="h-5 w-5" />,
         platform: "eBay",
         performance: { successRate: 87, tasksCompleted: 892, revenue: 18900 },
         settings: {
@@ -152,6 +152,24 @@ export function AllAgentsPanel() {
           frenchTranslation: true,
           vatFrance: true,
           promotionManagement: true
+        }
+      },
+      {
+        id: "ebay-kleinanzeigen-agent",
+        name: "eBay Kleinanzeigen Agent",
+        description: "Gestion automatisée des annonces eBay Kleinanzeigen",
+        category: "marketplace",
+        status: "active",
+        icon: <ShoppingBag className="h-5 w-5" />,
+        platform: "eBay Kleinanzeigen",
+        performance: { successRate: 88, tasksCompleted: 756, revenue: 14200 },
+        settings: {
+          localDelivery: true,
+          paymentMethods: ["paypal", "bank_transfer", "cash"],
+          autoResponder: true,
+          priceNegotiation: true,
+          spamDetection: true,
+          locationRadius: 50
         }
       },
 
@@ -288,6 +306,26 @@ export function AllAgentsPanel() {
           communityEngagement: true
         }
       },
+      {
+        id: "email-agent",
+        name: "Email Marketing Agent",
+        description: "Service client et marketing automatisé par email",
+        category: "messaging",
+        status: "active",
+        icon: <FileText className="h-5 w-5" />,
+        platform: "Email",
+        performance: { successRate: 93, tasksCompleted: 4567, revenue: 28900 },
+        settings: {
+          autoResponder: true,
+          segmentation: true,
+          personalization: true,
+          drip_campaigns: true,
+          a_b_testing: true,
+          deliverability_optimization: true,
+          bounce_management: true,
+          unsubscribe_handling: true
+        }
+      },
 
       // AI Content Agents
       {
@@ -304,6 +342,48 @@ export function AllAgentsPanel() {
           seoOptimization: true,
           plagiarismCheck: true,
           brandVoice: "professional"
+        }
+      },
+      {
+        id: "blog-content-agent",
+        name: "Blog Content Agent",
+        description: "Création de contenu blog SEO-optimisé et gestion éditoriale",
+        category: "content",
+        status: "active",
+        icon: <FileText className="h-5 w-5" />,
+        performance: { successRate: 91, tasksCompleted: 1234, revenue: 15600 },
+        settings: {
+          seoOptimization: true,
+          keywordResearch: true,
+          contentCalendar: true,
+          internalLinking: true,
+          readabilityCheck: true,
+          publishingSchedule: "weekly",
+          wordCountTarget: 1500,
+          imageGeneration: true,
+          socialDistribution: true,
+          performanceTracking: true
+        }
+      },
+      {
+        id: "social-content-agent",
+        name: "Social Media Content Agent", 
+        description: "Création et planification de contenu pour réseaux sociaux",
+        category: "content",
+        status: "active",
+        icon: <Users className="h-5 w-5" />,
+        performance: { successRate: 87, tasksCompleted: 3456, revenue: 22100 },
+        settings: {
+          platforms: ["facebook", "instagram", "twitter", "linkedin", "youtube"],
+          contentMix: { promotional: 30, educational: 40, engaging: 30 },
+          hashtagStrategy: true,
+          visualContent: true,
+          videoContent: true,
+          storiesCreation: true,
+          postScheduling: true,
+          engagementTracking: true,
+          trendAnalysis: true,
+          crossPlatformOptimization: true
         }
       },
       {

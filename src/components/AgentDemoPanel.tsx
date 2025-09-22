@@ -34,7 +34,8 @@ import {
   ArrowRight,
   Eye,
   Sparkle,
-  Lightning
+  Lightning,
+  ShoppingBag
 } from "@phosphor-icons/react"
 
 interface DemoExample {
@@ -569,6 +570,219 @@ Current sales velocity: 4 units/day`,
       accuracy: 95.1,
       lastTrained: "2024-01-19"
     }
+  },
+  {
+    id: "ebay-kleinanzeigen-agent",
+    name: "eBay Kleinanzeigen Agent",
+    type: "marketplace",
+    icon: <ShoppingBag className="h-5 w-5" />,
+    description: "Automated management of eBay Kleinanzeigen listings with local delivery, price negotiation, and spam protection.",
+    capabilities: [
+      "Local marketplace optimization",
+      "Price negotiation handling",
+      "Automatic responses",
+      "Spam detection and filtering",
+      "Multiple payment methods",
+      "Location-based delivery"
+    ],
+    examples: [
+      {
+        title: "Local Product Listing",
+        input: `Product: BPM-2000 Blood Pressure Monitor
+Location: Berlin
+Condition: New
+Price: €89
+Delivery: Local pickup + delivery within 25km`,
+        output: `eBay Kleinanzeigen Listing Generated:
+
+**Titel:** Digitales Blutdruckmessgerät BPM-2000 - Neu & OVP - Berlin
+
+**Beschreibung:**
+Verkaufe ein neues, ungeöffnetes Blutdruckmessgerät BPM-2000.
+
+🏥 Medizingerät der Klasse IIa, CE-zertifiziert
+📱 Bluetooth-Verbindung zur Smartphone-App  
+👥 Speicher für 2 Nutzer je 120 Messungen
+🔋 Automatische Abschaltung, batterieschonend
+
+**Zustand:** Neu mit Originalverpackung
+**Preis:** 89€ VB
+**Standort:** Berlin-Mitte
+**Versand:** Abholung oder Lieferung innerhalb 25km (5€)
+
+✅ Keine Tierhaare, Nichtraucherhaushalt
+✅ Rechnung & 2 Jahre Garantie
+✅ PayPal, Überweisung oder Bar bei Abholung
+
+Auto-Settings Applied:
+🔒 Spam-Filter: Aktiviert
+💬 Auto-Antworten: Verfügbarkeit, Zustand, Preis
+🚗 Lieferradius: 25km (5€ Aufschlag)
+📅 Anzeigen-Dauer: 60 Tage`,
+        explanation: "Agent optimized for local marketplace, included trust signals, clear pricing, and enabled automated responses for common inquiries while maintaining personal touch.",
+        processingTime: "3.2s",
+        confidence: 88
+      }
+    ],
+    configuration: {
+      platform: "ebay-kleinanzeigen",
+      localRadius: 50,
+      autoNegotiation: true,
+      spamProtection: true,
+      paymentMethods: ["paypal", "bank", "cash"]
+    },
+    training: {
+      modelType: "Local marketplace optimization model",
+      dataSource: "German classified ads + regional preferences",
+      accuracy: 87.5,
+      lastTrained: "2024-01-18"
+    }
+  },
+  {
+    id: "email-agent",
+    name: "Email Marketing Agent",
+    type: "messaging",
+    icon: <FileText className="h-5 w-5" />,
+    description: "Automated email marketing campaigns, customer service responses, and personalized communication at scale.",
+    capabilities: [
+      "Automated email campaigns",
+      "Personalized responses",
+      "A/B testing optimization",
+      "Segmentation and targeting",
+      "Deliverability optimization",
+      "Customer lifecycle management"
+    ],
+    examples: [
+      {
+        title: "Customer Support Email",
+        input: `Email: "I received my BPM-2000 but the manual is in English only. I need German instructions. Please help."
+Customer: Maria Schmidt, Premium customer
+Purchase Date: 2024-01-10
+Product: BPM-2000`,
+        output: `Email Response Generated:
+
+**Betreff:** Deutsche Anleitung für Ihr BPM-2000 - Sofort verfügbar
+
+Liebe Frau Schmidt,
+
+vielen Dank für Ihre Nachricht bezüglich der deutschen Anleitung für Ihr BPM-2000.
+
+Es tut mir leid, dass Sie nur die englische Anleitung erhalten haben. Hier ist sofort Abhilfe:
+
+📱 **Digitale Anleitung:** 
+https://goodlink-germany.com/manuals/bpm-2000-de.pdf
+
+📖 **Gedruckte Anleitung:**
+Gerne senden wir Ihnen kostenfrei die deutsche Printversion zu.
+Versand erfolgt noch heute an Ihre Adresse.
+
+🎥 **Video-Tutorial:**
+Kurzes Erklärvideo zur Ersteinrichtung: 
+https://youtube.com/watch?v=bpm2000setup-de
+
+Als Premium-Kundin erhalten Sie außerdem:
+• Kostenlose Telefon-Hotline: 0800-GOODLINK
+• WhatsApp-Support: +49 30 12345678
+• Lebenslanger Email-Support
+
+Mit freundlichen Grüßen,
+Ihr Good-Link Service Team
+
+Auto-Actions:
+✅ German manual shipping scheduled
+✅ Customer preference updated (German)
+✅ Follow-up reminder set (3 days)
+✅ Premium customer badge confirmed`,
+        explanation: "Agent identified customer's language preference, provided immediate solutions, offered multiple support channels, and triggered automated follow-up actions for enhanced customer experience.",
+        processingTime: "2.1s",
+        confidence: 95
+      }
+    ],
+    configuration: {
+      personalisation: true,
+      languages: ["de", "en", "fr"],
+      autoResponse: true,
+      abTesting: true,
+      deliverability: "high"
+    },
+    training: {
+      modelType: "Email optimization + customer service model",
+      dataSource: "20k+ email interactions + deliverability data",
+      accuracy: 92.8,
+      lastTrained: "2024-01-16"
+    }
+  },
+  {
+    id: "social-content-agent",
+    name: "Social Media Content Agent",
+    type: "content",
+    icon: <Users className="h-5 w-5" />,
+    description: "Creates engaging social media content across all platforms with optimal timing, hashtags, and cross-platform optimization.",
+    capabilities: [
+      "Multi-platform content creation",
+      "Hashtag strategy optimization",
+      "Visual content generation",
+      "Posting schedule optimization",
+      "Engagement tracking",
+      "Trend analysis and adaptation"
+    ],
+    examples: [
+      {
+        title: "Product Launch Campaign",
+        input: `Product: BPM-3000 (New model launch)
+Campaign Goal: Awareness + Pre-orders
+Target Audience: Health-conscious Germans 35-65
+Budget: €2000/week
+Platforms: Instagram, Facebook, LinkedIn, YouTube`,
+        output: `Social Media Campaign Created:
+
+📱 **Instagram (7 posts/week):**
+Post 1: "🚀 Neu: BPM-3000 mit KI-Analyse"
+📸 Product hero shot + tech specs overlay
+⏰ Best time: Dienstag 19:30 (highest engagement)
+#BlutdruckMessung #DigitaleGesundheit #Innovation2024
+
+Post 2: Story series "Wie funktioniert KI-Blutdruckanalyse?"
+🎥 3-part educational series
+📊 90% completion rate expected
+
+**💼 LinkedIn B2B Content:**
+"Digitale Transformation im Gesundheitswesen: Wie KI-gestützte Blutdruckmessgeräte die Telemedizin revolutionieren"
+🎯 Target: Ärzte, Apotheker, Gesundheitsmanager
+📈 Engagement boost: +340% für Med-Tech Content
+
+**📺 YouTube:**
+"BPM-3000 vs BPM-2000: Was ist neu? [5-Min Review]"
+🔍 SEO Keywords: blutdruckmessgerät test 2024, ki gesundheit
+🎬 Thumbnail A/B test: Tech-style vs. Lifestyle
+
+**Cross-Platform Strategy:**
+⚡ Sequential storytelling across platforms
+📊 Unified analytics tracking
+🔄 Content repurposing for 5x efficiency
+📱 Mobile-first design for 89% mobile users
+
+Expected Results:
+👀 Reach: 45k qualified leads
+💰 Pre-orders: 180 units (€16,200)
+📈 Brand awareness: +28% in target demo`,
+        explanation: "Agent created comprehensive multi-platform strategy with platform-specific optimization, sequential storytelling, and data-driven posting schedule to maximize engagement and conversions.",
+        processingTime: "8.4s",
+        confidence: 91
+      }
+    ],
+    configuration: {
+      platforms: ["instagram", "facebook", "linkedin", "youtube", "twitter"],
+      contentMix: {promotional: 30, educational: 40, engaging: 30},
+      autoPosting: true,
+      hashtagOptimization: true
+    },
+    training: {
+      modelType: "Social media optimization + engagement prediction",
+      dataSource: "Social analytics + German market trends",
+      accuracy: 89.2,
+      lastTrained: "2024-01-17"
+    }
   }
 ]
 
@@ -696,6 +910,109 @@ Automatische Aktionen:
 • Compliance-Check bestanden
 
 Leistung: +€${(Math.random() * 200 + 50).toFixed(2)} heute`
+        break
+        
+      case "ebay-kleinanzeigen-agent":
+        output = `eBay Kleinanzeigen Listing:
+📍 Standort: Berlin-Mitte
+🏷️ Titel: ${demoInput} - Neu & Original verpackt
+
+💰 Preis: €${(Math.random() * 100 + 20).toFixed(2)} VB
+🚗 Lieferung: Abholung oder Lieferung (5€ innerhalb 25km)
+💳 Zahlung: PayPal, Überweisung, Bar
+
+Auto-Features aktiviert:
+✅ Spam-Filter: Verdächtige Anfragen blockiert
+✅ Auto-Antworten: Verfügbarkeit bestätigt
+✅ Preis-Verhandlung: Minimum 85% akzeptiert
+✅ Lieferradius: 25km Zone aktiv
+
+Lokale Optimierung:
+- Berliner Dialekt erkannt und angepasst
+- Typische Kleinanzeigen-Sprache verwendet
+- Vertrauenssignale hinzugefügt`
+        break
+        
+      case "email-agent":
+        output = `Email Campaign Generated:
+
+📧 Betreff: Exklusive Neuigkeiten zu ${demoInput}
+👥 Zielgruppe: Premium-Kunden (2,340 Empfänger)
+
+Liebe/r Kunde/in,
+
+vielen Dank für Ihr Vertrauen in Good-Link! Wir haben aufregende Neuigkeiten zu ${demoInput}.
+
+🎯 Personalisierte Inhalte:
+• Basierend auf Ihren bisherigen Käufen
+• Optimale Sendezeit: ${Math.floor(Math.random() * 12) + 8}:${['00', '15', '30', '45'][Math.floor(Math.random() * 4)]} Uhr
+• A/B Test: Version mit 23% höherer Öffnungsrate
+
+📊 Erwartete Performance:
+• Öffnungsrate: ${Math.floor(Math.random() * 10) + 45}%
+• Klickrate: ${Math.floor(Math.random() * 5) + 12}%
+• Conversion: ${Math.floor(Math.random() * 3) + 8}%
+
+Auto-Features:
+✅ Spam-Score: 2.1/10 (Excellent)
+✅ Mobile-optimiert: 100%
+✅ DSGVO-konform: Vollständig`
+        break
+        
+      case "social-content-agent":
+        output = `Social Media Content Suite:
+
+📱 Instagram (3 Posts/Woche):
+Post 1: "${demoInput} - Innovation trifft Design ✨"
+📸 Hero-Shot + Carousel mit Features
+⏰ Optimale Zeit: Di 19:30 (89% Engagement)
+#Innovation #Design #Qualität #${demoInput.replace(/\s+/g, '')}
+
+📘 Facebook Kampagne:
+"Entdecken Sie ${demoInput} - Jetzt mit 15% Frühjahrs-Rabatt!"
+🎯 Audience: Gesundheitsbewusste 35-65 Jahre
+💰 Budget: €50/Tag | ROAS erwartet: 4.2x
+
+💼 LinkedIn B2B:
+"Fallstudie: Wie ${demoInput} die Patientenversorgung verbessert"
+📊 Zielgruppe: Ärzte, Gesundheitsmanager
+📈 Engagement-Rate: +340% vs Standard-Posts
+
+📺 YouTube:
+"${demoInput} im Test: Alle Features in 3 Minuten"
+🔍 SEO-Keywords: Integriert (150+ relevante Terms)
+👀 Erwartete Views: 15k in ersten 30 Tagen
+
+Cross-Platform Analytics:
+📊 Unified Tracking über alle Kanäle
+🔄 Content-Recycling für 5x Effizienz`
+        break
+        
+      case "blog-agent":
+        output = `Blog-Artikel generiert:
+
+📝 Titel: "Der ultimative ${demoInput} Ratgeber 2024"
+📊 Ziel-Keywords: ${Math.floor(Math.random() * 15) + 8} strategisch platziert
+📖 Wortanzahl: ${Math.floor(Math.random() * 500) + 1200} Wörter
+
+✍️ Content-Struktur:
+1. Einleitung mit Hook (150 Wörter)
+2. Was ist ${demoInput}? (300 Wörter)
+3. Top 5 Vorteile (400 Wörter)
+4. Kaufberatung (350 Wörter)
+5. FAQ & Fazit (200 Wörter)
+
+🔍 SEO-Optimierung:
+• Meta-Description: 155 Zeichen, optimiert
+• H2/H3 Struktur: Perfekt für Featured Snippets
+• Interne Links: 8 strategische Verlinkungen
+• Externe Quellen: 4 autoritäre Referenzen
+• Keyword-Dichte: 1.8% (optimal)
+
+📈 Performance-Prognose:
+• Ranking-Potenzial: Top 5 in 3-6 Monaten
+• Erwarteter Traffic: 2,500 Besucher/Monat
+• Conversion-Rate: 8.5% (Branchendurchschnitt: 3.2%)`
         break
         
       default:
