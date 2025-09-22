@@ -282,19 +282,7 @@ Tools: GitHub Actions, Vite Build, Automated Testing
 
 ---
 
-## � **Team**
 
-### 🌟 **Leadership**
-- **Richard Zhang** - CFO of GL China
-- **Maria Schmidt** - Managing Director Germany  
-- **Li Wei** - Operations Director
-- **Thomas Mueller** - Business Development
-
-### 🤝 **Culture**
-- **Cross-Cultural Expertise** bridging East-West business practices
-- **Quality-First Approach** ensuring premium standards
-- **Customer-Centric Service** with multilingual support
-- **Innovation Focus** leveraging AI and automation
 
 ---
 
