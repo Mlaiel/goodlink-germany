@@ -34,16 +34,20 @@ class PWAManager {
 
   // Register service worker
   private async registerServiceWorker(): Promise<void> {
+    // SERVICE WORKER DÉSACTIVÉ POUR DEBUGGING
+    console.log('[PWA] Service Worker registration DISABLED for debugging')
+    return
+    
     if ('serviceWorker' in navigator) {
       try {
         this.registration = await navigator.serviceWorker.register('/sw.js', {
           scope: '/'
         })
 
-        console.log('[PWA] Service Worker registered successfully:', this.registration.scope)
+        console.log('[PWA] Service Worker registered successfully:', this.registration?.scope)
 
         // Handle updates
-        this.registration.addEventListener('updatefound', () => {
+        this.registration?.addEventListener('updatefound', () => {
           const newWorker = this.registration?.installing
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
@@ -210,7 +214,7 @@ class PWAManager {
           applicationServerKey: this.urlBase64ToUint8Array(
             // Replace with your VAPID public key
             'BEl62iUYgUivxIkv69yViEuiBIa40HI0LLLsLkbOCUl9Ozo1w1PFEyS5w1J2p4L3q1j4I7D8kPJu_3A8YbPXF8g'
-          )
+          ) as BufferSource
         })
 
         // Send subscription to backend
@@ -342,9 +346,10 @@ class PWAManager {
     headers: Record<string, string>
     body?: string
   }): void {
-    if (this.registration?.sync) {
+    // Background Sync API may not be available in all browsers
+    if (this.registration && 'sync' in this.registration) {
       // Use Background Sync
-      this.registration.sync.register('offline-actions')
+      (this.registration as any).sync.register('offline-actions')
     } else {
       // Fallback to IndexedDB storage
       this.storeOfflineAction(request)

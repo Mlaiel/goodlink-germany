@@ -185,3 +185,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Responsive utilities for mobile-first design */
+@layer utilities {
+  .responsive-grid {
+    @apply grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+  
+  .responsive-grid-2 {
+    @apply grid gap-4 grid-cols-1 lg:grid-cols-2;
+  }
+  
+  .responsive-text {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .responsive-padding {
+    @apply px-4 py-2 sm:px-6 sm:py-3;
+  }
+  
+  .touch-friendly {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

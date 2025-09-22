@@ -123,8 +123,14 @@ class ErrorBoundary extends React.Component<
 
 // Main application component with interface switching
 function GoodlinkApp() {
+  // Force reset to admin mode
   const [currentMode, setCurrentMode] = useKV<"admin" | "client" | "shop">("app-interface-mode", "admin")
   const [isInitialized, setIsInitialized] = useState(false)
+
+  // Force admin mode on load
+  useEffect(() => {
+    setCurrentMode("admin")
+  }, [setCurrentMode])
 
   // Wait for initial data to load
   useEffect(() => {
@@ -154,13 +160,14 @@ function GoodlinkApp() {
         case "shop":
           return <ShopInterface onSwitchMode={handleModeSwitch} />
         case "client":
-        default:
           return <ClientInterface onSwitchMode={handleModeSwitch} />
+        default:
+          return <AdminInterface onSwitchMode={handleModeSwitch} />
       }
     } catch (error) {
       console.error('Error rendering interface:', error)
-      // Fallback to client interface
-      return <ClientInterface onSwitchMode={handleModeSwitch} />
+      // Fallback to admin interface
+      return <AdminInterface onSwitchMode={handleModeSwitch} />
     }
   }
 

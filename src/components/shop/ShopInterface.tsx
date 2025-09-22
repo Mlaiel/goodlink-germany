@@ -75,9 +75,9 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
               </div>
               <div className="border-l pl-4">
                 <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
-                  Goodlink Store
+                  {t('shop.title')}
                 </h1>
-                <p className="text-sm text-muted-foreground">Premium Products & AI-Powered Shopping</p>
+                <p className="text-sm text-muted-foreground">{t('shop.subtitle')}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -88,7 +88,7 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
                 className="bg-purple-50 text-purple-700 border-purple-200 shadow-sm"
               >
                 <Activity className="h-3 w-3 mr-1 animate-pulse" />
-                Shop Open
+                {t('shop.openStatus')}
               </Badge>
             </div>
           </div>
@@ -103,35 +103,35 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
             >
               <ShoppingBag className="h-4 w-4" />
-              Products
+              {t('shop.products')}
             </TabsTrigger>
             <TabsTrigger 
               value="cart" 
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
             >
               <ShoppingCart className="h-4 w-4" />
-              Cart
+              {t('shop.cart')}
             </TabsTrigger>
             <TabsTrigger 
               value="favorites" 
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
             >
               <Heart className="h-4 w-4" />
-              Favorites
+              {t('shop.favorites')}
             </TabsTrigger>
             <TabsTrigger 
               value="account" 
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
             >
               <User className="h-4 w-4" />
-              Account
+              {t('shop.account')}
             </TabsTrigger>
             <TabsTrigger 
               value="orders" 
               className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
             >
               <Package className="h-4 w-4" />
-              Orders
+              {t('shop.orders')}
             </TabsTrigger>
           </TabsList>
 
@@ -143,9 +143,9 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
             <div className="grid gap-6">
               <div className="text-center py-12">
                 <ShoppingCart className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Shopping Cart</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('shop.cartTitle')}</h3>
                 <p className="text-muted-foreground">
-                  Review your items and proceed to checkout
+                  {t('shop.cartDescription')}
                 </p>
               </div>
             </div>
@@ -155,9 +155,9 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
             <div className="grid gap-6">
               <div className="text-center py-12">
                 <Heart className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Your Favorites</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('shop.favoritesTitle')}</h3>
                 <p className="text-muted-foreground">
-                  Products you've saved for later
+                  {t('shop.favoritesDescription')}
                 </p>
               </div>
             </div>
@@ -167,9 +167,9 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
             <div className="grid gap-6">
               <div className="text-center py-12">
                 <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">My Account</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('shop.accountTitle')}</h3>
                 <p className="text-muted-foreground">
-                  Manage your profile, addresses, and preferences
+                  {t('shop.accountDescription')}
                 </p>
               </div>
             </div>
@@ -179,9 +179,9 @@ export function ShopInterface({ onSwitchMode }: ShopInterfaceProps) {
             <div className="grid gap-6">
               <div className="text-center py-12">
                 <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Order History</h3>
+                <h3 className="text-lg font-semibold mb-2">{t('shop.ordersTitle')}</h3>
                 <p className="text-muted-foreground">
-                  Track your past orders and delivery status
+                  {t('shop.ordersDescription')}
                 </p>
               </div>
             </div>

@@ -43,112 +43,7 @@ const warehouses = [
 ]
 
 export function AboutPage() {
-  const { language } = useLanguage()
-
-  const translations = {
-    en: {
-      title: "About Good-Link Germany",
-      subtitle: "Bridging Europe and China since 2020",
-      germanBranch: "German Branch",
-      germanBranchDesc: "Good-Link Germany GmbH is located in the heart of Europe in Cologne, Germany. We are the first Good-Link branch out of China, founded in 2020 in cooperation with German shareholders and management.",
-      ourGoal: "Our Goal",
-      goalDesc: "Good-Link Germany will become the best channel for European companies who wish to cooperate with partners in China.",
-      chinaOperations: "Good-Link China",
-      chinaDesc: "Founded in 2004, Good-Link China operates across four cities in China with a team of 78 employees. Specialized in the automotive and medical sectors, we are proud of our established and extensive network of suppliers and customers.",
-      revenue2023: "2023 Revenue: €93 Million",
-      businessCulture: "Our Business Culture",
-      culture1: "Good personal relationships and a reliable way of working characterises our approach to our partners",
-      culture2: "Realistic and honest communication ensure an effective and trustful cooperation",
-      culture3: "We are aware of cultural differences and enjoy building bridges to cross them",
-      offices: "Our Offices",
-      warehouses: "Warehouses",
-      medicalFocus: "Medical Division",
-      medicalDesc: "Specialized medical technology divisions in Shenzhen and Shanghai",
-      ourTeam: "Our Team",
-      teamDesc: "Meet the professionals driving our success across Europe and China",
-      founded: "Founded",
-      employees: "Employees",
-      cities: "Cities",
-      sectors: "Sectors"
-    },
-    de: {
-      title: "Über Good-Link Germany",
-      subtitle: "Brücke zwischen Europa und China seit 2020",
-      germanBranch: "Deutsche Niederlassung",
-      germanBranchDesc: "Die Good-Link Germany GmbH befindet sich im Herzen Europas in Köln, Deutschland. Wir sind die erste Good-Link-Niederlassung aus China, gegründet 2020 in Zusammenarbeit mit deutschen Aktionären und Management.",
-      ourGoal: "Unser Ziel",
-      goalDesc: "Good-Link Germany wird der beste Kanal für europäische Unternehmen, die mit Partnern in China zusammenarbeiten möchten.",
-      chinaOperations: "Good-Link China",
-      chinaDesc: "Good-Link China wurde 2004 gegründet und ist in vier Städten in China mit einem Team von 78 Mitarbeitern tätig. Spezialisiert auf die Automobil- und Medizinbranche sind wir stolz auf unser etabliertes und umfangreiches Netzwerk von Lieferanten und Kunden.",
-      revenue2023: "Umsatz 2023: 93 Millionen €",
-      businessCulture: "Unsere Unternehmenskultur",
-      culture1: "Gute persönliche Beziehungen und eine zuverlässige Arbeitsweise kennzeichnen unseren Ansatz zu unseren Partnern",
-      culture2: "Realistische und ehrliche Kommunikation gewährleistet eine effektive und vertrauensvolle Zusammenarbeit",
-      culture3: "Wir sind uns kultureller Unterschiede bewusst und freuen uns darauf, Brücken zu bauen, um sie zu überwinden",
-      offices: "Unsere Büros",
-      warehouses: "Lagerhäuser",
-      medicalFocus: "Medizinische Abteilung",
-      medicalDesc: "Spezialisierte Medizintechnik-Abteilungen in Shenzhen und Shanghai",
-      ourTeam: "Unser Team",
-      teamDesc: "Lernen Sie die Fachkräfte kennen, die unseren Erfolg in Europa und China vorantreiben",
-      founded: "Gegründet",
-      employees: "Mitarbeiter",
-      cities: "Städte",
-      sectors: "Branchen"
-    },
-    zh: {
-      title: "关于好联德国",
-      subtitle: "自2020年以来连接欧洲和中国",
-      germanBranch: "德国分公司",
-      germanBranchDesc: "好联德国有限公司位于欧洲心脏地带的德国科隆。我们是好联从中国走出的第一个分公司，成立于2020年，与德国股东和管理层合作。",
-      ourGoal: "我们的目标",
-      goalDesc: "好联德国将成为希望与中国合作伙伴合作的欧洲公司的最佳渠道。",
-      chinaOperations: "好联中国",
-      chinaDesc: "好联中国成立于2004年，在中国四个城市运营，拥有78名员工团队。专注于汽车和医疗行业，我们为我们建立的广泛供应商和客户网络感到自豪。",
-      revenue2023: "2023年收入：9300万欧元",
-      businessCulture: "我们的企业文化",
-      culture1: "良好的个人关系和可靠的工作方式是我们对待合作伙伴的方法特色",
-      culture2: "现实和诚实的沟通确保有效和信任的合作",
-      culture3: "我们意识到文化差异，并乐于搭建桥梁来跨越它们",
-      offices: "我们的办公室",
-      warehouses: "仓库",
-      medicalFocus: "医疗部门",
-      medicalDesc: "深圳和上海的专业医疗技术部门",
-      ourTeam: "我们的团队",
-      teamDesc: "认识推动我们在欧洲和中国成功的专业人士",
-      founded: "成立",
-      employees: "员工",
-      cities: "城市",
-      sectors: "行业"
-    },
-    fr: {
-      title: "À propos de Good-Link Germany",
-      subtitle: "Reliant l'Europe et la Chine depuis 2020",
-      germanBranch: "Filiale Allemande",
-      germanBranchDesc: "Good-Link Germany GmbH est située au cœur de l'Europe à Cologne, en Allemagne. Nous sommes la première filiale Good-Link sortie de Chine, fondée en 2020 en coopération avec des actionnaires et une direction allemands.",
-      ourGoal: "Notre Objectif",
-      goalDesc: "Good-Link Germany deviendra le meilleur canal pour les entreprises européennes qui souhaitent coopérer avec des partenaires en Chine.",
-      chinaOperations: "Good-Link Chine",
-      chinaDesc: "Fondée en 2004, Good-Link Chine opère dans quatre villes en Chine avec une équipe de 78 employés. Spécialisés dans les secteurs automobile et médical, nous sommes fiers de notre réseau établi et étendu de fournisseurs et clients.",
-      revenue2023: "Chiffre d'affaires 2023 : 93 millions €",
-      businessCulture: "Notre Culture d'Entreprise",
-      culture1: "De bonnes relations personnelles et une façon de travailler fiable caractérisent notre approche avec nos partenaires",
-      culture2: "Une communication réaliste et honnête assure une coopération efficace et de confiance",
-      culture3: "Nous sommes conscients des différences culturelles et aimons construire des ponts pour les franchir",
-      offices: "Nos Bureaux",
-      warehouses: "Entrepôts",
-      medicalFocus: "Division Médicale",
-      medicalDesc: "Divisions de technologie médicale spécialisées à Shenzhen et Shanghai",
-      ourTeam: "Notre Équipe",
-      teamDesc: "Rencontrez les professionnels qui conduisent notre succès en Europe et en Chine",
-      founded: "Fondée",
-      employees: "Employés",
-      cities: "Villes",
-      sectors: "Secteurs"
-    }
-  }
-
-  const text = translations[language] || translations.en
+  const { t } = useLanguage()
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
@@ -168,10 +63,10 @@ export function AboutPage() {
             </div>
           </div>
           <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {text.title}
+            {t('about.title')}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {text.subtitle}
+            {t('about.subtitle')}
           </p>
         </div>
 
@@ -181,21 +76,21 @@ export function AboutPage() {
             <CardContent className="p-6">
               <Calendar className="h-8 w-8 text-primary mx-auto mb-2" />
               <div className="text-2xl font-bold">2004</div>
-              <div className="text-sm text-muted-foreground">{text.founded}</div>
+              <div className="text-sm text-muted-foreground">{t('about.founded')}</div>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent className="p-6">
               <Users className="h-8 w-8 text-primary mx-auto mb-2" />
               <div className="text-2xl font-bold">78</div>
-              <div className="text-sm text-muted-foreground">{text.employees}</div>
+              <div className="text-sm text-muted-foreground">{t('about.employees')}</div>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent className="p-6">
               <MapPin className="h-8 w-8 text-primary mx-auto mb-2" />
               <div className="text-2xl font-bold">5</div>
-              <div className="text-sm text-muted-foreground">{text.cities}</div>
+              <div className="text-sm text-muted-foreground">{t('about.cities')}</div>
             </CardContent>
           </Card>
           <Card className="text-center">
@@ -214,15 +109,15 @@ export function AboutPage() {
               <div className="space-y-6">
                 <div>
                   <Badge variant="secondary" className="mb-4">
-                    {text.germanBranch}
+                    {t('about.germanBranch')}
                   </Badge>
-                  <h2 className="text-3xl font-bold mb-4">{text.ourGoal}</h2>
+                  <h2 className="text-3xl font-bold mb-4">{t('about.ourGoal')}</h2>
                   <p className="text-muted-foreground mb-6">
-                    {text.germanBranchDesc}
+                    {t('about.germanBranchDesc')}
                   </p>
                   <div className="bg-primary/5 p-4 rounded-lg border-l-4 border-primary">
                     <p className="font-medium text-primary">
-                      {text.goalDesc}
+                      {t('about.goalDesc')}
                     </p>
                   </div>
                 </div>
@@ -266,11 +161,11 @@ export function AboutPage() {
               <div className="space-y-6">
                 <div>
                   <Badge variant="secondary" className="mb-4">
-                    {text.chinaOperations}
+                    {t('about.chinaOperations')}
                   </Badge>
-                  <h2 className="text-3xl font-bold mb-4">{text.revenue2023}</h2>
+                  <h2 className="text-3xl font-bold mb-4">{t('about.revenue2023')}</h2>
                   <p className="text-muted-foreground mb-6">
-                    {text.chinaDesc}
+                    {t('about.chinaDesc')}
                   </p>
                   <div className="flex gap-2 flex-wrap">
                     <Badge variant="outline">Automotive</Badge>
@@ -289,20 +184,20 @@ export function AboutPage() {
           <CardContent className="p-8">
             <div className="text-center mb-8">
               <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h2 className="text-3xl font-bold">{text.businessCulture}</h2>
+              <h2 className="text-3xl font-bold">{t('about.businessCulture')}</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center p-6 bg-primary/5 rounded-lg">
                 <Users className="h-8 w-8 text-primary mx-auto mb-4" />
-                <p className="text-sm leading-relaxed">{text.culture1}</p>
+                <p className="text-sm leading-relaxed">{t('about.culture1')}</p>
               </div>
               <div className="text-center p-6 bg-accent/5 rounded-lg">
                 <Heart className="h-8 w-8 text-accent mx-auto mb-4" />
-                <p className="text-sm leading-relaxed">{text.culture2}</p>
+                <p className="text-sm leading-relaxed">{t('about.culture2')}</p>
               </div>
               <div className="text-center p-6 bg-primary/5 rounded-lg">
                 <Globe className="h-8 w-8 text-primary mx-auto mb-4" />
-                <p className="text-sm leading-relaxed">{text.culture3}</p>
+                <p className="text-sm leading-relaxed">{t('about.culture3')}</p>
               </div>
             </div>
           </CardContent>
@@ -314,7 +209,7 @@ export function AboutPage() {
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center">
                 <MapPin className="h-5 w-5 mr-2 text-primary" />
-                {text.offices}
+                {t('about.offices')}
               </h3>
               <div className="space-y-3">
                 {offices.map((office, index) => (
@@ -336,7 +231,7 @@ export function AboutPage() {
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center">
                 <TrendUp className="h-5 w-5 mr-2 text-primary" />
-                {text.warehouses}
+                {t('about.warehouses')}
               </h3>
               <div className="space-y-3">
                 {warehouses.map((warehouse, index) => (
@@ -350,35 +245,109 @@ export function AboutPage() {
                 ))}
               </div>
               <div className="mt-4 p-4 bg-accent/10 rounded-lg border-l-4 border-accent">
-                <p className="text-sm font-medium text-accent">{text.medicalFocus}</p>
-                <p className="text-xs text-muted-foreground mt-1">{text.medicalDesc}</p>
+                <p className="text-sm font-medium text-accent">{t('about.medicalFocus')}</p>
+                <p className="text-xs text-muted-foreground mt-1">{t('about.medicalDesc')}</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Team Section */}
-        <Card>
-          <CardContent className="p-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">{text.ourTeam}</h2>
-              <p className="text-muted-foreground">{text.teamDesc}</p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="text-center group">
-                  <div className="relative mb-4">
-                    <img 
-                      src={member.image}
-                      alt={member.name}
-                      className="w-32 h-32 object-cover rounded-full mx-auto shadow-lg group-hover:shadow-xl transition-shadow"
-                    />
-                    <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <h4 className="font-semibold">{member.name}</h4>
-                  <p className="text-sm text-muted-foreground">{member.position}</p>
+        {/* Team Section - Enhanced Modern Design */}
+        <Card className="overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+          <CardContent className="p-0">
+            {/* Section Header */}
+            <div className="text-center py-12 px-8 bg-gradient-to-r from-primary/5 via-background to-accent/5">
+              <div className="max-w-3xl mx-auto">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-full mb-6 shadow-lg">
+                  <Users className="h-8 w-8 text-white" />
                 </div>
-              ))}
+                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
+                  {t('about.ourTeam')}
+                </h2>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                  {t('about.teamDesc')}
+                </p>
+                <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mt-6 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Team Grid */}
+            <div className="px-8 py-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+                {teamMembers.map((member, index) => (
+                  <div key={index} className="group relative">
+                    {/* Animated Background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-105"></div>
+                    
+                    <div className="relative text-center p-6 rounded-2xl transition-all duration-300 group-hover:transform group-hover:-translate-y-2">
+                      {/* Profile Image with Multiple Layers */}
+                      <div className="relative mb-6">
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full opacity-20 scale-110 group-hover:scale-125 transition-transform duration-500"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary rounded-full opacity-10 scale-105 group-hover:scale-115 transition-transform duration-700 delay-100"></div>
+                        <div className="relative">
+                          <img 
+                            src={member.image}
+                            alt={member.name}
+                            className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-full mx-auto shadow-xl ring-4 ring-white group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105"
+                          />
+                          {/* Floating Badge */}
+                          <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Member Info */}
+                      <div className="space-y-3">
+                        <h4 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                          {member.name}
+                        </h4>
+                        <div className="relative">
+                          <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
+                            {member.position}
+                          </p>
+                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-500"></div>
+                        </div>
+                        
+                        {/* Social Links or Contact (simulate) */}
+                        <div className="pt-4 flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
+                          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                            <div className="w-3 h-3 bg-white rounded-sm"></div>
+                          </div>
+                          <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                            <div className="w-3 h-3 bg-white rounded-full"></div>
+                          </div>
+                          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                            <div className="w-3 h-3 bg-white rounded-sm"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Decorative Elements */}
+                      <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full group-hover:bg-primary/60 transition-colors duration-300"></div>
+                      <div className="absolute bottom-4 left-4 w-1 h-1 bg-accent/40 rounded-full group-hover:bg-accent/80 transition-colors duration-300"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Call to Action */}
+              <div className="text-center mt-16 p-8 bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl border border-border/50">
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  Join Our Growing Team
+                </h3>
+                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                  We're always looking for talented individuals to join our mission of connecting Europe and China through innovative business solutions.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button className="px-8 py-3 bg-gradient-to-r from-primary to-accent text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    View Open Positions
+                  </button>
+                  <button className="px-8 py-3 border border-border rounded-full font-medium hover:bg-muted transition-colors duration-300">
+                    Contact HR Team
+                  </button>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

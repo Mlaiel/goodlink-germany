@@ -40,14 +40,15 @@ import {
   Warning,
   Activity,
   CurrencyDollar,
-  Box,
+  Package,
   Eye,
   ChartBar,
   Calendar,
   Target,
   Palette,
   Storefront,
-  ShoppingBag
+  ShoppingBag,
+  FloppyDisk
 } from "@phosphor-icons/react"
 
 interface Agent {
@@ -56,7 +57,7 @@ interface Agent {
   description: string
   category: "marketplace" | "social" | "messaging" | "ai" | "analytics" | "content"
   status: "active" | "paused" | "training" | "error"
-  icon: React.ReactNode
+  iconType: string
   platform?: string
   performance: {
     successRate: number
@@ -72,16 +73,41 @@ export function AllAgentsPanel() {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
   const [activeCategory, setActiveCategory] = useState("marketplace")
 
+  // Function to render icons based on type
+  const renderIcon = (iconType: string) => {
+    const iconProps = { className: "h-5 w-5" }
+    switch (iconType) {
+      case "shopping-cart": return <ShoppingCart {...iconProps} />
+      case "shopping-bag": return <ShoppingBag {...iconProps} />
+      case "storefront": return <Storefront {...iconProps} />
+      case "globe": return <Globe {...iconProps} />
+      case "facebook": return <FacebookLogo {...iconProps} />
+      case "instagram": return <InstagramLogo {...iconProps} />
+      case "linkedin": return <LinkedinLogo {...iconProps} />
+      case "youtube": return <YoutubeLogo {...iconProps} />
+      case "twitter": return <TwitterLogo {...iconProps} />
+      case "whatsapp": return <WhatsappLogo {...iconProps} />
+      case "telegram": return <TelegramLogo {...iconProps} />
+      case "discord": return <DiscordLogo {...iconProps} />
+      case "file-text": return <FileText {...iconProps} />
+      case "users": return <Users {...iconProps} />
+      case "camera": return <Camera {...iconProps} />
+      case "currency-dollar": return <CurrencyDollar {...iconProps} />
+      case "chart-bar": return <ChartBar {...iconProps} />
+      default: return <Robot {...iconProps} />
+    }
+  }
+
   function getDefaultAgents(): Agent[] {
     return [
       // Marketplace Agents
       {
         id: "amazon-listing",
         name: "Amazon Listing Agent",
-        description: "Gère automatiquement les listings Amazon avec optimisation SEO",
+        description: "Manages Amazon listings automatically with SEO optimization",
         category: "marketplace",
         status: "active",
-        icon: <ShoppingCart className="h-5 w-5" />,
+        iconType: "shopping-cart",
         platform: "Amazon",
         performance: { successRate: 94, tasksCompleted: 1247, revenue: 25400 },
         settings: {
@@ -96,10 +122,10 @@ export function AllAgentsPanel() {
       {
         id: "ebay-sync",
         name: "eBay Sync Agent",
-        description: "Synchronise inventaire et commandes eBay en temps réel",
+        description: "Synchronizes eBay inventory and orders in real time",
         category: "marketplace",
         status: "active",
-        icon: <ShoppingBag className="h-5 w-5" />,
+        iconType: "shopping-bag",
         platform: "eBay",
         performance: { successRate: 87, tasksCompleted: 892, revenue: 18900 },
         settings: {
@@ -112,10 +138,10 @@ export function AllAgentsPanel() {
       {
         id: "otto-agent",
         name: "OTTO Marketplace Agent",
-        description: "Agent spécialisé pour la plateforme OTTO allemande",
+        description: "Specialized agent for the German OTTO platform",
         category: "marketplace",
         status: "active",
-        icon: <Storefront className="h-5 w-5" />,
+        iconType: "storefront",
         platform: "OTTO",
         performance: { successRate: 91, tasksCompleted: 567, revenue: 12300 },
         settings: {
@@ -127,10 +153,10 @@ export function AllAgentsPanel() {
       {
         id: "kaufland-agent",
         name: "Kaufland Agent",
-        description: "Gestion automatisée des listings Kaufland",
+        description: "Automated management of Kaufland listings",
         category: "marketplace",
         status: "active",
-        icon: <ShoppingCart className="h-5 w-5" />,
+        iconType: "shopping-cart",
         platform: "Kaufland",
         performance: { successRate: 89, tasksCompleted: 423, revenue: 9800 },
         settings: {
@@ -142,10 +168,10 @@ export function AllAgentsPanel() {
       {
         id: "cdiscount-agent",
         name: "Cdiscount Agent",
-        description: "Agent pour marketplace française Cdiscount",
+        description: "Agent for French Cdiscount marketplace",
         category: "marketplace",
         status: "active",
-        icon: <Globe className="h-5 w-5" />,
+        iconType: "globe",
         platform: "Cdiscount",
         performance: { successRate: 85, tasksCompleted: 334, revenue: 7600 },
         settings: {
@@ -157,10 +183,10 @@ export function AllAgentsPanel() {
       {
         id: "ebay-kleinanzeigen-agent",
         name: "eBay Kleinanzeigen Agent",
-        description: "Gestion automatisée des annonces eBay Kleinanzeigen",
+        description: "Automated management of eBay Kleinanzeigen",
         category: "marketplace",
         status: "active",
-        icon: <ShoppingBag className="h-5 w-5" />,
+        iconType: "shopping-bag",
         platform: "eBay Kleinanzeigen",
         performance: { successRate: 88, tasksCompleted: 756, revenue: 14200 },
         settings: {
@@ -177,10 +203,10 @@ export function AllAgentsPanel() {
       {
         id: "facebook-agent",
         name: "Facebook Marketing Agent",
-        description: "Gère les campagnes et contenus Facebook automatiquement",
+        description: "Manages Facebook campaigns and content automatically",
         category: "social",
         status: "active",
-        icon: <FacebookLogo className="h-5 w-5" />,
+        iconType: "facebook",
         platform: "Facebook",
         performance: { successRate: 92, tasksCompleted: 2847, revenue: 15600 },
         settings: {
@@ -194,10 +220,10 @@ export function AllAgentsPanel() {
       {
         id: "instagram-agent",
         name: "Instagram Content Agent",
-        description: "Création et planification automatique de contenu Instagram",
+        description: "Automatic Instagram content creation and scheduling",
         category: "social",
         status: "active",
-        icon: <InstagramLogo className="h-5 w-5" />,
+        iconType: "instagram",
         platform: "Instagram",
         performance: { successRate: 88, tasksCompleted: 1923, revenue: 12400 },
         settings: {
@@ -210,10 +236,10 @@ export function AllAgentsPanel() {
       {
         id: "linkedin-agent",
         name: "LinkedIn B2B Agent",
-        description: "Agent spécialisé dans le marketing B2B sur LinkedIn",
+        description: "Specialized agent for B2B marketing on LinkedIn",
         category: "social",
         status: "active",
-        icon: <LinkedinLogo className="h-5 w-5" />,
+        iconType: "linkedin",
         platform: "LinkedIn",
         performance: { successRate: 94, tasksCompleted: 756, revenue: 28900 },
         settings: {
@@ -226,10 +252,10 @@ export function AllAgentsPanel() {
       {
         id: "youtube-agent",
         name: "YouTube SEO Agent",
-        description: "Optimisation SEO et gestion de contenu YouTube",
+        description: "SEO optimization and YouTube content management",
         category: "social",
         status: "training",
-        icon: <YoutubeLogo className="h-5 w-5" />,
+        iconType: "youtube",
         platform: "YouTube",
         performance: { successRate: 83, tasksCompleted: 289, revenue: 8700 },
         settings: {
@@ -242,10 +268,10 @@ export function AllAgentsPanel() {
       {
         id: "twitter-agent",
         name: "Twitter Engagement Agent",
-        description: "Automatisation Twitter pour engagement et support client",
+        description: "Twitter automation for engagement and customer support",
         category: "social",
         status: "active",
-        icon: <TwitterLogo className="h-5 w-5" />,
+        iconType: "twitter",
         platform: "Twitter",
         performance: { successRate: 79, tasksCompleted: 1456, revenue: 5600 },
         settings: {
@@ -260,10 +286,10 @@ export function AllAgentsPanel() {
       {
         id: "whatsapp-agent",
         name: "WhatsApp Business Agent",
-        description: "Service client automatisé via WhatsApp Business API",
+        description: "Automated customer support via WhatsApp Business API",
         category: "messaging",
         status: "active",
-        icon: <WhatsappLogo className="h-5 w-5" />,
+        iconType: "whatsapp",
         platform: "WhatsApp",
         performance: { successRate: 96, tasksCompleted: 3421, revenue: 34500 },
         settings: {
@@ -277,10 +303,10 @@ export function AllAgentsPanel() {
       {
         id: "telegram-agent",
         name: "Telegram Support Agent",
-        description: "Support client et notifications via Telegram",
+        description: "Customer support and notifications via Telegram",
         category: "messaging",
         status: "active",
-        icon: <TelegramLogo className="h-5 w-5" />,
+        iconType: "telegram",
         platform: "Telegram",
         performance: { successRate: 91, tasksCompleted: 1876, revenue: 16800 },
         settings: {
@@ -293,10 +319,10 @@ export function AllAgentsPanel() {
       {
         id: "discord-agent",
         name: "Discord Community Agent",
-        description: "Gestion de communauté et support Discord",
+        description: "Community management and Discord support",
         category: "messaging",
         status: "paused",
-        icon: <DiscordLogo className="h-5 w-5" />,
+        iconType: "discord",
         platform: "Discord",
         performance: { successRate: 87, tasksCompleted: 967, revenue: 7200 },
         settings: {
@@ -309,10 +335,10 @@ export function AllAgentsPanel() {
       {
         id: "email-agent",
         name: "Email Marketing Agent",
-        description: "Service client et marketing automatisé par email",
+        description: "Automated customer support and email marketing",
         category: "messaging",
         status: "active",
-        icon: <FileText className="h-5 w-5" />,
+        iconType: "file-text",
         platform: "Email",
         performance: { successRate: 93, tasksCompleted: 4567, revenue: 28900 },
         settings: {
@@ -331,10 +357,10 @@ export function AllAgentsPanel() {
       {
         id: "content-generator",
         name: "AI Content Generator",
-        description: "Génération automatique de contenu multilingue",
+        description: "Automatic multilingual content generation",
         category: "content",
         status: "active",
-        icon: <FileText className="h-5 w-5" />,
+        iconType: "file-text",
         performance: { successRate: 89, tasksCompleted: 2341, revenue: 19400 },
         settings: {
           languages: ["de", "en", "zh", "fr"],
@@ -347,10 +373,10 @@ export function AllAgentsPanel() {
       {
         id: "blog-content-agent",
         name: "Blog Content Agent",
-        description: "Création de contenu blog SEO-optimisé et gestion éditoriale",
+        description: "SEO-optimized blog content creation and editorial management",
         category: "content",
         status: "active",
-        icon: <FileText className="h-5 w-5" />,
+        iconType: "file-text",
         performance: { successRate: 91, tasksCompleted: 1234, revenue: 15600 },
         settings: {
           seoOptimization: true,
@@ -368,10 +394,10 @@ export function AllAgentsPanel() {
       {
         id: "social-content-agent",
         name: "Social Media Content Agent", 
-        description: "Création et planification de contenu pour réseaux sociaux",
+        description: "Content creation and scheduling for social networks",
         category: "content",
         status: "active",
-        icon: <Users className="h-5 w-5" />,
+        iconType: "users",
         performance: { successRate: 87, tasksCompleted: 3456, revenue: 22100 },
         settings: {
           platforms: ["facebook", "instagram", "twitter", "linkedin", "youtube"],
@@ -389,10 +415,10 @@ export function AllAgentsPanel() {
       {
         id: "image-ai",
         name: "AI Image Assistant",
-        description: "Optimisation et génération d'images produits",
+        description: "Product image optimization and generation",
         category: "ai",
         status: "active",
-        icon: <Camera className="h-5 w-5" />,
+        iconType: "camera",
         performance: { successRate: 92, tasksCompleted: 1567, revenue: 13200 },
         settings: {
           backgroundRemoval: true,
@@ -405,10 +431,10 @@ export function AllAgentsPanel() {
       {
         id: "pricing-agent",
         name: "Dynamic Pricing Agent",
-        description: "Optimisation automatique des prix basée sur l'IA",
+        description: "AI-based automatic price optimization",
         category: "ai",
         status: "active",
-        icon: <CurrencyDollar className="h-5 w-5" />,
+        iconType: "currency-dollar",
         performance: { successRate: 95, tasksCompleted: 4521, revenue: 67800 },
         settings: {
           competitorMonitoring: true,
@@ -423,10 +449,10 @@ export function AllAgentsPanel() {
       {
         id: "analytics-agent",
         name: "Performance Analytics Agent",
-        description: "Analyse automatisée des performances cross-platform",
+        description: "Automated cross-platform performance analysis",
         category: "analytics",
         status: "active",
-        icon: <ChartBar className="h-5 w-5" />,
+        iconType: "chart-bar",
         performance: { successRate: 97, tasksCompleted: 5623, revenue: 45200 },
         settings: {
           realTimeReporting: true,
@@ -528,22 +554,24 @@ export function AllAgentsPanel() {
       </div>
 
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-6 gap-1">
           {categories.map(category => (
-            <TabsTrigger key={category.id} value={category.id} className="flex items-center gap-2">
+            <TabsTrigger key={category.id} value={category.id} className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 h-16 sm:h-10 px-2 text-xs">
               {getCategoryIcon(category.id)}
-              <span className="hidden sm:inline">{category.name}</span>
-              <Badge variant="secondary" className="ml-1">
+              <span className="text-xs sm:text-sm">{category.name}</span>
+              <Badge variant="secondary" className="text-xs">
                 {category.count}
               </Badge>
             </TabsTrigger>
           ))}
         </TabsList>
 
-        {categories.map(category => (
-          <TabsContent key={category.id} value={category.id} className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {filteredAgents.map(agent => (
+        {categories.map(category => {
+          const categoryAgents = (agents || []).filter(agent => agent.category === category.id)
+          return (
+            <TabsContent key={category.id} value={category.id} className="space-y-4">
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                {categoryAgents.map(agent => (
                 <Card 
                   key={agent.id} 
                   className={`cursor-pointer transition-all hover:shadow-md ${
@@ -552,42 +580,42 @@ export function AllAgentsPanel() {
                   onClick={() => setSelectedAgent(agent.id)}
                 >
                   <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                          {agent.icon}
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                      <div className="flex items-center gap-3 w-full sm:w-auto">
+                        <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                          {renderIcon(agent.iconType)}
                         </div>
-                        <div>
-                          <CardTitle className="text-base">{agent.name}</CardTitle>
+                        <div className="min-w-0 flex-1">
+                          <CardTitle className="text-sm sm:text-base truncate">{agent.name}</CardTitle>
                           {agent.platform && (
-                            <CardDescription className="text-sm">
+                            <CardDescription className="text-xs sm:text-sm">
                               {agent.platform}
                             </CardDescription>
                           )}
                         </div>
                       </div>
-                      <Badge className={getStatusColor(agent.status)}>
+                      <Badge className={`${getStatusColor(agent.status)} flex-shrink-0`}>
                         <div className="flex items-center gap-1">
                           {getStatusIcon(agent.status)}
-                          <span className="capitalize">{agent.status}</span>
+                          <span className="capitalize text-xs">{agent.status}</span>
                         </div>
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground">
-                      {agent.description}
+                  <CardContent className="space-y-3 pt-0">
+                    <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
+                      {t(agent.description)}
                     </p>
                     
                     <div className="space-y-2">
-                      <div className="flex justify-between items-center text-sm">
+                      <div className="flex justify-between items-center text-xs sm:text-sm">
                         <span>{t('agents.successRate')}</span>
                         <span className="font-medium">{agent.performance.successRate}%</span>
                       </div>
-                      <Progress value={agent.performance.successRate} className="h-2" />
+                      <Progress value={agent.performance.successRate} className="h-1.5 sm:h-2" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
                       <div>
                         <div className="text-muted-foreground">{t('agents.tasks')}</div>
                         <div className="font-medium">{agent.performance.tasksCompleted.toLocaleString()}</div>
@@ -610,12 +638,12 @@ export function AllAgentsPanel() {
                           e.stopPropagation()
                           toggleAgentStatus(agent.id)
                         }}
-                        className="flex-1"
+                        className="flex-1 h-8 sm:h-9 text-xs sm:text-sm"
                       >
                         {agent.status === "active" ? (
-                          <><Pause className="h-4 w-4 mr-1" /> {t('agents.pause')}</>
+                          <><Pause className="h-3 w-3 sm:h-4 sm:w-4 mr-1" /> <span className="hidden sm:inline">{t('agents.pause')}</span><span className="sm:hidden">⏸</span></>
                         ) : (
-                          <><Play className="h-4 w-4 mr-1" /> {t('agents.activate')}</>
+                          <><Play className="h-3 w-3 sm:h-4 sm:w-4 mr-1" /> <span className="hidden sm:inline">{t('agents.activate')}</span><span className="sm:hidden">▶</span></>
                         )}
                       </Button>
                       <Button
@@ -625,16 +653,18 @@ export function AllAgentsPanel() {
                           e.stopPropagation()
                           setSelectedAgent(agent.id)
                         }}
+                        className="h-8 sm:h-9 px-2 sm:px-3"
                       >
-                        <Gear className="h-4 w-4" />
+                        <Gear className="h-3 w-3 sm:h-4 sm:w-4" />
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
-          </TabsContent>
-        ))}
+                ))}
+              </div>
+            </TabsContent>
+          )
+        })}
       </Tabs>
 
       {/* Agent Settings Panel */}
@@ -644,10 +674,10 @@ export function AllAgentsPanel() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-lg">
-                  {selectedAgentData.icon}
+                  {renderIcon(selectedAgentData.iconType)}
                 </div>
                 <div>
-                  <CardTitle>{t('Configuration')} - {selectedAgentData.name}</CardTitle>
+                  <CardTitle>Configuration - {selectedAgentData.name}</CardTitle>
                   <CardDescription>{selectedAgentData.description}</CardDescription>
                 </div>
               </div>

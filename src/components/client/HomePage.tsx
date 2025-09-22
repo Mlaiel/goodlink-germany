@@ -27,63 +27,63 @@ export function HomePage({ onNavigate }: HomePageProps) {
   const features = [
     {
       icon: <ShoppingCart className="h-6 w-6" />,
-      title: t("Medical Grade Quality"),
-      description: t("Certified medical devices and automotive components meeting EU/CE standards")
+      title: t("home.medicalQuality"),
+      description: t("home.medicalQualityDesc")
     },
     {
       icon: <Truck className="h-6 w-6" />,
-      title: t("China-EU Bridge"), 
-      description: t("Direct sourcing from trusted manufacturers in Shenzhen, Shanghai, and Hong Kong")
+      title: t("home.chinaBridge"), 
+      description: t("home.chinaBridgeDesc")
     },
     {
       icon: <Shield className="h-6 w-6" />,
-      title: t("Compliance Assured"),
-      description: t("Full regulatory compliance for medical devices (MDR/CE) and automotive (EMC/ROHS)")
+      title: t("home.compliance"),
+      description: t("home.complianceDesc")
     },
     {
       icon: <ChatCircle className="h-6 w-6" />,
-      title: t("Expert Support"),
-      description: t("Technical support from specialists in German, English, and Chinese")
+      title: t("home.expertSupport"),
+      description: t("home.expertSupportDesc")
     }
   ]
 
   const stats = [
-    { label: t("B2B Partners"), value: "500+", icon: <Users className="h-5 w-5" /> },
-    { label: t("Components"), value: "2,000+", icon: <Package className="h-5 w-5" /> },
-    { label: t("Years Experience"), value: "20+", icon: <Globe className="h-5 w-5" /> },
-    { label: t("Revenue 2023"), value: "€93M", icon: <TrendUp className="h-5 w-5" /> }
+    { label: t("home.partners"), value: "500+", icon: <Users className="h-5 w-5" /> },
+    { label: t("home.components"), value: "2,000+", icon: <Package className="h-5 w-5" /> },
+    { label: t("home.experience"), value: "20+", icon: <Globe className="h-5 w-5" /> },
+    { label: t("home.revenue"), value: "€93M", icon: <TrendUp className="h-5 w-5" /> }
   ]
 
   const categories = [
     {
-      name: t("Medical Devices"),
+      name: t("home.medicalDevices"),
       image: "🏥",
-      count: "800+ components",
-      description: "ECG cables, pressure sensors, infusion pump motors"
+      count: t("home.medicalDevicesCount"),
+      description: t("home.medicalDevicesDesc")
     },
     {
-      name: t("Automotive Parts"), 
+      name: t("home.automotiveParts"), 
       image: "🚗",
-      count: "600+ components",
-      description: "Wire harnesses, connectors, CAN bus cables"
+      count: t("home.automotivePartsCount"),
+      description: t("home.automotivePartsDesc")
     },
     {
-      name: t("Connectors & Cables"),
+      name: t("home.connectors"),
       image: "🔌",
-      count: "500+ variants",
-      description: "Medical grade and automotive certified connections"
+      count: t("home.connectorsCount"),
+      description: t("home.connectorsDesc")
     },
     {
-      name: t("Motors & Sensors"),
+      name: t("home.motors"),
       image: "⚙️",
-      count: "300+ models",
-      description: "Precision motors, sensors for medical and automotive use"
+      count: t("home.motorsCount"),
+      description: t("home.motorsDesc")
     },
     {
-      name: t("Mechanical Components"),
+      name: t("home.mechanical"),
       image: "🛞",
-      count: "400+ parts",
-      description: "Castors, housings, mechanical assemblies"
+      count: t("home.mechanicalCount"),
+      description: t("home.mechanicalDesc")
     }
   ]
 
@@ -94,15 +94,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="flex-1 space-y-6">
             <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 w-fit">
-              {t("🏥 Medical & Automotive Excellence")}
+              {t("home.title")}
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                {t("Good-Link Germany")}
+                {t("home.subtitle")}
               </span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              {t("Premium medical devices and automotive components. Your trusted bridge between Europe and China since 2020.")}
+              {t("home.description")}
             </p>
             <div className="flex flex-row gap-4">
               <Button 
@@ -111,7 +111,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all"
               >
                 <ShoppingCart className="h-5 w-5 mr-2" />
-                {t("Browse Catalog")}
+                {t("home.browseCatalog")}
               </Button>
               <Button 
                 variant="outline" 
@@ -119,7 +119,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 onClick={() => onNavigate("blog")}
                 className="border-2 hover:bg-blue-50 transition-colors"
               >
-                {t("Learn More")}
+                {t("home.learnMore")}
               </Button>
             </div>
           </div>
@@ -154,9 +154,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
       {/* Features - Horizontal Grid */}
       <section className="space-y-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-3">{t("Why Choose Goodlink Germany?")}</h2>
+          <h2 className="text-3xl font-bold mb-3">{t("home.whyChoose")}</h2>
           <p className="text-muted-foreground">
-            {t("Experience the future of online shopping with our innovative features and commitment to excellence.")}
+            {t("home.whyChooseDesc")}
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -175,9 +175,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
       {/* Categories - Horizontal Layout */}
       <section className="space-y-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-3">{t("Shop by Category")}</h2>
+          <h2 className="text-3xl font-bold mb-3">{t("home.shopByCategory")}</h2>
           <p className="text-muted-foreground">
-            {t("Explore our diverse range of products across multiple categories.")}
+            {t("home.shopByCategoryDesc")}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">

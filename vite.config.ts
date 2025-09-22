@@ -22,4 +22,9 @@ export default defineConfig({
       '@': resolve(projectRoot, 'src')
     }
   },
+  base: '/goodlink-germany/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
 });
