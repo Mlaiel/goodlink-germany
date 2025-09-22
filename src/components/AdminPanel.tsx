@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import { useLanguage } from '@/components/LanguageContext'
+import { AllAgentsPanel } from '@/components/admin/AllAgentsPanel'
+import { AgentDemoPanel } from '@/components/AgentDemoPanel'
 import { 
   Shield, 
   Robot, 
@@ -178,7 +180,7 @@ export function AdminPanel() {
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-5 mb-6">
+        <TabsList className="grid w-full grid-cols-7 mb-6">
           <TabsTrigger value="overview" className="modern-tab-trigger">
             <ChartBar size={16} className="mr-2" />
             {t('Overview')}
@@ -186,6 +188,10 @@ export function AdminPanel() {
           <TabsTrigger value="agents" className="modern-tab-trigger">
             <Robot size={16} className="mr-2" />
             {t('Agents')}
+          </TabsTrigger>
+          <TabsTrigger value="all-agents" className="modern-tab-trigger">
+            <Users size={16} className="mr-2" />
+            All Agents
           </TabsTrigger>
           <TabsTrigger value="configuration" className="modern-tab-trigger">
             <Gear size={16} className="mr-2" />
@@ -198,6 +204,10 @@ export function AdminPanel() {
           <TabsTrigger value="demo" className="modern-tab-trigger">
             <Play size={16} className="mr-2" />
             {t('Demo')}
+          </TabsTrigger>
+          <TabsTrigger value="advanced-demo" className="modern-tab-trigger">
+            <Lightning size={16} className="mr-2" />
+            Advanced Demo
           </TabsTrigger>
         </TabsList>
 
@@ -467,6 +477,16 @@ export function AdminPanel() {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* All Agents Panel - Comprehensive Marketplace, Content & Messaging Agents */}
+        <TabsContent value="all-agents" className="space-y-6">
+          <AllAgentsPanel />
+        </TabsContent>
+
+        {/* Advanced Demo Panel - Comprehensive Agent Demos */}
+        <TabsContent value="advanced-demo" className="space-y-6">
+          <AgentDemoPanel />
         </TabsContent>
       </Tabs>
     </div>
