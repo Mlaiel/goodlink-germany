@@ -275,68 +275,6 @@ Risk Analysis:
     }
   },
   {
-    id: "social-agent",
-    name: "Social Media Agent",
-    type: "social", 
-    icon: <Users className="h-5 w-5" />,
-    description: "Manages social media presence across platforms with automated posting, engagement, and influencer outreach.",
-    capabilities: [
-      "Multi-platform posting",
-      "Content personalization",
-      "Engagement automation",
-      "Hashtag optimization",
-      "Influencer identification",
-      "Performance analytics"
-    ],
-    examples: [
-      {
-        title: "Product Launch Campaign",
-        input: `Product: New BPM-3000 Blood Pressure Monitor
-Launch Date: Next Monday
-Target: Healthcare professionals + general consumers
-Platforms: LinkedIn, Instagram, Facebook
-Languages: German, English`,
-        output: `Generated 12 posts across 3 platforms:
-
-LinkedIn (Professional):
-"🏥 Introducing BPM-3000: The next generation in clinical-grade blood pressure monitoring. 
-✓ 99.2% accuracy validated in clinical trials
-✓ Seamless EMR integration via HL7 FHIR
-✓ Designed for healthcare professionals
-#HealthTech #MedicalDevices #Healthcare #Innovation"
-
-Instagram (Consumer): 
-"💙 Take control of your health with the new BPM-3000! 
-📱 Smartphone sync ✓
-👨‍⚕️ Doctor-recommended ✓  
-🏠 Easy home monitoring ✓
-#HealthyLiving #BloodPressure #WellnessTech #Health"
-
-Posting Schedule:
-- Pre-launch teasers: 3 days before
-- Launch day: 4 coordinated posts
-- Follow-up: Weekly for 1 month
-- Engagement window: 2-6 PM CET optimal`,
-        explanation: "Agent created platform-specific content, optimized hashtags for reach, scheduled posts for maximum engagement, and tailored messaging for different audience segments.",
-        processingTime: "4.2s",
-        confidence: 88
-      }
-    ],
-    configuration: {
-      platforms: ["linkedin", "instagram", "facebook"],
-      postingFrequency: "daily", 
-      engagementRate: "high",
-      hashtagStrategy: "trending+branded",
-      contentTone: "professional"
-    },
-    training: {
-      modelType: "GPT-4 + Social Analytics",
-      dataSource: "10k+ high-performing posts",
-      accuracy: 85.6,
-      lastTrained: "2024-01-10"
-    }
-  },
-  {
     id: "chat-agent",
     name: "Customer Support Agent",
     type: "support",
@@ -856,23 +794,6 @@ Market Analysis:
 - Competitor average: €${(parseFloat(price) + Math.random() * 10).toFixed(2)}
 - Demand trend: +${Math.floor(Math.random() * 30 + 10)}%
 - Inventory optimization: 12-day supply optimal`
-        break
-        
-      case "social-agent":
-        output = `Social Media Campaign Generated:
-
-📱 Instagram Post:
-"🌟 Discover ${demoInput}! Perfect for your needs ✨
-#QualityFirst #Innovation #TechLife #Goodlink"
-
-💼 LinkedIn Post:
-"Introducing ${demoInput} - engineered for professional excellence. 
-Learn more about our latest innovation."
-
-📅 Posting Schedule:
-- Peak engagement: 2-4 PM CET
-- Optimal frequency: 3x weekly
-- Hashtag performance: +47% reach expected`
         break
         
       case "whatsapp-agent":
