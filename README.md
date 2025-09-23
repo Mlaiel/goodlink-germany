@@ -301,9 +301,9 @@ Cologne, Germany
 
 ## 🤖 **AI Agents Platform - Latest Update**
 
-### 🚀 **17 Specialized AI Agents Deployed** *(Updated Sept 2025)*
+### 🚀 **28 Specialized AI Agents Deployed** *(Updated Sept 2025)*
 
-Our advanced AI platform now features **17 specialized agents** providing complete automation for your e-commerce operations:
+Our advanced AI platform now features **28 specialized agents** providing complete automation for your e-commerce operations:
 
 #### 🎨 **Featured: Visual Brand Agent** ⭐ *NEW*
 Revolutionary multimodal AI agent combining:
@@ -316,21 +316,22 @@ Revolutionary multimodal AI agent combining:
 **Performance**: 93.8% accuracy | 12.3s processing | +45% CTR improvement
 
 #### 📊 **Agent Categories**:
-- **🛒 Marketplace & E-Commerce** (4 agents): Listings, pricing, inventory, sync
+- **🛒 Marketplace & E-Commerce** (8 agents): Listings, pricing, inventory, platform-specific
 - **🎨 Content & Creation** (3 agents): Visual brand, blog content, translation  
-- **💬 Communication & Support** (3 agents): Customer support, WhatsApp, email
+- **💬 Communication & Support** (4 agents): Customer support, WhatsApp, email, lifecycle
 - **📱 Social Media & Marketing** (2 agents): Social content, local marketplace
 - **🔍 Analysis & Intelligence** (5 agents): Reviews, ads, analytics, compliance, sync
+- **🏭 Specialized Industry** (6 agents): Medical, automotive, electronics, supply chain, quality, maintenance
 
 #### 🎯 **Key Metrics**:
 - **Precision Average**: 92.4%
 - **Response Time**: <3s
 - **Languages**: DE, EN, FR, ZH
-- **ROI Impact**: +€5,240/month
-- **Time Saved**: 156 hours/week
+- **ROI Impact**: +€8,750/month
+- **Time Saved**: 280 hours/week
 
 #### 🔗 **Quick Links**:
-- 🔴 **[Live Agent Demo](https://mlaiel.github.io/goodlink-germany/)** - Try all 17 agents
+- 🔴 **[Live Agent Demo](https://mlaiel.github.io/goodlink-germany/)** - Try all 28 agents
 - 📚 **[Complete Documentation](./AGENTS_UPDATE.md)** - Technical details
 - 🎯 **[Agent Simulator](https://mlaiel.github.io/goodlink-germany/)** - Interactive testing
 

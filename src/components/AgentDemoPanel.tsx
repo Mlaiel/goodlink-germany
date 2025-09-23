@@ -973,13 +973,13 @@ Technical Notes:
 • "Klasse IIa" → "Class IIa" (EU MDR classification)
 • "Kalibrierung" → "calibration" (technical precision)
 
-🇫🇷 French (Technical Medical):
-"Le tensiomètre numérique BPM-2000 est un dispositif médical de classe IIa conforme au RDM 2017/745. Les réglementations nationales doivent être respectées lors de l'utilisation. L'étalonnage s'effectue automatiquement tous les 24 mois."
+�� English (Technical Medical):
+"The digital blood pressure monitor BPM-2000 is a class IIa medical device according to MDR 2017/745. National regulations must be observed during use. Calibration is performed automatically every 24 months."
 
 Cultural Adaptations:
-• "Blutdruckmessgerät" → "tensiomètre" (French medical term)
-• "MDR" → "RDM" (French regulatory acronym)
-• "Kalibrierung" → "étalonnage" (French technical term)
+• "Blutdruckmessgerät" → "blood pressure monitor" (English medical term)
+• "MDR" → "MDR" (same regulatory acronym)
+• "Kalibrierung" → "calibration" (English technical term)
 
 🇨🇳 Chinese (Simplified - Medical):
 "BPM-2000数字血压计是符合MDR 2017/745标准的IIa类医疗器械。使用时必须遵守国家法规。校准每24个月自动执行一次。"
@@ -1417,6 +1417,680 @@ Priority Level: Critical - immediate action required`,
       dataSource: "Platform APIs + sync pattern data",
       accuracy: 98.7,
       lastTrained: "2024-01-24"
+    }
+  },
+  {
+    name: "Amazon Marketplace Agent",
+    accuracy: 95.8,
+    icon: <ShoppingCart className="h-5 w-5" />,
+    description: "Specialized agent for Amazon platform with advanced Buy Box optimization and FBA management.",
+    tags: ["Amazon", "FBA", "Buy Box", "PPC"],
+    specializations: [
+      "FBA inventory management",
+      "Buy Box optimization",
+      "Amazon PPC campaigns",
+      "Product ranking"
+    ],
+    languages: ["de", "en", "fr"],
+    examples: [
+      {
+        title: "Amazon Listing Optimization",
+        input: `Product: Automotive LED Headlight Kit H7
+Current Rank: #45 in category
+BSR: 15,000
+Conversion: 8.2%`,
+        output: `🚀 Amazon Optimization Strategy:
+
+**Title Optimization:**
+H7 LED Scheinwerfer Kit 6000K - Canbus Ready Plug&Play für BMW/VW/Audi - 12000LM Superhell mit TÜV
+
+**Buy Box Strategy:**
+• Current Price: €89.99 → Recommended: €84.99
+• FBA fulfillment advantage: +15% Buy Box win rate
+• Inventory level: Maintain 45+ units for consistent availability
+
+**PPC Campaign Setup:**
+• Target Keywords: "H7 LED", "Auto Scheinwerfer", "BMW LED Kit"
+• Bid Strategy: €1.20-€1.80 per click
+• Daily Budget: €35
+
+**Ranking Improvement:**
+📈 Projected rank improvement: #45 → #12 within 3 weeks
+💰 Estimated revenue increase: +€2,400/month`,
+        explanation: "Agent analyzed Amazon-specific metrics, optimized for Buy Box algorithm, and created comprehensive marketplace strategy with FBA considerations.",
+        metrics: {
+          processingTime: "4.2s",
+          confidence: 95.8,
+          tokensUsed: 1420,
+          costEstimate: "€0.14"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Amazon-specialized GPT-4",
+      processingSpeed: "4.2s average",
+      platforms: ["Amazon DE", "Amazon COM", "Amazon FR"],
+      automation: "full"
+    }
+  },
+  {
+    name: "eBay Marketplace Agent",
+    accuracy: 93.4,
+    icon: <ShoppingBag className="h-5 w-5" />,
+    description: "Dedicated eBay specialist with auction strategies and Best Offer optimization.",
+    tags: ["eBay", "Auctions", "Best Offer", "Motors"],
+    specializations: [
+      "Auction timing optimization",
+      "Best Offer negotiations",
+      "eBay Motors expertise",
+      "International shipping"
+    ],
+    languages: ["de", "en", "fr"],
+    examples: [
+      {
+        title: "eBay Auction Strategy",
+        input: `Product: Mercedes W204 Brake Pads Set
+Condition: New
+Competition: 12 similar listings
+Target: Quick sale`,
+        output: `🎯 eBay Strategy Optimization:
+
+**Listing Format:**
+Buy It Now: €156.99 with Best Offer
+Starting Auction: €99.99 (7-day)
+Reserve: €140.00
+
+**Timing Strategy:**
+• Start: Sunday 19:00 (peak traffic)
+• Duration: 7 days for maximum exposure
+• End: Sunday 19:00 (highest bidding activity)
+
+**Best Offer Settings:**
+• Auto-accept: €150.00+
+• Auto-decline: <€135.00
+• Negotiation range: €135-€149
+
+**Enhanced Features:**
+✅ eBay Plus eligible
+✅ Fast 'N Free shipping
+✅ 30-day returns accepted
+✅ Promoted listings: 5% ad rate
+
+📊 Success Prediction: 89% chance of sale within 5 days`,
+        explanation: "Agent optimized for eBay's unique auction ecosystem, timing strategies, and Best Offer negotiations for maximum conversion.",
+        metrics: {
+          processingTime: "3.8s",
+          confidence: 93.4,
+          tokensUsed: 1250,
+          costEstimate: "€0.11"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "eBay-tuned GPT-4",
+      processingSpeed: "3.8s average",
+      platforms: ["eBay DE", "eBay Motors", "eBay International"],
+      automation: "semi"
+    }
+  },
+  {
+    name: "OTTO Marketplace Agent",
+    accuracy: 91.2,
+    icon: <House className="h-5 w-5" />,
+    description: "German OTTO platform specialist with family-focused product positioning.",
+    tags: ["OTTO", "Germany", "Family", "Quality"],
+    specializations: [
+      "German market expertise",
+      "Family product positioning",
+      "OTTO quality standards",
+      "Seasonal campaigns"
+    ],
+    languages: ["de", "en"],
+    examples: [
+      {
+        title: "OTTO Product Positioning",
+        input: `Product: Smart Home Security Camera
+Target: German families
+Price Point: Premium`,
+        output: `🏠 OTTO Positioning Strategy:
+
+**Family-Focused Messaging:**
+"Sicherheit für Ihre Familie - Smart Home Überwachung mit Datenschutz nach DSGVO"
+
+**Key Selling Points:**
+🔒 Deutsche Server (DSGVO-konform)
+👨‍👩‍👧‍👦 Kinderfreundliche Installation
+🌙 Nachtsicht für Babyzimmer-Monitoring
+📱 Intuitive App für alle Familienmitglieder
+
+**OTTO-Specific Features:**
+• 30 Tage Rückgaberecht
+• Ratenzahlung ab 6 Monaten
+• OTTO Card Bonuspunkte
+• Klimaneutraler Versand
+
+**Content Strategy:**
+Lifestyle-Bilder: Familie beim Spielen, sicheres Zuhause
+Testimonials: Deutsche Familien-Reviews
+Zertifikate: TÜV, DSGVO, Made for Germany
+
+🎯 OTTO Compatibility Score: 96%`,
+        explanation: "Agent specialized in OTTO's family-oriented German market, emphasizing trust, quality, and local compliance for maximum platform fit.",
+        metrics: {
+          processingTime: "3.5s",
+          confidence: 91.2,
+          tokensUsed: 1180,
+          costEstimate: "€0.10"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "German-market GPT-4",
+      processingSpeed: "3.5s average",
+      platforms: ["OTTO.de"],
+      automation: "assisted"
+    }
+  },
+  {
+    name: "Kaufland Marketplace Agent",
+    accuracy: 89.6,
+    icon: <Storefront className="h-5 w-5" />,
+    description: "Kaufland marketplace specialist with retail integration and competitive pricing.",
+    tags: ["Kaufland", "Retail", "Pricing", "Competition"],
+    specializations: [
+      "Retail price alignment",
+      "Category management",
+      "Local market focus",
+      "Bulk order optimization"
+    ],
+    languages: ["de", "en"],
+    examples: [
+      {
+        title: "Kaufland Competitive Analysis",
+        input: `Product: Automotive Engine Oil 5W-30
+Competitors: 8 similar products
+Goal: Market leadership`,
+        output: `🏪 Kaufland Market Strategy:
+
+**Competitive Positioning:**
+Current Market Leader: Castrol GTX - €24.99
+Our Price Point: €22.49 (10% undercut)
+Value Proposition: Same quality, better price
+
+**Category Optimization:**
+🚗 Automotive → Motor Oil → Synthetic 5W-30
+Bestseller Badge Target: Top 3 in subcategory
+Cross-sell: Oil filters, air fresheners
+
+**Kaufland Advantages:**
+• Click & Collect from 1,200 stores
+• Same-day delivery in major cities
+• Kaufland Card cashback: 2%
+• Bulk pricing: 20% off for 5+ bottles
+
+**Promotion Strategy:**
+📅 Seasonal: Pre-winter engine care campaign
+🎁 Bundle deals: Oil + filter + service voucher
+⭐ Customer reviews: Focus on quality testimonials
+
+📈 Revenue Projection: +€1,800/month`,
+        explanation: "Agent leveraged Kaufland's retail network advantages and local market presence for competitive positioning and cross-selling opportunities.",
+        metrics: {
+          processingTime: "4.0s",
+          confidence: 89.6,
+          tokensUsed: 1320,
+          costEstimate: "€0.12"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Retail-focused GPT-4",
+      processingSpeed: "4.0s average",
+      platforms: ["Kaufland.de"],
+      automation: "manual"
+    }
+  },
+  {
+    name: "Medical Device Expert Agent",
+    accuracy: 97.1,
+    icon: <FirstAid className="h-5 w-5" />,
+    description: "Specialized medical device compliance and certification expert with deep regulatory knowledge.",
+    tags: ["Medical", "MDR", "FDA", "ISO 13485"],
+    specializations: [
+      "EU MDR compliance",
+      "FDA submissions",
+      "ISO 13485 quality systems",
+      "Clinical evidence"
+    ],
+    languages: ["de", "en", "fr"],
+    examples: [
+      {
+        title: "Medical Device Classification",
+        input: `Device: Digital Pulse Oximeter
+Market: EU & US
+Risk Level: Moderate`,
+        output: `🏥 Medical Device Regulatory Analysis:
+
+**EU Classification (MDR 2017/745):**
+Class: IIa (Moderate Risk)
+Rule: 10 (Active medical device for monitoring)
+Notified Body: Required for certification
+
+**FDA Classification:**
+Class: II (510(k) required)
+Product Code: DQA (Oximeter)
+Predicate Device: Required for comparison
+
+**Compliance Requirements:**
+📋 Essential Requirements: Annex I MDR
+🔬 Clinical Evidence: Annex XIV required
+📊 Post-Market Surveillance: Mandatory
+🏭 Quality Management: ISO 13485:2016
+
+**Documentation Package:**
+• Technical file compilation
+• Clinical evaluation report
+• Risk management per ISO 14971
+• Usability engineering per IEC 62366
+• Software lifecycle per IEC 62304
+
+⏱️ Timeline: 8-12 months to market
+💰 Certification Cost: €45,000-€65,000`,
+        explanation: "Agent provided comprehensive regulatory roadmap with specific classification, requirements, and timelines based on deep medical device expertise.",
+        metrics: {
+          processingTime: "5.2s",
+          confidence: 97.1,
+          tokensUsed: 1580,
+          costEstimate: "€0.16"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Medical-specialized GPT-4",
+      processingSpeed: "5.2s average",
+      platforms: ["Regulatory Databases", "Clinical Systems"],
+      automation: "assisted"
+    }
+  },
+  {
+    name: "Automotive Parts Expert Agent",
+    accuracy: 94.7,
+    icon: <Gear className="h-5 w-5" />,
+    description: "Automotive components specialist with ECE regulations and OEM compatibility expertise.",
+    tags: ["Automotive", "ECE", "OEM", "Aftermarket"],
+    specializations: [
+      "ECE regulations",
+      "OEM compatibility",
+      "Aftermarket certification",
+      "Performance tuning"
+    ],
+    languages: ["de", "en", "fr"],
+    examples: [
+      {
+        title: "Automotive Component Analysis",
+        input: `Part: Turbocharger for VW 2.0 TDI
+Application: Golf VII, Passat B8
+Market: European aftermarket`,
+        output: `🚗 Automotive Analysis Report:
+
+**OEM Compatibility:**
+Original Part: 04L253020A (VW/Audi)
+Compatible Models:
+• VW Golf VII (2012-2020) - 2.0 TDI 150PS
+• VW Passat B8 (2014-2019) - 2.0 TDI 150PS
+• Audi A3 8V (2012-2020) - 2.0 TDI 150PS
+
+**Regulatory Compliance:**
+✅ ECE R83 (Emissions)
+✅ ECE R85 (Power measurement)
+✅ REACH Regulation compliant
+✅ RoHS Directive 2011/65/EU
+❌ E-Mark certification pending
+
+**Performance Specifications:**
+Max Boost: 1.6 bar
+Turbine Material: Inconel 713
+Compressor: Aluminum alloy
+Expected Lifespan: 120,000 km
+
+**Installation Requirements:**
+🔧 Professional installation recommended
+⚠️ ECU remapping may be required
+🛡️ Warranty: 24 months / 40,000 km
+
+🎯 Market Fit Score: 92%`,
+        explanation: "Agent analyzed automotive part compatibility, regulatory requirements, and performance specifications for European aftermarket success.",
+        metrics: {
+          processingTime: "4.8s",
+          confidence: 94.7,
+          tokensUsed: 1450,
+          costEstimate: "€0.15"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Automotive-specialized GPT-4",
+      processingSpeed: "4.8s average",
+      platforms: ["OEM Databases", "ECE Certification"],
+      automation: "semi"
+    }
+  },
+  {
+    name: "Electronics Components Agent",
+    accuracy: 92.3,
+    icon: <Cpu className="h-5 w-5" />,
+    description: "Electronics and semiconductor specialist with signal integrity and thermal management expertise.",
+    tags: ["Electronics", "Semiconductors", "PCB", "Signal"],
+    specializations: [
+      "Signal integrity analysis",
+      "Thermal management",
+      "PCB design optimization",
+      "Component sourcing"
+    ],
+    languages: ["de", "en", "zh"],
+    examples: [
+      {
+        title: "PCB Component Selection",
+        input: `Application: High-speed automotive CAN controller
+Frequency: 1MHz
+Environment: -40°C to +125°C
+Volume: 10K units/year`,
+        output: `⚡ Electronics Design Analysis:
+
+**Recommended IC Selection:**
+Primary: MCP2515 (Microchip)
+Alternative: SJA1000 (NXP)
+Package: SOIC-18 (automotive grade)
+
+**Signal Integrity:**
+🔄 CAN High/Low differential: 2V nominal
+📊 Rise/fall time: <150ns
+🛡️ EMI filtering: Common mode choke required
+⚡ ESD protection: TPD2ECAN1 (Texas Instruments)
+
+**Thermal Management:**
+🌡️ Thermal derating: 50% at 125°C
+🔥 Junction temperature: Max 150°C
+💨 Heatsinking: Not required for this application
+📐 Thermal via placement: 0.2mm grid
+
+**Cost Analysis:**
+Unit Cost: €2.40 (10K volume)
+Total BOM Impact: €3.20 including passives
+Annual Cost: €32,000
+
+🎯 Design Confidence: 95%`,
+        explanation: "Agent provided detailed electronics analysis including component selection, signal integrity, thermal considerations, and cost optimization.",
+        metrics: {
+          processingTime: "4.1s",
+          confidence: 92.3,
+          tokensUsed: 1380,
+          costEstimate: "€0.13"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Electronics-focused GPT-4",
+      processingSpeed: "4.1s average",
+      platforms: ["Component Databases", "Design Tools"],
+      automation: "assisted"
+    }
+  },
+  {
+    name: "Supply Chain Optimization Agent",
+    accuracy: 90.8,
+    icon: <Truck className="h-5 w-5" />,
+    description: "Global supply chain manager with logistics optimization and risk mitigation strategies.",
+    tags: ["Logistics", "Supply Chain", "Risk", "Optimization"],
+    specializations: [
+      "Route optimization",
+      "Risk assessment",
+      "Supplier diversification",
+      "Cost reduction"
+    ],
+    languages: ["de", "en", "zh"],
+    examples: [
+      {
+        title: "Supply Chain Risk Analysis",
+        input: `Product: Medical sensors from Shenzhen
+Destination: Germany
+Risk factors: Geopolitical, weather
+Volume: 5000 units/month`,
+        output: `🌏 Supply Chain Strategy:
+
+**Current Route Analysis:**
+Primary: Shenzhen → Hamburg (Sea freight, 35 days)
+Backup: Shenzhen → Frankfurt (Air freight, 3 days)
+Alternative: Hong Kong → Rotterdam (28 days)
+
+**Risk Mitigation:**
+🌊 Weather disruptions: 15% probability Q1
+🏭 Port congestion: Moderate risk at Hamburg
+💼 Regulatory changes: Low impact for medical devices
+🚢 Shipping delays: 2-week buffer stock recommended
+
+**Cost Optimization:**
+Sea Freight: €1.20/unit (current)
+Air Freight: €8.50/unit (emergency)
+Consolidation savings: €0.30/unit with weekly shipments
+
+**Supplier Diversification:**
+Primary: Shenzhen (70%)
+Secondary: Shanghai (20%)
+Emergency: Local EU supplier (10%)
+
+📊 Supply chain reliability: 94.2%
+💰 Cost savings potential: €15,600/year`,
+        explanation: "Agent analyzed global supply chain risks, optimized routing, and provided comprehensive risk mitigation strategy with cost analysis.",
+        metrics: {
+          processingTime: "5.0s",
+          confidence: 90.8,
+          tokensUsed: 1520,
+          costEstimate: "€0.15"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Logistics-optimized GPT-4",
+      processingSpeed: "5.0s average",
+      platforms: ["Shipping APIs", "Risk Databases"],
+      automation: "semi"
+    }
+  },
+  {
+    name: "Quality Assurance Agent",
+    accuracy: 96.4,
+    icon: <CheckCircle className="h-5 w-5" />,
+    description: "Quality control specialist with statistical process control and defect prediction capabilities.",
+    tags: ["Quality", "SPC", "Testing", "Compliance"],
+    specializations: [
+      "Statistical process control",
+      "Defect prediction",
+      "Testing protocols",
+      "Certification management"
+    ],
+    languages: ["de", "en", "zh"],
+    examples: [
+      {
+        title: "Quality Control Protocol",
+        input: `Product: Automotive brake pads
+Batch size: 1000 units
+Quality target: 99.7%
+Standards: ECE R90`,
+        output: `🔍 Quality Assurance Protocol:
+
+**Sampling Strategy:**
+Sample Size: 32 units (AQL 0.65, Level II)
+Inspection: 100% visual + 10% dimensional
+Testing: 5% friction coefficient + 3% wear rate
+
+**Control Limits:**
+Friction Coefficient: 0.35-0.45 μ
+Thickness Tolerance: ±0.1mm
+Surface Roughness: Ra 1.6-3.2μm
+Compressibility: 0.8-1.2%
+
+**Statistical Process Control:**
+📊 Cpk Target: >1.33
+📈 Control Charts: X-bar and R charts
+⚠️ Alert thresholds: 2σ warning, 3σ action
+📋 SPC frequency: Every 100 units
+
+**ECE R90 Compliance:**
+✅ Friction performance test
+✅ Shear strength test  
+✅ Thermal cycling test
+✅ Noise/vibration assessment
+
+**Defect Prediction:**
+Current process capability: 99.8%
+Predicted defect rate: 0.15%
+Cost of quality: €0.42/unit
+
+🎯 Quality confidence: 99.7%`,
+        explanation: "Agent designed comprehensive quality protocol with statistical controls, compliance testing, and predictive defect analysis for automotive standards.",
+        metrics: {
+          processingTime: "4.5s",
+          confidence: 96.4,
+          tokensUsed: 1480,
+          costEstimate: "€0.14"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Quality-focused GPT-4",
+      processingSpeed: "4.5s average",
+      platforms: ["QMS Systems", "Testing Equipment"],
+      automation: "full"
+    }
+  },
+  {
+    name: "Customer Lifecycle Agent",
+    accuracy: 88.9,
+    icon: <Users className="h-5 w-5" />,
+    description: "Customer journey specialist with retention strategies and lifetime value optimization.",
+    tags: ["CRM", "Retention", "Lifecycle", "Personalization"],
+    specializations: [
+      "Customer segmentation",
+      "Retention strategies",
+      "Upsell optimization",
+      "Churn prediction"
+    ],
+    languages: ["de", "en", "fr", "zh"],
+    examples: [
+      {
+        title: "Customer Retention Strategy",
+        input: `Customer: Medical equipment distributor
+Order history: €45K annually
+Last order: 3 months ago
+Risk: High churn probability`,
+        output: `👥 Customer Lifecycle Analysis:
+
+**Customer Profile:**
+Segment: High-value medical distributor
+CLV: €180,000 (4-year projection)
+Purchase cycle: Every 8-12 weeks
+Risk score: 8.2/10 (immediate action required)
+
+**Churn Indicators:**
+⚠️ Extended gap: 3 months vs 2.5 month average
+📉 Order frequency: Decreased 40% vs last year
+💬 Support contacts: Reduced 60%
+🏆 Competitor activity: 2 new suppliers identified
+
+**Retention Strategy:**
+🎯 Immediate: Personal call from account manager
+💰 Offer: 15% discount on next €10K+ order
+📦 Value-add: Free expedited shipping for 6 months
+🤝 Relationship: Quarterly business review meeting
+
+**Reengagement Campaign:**
+Week 1: Personal outreach + custom product catalog
+Week 2: Technology seminar invitation
+Week 3: Exclusive new product preview
+Week 4: Renewal negotiation
+
+💎 Retention probability: 76% with intervention`,
+        explanation: "Agent analyzed customer behavior patterns, identified churn risks, and created comprehensive retention strategy with specific actions and timelines.",
+        metrics: {
+          processingTime: "3.9s",
+          confidence: 88.9,
+          tokensUsed: 1350,
+          costEstimate: "€0.12"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "CRM-optimized GPT-4",
+      processingSpeed: "3.9s average",
+      platforms: ["CRM Systems", "Analytics Tools"],
+      automation: "assisted"
+    }
+  },
+  {
+    name: "Predictive Maintenance Agent",
+    accuracy: 94.1,
+    icon: <Wrench className="h-5 w-5" />,
+    description: "IoT-enabled predictive maintenance with failure prediction and cost optimization.",
+    tags: ["IoT", "Predictive", "Maintenance", "Optimization"],
+    specializations: [
+      "Failure prediction",
+      "Maintenance scheduling",
+      "Cost optimization",
+      "Equipment monitoring"
+    ],
+    languages: ["de", "en", "zh"],
+    examples: [
+      {
+        title: "Equipment Failure Prediction",
+        input: `Equipment: CNC Milling Machine
+Model: DMG MORI NHX 4000
+Sensors: Vibration, temperature, current
+Operating hours: 12,500/year`,
+        output: `🔧 Predictive Maintenance Analysis:
+
+**Current Equipment Status:**
+Overall Health: 78% (Caution level)
+Vibration Pattern: Increased harmonics detected
+Temperature Trend: +3°C average over 6 months
+Power Consumption: +12% vs baseline
+
+**Failure Predictions:**
+🚨 Spindle bearing: 85% failure probability in 6-8 weeks
+⚙️ Ball screw: 60% wear limit in 4 months
+🔌 Servo motor: Normal operation expected
+💧 Coolant system: Maintenance due in 2 weeks
+
+**Maintenance Schedule:**
+Immediate (Week 1):
+• Vibration analysis and bearing inspection
+• Coolant system service
+
+Planned (Week 6-8):
+• Spindle bearing replacement
+• Precision re-alignment
+• Preventive servo calibration
+
+**Cost Analysis:**
+Preventive maintenance: €8,500
+Emergency repair cost: €35,000
+Production downtime avoided: €120,000
+
+🎯 ROI of prediction: 420%`,
+        explanation: "Agent analyzed sensor data patterns, predicted equipment failures, and optimized maintenance scheduling for maximum cost efficiency and uptime.",
+        metrics: {
+          processingTime: "4.7s",
+          confidence: 94.1,
+          tokensUsed: 1520,
+          costEstimate: "€0.15"
+        }
+      }
+    ],
+    capabilities: {
+      modelType: "Industrial IoT GPT-4",
+      processingSpeed: "4.7s average",
+      platforms: ["IoT Sensors", "CMMS Systems"],
+      automation: "full"
     }
   }
 ]
