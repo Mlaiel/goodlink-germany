@@ -35,7 +35,14 @@ import {
   Eye,
   Sparkle,
   Lightning,
-  ShoppingBag
+  ShoppingBag,
+  Star,
+  Image,
+  Translate,
+  MegaphoneSimple,
+  ChartLineUp,
+  ShieldCheck,
+  ArrowsCounterClockwise
 } from "@phosphor-icons/react"
 
 interface DemoExample {
@@ -721,6 +728,696 @@ Expected Results:
       accuracy: 89.2,
       lastTrained: "2024-01-17"
     }
+  },
+  {
+    id: "review-analysis-agent",
+    name: "Review Analysis Agent",
+    type: "analytics",
+    icon: <Star className="h-5 w-5" />,
+    description: "Advanced AI analysis of customer reviews, sentiment tracking, and automated response suggestions across all platforms.",
+    capabilities: [
+      "Multi-platform review monitoring",
+      "Advanced sentiment analysis",
+      "Automated response generation",
+      "Competitive review benchmarking",
+      "Issue trend identification",
+      "Review authenticity detection"
+    ],
+    examples: [
+      {
+        title: "Negative Review Analysis & Response",
+        input: `Review Data:
+Platform: Amazon DE
+Product: BPM-2000 Blood Pressure Monitor
+Rating: 2/5 stars
+Review: "Das Gerät ist nach 3 Monaten kaputtgegangen. Bluetooth funktioniert nicht mehr. Sehr enttäuschend für den Preis."
+Customer: Verified Purchase, 15 previous reviews
+Review Impact: Product rating dropped from 4.6 to 4.4`,
+        output: `📊 Sentiment Analysis:
+• Overall Sentiment: Highly Negative (-0.84)
+• Key Issues: Hardware failure (Bluetooth), Quality concerns, Price dissatisfaction
+• Emotion Detection: Disappointment, Frustration
+• Authenticity Score: 94% (Verified genuine complaint)
+
+🎯 Impact Assessment:
+• Rating Impact: -0.2 stars (significant)
+• Sales Risk: Medium-High (technical reliability concern)
+• Brand Reputation: Localized impact (German market)
+• Similar Issues: 3 related Bluetooth complaints in last 30 days
+
+💬 Suggested Response Strategy:
+"Hallo [Kundenname],
+
+vielen Dank für Ihr ehrliches Feedback zum BPM-2000. Es tut uns sehr leid zu hören, dass das Bluetooth-Modul nach 3 Monaten den Dienst versagt hat - das entspricht definitiv nicht unseren Qualitätsstandards.
+
+Sofortige Lösungen:
+🔄 Kostenloser Austausch innerhalb 24h
+📞 Direkter Technik-Support: 0800-GOODLINK
+📱 Firmware-Update verfügbar (löst 89% der BT-Probleme)
+
+Zusätzlich erhalten Sie:
+• Verlängerte Garantie auf 3 Jahre
+• Premium-Support-Zugang
+• 20€ Amazon-Gutschein für die Unannehmlichkeiten
+
+Unser Qualitätsteam wurde über diesen Fall informiert und arbeitet bereits an Verbesserungen für zukünftige Produktionen.
+
+Mit freundlichen Grüßen,
+Good-Link Customer Care Team"
+
+🔍 Automated Actions:
+✓ Quality team notified about Bluetooth issues
+✓ Customer escalated to premium support
+✓ Product team tagged for hardware review
+✓ Similar reviews flagged for proactive outreach`,
+        explanation: "Agent analyzed sentiment, identified technical patterns, assessed business impact, and generated culturally appropriate response with proactive solutions and escalation protocols.",
+        processingTime: "2.8s",
+        confidence: 92
+      }
+    ],
+    configuration: {
+      platforms: ["amazon", "ebay", "google", "trustpilot", "facebook"],
+      languages: ["de", "en", "fr", "zh"],
+      sentimentThreshold: -0.6,
+      autoResponse: false,
+      competitorTracking: true
+    },
+    training: {
+      modelType: "BERT + Custom Sentiment + GPT-4",
+      dataSource: "150k+ German customer reviews + sentiment data",
+      accuracy: 91.8,
+      lastTrained: "2024-01-19"
+    }
+  },
+  {
+    id: "visual-brand-agent",
+    name: "Visual Brand Agent",
+    type: "creative",
+    icon: <Image className="h-5 w-5" />,
+    description: "Complete visual content solution: image/video optimization, generation, SEO enhancement, and brand consistency for all marketing channels.",
+    capabilities: [
+      "Image optimization & enhancement",
+      "AI image generation from prompts",
+      "Video optimization & compression",
+      "AI video generation & editing",
+      "Visual SEO optimization",
+      "Brand consistency management",
+      "Multi-format output generation",
+      "Metadata & alt-text automation"
+    ],
+    examples: [
+      {
+        title: "Product Image Generation & Optimization",
+        input: `Creative Brief:
+Product: BPM-2000 Blood Pressure Monitor
+Brand Style: Medical professional, clean, trustworthy
+Generation Prompt: "Professional product photo of a modern digital blood pressure monitor on pure white background, studio lighting, medical device photography style, high resolution, clean aesthetic"
+
+Optimization Requirements:
+- Amazon format: 2000x2000px, white background
+- eBay format: 1600x1600px, lifestyle variant
+- Instagram: 1080x1080px, branded template
+- SEO: Alt-text in DE/EN, optimized filenames`,
+        output: `🎨 Visual Content Suite Generated:
+
+📸 AI Generated Images:
+• Main Product Image: 4K studio quality ✓
+• Lifestyle Context: Home setting variant ✓
+• Detail Shots: 3 close-up angles ✓
+• Comparison Chart: VS competitors ✓
+
+🔧 Optimization Results:
+• Amazon: 2000x2000px, 180KB, pure white BG ✓
+• eBay: 1600x1600px, 120KB, lifestyle setting ✓
+• Instagram: 1080x1080px, branded overlay ✓
+• Mobile: 800x800px, 60KB, fast loading ✓
+
+📝 SEO Enhancement:
+• Filenames: "bmp-2000-blutdruckmessgeraet-digital-amazon.jpg"
+• Alt-text DE: "Digitales Blutdruckmessgerät BMP-2000 professionell"
+• Alt-text EN: "Professional Digital Blood Pressure Monitor BMP-2000"
+• Meta tags: Medical device, CE certified, German quality
+
+🎯 Brand Consistency:
+• Logo placement: Bottom right corner ✓
+• Color scheme: Medical blue #0066CC ✓
+• Typography: Professional sans-serif ✓
+• Template applied: Medical device standard ✓
+
+� Performance Prediction:
+• CTR improvement: +45% (high-quality visuals)
+• Conversion boost: +28% (trust signals)
+• Mobile engagement: +67% (optimized loading)
+• Brand recognition: +34% (consistent styling)`,
+        explanation: "Agent generated professional product images using AI, optimized them for multiple platforms, applied brand guidelines, and enhanced SEO metadata for maximum visibility and conversion.",
+        processingTime: "12.3s",
+        confidence: 94
+      },
+      {
+        title: "Video Content Creation & Optimization",
+        input: `Video Project:
+Type: Product demonstration video
+Product: BPM-2000 usage tutorial
+Duration: 60 seconds
+Style: Educational, professional
+Platforms: YouTube, Instagram Reels, TikTok
+
+Generation Prompt: "Clean medical demonstration video showing step-by-step blood pressure measurement, professional presenter hands, close-up product shots, educational overlay graphics"
+
+Output Requirements:
+- YouTube: 1920x1080p, 60fps, SEO optimized
+- Instagram: 1080x1920p (vertical), trending audio
+- TikTok: 1080x1920p, engaging hooks
+- Amazon: Product demo loop, silent version`,
+        output: `🎬 Video Content Suite Created:
+
+🎥 AI Generated Video Content:
+• Master Version: 4K 60fps professional demo ✓
+• Presenter Hands: Clean medical technique ✓
+• Product Close-ups: 5 detailed angles ✓
+• Overlay Graphics: Step-by-step instructions ✓
+
+📱 Platform Optimizations:
+• YouTube: 1920x1080p, SEO title, chapters, captions ✓
+• Instagram: 1080x1920p, trending audio sync ✓
+• TikTok: Vertical, hook in first 3s, trending effects ✓
+• Amazon: Silent loop, product focus, compliance ✓
+
+🎵 Audio Enhancement:
+• Professional voiceover: German + English ✓
+• Background music: Medical/professional library ✓
+• Sound effects: Button clicks, device sounds ✓
+• Captions: Auto-generated in 4 languages ✓
+
+📊 SEO Video Optimization:
+• YouTube title: "BPM-2000 Anleitung: Blutdruck richtig messen [Tutorial]"
+• Tags: #Blutdruckmessgerät #Gesundheit #Anleitung
+• Thumbnail: Custom branded, A/B tested variants
+• Description: Keyword-optimized, timestamps
+
+🚀 Performance Metrics:
+• Engagement rate: +78% (professional quality)
+• Watch time: +45% (clear demonstrations)
+• Conversion: +35% (trust building)
+• Reach: +156% (multi-platform strategy)`,
+        explanation: "Agent created comprehensive video content using AI generation, optimized for each platform's requirements, enhanced with professional audio, and applied SEO best practices for maximum reach.",
+        processingTime: "45.2s",
+        confidence: 92
+      }
+    ],
+    configuration: {
+      aiModels: ["stable-diffusion", "midjourney-api", "runway-ml", "gpt-vision"],
+      outputFormats: ["jpeg", "png", "webp", "mp4", "gif"],
+      maxResolution: 8000,
+      brandTemplates: true,
+      seoOptimization: true,
+      multiLanguage: ["de", "en", "fr", "zh"]
+    },
+    training: {
+      modelType: "Multimodal AI + Brand Guidelines + SEO Analytics",
+      dataSource: "1M+ e-commerce visuals + brand guidelines + performance data",
+      accuracy: 93.8,
+      lastTrained: "2024-01-25"
+    }
+  },
+  {
+    id: "translator-agent",
+    name: "Advanced Translation Agent",
+    type: "content", 
+    icon: <Translate className="h-5 w-5" />,
+    description: "Professional-grade translation with cultural adaptation, technical terminology, and marketplace localization.",
+    capabilities: [
+      "Technical document translation",
+      "Cultural adaptation and localization",
+      "Medical/automotive terminology",
+      "Marketplace-specific formatting",
+      "Legal compliance translation",
+      "SEO keyword translation"
+    ],
+    examples: [
+      {
+        title: "Technical Manual Translation",
+        input: `Translation Request:
+Source: German technical manual for BPM-2000
+Text: "Das digitale Blutdruckmessgerät BPM-2000 ist ein Medizinprodukt der Klasse IIa gemäß MDR 2017/745. Bei der Verwendung sind die nationalen Vorschriften zu beachten. Die Kalibrierung erfolgt automatisch alle 24 Monate."
+Target Languages: English, French, Chinese
+Purpose: International marketplace listings
+Technical Level: Medical device documentation`,
+        output: `🌍 Professional Translation Results:
+
+🇬🇧 English (Medical Technical):
+"The BPM-2000 digital blood pressure monitor is a Class IIa medical device according to MDR 2017/745. National regulations must be observed during use. Calibration is performed automatically every 24 months."
+
+Technical Notes:
+• "Medizinprodukt" → "medical device" (regulatory term)
+• "Klasse IIa" → "Class IIa" (EU MDR classification)
+• "Kalibrierung" → "calibration" (technical precision)
+
+🇫🇷 French (Technical Medical):
+"Le tensiomètre numérique BPM-2000 est un dispositif médical de classe IIa conforme au RDM 2017/745. Les réglementations nationales doivent être respectées lors de l'utilisation. L'étalonnage s'effectue automatiquement tous les 24 mois."
+
+Cultural Adaptations:
+• "Blutdruckmessgerät" → "tensiomètre" (French medical term)
+• "MDR" → "RDM" (French regulatory acronym)
+• "Kalibrierung" → "étalonnage" (French technical term)
+
+🇨🇳 Chinese (Simplified - Medical):
+"BPM-2000数字血压计是符合MDR 2017/745标准的IIa类医疗器械。使用时必须遵守国家法规。校准每24个月自动执行一次。"
+
+Localization Notes:
+• Medical device classification preserved
+• Regulatory compliance emphasized
+• Technical accuracy maintained for Chinese market
+
+📊 Quality Metrics:
+• Translation Accuracy: 98.2%
+• Terminology Consistency: 100%
+• Cultural Appropriateness: 96.8%
+• Technical Precision: 99.1%
+• SEO Keyword Preservation: 94.5%
+
+✅ Compliance Verification:
+• Medical terminology verified
+• Regulatory requirements maintained
+• Cultural sensitivities respected
+• Marketplace guidelines followed`,
+        explanation: "Agent provided professional medical-grade translations with cultural adaptation, maintaining technical accuracy while adapting to local market requirements and regulatory standards.",
+        processingTime: "3.6s",
+        confidence: 98
+      }
+    ],
+    configuration: {
+      languages: ["de", "en", "fr", "zh", "es", "it"],
+      specialization: ["medical", "automotive", "technical"],
+      culturalAdaptation: true,
+      terminologyManagement: true,
+      qualityAssurance: "human-verified"
+    },
+    training: {
+      modelType: "Multilingual BERT + Domain-specific LLMs",
+      dataSource: "Medical/automotive translations + cultural data",
+      accuracy: 97.3,
+      lastTrained: "2024-01-20"
+    }
+  },
+  {
+    id: "ad-optimizer-agent",
+    name: "Advertisement Optimizer Agent",
+    type: "advertising",
+    icon: <MegaphoneSimple className="h-5 w-5" />,
+    description: "AI-powered advertising campaign optimization across Google Ads, Amazon PPC, Facebook Ads with real-time bid management.",
+    capabilities: [
+      "Multi-platform campaign management",
+      "Real-time bid optimization",
+      "Audience targeting refinement",
+      "Creative performance analysis",
+      "Budget allocation optimization",
+      "ROI maximization strategies"
+    ],
+    examples: [
+      {
+        title: "Amazon PPC Campaign Optimization",
+        input: `Campaign Data:
+Product: BPM-2000 Blood Pressure Monitor
+Platform: Amazon Sponsored Products
+Current Performance: 
+- CTR: 2.1% (target: 3.5%)
+- CPC: €0.89 (budget limit: €1.20)
+- ACOS: 28% (target: 20%)
+- Conversion Rate: 12.4%
+Budget: €500/day
+Keywords: 47 active keywords
+Competitor Analysis: Available`,
+        output: `🎯 Campaign Optimization Strategy:
+
+📊 Performance Analysis:
+• CTR below target by 40% → Creative & keyword issues identified
+• CPC within budget but ROI suboptimal
+• ACOS exceeds target → Need aggressive bid optimization
+• Conversion rate strong → Product-market fit confirmed
+
+🔧 Immediate Optimizations:
+
+Keyword Strategy:
+✅ Pause 12 low-performing keywords (CTR < 1%)
+✅ Increase bids on 8 high-converting terms (+15-25%)
+✅ Add 23 new negative keywords to reduce wasted spend
+✅ Implement day-parting (peak hours: 18:00-22:00)
+
+Creative Improvements:
+• Title A/B Test: "Digital Blood Pressure Monitor" vs "Professional Home BP Monitor"
+• Image optimization: Lifestyle image showing ease of use
+• Enhanced Brand Content activation
+• Bullet point refinement for mobile users
+
+Bid Management:
+• High-Intent Keywords: Increase to €1.15 (8 keywords)
+• Brand Defense: Competitive bidding on brand terms
+• Long-tail Opportunities: Lower bids (€0.45) for discovery
+
+🎯 Projected Improvements (30 days):
+• CTR: 2.1% → 3.7% (+76% improvement)
+• ACOS: 28% → 18% (-36% improvement)  
+• Daily Sales: €890 → €1,340 (+51% revenue)
+• ROI: 357% → 556% (+56% profit efficiency)
+
+💰 Budget Reallocation:
+• High-performers: +€180/day (60% budget)
+• Testing new keywords: +€50/day
+• Brand protection: +€70/day
+• Reduced waste: -€200/day savings
+
+📈 Advanced Strategies:
+• Dayparting: Focus 70% budget on 18:00-22:00
+• Geographic optimization: Increase Munich/Hamburg bids
+• Device targeting: Mobile bid adjustments (+20%)
+• Competitor conquesting: Target competitor keywords`,
+        explanation: "Agent analyzed comprehensive campaign data, identified performance gaps, and provided detailed optimization strategy with specific bid adjustments, keyword management, and creative improvements for maximum ROI.",
+        processingTime: "5.2s",
+        confidence: 94
+      }
+    ],
+    configuration: {
+      platforms: ["amazon-ppc", "google-ads", "facebook-ads", "bing-ads"],
+      bidStrategy: "target-roas",
+      optimizationFrequency: "hourly",
+      budgetManagement: "automatic",
+      performanceTracking: "real-time"
+    },
+    training: {
+      modelType: "Reinforcement Learning + Campaign Analytics",
+      dataSource: "2M+ ad campaigns + performance data",
+      accuracy: 88.9,
+      lastTrained: "2024-01-21"
+    }
+  },
+  {
+    id: "analytics-agent",
+    name: "Performance Analytics Agent",
+    type: "analytics",
+    icon: <ChartLineUp className="h-5 w-5" />,
+    description: "Advanced cross-platform analytics with predictive insights, automated reporting, and business intelligence.",
+    capabilities: [
+      "Cross-platform data integration",
+      "Predictive analytics modeling",
+      "Automated report generation",
+      "Business intelligence insights",
+      "Performance benchmarking",
+      "Trend analysis and forecasting"
+    ],
+    examples: [
+      {
+        title: "Cross-Platform Performance Analysis",
+        input: `Analytics Request:
+Time Period: Last 90 days
+Platforms: Amazon, eBay, OTTO, Facebook Ads, Google Analytics
+Products: BPM-2000, H7-LED-6000K, 15 other SKUs
+Metrics Focus: Revenue, conversion, customer acquisition
+Business Goal: Identify growth opportunities for Q2`,
+        output: `📊 Executive Performance Dashboard:
+
+💰 Revenue Analysis (90 days):
+• Total Revenue: €247,890 (+23% vs. previous period)
+• Amazon: €156,430 (63%) - Best performer
+• eBay: €67,200 (27%) - Strong growth +31%
+• OTTO: €24,260 (10%) - Opportunity for improvement
+
+🎯 Top Performers:
+1. BPM-2000: €89,450 revenue (Best seller)
+   - Amazon: 4.8★ rating, 89% Buy Box win
+   - eBay: +45% growth, underpriced opportunity
+   - Conversion Rate: 12.4% (18% above category average)
+
+2. H7-LED-6000K: €67,230 revenue (Seasonal peak)
+   - Strong winter demand (+340% Nov-Jan)
+   - Geographic hotspots: Bavaria, NRW
+   - Mobile conversion: 76% of sales
+
+📈 Predictive Insights:
+• Q2 Revenue Forecast: €310,000-340,000 (+25-35%)
+• BPM-2000: Expected demand surge (spring health focus)
+• Automotive category: Seasonal decline expected (-20%)
+• New customer acquisition: 67% increase opportunity
+
+🚀 Growth Opportunities Identified:
+
+1. OTTO Platform Expansion (+€45k potential):
+   • Current share: 10% vs market average 18%
+   • Recommendation: Increase product catalog by 40%
+   • Investment needed: €8,500 in advertising
+
+2. Mobile Optimization (+€23k potential):
+   • Mobile traffic: 68% but conversion: 9.2% vs desktop 15.1%
+   • Focus: BPM-2000 mobile checkout optimization
+   • Expected impact: +2.8% conversion improvement
+
+3. Geographic Expansion (+€31k potential):
+   • Underperforming regions: East Germany, rural areas
+   • Solution: Local delivery partnerships
+   • Target: Bremen, Leipzig, Dresden markets
+
+📊 Customer Analytics:
+• Average Order Value: €76.50 (+€12 vs. competition)
+• Customer Lifetime Value: €245
+• Repeat Purchase Rate: 34% (excellent for category)
+• Peak Purchase Times: 19:00-21:00 weekdays
+
+⚠️ Risk Factors:
+• Inventory: H7-LED low stock for spring demand
+• Competition: New competitor pricing pressure on BPM series
+• Platform dependency: 63% Amazon concentration risk
+
+🎯 Action Plan Recommendations:
+1. Increase OTTO investment by €8,500/month
+2. Implement mobile-first checkout optimization
+3. Diversify inventory for geographic expansion
+4. Reduce Amazon dependency to 50% by Q3`,
+        explanation: "Agent processed multi-platform data, identified performance patterns, generated predictive insights, and provided actionable recommendations with specific revenue impact projections and risk assessments.",
+        processingTime: "7.8s",
+        confidence: 91
+      }
+    ],
+    configuration: {
+      dataSources: ["amazon", "ebay", "otto", "google-analytics", "facebook"],
+      reportingFrequency: "weekly",
+      predictionHorizon: 90,
+      alertThresholds: "custom",
+      dataRetention: 24
+    },
+    training: {
+      modelType: "Time Series + ML Ensemble + BI Analytics",
+      dataSource: "E-commerce analytics + market data",
+      accuracy: 90.4,
+      lastTrained: "2024-01-22"
+    }
+  },
+  {
+    id: "compliance-agent",
+    name: "Compliance Verification Agent",
+    type: "legal",
+    icon: <ShieldCheck className="h-5 w-5" />,
+    description: "Automated compliance checking for medical devices, automotive parts, and EU regulations with real-time updates.",
+    capabilities: [
+      "EU MDR compliance verification",
+      "CE marking validation",
+      "GDPR compliance monitoring",
+      "Automotive regulations (ECE)",
+      "Product safety standards",
+      "Documentation automation"
+    ],
+    examples: [
+      {
+        title: "Medical Device Compliance Check",
+        input: `Compliance Request:
+Product: BPM-2000 Blood Pressure Monitor
+Category: Medical Device Class IIa
+Markets: Germany, France, Netherlands
+Regulations: EU MDR 2017/745, ISO 81060-2
+Documentation: Technical file, instructions, labeling
+Urgency: Pre-market launch verification`,
+        output: `🛡️ Compliance Verification Report:
+
+✅ EU MDR 2017/745 Compliance:
+• Class IIa Classification: ✅ Confirmed correct
+• Technical Documentation: ✅ Complete (Article 10)
+• Clinical Evidence: ✅ ISO 81060-2 validation report present
+• Post-Market Surveillance: ✅ System established
+• UDI Assignment: ✅ Valid UDI-DI registered
+• EUDAMED Registration: ✅ Active registration
+
+📋 Required Documentation Status:
+✅ Declaration of Conformity (signed)
+✅ Technical File (Article 10 compliant)
+✅ Instructions for Use (IFU) - 4 languages
+✅ Risk Management File (ISO 14971)
+✅ Quality Management System (ISO 13485)
+✅ Clinical Evaluation Report
+
+🏷️ Labeling Compliance:
+✅ CE Marking: Correct size and placement
+✅ Notified Body Number: 0123 (valid)
+✅ Manufacturer Information: Complete
+✅ Medical Device Symbol: Present
+✅ UDI Carrier: Compliant format
+✅ Warning Symbols: All required present
+
+🌍 Market-Specific Requirements:
+
+Germany (DE):
+✅ MPG compliance (national implementation)
+✅ German IFU translation verified
+✅ DIMDI database registration completed
+✅ Reimbursement code compatibility checked
+
+France (FR):
+✅ ANSM notification not required (Class IIa)
+✅ French labeling requirements met
+✅ LPPR listing eligibility confirmed
+
+Netherlands (NL):
+✅ IGJ notification completed
+✅ Dutch language requirements satisfied
+✅ Reimbursement pathway identified
+
+⚠️ Action Items Required:
+1. Update IFU with latest MDR Article 18 requirements
+2. Clinical evaluation update due in 8 months
+3. Post-market surveillance report due Q2 2024
+
+🔄 Ongoing Monitoring:
+• Regulatory changes: Auto-monitored
+• Certificate validity: Expires Dec 2025
+• Clinical data updates: Next review Oct 2024
+• Vigilance reporting: System active
+
+📊 Compliance Score: 96.8%
+• Documentation: 98%
+• Labeling: 100%
+• Registration: 95%
+• Market access: 94%
+
+✅ Launch Approval: APPROVED for all target markets
+Estimated time to market: 2-3 weeks pending final IFU update`,
+        explanation: "Agent performed comprehensive compliance verification across multiple regulatory frameworks, identified all requirements, checked documentation completeness, and provided clear go-to-market approval with specific action items.",
+        processingTime: "6.1s",
+        confidence: 97
+      }
+    ],
+    configuration: {
+      regions: ["eu", "de", "fr", "nl", "uk"],
+      productCategories: ["medical", "automotive", "electronics"],
+      regulatoryUpdates: "real-time",
+      documentTracking: true,
+      alerting: "critical-only"
+    },
+    training: {
+      modelType: "Legal NLP + Regulatory Database + Document AI",
+      dataSource: "EU regulations + compliance documents",
+      accuracy: 96.1,
+      lastTrained: "2024-01-23"
+    }
+  },
+  {
+    id: "cross-platform-sync-agent",
+    name: "Cross-Platform Sync Agent",
+    type: "automation",
+    icon: <ArrowsCounterClockwise className="h-5 w-5" />,
+    description: "Advanced real-time synchronization across all platforms with conflict resolution, data integrity, and automated failover.",
+    capabilities: [
+      "Real-time multi-platform sync",
+      "Conflict resolution automation",
+      "Data integrity verification",
+      "Automated failover handling",
+      "Performance optimization",
+      "Audit trail maintenance"
+    ],
+    examples: [
+      {
+        title: "Critical Inventory Sync Crisis",
+        input: `Sync Emergency:
+Issue: Amazon API timeout causing inventory mismatch
+Affected Products: 23 SKUs including BPM-2000
+Current State: Amazon shows 0 stock, actual inventory: 156 units
+Sales Impact: €2,890 lost sales in last 3 hours
+Other Platforms: eBay, OTTO functioning normally
+Priority Level: Critical - immediate action required`,
+        output: `🚨 Emergency Sync Protocol Activated:
+
+⚡ Immediate Actions (0-5 minutes):
+✅ Amazon API connection restored via backup endpoint
+✅ Emergency inventory push: 23 SKUs updated
+✅ BPM-2000: Stock corrected from 0 → 156 units
+✅ Sales re-enabled on all affected listings
+✅ Customer notifications sent for delayed orders
+
+🔧 Technical Resolution:
+• Root Cause: Amazon MWS rate limiting timeout
+• Solution: Implemented exponential backoff retry logic
+• Failover: Switched to SP-API backup connection
+• Data Validation: All 23 SKUs inventory verified accurate
+• Performance: Sync time improved from 45s to 12s
+
+📊 Sync Status Dashboard:
+• Amazon: ✅ ONLINE (12s sync interval)
+• eBay: ✅ ONLINE (15s sync interval)  
+• OTTO: ✅ ONLINE (18s sync interval)
+• Kaufland: ✅ ONLINE (20s sync interval)
+• Internal DB: ✅ SYNCHRONIZED
+
+🔄 Real-Time Monitoring:
+• Data Integrity: 100% verified
+• Sync Conflicts: 0 active conflicts
+• API Health: All endpoints operational
+• Latency: Average 8.2s (Target: <15s)
+• Error Rate: 0.02% (Well below 1% threshold)
+
+💰 Business Impact Recovery:
+• Sales Resume Time: 4 minutes 32 seconds
+• Revenue Recovery: €2,890 potential loss prevented
+• Customer Experience: No negative impact
+• Platform Rankings: Maintained (no out-of-stock penalty)
+
+🛡️ Preventive Measures Implemented:
+• Enhanced monitoring: 30-second health checks
+• Triple redundancy: 3 backup API endpoints configured  
+• Smart retry logic: Exponential backoff with jitter
+• Proactive alerts: 95% threshold warnings enabled
+• Auto-scaling: Dynamic rate limit adaptation
+
+📈 Performance Improvements:
+• Sync Reliability: 99.2% → 99.8%
+• Average Resolution Time: 45min → 4.5min
+• False Positive Alerts: Reduced by 67%
+• System Uptime: 99.97% (last 30 days)
+
+📋 Audit Trail:
+• Event Log: All actions recorded with timestamps
+• Compliance: SOX audit trail maintained
+• Recovery Documentation: Incident report generated
+• Post-mortem: Scheduled for tomorrow 10:00 CET
+
+🔮 Predictive Insights:
+• Similar Issue Probability: 2.1% next 30 days
+• Recommended Infrastructure: Add EU backup region
+• Monitoring Enhancement: ML-based anomaly detection`,
+        explanation: "Agent handled critical sync emergency with immediate resolution, implemented preventive measures, maintained data integrity, and provided comprehensive business impact analysis with future recommendations.",
+        processingTime: "3.4s",
+        confidence: 98
+      }
+    ],
+    configuration: {
+      syncFrequency: "real-time",
+      platforms: ["amazon", "ebay", "otto", "kaufland", "bol"],
+      conflictResolution: "automatic",
+      failoverMode: "intelligent",
+      auditLevel: "comprehensive"
+    },
+    training: {
+      modelType: "Distributed Systems + ML Conflict Resolution",
+      dataSource: "Platform APIs + sync pattern data",
+      accuracy: 98.7,
+      lastTrained: "2024-01-24"
+    }
   }
 ]
 
@@ -936,6 +1633,222 @@ Cross-Platform Analytics:
 • Conversion-Rate: 8.5% (Branchendurchschnitt: 3.2%)`
         break
         
+      case "review-analysis-agent":
+        output = `Review Analysis Report:
+
+📊 Sentiment Analysis for "${demoInput}":
+• Overall Sentiment: ${Math.random() > 0.7 ? 'Positive (+0.72)' : Math.random() > 0.4 ? 'Neutral (0.12)' : 'Negative (-0.45)'}
+• Key Themes: Quality, Performance, Value for money
+• Emotion Detection: ${['Satisfaction', 'Excitement', 'Concern', 'Disappointment'][Math.floor(Math.random() * 4)]}
+• Authenticity Score: ${Math.floor(Math.random() * 20) + 80}% (High confidence)
+
+📈 Review Impact:
+• Rating Influence: ${Math.random() > 0.5 ? '+0.2' : '-0.1'} stars potential
+• Sales Correlation: ${Math.floor(Math.random() * 30) + 15}% conversion impact
+• Competitive Positioning: ${Math.floor(Math.random() * 20) + 80}% vs category average
+
+💬 Suggested Response Strategy:
+"Thank you for your detailed feedback about ${demoInput}. 
+We appreciate your honest review and take your concerns seriously.
+Our customer service team will contact you within 24 hours."
+
+🔍 Automated Actions:
+✓ Customer service team notified
+✓ Product team tagged for review
+✓ Quality assurance alert triggered
+✓ Follow-up reminder set (48 hours)`
+        break
+        
+      case "visual-brand-agent":
+        output = `🎨 Visual Content Generated for "${demoInput}":
+
+📸 AI Image Generation:
+• Product Shot: Professional studio quality ✓
+• Lifestyle Image: Home setting context ✓
+• Detail Views: 3 close-up angles ✓
+• Brand Template: Applied consistency ✓
+
+🎬 Video Content (if requested):
+• Demo Video: ${Math.floor(Math.random() * 30) + 30}s professional tutorial ✓
+• Platform Variants: YouTube, Instagram, TikTok ✓
+• Audio: Professional voiceover + music ✓
+• SEO: Optimized titles, tags, descriptions ✓
+
+� Multi-Platform Optimization:
+• Amazon: 2000x2000px, white background ✓
+• eBay: 1600x1600px, lifestyle setting ✓
+• Instagram: 1080x1080px, branded overlay ✓
+• Mobile: 800x800px, fast loading ✓
+
+📝 SEO & Brand Enhancement:
+• Filenames: SEO-optimized naming ✓
+• Alt-text: Generated in ${Math.floor(Math.random() * 3) + 2} languages ✓
+• Brand colors: Applied consistently ✓
+• Logo placement: Optimal positioning ✓
+
+📊 Performance Prediction:
+• CTR improvement: +${Math.floor(Math.random() * 25) + 35}%
+• Brand recognition: +${Math.floor(Math.random() * 20) + 25}%
+• Engagement rate: +${Math.floor(Math.random() * 30) + 45}%`
+        break
+        
+      case "translator-agent":
+        output = `Professional Translation Complete:
+
+🌍 Translation Results for "${demoInput}":
+
+🇬🇧 English (Technical):
+"${demoInput} - Professional-grade solution with advanced features"
+
+🇫🇷 French (Localized):
+"${demoInput} - Solution professionnelle avec fonctionnalités avancées"
+
+🇨🇳 Chinese (Simplified):
+"${demoInput} - 专业级解决方案，具备先进功能"
+
+📊 Quality Metrics:
+• Translation Accuracy: ${Math.floor(Math.random() * 10) + 90}%
+• Cultural Adaptation: ${Math.floor(Math.random() * 15) + 85}%
+• Technical Precision: ${Math.floor(Math.random() * 8) + 92}%
+• SEO Keyword Preservation: ${Math.floor(Math.random() * 12) + 88}%
+
+✅ Compliance Verification:
+• Medical terminology: Verified ✓
+• Technical accuracy: Maintained ✓
+• Cultural appropriateness: Confirmed ✓
+• Marketplace guidelines: Followed ✓
+
+🎯 Localization Features:
+• Regional preferences adapted
+• Currency and units converted  
+• Legal requirements integrated
+• Cultural sensitivities respected`
+        break
+        
+      case "ad-optimizer-agent":
+        output = `Advertisement Optimization Report:
+
+🎯 Campaign Analysis for "${demoInput}":
+• Current CTR: ${(Math.random() * 2 + 1).toFixed(1)}%
+• Target CTR: ${(Math.random() * 2 + 3).toFixed(1)}%
+• Current CPC: €${(Math.random() * 0.5 + 0.5).toFixed(2)}
+• ACOS: ${Math.floor(Math.random() * 10) + 20}%
+
+🔧 Optimization Strategy:
+• Keyword bid adjustments: ${Math.floor(Math.random() * 15) + 8} keywords optimized
+• Negative keywords added: ${Math.floor(Math.random() * 10) + 15} terms
+• Ad copy variations: ${Math.floor(Math.random() * 3) + 2} new creatives
+• Targeting refinement: Demographics + interests updated
+
+📈 Projected Improvements (30 days):
+• CTR increase: +${Math.floor(Math.random() * 30) + 40}%
+• ACOS reduction: -${Math.floor(Math.random() * 8) + 12}%
+• Revenue growth: +€${(Math.random() * 500 + 200).toFixed(0)}
+• ROI improvement: +${Math.floor(Math.random() * 50) + 30}%
+
+💰 Budget Optimization:
+• High-performers: +€${Math.floor(Math.random() * 100) + 50}/day
+• Underperformers: -€${Math.floor(Math.random() * 50) + 25}/day
+• New opportunities: €${Math.floor(Math.random() * 75) + 25}/day testing budget`
+        break
+        
+      case "analytics-agent":
+        output = `Performance Analytics Report:
+
+📊 Cross-Platform Analysis for "${demoInput}":
+
+💰 Revenue Breakdown (Last 30 days):
+• Total Revenue: €${(Math.random() * 20000 + 10000).toFixed(0)}
+• Amazon: ${Math.floor(Math.random() * 30) + 50}% of total
+• eBay: ${Math.floor(Math.random() * 20) + 20}% of total
+• Other Platforms: ${Math.floor(Math.random() * 15) + 15}% of total
+
+📈 Key Performance Metrics:
+• Conversion Rate: ${(Math.random() * 5 + 8).toFixed(1)}%
+• Average Order Value: €${(Math.random() * 30 + 50).toFixed(0)}
+• Customer Acquisition Cost: €${(Math.random() * 15 + 10).toFixed(0)}
+• Customer Lifetime Value: €${(Math.random() * 100 + 150).toFixed(0)}
+
+🔮 Predictive Insights:
+• Next 30 days forecast: €${(Math.random() * 25000 + 15000).toFixed(0)}
+• Growth opportunity: +${Math.floor(Math.random() * 20) + 15}%
+• Risk factors: ${Math.floor(Math.random() * 3) + 1} identified
+• Recommended actions: ${Math.floor(Math.random() * 5) + 3} priorities
+
+🎯 Growth Opportunities:
+• Platform expansion potential: +€${(Math.random() * 5000 + 2000).toFixed(0)}
+• SEO optimization impact: +${Math.floor(Math.random() * 15) + 10}% traffic
+• Mobile conversion improvement: +${Math.floor(Math.random() * 8) + 5}%
+• Customer retention programs: +${Math.floor(Math.random() * 12) + 8}% repeat sales`
+        break
+        
+      case "compliance-agent":
+        output = `Compliance Verification Report:
+
+🛡️ Regulatory Analysis for "${demoInput}":
+
+✅ EU Compliance Status:
+• CE Marking: ${Math.random() > 0.1 ? 'Compliant ✓' : 'Action Required ⚠️'}
+• GDPR Requirements: ${Math.random() > 0.05 ? 'Fully Compliant ✓' : 'Minor Updates Needed ⚠️'}
+• Product Safety: ${Math.random() > 0.15 ? 'Standards Met ✓' : 'Testing Required ⚠️'}
+• Documentation: ${Math.random() > 0.1 ? 'Complete ✓' : 'Updates Pending ⚠️'}
+
+📋 Market-Specific Requirements:
+Germany (DE): ${Math.random() > 0.1 ? '✅ Compliant' : '⚠️ Action needed'}
+France (FR): ${Math.random() > 0.1 ? '✅ Compliant' : '⚠️ Action needed'}
+Netherlands (NL): ${Math.random() > 0.1 ? '✅ Compliant' : '⚠️ Action needed'}
+
+🏷️ Labeling & Documentation:
+• Technical File: ${Math.random() > 0.1 ? 'Complete' : 'Update required'}
+• Instructions for Use: ${Math.random() > 0.1 ? 'Multilingual ready' : 'Translation needed'}
+• Risk Assessment: ${Math.random() > 0.1 ? 'Current' : 'Review scheduled'}
+• Quality Management: ${Math.random() > 0.1 ? 'ISO certified' : 'Audit pending'}
+
+📊 Compliance Score: ${Math.floor(Math.random() * 10) + 90}%
+• Documentation: ${Math.floor(Math.random() * 15) + 85}%
+• Regulatory: ${Math.floor(Math.random() * 12) + 88}%
+• Market Access: ${Math.floor(Math.random() * 20) + 80}%
+
+✅ Launch Status: ${Math.random() > 0.2 ? 'APPROVED for all markets' : 'PENDING minor corrections'}
+Estimated time to market: ${Math.floor(Math.random() * 4) + 1}-${Math.floor(Math.random() * 3) + 3} weeks`
+        break
+        
+      case "cross-platform-sync-agent":
+        output = `Cross-Platform Sync Status:
+
+🔄 Real-time Synchronization for "${demoInput}":
+
+📊 Platform Status:
+• Amazon: ✅ SYNCED (${(Math.random() * 10 + 5).toFixed(1)}s)
+• eBay: ✅ SYNCED (${(Math.random() * 15 + 8).toFixed(1)}s)
+• OTTO: ✅ SYNCED (${(Math.random() * 20 + 10).toFixed(1)}s)
+• Kaufland: ✅ SYNCED (${(Math.random() * 25 + 12).toFixed(1)}s)
+
+⚡ Performance Metrics:
+• Sync Success Rate: ${(Math.random() * 5 + 95).toFixed(1)}%
+• Average Latency: ${(Math.random() * 15 + 8).toFixed(1)} seconds
+• Data Integrity: ${(Math.random() * 2 + 98).toFixed(1)}%
+• Conflict Resolution: ${Math.floor(Math.random() * 3)} active conflicts
+
+🔧 Automated Actions:
+• Inventory levels synchronized across all platforms
+• Pricing updates propagated (${Math.floor(Math.random() * 30) + 10} products)
+• Product information standardized
+• Stock alerts configured for low inventory
+
+📈 Business Impact:
+• Revenue protection: €${(Math.random() * 1000 + 500).toFixed(0)}/day
+• Out-of-stock prevention: ${Math.floor(Math.random() * 10) + 90}% effective
+• Price optimization: +€${(Math.random() * 200 + 100).toFixed(0)}/week
+• Operational efficiency: +${Math.floor(Math.random() * 30) + 40}%
+
+🛡️ Failover Status:
+• Backup systems: ${Math.floor(Math.random() * 3) + 2} endpoints active
+• Recovery time: <${Math.floor(Math.random() * 3) + 2} minutes
+• Data backup: Last backup ${Math.floor(Math.random() * 10) + 5} minutes ago
+• System health: ${Math.floor(Math.random() * 5) + 95}% optimal`
+        break
+        
       default:
         output = `Agent Output for "${demoInput}":
 ✓ Analysis completed successfully
@@ -1050,10 +1963,23 @@ Detailed results:
                   <CardContent className="space-y-3 sm:space-y-4">
                     <div>
                       <Label className="text-xs sm:text-sm">{t("agent.input")}</Label>
+                      {selectedAgent.id === 'visual-brand-agent' && (
+                        <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 mb-2">
+                          💡 Demo simulation: Describe visual content needs (image generation, optimization, video creation)
+                        </p>
+                      )}
                       <Textarea
                         value={demoInput}
                         onChange={(e) => setDemoInput(e.target.value)}
-                        placeholder={t(`Enter input for ${selectedAgent.name}...`)}
+                        placeholder={
+                          selectedAgent.id === 'visual-brand-agent' 
+                            ? 'Describe your visual content needs (e.g., "Generate product photos for BPM-2000" or "Optimize existing images for Amazon")'
+                            : selectedAgent.id === 'translator-agent'
+                            ? 'Enter text to translate (e.g., product description, technical specs)'
+                            : selectedAgent.id === 'review-agent'
+                            ? 'Enter customer review text to analyze'
+                            : `Enter input for ${selectedAgent.name}...`
+                        }
                         rows={3}
                         className="mt-1 text-xs sm:text-sm"
                       />
